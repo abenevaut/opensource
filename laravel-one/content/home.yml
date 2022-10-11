@@ -1,0 +1,5 @@
+view: home
+data:
+  title: Home
+  foo: bar
+
