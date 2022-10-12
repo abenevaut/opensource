@@ -1,14 +1,15 @@
 <?php
 
-namespace abenevaut\Std\Contracts;
+namespace abenevaut\Standards\Contracts;
 
+use abenevaut\Standards\Exceptions\ValidateCommandArgumentsException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Validator as CurrentValdiator;
 use Symfony\Component\Console\Command\Command;
 
 trait ValidateCommandArgumentsTrait
 {
-    private CurrentValdiator $validator;
+    private ?CurrentValdiator $validator = null;
 
     abstract protected function rules(): array;
 
@@ -20,7 +21,7 @@ trait ValidateCommandArgumentsTrait
         $this->validator = Validator::make($this->arguments(), $this->rules());
 
         if ($this->validator->fails()) {
-            throw new \Exception();
+            throw new ValidateCommandArgumentsException();
         }
 
         return $this->validator;
