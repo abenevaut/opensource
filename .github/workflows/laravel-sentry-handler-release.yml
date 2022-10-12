@@ -1,0 +1,27 @@
+name: laravel-sentry-handler-release
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'laravel-sentry-handler/**'
+
+defaults:
+  run:
+    working-directory: ./laravel-sentry-handler
+
+jobs:
+
+  release:
+    runs-on: ubuntu-latest
+    if: contains(github.ref, 'refs/heads/master')
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@master
+      - name: Publish to repository opensource/laravel-sentry-handler
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: git@github.com:abenevaut/laravel-sentry-handler.git
+          BRANCH: master
+          FOLDER: laravel-sentry-handler
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_LARAVEL_SENTRY_HANDLER }}
