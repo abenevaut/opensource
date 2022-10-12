@@ -2,13 +2,13 @@ coverage:
   status:
     project:
       default:
-        target: 80%
+        target: 75%
       laravel-ohdear:
-        target: 80%
+        target: 75%
         flags:
           - laravel-ohdear
       phpunit-slicer:
-        target: 80%
+        target: 100%
         flags:
           - phpunit-slicer
 
