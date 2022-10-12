@@ -1,0 +1,84 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 20%
+      api:
+        target: 5%
+        flags:
+          - api
+      api-oauth2-sdk:
+        target: 80%
+        flags:
+          - api-oauth2-sdk
+      api-sdk:
+        target: 80%
+        flags:
+          - api-sdk
+      app:
+        target: 20%
+        flags:
+          - app
+      gamepro:
+        target: 20%
+        flags:
+          - gamepro
+      laravel-ohdear:
+        target: 100%
+        flags:
+          - laravel-ohdear
+      phpunit-slicer:
+        target: 39%
+        flags:
+          - phpunit-slicer
+      www:
+        target: 20%
+        flags:
+          - www-php
+          - www-js
+
+flags:
+  api:
+    carryforward: true
+    paths:
+      - api/
+  api-oauth2-sdk:
+    carryforward: true
+    paths:
+      - api-oauth2-sdk/
+  api-sdk:
+    carryforward: true
+    paths:
+      - api-sdk/
+  app:
+    carryforward: true
+    paths:
+      - app/
+  gamepro:
+    carryforward: true
+    paths:
+      - gamepro/
+  laravel-ohdear:
+    carryforward: true
+    paths:
+      - laravel-ohdear/
+  phpunit-slicer:
+    carryforward: true
+    paths:
+      - phpunit-slicer/
+  www-php:
+    carryforward: true
+    paths:
+      - www/
+  www-js:
+    carryforward: true
+    paths:
+      - www/
+
+# https://docs.codecov.com/docs/pull-request-comments
+comment:
+  layout: "flags, files"
+  behavior: default
+  require_changes: false # if true: only post the comment if coverage changes
+  require_base: no # [yes :: must have a base report to post]
+  require_head: no # [yes :: must have a head report to post]
