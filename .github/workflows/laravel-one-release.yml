@@ -1,0 +1,27 @@
+name: laravel-one-release
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'laravel-one/**'
+
+defaults:
+  run:
+    working-directory: ./laravel-one
+
+jobs:
+
+  release:
+    runs-on: ubuntu-latest
+    if: contains(github.ref, 'refs/heads/master')
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@master
+      - name: Publish to repository opensource/laravel-one
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: git@github.com:abenevaut/laravel-one.git
+          BRANCH: master
+          FOLDER: laravel-one
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_LARAVEL_ONE }}
