@@ -11,19 +11,19 @@
     },
     "authors": [
         {
-            "name": "Nuno Maduro",
-            "email": "enunomaduro@gmail.com"
+            "name": "Antoine Benevaut",
+            "email": "me@abenevaut.dev"
         }
     ],
     "require": {
         "php": "^8.0",
         "illuminate/view": "^9.0",
-        "laravel-zero/framework": "^9.2",
         "nunomaduro/termwind": "^1.14",
         "symfony/yaml": "^6.1"
     },
     "require-dev": {
         "laravel/pint": "^1.2",
+        "laravel-zero/framework": "^9.2",
         "mockery/mockery": "^1.4.4",
         "pestphp/pest": "^1.21.3"
     },
