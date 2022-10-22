@@ -1,8 +1,8 @@
 name: laravel-one-release
 
 on:
-  push:
-    branches: [ master ]
+  release:
+    types: [ published ]
     paths:
       - 'laravel-one/**'
 
@@ -14,10 +14,18 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    if: contains(github.ref, 'refs/heads/master')
+    if: contains(github.ref, 'refs/tags/laravel-one-')
+    concurrency:
+      group: laravel-one-release
+      cancel-in-progress: false
     steps:
       - name: Checkout project
         uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+      - name: Get current release tag
+        id: branch_name
+        run: echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/laravel-one-}
       - name: Publish to repository opensource/laravel-one
         uses: s0/git-publish-subdir-action@develop
         env:
