@@ -12,30 +12,44 @@ use Symfony\Component\Yaml\Yaml;
 
 class GenerateCommand extends Command
 {
-    /**
-     * The signature of the command.
-     *
-     * @var string
-     */
     protected $signature = 'generate
-        {url : Website base URL, ctarting with "http://"}';
+        {url : Website base URL, starting with `https://`}';
 
-    /**
-     * The description of the command.
-     *
-     * @var string
-     */
     protected $description = 'Generate static web pages';
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+    public function handle(): bool
     {
+        if (!is_dir($this->path('content'))) {
+            $this->error('`content` directory not found!');
+
+            return self::FAILURE;
+        }
+
+        if (!is_dir($this->path('theme'))) {
+            $this->error('`theme` directory not found!');
+
+            return self::FAILURE;
+        }
+
+        $files = array_merge(
+            glob($this->path('content/*.yml')),
+            glob($this->path('content/**/*.yml')),
+        );
+
+        if (count($files) === 0) {
+            $this->error('`content` directory does not contain any content files (`*.yml`)!');
+
+            return self::FAILURE;
+        }
+
         config()->set('view.compiled', $this->path('.cache'));
         config()->set('view.paths', array_merge(config('view.paths'), [$this->path('theme')]));
+
+        config()->set('content.fallback_lang', 'en');
+        config()->set('content.langs', ['en', 'fr']);
+
+        //dd(config('content.langs'));
+
 
         if (!is_dir($this->path('dist'))) {
             mkdir($this->path('dist'));
@@ -45,16 +59,11 @@ class GenerateCommand extends Command
             mkdir($this->path('.cache'));
         }
 
-        $files = array_merge(
-            glob($this->path('content/*.yml')),
-            glob($this->path('content/**/*.yml')),
-        );
-
-        if (count($files) === 0) {
-            return self::FAILURE;
-        }
-
         $sitemap = Sitemap::create();
+
+        $bar = $this->output->createProgressBar(count($files));
+
+        $bar->start();
 
         foreach ($files as $file) {
             $content = Yaml::parse(file_get_contents($file));
@@ -67,16 +76,25 @@ class GenerateCommand extends Command
             $distPath = Str::remove($this->path('content/'), $file);
             $distPath = Str::replace('yml', 'html', $distPath);
 
-            $page = View::make($content['view'], $content);
+            try {
+                $page = View::make($content['view'], $content);
 
-            file_put_contents($this->path("dist/{$distPath}"), $page);
+                file_put_contents($this->path("dist/{$distPath}"), $page);
 
-            $url = URL::create($this->argument('url') . "/{$distPath}")
-                ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
-                ->setPriority(0.1)
-            ;
-            $sitemap->add($url);
+                if (!array_key_exists('sitemap', $content) || $content['sitemap'] === true) {
+                    $url = URL::create($this->argument('url') . "/{$distPath}")
+                        ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+                        ->setPriority(0.1);
+                    $sitemap->add($url);
+                }
+            } catch (\Exception $exception) {
+                $this->error($exception->getMessage());
+            }
+
+            $bar->advance();
         }
+
+        $bar->finish();
 
         $sitemap->writeToFile($this->path("dist/sitemap.xml"));
 
