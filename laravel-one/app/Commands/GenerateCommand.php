@@ -2,9 +2,10 @@
 
 namespace App\Commands;
 
+use App\Process\GeneratePageProcess;
 use App\Services\Sitemap;
+use App\Services\ProcessPoolService;
 use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 use Spatie\Sitemap\Tags\Url;
@@ -13,7 +14,8 @@ use Symfony\Component\Yaml\Yaml;
 class GenerateCommand extends Command
 {
     protected $signature = 'generate
-        {url : Website base URL, starting with `https://`}';
+        {url : Website base URL, starting with `https://`}
+        {--concurrency=4 : Process pool concurrency}';
 
     protected $description = 'Generate static web pages';
 
@@ -61,9 +63,26 @@ class GenerateCommand extends Command
 
         $sitemap = Sitemap::create();
 
-        $bar = $this->output->createProgressBar(count($files));
 
-        $bar->start();
+
+
+
+
+//        dd(LARAVEL_ONE_BINARY);
+
+        $processCount = count($files);
+        $this->output->title($processCount.' pages to generate');
+
+        $bar = $this->output->createProgressBar(1);
+        $bar->setFormat('debug');
+
+        $processPool = new ProcessPoolService($bar);
+        $processPool->concurrency($this->option('concurrency'));
+
+        $processPreparationBar = $this->output->createProgressBar($processCount);
+        $processPreparationBar->setFormat('debug');
+
+
 
         foreach ($files as $file) {
             $content = Yaml::parse(file_get_contents($file));
@@ -76,25 +95,40 @@ class GenerateCommand extends Command
             $distPath = Str::remove($this->path('content/'), $file);
             $distPath = Str::replace('yml', 'html', $distPath);
 
-            try {
-                $page = View::make($content['view'], $content);
-
-                file_put_contents($this->path("dist/{$distPath}"), $page);
-
+//            try {
                 if (!array_key_exists('sitemap', $content) || $content['sitemap'] === true) {
                     $url = URL::create($this->argument('url') . "/{$distPath}")
                         ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
                         ->setPriority(0.1);
                     $sitemap->add($url);
                 }
-            } catch (\Exception $exception) {
-                $this->error($exception->getMessage());
-            }
 
-            $bar->advance();
+                $processPool->addProcess(new GeneratePageProcess($file));
+//            } catch (\Exception $exception) {
+//                $this->error($exception->getMessage());
+//            }
+
+            $processPreparationBar->advance();
         }
 
+        $processPreparationBar->finish();
+
+
+
+
+        $bar->setMaxSteps($processPool->queueCount() + 1);
+        $bar->advance(); // hack to show progressbar
+
+        $processPool->start();
+
         $bar->finish();
+
+        $this->newLine();
+        $this->info('All Processes Done!');
+
+
+
+
 
         $sitemap->writeToFile($this->path("dist/sitemap.xml"));
 
