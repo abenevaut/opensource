@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/stripe-checkout-subscription', function () {
+
+
+
+
+
+    return view('stripe-checkout-subscription');
+})->name('stripe-checkout-subscription');

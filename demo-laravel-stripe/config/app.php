@@ -186,6 +186,8 @@ return [
          * Package Service Providers...
          */
 
+        \abenevaut\Stripe\Providers\StripeServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
