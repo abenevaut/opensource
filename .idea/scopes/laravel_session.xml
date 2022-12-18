@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="laravel-session" pattern="file[opensource]:laravel-session//*||file:.github/workflows/laravel-session-release.yml" />
+</component>
