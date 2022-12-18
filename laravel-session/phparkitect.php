@@ -13,6 +13,5 @@ return static function (Config $config): void {
     $rules = [];
 
 
-    $config
-        ->add($srcClassSet, ...$rules);
+    $config->add($srcClassSet, ...$rules);
 };
