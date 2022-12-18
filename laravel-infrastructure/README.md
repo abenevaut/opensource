@@ -1,9 +1,3 @@
-# Session
+# laravel-infrastructure
 
-```
-composer require abenevaut/laravel-session
-```
-
-```
-php artisan vendor:publish --provider="abenevaut\Stripe\Providers\StripeServiceProvider" --tag=stripe
-```
+- [Read more on wiki](https://github.com/abenevaut/laravel-infrastructure/wiki)
