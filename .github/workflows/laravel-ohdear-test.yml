@@ -3,11 +3,12 @@ name: laravel-ohdear-test
 on:
   push:
     branches: [ master ]
+    paths:
+      - 'laravel-ohdear/**'
   pull_request:
     branches: [ master ]
     paths:
       - 'laravel-ohdear/**'
-  workflow_dispatch:
 
 defaults:
   run:
@@ -22,30 +23,41 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
+    concurrency:
+      group: laravel-ohdear-test
+      cancel-in-progress: true
     steps:
+
       - name: Checkout project
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
-      - name: Validate composer file
-        run: composer validate --strict
+          fetch-depth: 2
+
       - name: Initialize PHP ${{ env.php_version }}
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.php_version }}
           coverage: pcov
+
       - name: Configure Composer cache
+        id: composer-cache
         uses: actions/cache@v2
         with:
           path: ~/vendor
           key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.json') }}
           restore-keys: |
             ${{ runner.os }}-node-php_${{ env.php_version }}-
+
       - name: Composer install
         if: steps.composer-cache.outputs.cache-hit != 'true'
-        run: composer install -o --no-interaction --prefer-dist
+        run:  |
+          composer -V
+          composer validate --strict
+          composer install --optimize-autoloader --no-interaction --prefer-dist
+
       - name: Test
         run: vendor/bin/phpunit
+
       - name: Send coverage
         run: bash <(curl -s https://codecov.io/bash) -f coverage/clover.xml -F laravel-ohdear
         env:

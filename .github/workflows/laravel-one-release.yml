@@ -1,10 +1,9 @@
 name: laravel-one-release
 
 on:
-  release:
-    types: [ published ]
-    paths:
-      - 'laravel-one/**'
+  push:
+    tags:
+      - laravel-one-*
 
 defaults:
   run:
@@ -17,38 +16,48 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    if: contains(github.ref, 'refs/tags/laravel-one-')
+    strategy:
+      fail-fast: true
     concurrency:
       group: laravel-one-release
       cancel-in-progress: false
     steps:
+
       - name: Checkout project
-        uses: actions/checkout@master
+        uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 1
+
       - name: Get current release tag
         id: branch_name
         run: echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/laravel-one-}
+
       - name: Initialize PHP ${{ env.php_version }}
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.php_version }}
+
       - name: Configure Composer cache
+        id: composer-cache
         uses: actions/cache@v2
         with:
-          path: ~/vendor
+          path: laravel-one/vendor
           key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.json') }}
           restore-keys: |
             ${{ runner.os }}-node-php_${{ env.php_version }}-
+
       - name: Composer install
         if: steps.composer-cache.outputs.cache-hit != 'true'
-        run: composer install --optimize-autoloader --no-interaction --prefer-dist
+        run: |
+          composer -V
+          composer validate --strict
+          composer install --optimize-autoloader --no-interaction --prefer-dist
+
       - name: Build
         run: |
-          php laravel-one app:build laravel-one --build-version=$VERSION
-        env:
-          VERSION: ${{ steps.branch_name.outputs.SOURCE_TAG }}
-      - name: Publish to repository opensource/laravel-one
+          php laravel-one app:build laravel-one --build-version=${{ steps.branch_name.outputs.SOURCE_TAG }}
+
+      - name: Publish to readonly repository abenevaut/laravel-one
         uses: s0/git-publish-subdir-action@develop
         env:
           REPO: git@github.com:abenevaut/laravel-one.git

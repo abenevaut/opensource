@@ -38,6 +38,7 @@ jobs:
           php-version: ${{ env.php_version }}
 
       - name: Configure Composer cache
+        id: composer-cache
         uses: actions/cache@v2
         with:
           path: phpunit-slicer/vendor
@@ -50,12 +51,12 @@ jobs:
         run: |
           composer -V
           composer validate --strict
-          composer install -o --no-interaction --prefer-dist
+          composer install --optimize-autoloader --no-interaction --prefer-dist
 
       - name: Build
         run: php phpunit-slicer app:build phpunit-slicer --build-version=${{ steps.branch_name.outputs.SOURCE_TAG }}
 
-      - name: Publish to readonly repository
+      - name: Publish to readonly repository abenevaut/phpunit-slicer
         uses: s0/git-publish-subdir-action@develop
         env:
           REPO: git@github.com:abenevaut/phpunit-slicer.git

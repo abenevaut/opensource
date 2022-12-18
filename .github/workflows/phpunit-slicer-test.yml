@@ -53,7 +53,7 @@ jobs:
         run: |
           composer -V
           composer validate --strict
-          composer install -o --no-interaction --prefer-dist
+          composer install --optimize-autoloader --no-interaction --prefer-dist
 
       - name: Test
         run: php phpunit-slicer test
