@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="laravel-stripe" pattern="file:.github/workflows/laravel-stripe-release.yml||file[opensource]:laravel-stripe//*||file[opensource]:demo-laravel-stripe//*" />
+</component>
