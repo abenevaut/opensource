@@ -1,6 +1,6 @@
 <?php
 
-namespace abenevaut\Std\Contracts;
+namespace abenevaut\Infrastructure\Console;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Validator as CurrentValdiator;
