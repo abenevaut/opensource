@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace abenevaut\Session\Http\Middleware;
 
-use abenevaut\Session\App\Jobs\RecordTimeSpentOnAppByUserJob;
+use abenevaut\Session\App\Events\TimeSpentOnAppByUserEvent;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -12,7 +12,7 @@ class AfterMiddleware
     {
         $response = $next($request);
 
-        RecordTimeSpentOnAppByUserJob::dispatch($request, $response);
+        TimeSpentOnAppByUserEvent::dispatch($request, $response);
 
         return $response;
     }

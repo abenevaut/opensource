@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": "^8.1",
-        "illuminate/session": "^9.44"
+        "illuminate/session": "^9.19"
     },
     "autoload": {
         "psr-4": {
@@ -29,6 +29,7 @@
     },
     "scripts": {
         "test": [
+            "vendor/bin/phparkitect check",
             "vendor/bin/phpunit"
         ]
     },
@@ -36,6 +37,7 @@
         "phpunit/phpunit": "^9.5",
         "mockery/mockery": "^1.5",
         "illuminate/database": "^9.44",
-        "illuminate/events": "^9.44"
+        "illuminate/events": "^9.44",
+        "phparkitect/phparkitect": "^0.3.5"
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace abenevaut\Infrastructures\Http;
+namespace abenevaut\Infrastructure\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
-class Controller extends BaseController
+abstract class ControllerAbstract extends BaseController
 {
     use AuthorizesRequests;
     use DispatchesJobs;
