@@ -1,6 +1,6 @@
 <?php
 
-namespace abenevaut\Standards\Contracts;
+namespace abenevaut\Infrastructure\Console;
 
 use abenevaut\Standards\Exceptions\ValidateCommandArgumentsException;
 use Illuminate\Support\Facades\Validator;

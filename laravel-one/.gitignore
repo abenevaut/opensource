@@ -1,0 +1,9 @@
+/.cache
+/builds
+/dist
+/vendor
+/.idea
+/.vscode
+/.vagrant
+.phpunit.result.cache
+laravel-one-demo.gif
