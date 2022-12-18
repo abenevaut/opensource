@@ -2,9 +2,8 @@ name: laravel-infrastructure-release
 
 on:
   push:
-    branches: [ master ]
-    paths:
-      - 'laravel-infrastructure/**'
+    tags:
+      - laravel-infrastructure-*
 
 defaults:
   run:
@@ -19,6 +18,10 @@ jobs:
       - name: Checkout project
         uses: actions/checkout@v3
 
+      - name: Get current release semver tag
+        id: branch_name
+        run: echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/laravel-infrastructure-}
+
       - name: Publish to repository abenevaut/laravel-infrastructure
         uses: s0/git-publish-subdir-action@develop
         env:
@@ -26,3 +29,4 @@ jobs:
           BRANCH: master
           FOLDER: laravel-infrastructure
           SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_LARAVEL_INFRASTRUCTURE }}
+          TAG: ${{ steps.branch_name.outputs.SOURCE_TAG }}
