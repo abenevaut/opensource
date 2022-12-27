@@ -38,8 +38,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.php_version }}
-          coverage: pcov
-          tools: composer-unused
 
       - name: Configure Composer cache
         uses: actions/cache@v2
@@ -50,10 +48,7 @@ jobs:
 
       - name: Composer install
         if: steps.composer-cache.outputs.cache-hit != 'true'
-        run: |
-          composer -V
-          composer validate --strict
-          composer install -o --no-interaction --prefer-dist
+        run: composer install -o --no-interaction --prefer-dist
 
       - name: Test
         run: |
