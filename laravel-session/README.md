@@ -1,9 +1,5 @@
-# Session
+# laravel-session
 
-```
-composer require abenevaut/laravel-session
-```
+This package help to manage basics of Laravel session.
 
-```
-php artisan vendor:publish --provider="abenevaut\Stripe\Providers\StripeServiceProvider" --tag=stripe
-```
+- [Read more on wiki](https://github.com/abenevaut/laravel-session/wiki)

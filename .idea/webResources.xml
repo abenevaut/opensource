@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebResourcesPaths">
+    <contentEntries>
+      <entry url="file://$PROJECT_DIR$">
+        <entryData>
+          <resourceRoots>
+            <path value="file://$PROJECT_DIR$/laravel-session/docs" />
+            <path value="file://$PROJECT_DIR$/laravel-stripe/docs" />
+            <path value="file://$PROJECT_DIR$/laravel-ohdear/routes" />
+            <path value="file://$PROJECT_DIR$/laravel-ohdear/.github" />
+            <path value="file://$PROJECT_DIR$/laravel-session/.github" />
+            <path value="file://$PROJECT_DIR$/laravel-session/config" />
+            <path value="file://$PROJECT_DIR$/laravel-infrastructure/.github" />
+            <path value="file://$PROJECT_DIR$/laravel-infrastructure/docs" />
+            <path value="file://$PROJECT_DIR$/laravel-infrastructure/config" />
+          </resourceRoots>
+        </entryData>
+      </entry>
+    </contentEntries>
+  </component>
+</project>

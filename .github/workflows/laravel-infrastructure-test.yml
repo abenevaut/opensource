@@ -1,0 +1,56 @@
+name: laravel-infrastructure-test
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'laravel-infrastructure/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'laravel-infrastructure/**'
+
+defaults:
+  run:
+    working-directory: laravel-infrastructure
+
+env:
+  php_version: 8.1
+  node_version: lts/gallium
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: laravel-infrastructure-test
+      cancel-in-progress: true
+    strategy:
+      fail-fast: true
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Initialize PHP ${{ env.php_version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.php_version }}
+
+      - name: Configure Composer cache
+        uses: actions/cache@v2
+        with:
+          path: auth/vendor
+          key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-node-php_${{ env.php_version }}-
+
+      - name: Composer install
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install -o --no-interaction --prefer-dist
+
+      - name: Test
+        run: |
+          vendor/bin/composer-unused
+          vendor/bin/phparkitect check --config arkitect.php --target-php-version 8.1
