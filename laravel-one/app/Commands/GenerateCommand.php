@@ -2,18 +2,11 @@
 
 namespace App\Commands;
 
-use App\Builders\PageBuilder;
-use App\Process\GeneratePageProcess;
-use App\Services\Sitemap;
-use App\Services\ProcessPoolService;
+use abenevaut\Infrastructure\Console\ProcessPoolCommandAbstract;
+use App\Domain\Pages\Pages\Builders\PageBuilder;
 use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Support\Str;
-use LaravelZero\Framework\Commands\Command;
-use Spatie\Sitemap\Tags\Url;
-use Symfony\Component\Console\Helper\ProgressBar;
-use Symfony\Component\Yaml\Yaml;
 
-class GenerateCommand extends Command
+class GenerateCommand extends ProcessPoolCommandAbstract
 {
     protected $signature = 'generate
         {url : Website base URL, starting with `https://`}
@@ -21,46 +14,30 @@ class GenerateCommand extends Command
 
     protected $description = 'Generate static web pages';
 
-    public function handle(): bool
+    protected function defaultConcurrency(): int
     {
-        try {
-            config()->set('content.fallback_lang', 'en');
-            config()->set('content.langs', ['en', 'fr']);
+        return $this->option('concurrency') ?? 4;
+    }
 
-            // dd(LARAVEL_ONE_BINARY);
-            // dd(config('content.langs'));
+    public function boot(): self
+    {
+        config()->set('content.fallback_lang', 'en');
+        config()->set('content.langs', ['en', 'fr']);
 
-            $pageBuilder = new PageBuilder();
-            $pageBuilder->prepare();
+        // dd(LARAVEL_ONE_BINARY);
+        // dd(config('content.langs'));
 
-            config()->set('view.compiled', $pageBuilder->getCacheDirectory());
-            config()->set('view.paths', array_merge(config('view.paths'), [$pageBuilder->getThemeDirectory()]));
+        $pageBuilder = new PageBuilder();
+        $pageBuilder->prepare();
 
-            $this->output->title($pageBuilder->getNumberOfFiles().' pages to generate');
-            $bar = $this->output->createProgressBar(1);
-            $bar->setFormat('debug');
-
-            $processPreparationBar = $this->output->createProgressBar($pageBuilder->getNumberOfFiles());
-            $processPreparationBar->setFormat('debug');
-
-            $processPool = $pageBuilder->generate($this->argument('url'), $bar, 4, fn(ProgressBar &$processPreparationBar) => $processPreparationBar->advance());
-
-            $processPreparationBar->finish();
-            $bar->advance(); // hack to show progressbar
-
-            $processPool->start();
-
-            $bar->finish();
-
-            $this->newLine();
-            $this->info('All Processes Done!');
-        } catch (\Exception $exception) {
-            $this->error($exception->getMessage());
-
-            return self::FAILURE;
+        foreach ($pageBuilder->generate($this->argument('url')) as $process) {
+            $this->push($process);
         }
 
-        return self::SUCCESS;
+        config()->set('view.compiled', $pageBuilder->getCacheDirectory());
+        config()->set('view.paths', array_merge(config('view.paths'), [$pageBuilder->getThemeDirectory()]));
+
+        return $this;
     }
 
     /**

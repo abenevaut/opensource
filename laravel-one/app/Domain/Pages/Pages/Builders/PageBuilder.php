@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Builders;
+namespace App\Domain\Pages\Pages\Builders;
 
+use App\Domain\Pages\Sitemaps\Services\Sitemap;
 use App\Process\GeneratePageProcess;
-use App\Services\ProcessPoolService;
-use App\Services\Sitemap;
 use Illuminate\Support\Str;
 use Spatie\Sitemap\Tags\Url;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Yaml\Yaml;
 
 class PageBuilder
@@ -63,11 +61,8 @@ class PageBuilder
         ;
     }
 
-    public function generate(string $url, ProgressBar &$progressBar = null, int $concurrency = 4, ?\Closure $closure = null): ProcessPoolService
+    public function generate(string $url): array
     {
-        $processPool = new ProcessPoolService($progressBar);
-        $processPool->concurrency($concurrency);
-
         foreach ($this->files as $file) {
             $content = Yaml::parse(file_get_contents($file));
             $dirPath = Str::replace('content', 'dist', dirname($file));
@@ -86,16 +81,12 @@ class PageBuilder
                 $this->sitemap->add($url);
             }
 
-            $processPool->addProcess(new GeneratePageProcess($file));
-
-            $closure($progressBar);
+            $process[] = new GeneratePageProcess($file);
         }
-
-        $progressBar->setMaxSteps($processPool->queueCount() + 1);
 
         $this->sitemap->writeToFile($this->path('dist/sitemap.xml'));
 
-        return $processPool;
+        return $process;
     }
 
     protected function createSitemap()

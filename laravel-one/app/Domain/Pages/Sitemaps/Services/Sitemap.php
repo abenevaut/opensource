@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Domain\Pages\Sitemaps\Services;
 
 use Spatie\Sitemap\Sitemap as SpatieSitemap;
 

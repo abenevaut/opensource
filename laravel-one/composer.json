@@ -15,8 +15,15 @@
             "email": "me@abenevaut.dev"
         }
     ],
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../laravel-infrastructure"
+        }
+    ],
     "require": {
         "php": "^8.0",
+        "abenevaut/laravel-infrastructure": "dev-master",
         "illuminate/http": "^9.36",
         "illuminate/routing": "^9.36",
         "illuminate/view": "^9.0",
