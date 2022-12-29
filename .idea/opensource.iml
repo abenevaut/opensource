@@ -6,6 +6,9 @@
       <sourceFolder url="file://$MODULE_DIR$/laravel-one/database/factories" isTestSource="false" packagePrefix="Database\Factories\" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-one/database/seeders" isTestSource="false" packagePrefix="Database\Seeders\" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-one/tests" isTestSource="true" packagePrefix="Tests\" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-one/content" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-one/dist" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-one/theme" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-stripe/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-ohdear/.phpunit.cache" />
