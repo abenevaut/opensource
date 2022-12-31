@@ -1,0 +1,66 @@
+name: laravel-one-test
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'laravel-one/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'laravel-one/**'
+
+defaults:
+  run:
+    working-directory: ./laravel-one
+
+env:
+  php_version: 8.1
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: laravel-one-test
+      cancel-in-progress: true
+    strategy:
+      fail-fast: true
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Initialize PHP ${{ env.php_version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.php_version }}
+
+      - name: Configure Composer cache
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: laravel-one/vendor
+          key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-php_${{ env.php_version }}-
+
+      - name: Composer install
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install -o --no-interaction --prefer-dist
+
+      - name: Web pages cache
+        id: web-pages-cache
+        uses: actions/cache@v2
+        with:
+          path: laravel-one/.cache
+          key: ${{ runner.os }}-node-php_${{ env.php_version }}-web-pages-cache-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-php_${{ env.php_version }}-web-pages-cache-
+
+      - name: Generate static pages
+        run: |
+          vendor/bin/pest
+          php laravel-one generate https://laravel-one.abenevaut.dev
