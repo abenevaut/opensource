@@ -6,8 +6,6 @@ use App\Domain\Pages\Pages\Page;
 
 interface PluginInterface extends \SplObserver
 {
-    public static function create(): static;
-
     public function update(Page|\SplSubject $subject): void;
 
     public function generate(): void;

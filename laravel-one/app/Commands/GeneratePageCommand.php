@@ -6,6 +6,7 @@ use App\Domain\Pages\Pages\Page;
 use App\Pipes\FindOrCreatePageDistributionDirectoryPipe;
 use App\Pipes\WritePagePipe;
 use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Facades\Log;
 use LaravelZero\Framework\Commands\Command;
 
 class GeneratePageCommand extends Command
@@ -17,17 +18,20 @@ class GeneratePageCommand extends Command
 
     public function handle(): bool
     {
-        $page = json_decode($this->argument('page'), true);
-        $page = new Page(...$page);
+        try {
+            $page = json_decode($this->argument('page'), true);
+            $page = new Page(...$page);
 
-        app(Pipeline::class)
-            ->send($page)
-            ->through([
-                FindOrCreatePageDistributionDirectoryPipe::class,
-                WritePagePipe::class,
-            ])
-            ->thenReturn()
-        ;
+            app(Pipeline::class)
+                ->send($page)
+                ->through([
+                    FindOrCreatePageDistributionDirectoryPipe::class,
+                    WritePagePipe::class,
+                ])
+                ->thenReturn();
+        } catch (\Exception $exception) {
+            $this->error($exception->getMessage());
+        }
 
         return self::SUCCESS;
     }

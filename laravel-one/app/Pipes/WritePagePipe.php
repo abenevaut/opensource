@@ -11,18 +11,15 @@ class WritePagePipe extends PipeAbstract
 {
     public function handle(Page $page, \Closure $next): Page
     {
-        $content = Yaml::parse(file_get_contents($page->file));
+        $page->content = Yaml::parse(file_get_contents($page->file));
 
         $distPath = Str::remove($this->path('content/'), $page->file);
         $distPath = Str::replace('yml', 'html', $distPath);
 
-        try {
-            $view = View::make($content['view'], $content);
-
-            file_put_contents($this->path("dist/{$distPath}"), $view);
-        } catch (\Exception $exception) {
-            $this->error($exception->getMessage());
-        }
+        file_put_contents(
+            $this->path("dist/{$distPath}"),
+            View::make($page->content['view'], $page->content)
+        );
 
         return $next($page);
     }

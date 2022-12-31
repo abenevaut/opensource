@@ -32,7 +32,7 @@ class GenerateCommand extends ProcessPoolCommandAbstract
         $generatorSettings = new GeneratorSettings(
             $this->argument('url'),
             [
-                Sitemap::create(),
+                new Sitemap(),
             ]
         );
 
