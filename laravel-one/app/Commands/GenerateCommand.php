@@ -50,8 +50,6 @@ class GenerateCommand extends ProcessPoolCommandAbstract
             ])
             ->thenReturn();
 
-        dd($generatorSettings);
-
         $this->push($pages->processes);
 
         foreach ($generatorSettings->plugins as $plugin) {

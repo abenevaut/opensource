@@ -34,13 +34,7 @@ class PrepareContentPipe extends PipeAbstract
                 $file,
                 $generatorSettings->url,
                 $distUri,
-//                $content
-            );
-
-
-            dd(
-                $page
-                    ->toJson()
+                $content
             );
 
             // Attach observers
@@ -50,7 +44,14 @@ class PrepareContentPipe extends PipeAbstract
 
             $page->notify();
 
-            $generatorSettings->processes[] = new GeneratePageProcess($page);
+            $generatorSettings->processes[] = new GeneratePageProcess(
+                json_encode([
+                    'file' => $page->file,
+                    'distUrl' => $page->distUrl,
+                    'distUri' => $page->distUri,
+                    'content' => [],
+                ])
+            );
         }
 
         return $next($generatorSettings);

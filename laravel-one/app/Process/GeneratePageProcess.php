@@ -7,13 +7,13 @@ use Symfony\Component\Process\Process;
 
 class GeneratePageProcess extends Process
 {
-    public function __construct(Page $page)
+    public function __construct(string $page)
     {
         parent::__construct([
             'php',
             LARAVEL_ONE_BINARY,
             'generate:page',
-            $page->toJson(),
+            $page,
         ]);
     }
 }
