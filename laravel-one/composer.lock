@@ -4,15 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bf36dff168d1ed3928e860d76c5109ea",
+    "content-hash": "6b8e75dfb25fe4a100544aa7eb9b0a72",
     "packages": [
         {
             "name": "abenevaut/laravel-infrastructure",
-            "version": "dev-master",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/abenevaut/laravel-infrastructure.git",
+                "reference": "1d48e91ee5e65d25bdd965d9e71ac3da0bcf6a1c"
+            },
             "dist": {
-                "type": "path",
-                "url": "../laravel-infrastructure",
-                "reference": "bb144871d33b05bece53b68c88614af129b77cc3"
+                "type": "zip",
+                "url": "https://api.github.com/repos/abenevaut/laravel-infrastructure/zipball/1d48e91ee5e65d25bdd965d9e71ac3da0bcf6a1c",
+                "reference": "1d48e91ee5e65d25bdd965d9e71ac3da0bcf6a1c",
+                "shasum": ""
             },
             "require": {
                 "mortexa/laravel-arkitect": "^0.4",
@@ -41,18 +47,7 @@
                     "abenevaut\\Infrastructure\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "test": [
-                    "vendor/bin/phpcs --standard=PSR12 src tests",
-                    "vendor/bin/phparkitect check --config arkitect.php --target-php-version 8.1",
-                    "vendor/bin/phpunit"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0-only"
             ],
@@ -64,13 +59,15 @@
             ],
             "description": "Laravel Infrastructure",
             "keywords": [
-                "hexagonal architecture",
+                "Hexagonal architecture",
                 "infrastructure",
                 "laravel"
             ],
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/abenevaut/laravel-infrastructure/issues",
+                "source": "https://github.com/abenevaut/laravel-infrastructure/tree/0.1.2"
+            },
+            "time": "2022-12-31T11:14:39+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -9021,9 +9018,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "abenevaut/laravel-infrastructure": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
