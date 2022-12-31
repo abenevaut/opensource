@@ -57,6 +57,4 @@ jobs:
             ${{ runner.os }}-node-php_${{ env.php_version }}-web-pages-cache-
 
       - name: Generate static pages
-        run: |
-#          vendor/bin/pest
-          php laravel-one generate https://laravel-one.abenevaut.dev
+        run: php laravel-one generate https://laravel-one.abenevaut.dev
