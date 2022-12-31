@@ -42,7 +42,7 @@ jobs:
         id: composer-cache
         uses: actions/cache@v2
         with:
-          path: ~/vendor
+          path: laravel-one/vendor
           key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-php_${{ env.php_version }}-
@@ -55,7 +55,7 @@ jobs:
         id: web-pages-cache
         uses: actions/cache@v2
         with:
-          path: ./.cache
+          path: laravel-one/.cache
           key: ${{ runner.os }}-node-php_${{ env.php_version }}-web-pages-cache-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-php_${{ env.php_version }}-web-pages-cache-
