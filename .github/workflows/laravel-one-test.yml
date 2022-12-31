@@ -10,12 +10,16 @@ on:
     paths:
       - 'laravel-one/**'
 
+defaults:
+  run:
+    working-directory: ./laravel-one
+
 env:
   php_version: 8.1
 
 jobs:
 
-  release:
+  test:
     runs-on: ubuntu-latest
     concurrency:
       group: laravel-one-test
