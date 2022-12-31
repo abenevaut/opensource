@@ -3,12 +3,13 @@
 namespace App\Domain\Pages\Sitemaps\Services;
 
 use App\Domain\Pages\Pages\Page;
+use App\Infrastructure\PluginInterface;
 use Spatie\Sitemap\Sitemap as SpatieSitemap;
 use Spatie\Sitemap\Tags\Url;
 
-class Sitemap extends SpatieSitemap implements \SplObserver
+class Sitemap extends SpatieSitemap implements PluginInterface
 {
-    public function update(Page|\SplSubject $subject)
+    public function update(Page|\SplSubject $subject): void
     {
         if (
             !array_key_exists('sitemap', $subject->content)
@@ -22,7 +23,7 @@ class Sitemap extends SpatieSitemap implements \SplObserver
         }
     }
 
-    public function generate()
+    public function generate(): void
     {
         $this->writeToFile(getcwd() . DIRECTORY_SEPARATOR . 'dist/sitemap.xml');
     }

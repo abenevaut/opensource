@@ -4,7 +4,7 @@ namespace App\Pipes;
 
 use App\GeneratorSettings;
 
-class PrepareDistributionDirectoryPipe extends PipeAbstract
+class FindOrCreateDistributionDirectoryPipe extends PipeAbstract
 {
     public function handle(GeneratorSettings $generatorSettings, \Closure $next): GeneratorSettings
     {

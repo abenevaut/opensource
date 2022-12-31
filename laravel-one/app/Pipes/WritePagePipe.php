@@ -7,17 +7,10 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Symfony\Component\Yaml\Yaml;
 
-class PrepareContentDistributionDirectoryPipe extends PipeAbstract
+class WritePagePipe extends PipeAbstract
 {
     public function handle(Page $page, \Closure $next): Page
     {
-        $distFilePath = Str::replace('content', 'dist', dirname($page->file));
-
-        if (!is_dir($distFilePath)) {
-            mkdir($distFilePath, 0777, true);
-        }
-
-
         $content = Yaml::parse(file_get_contents($page->file));
 
         $distPath = Str::remove($this->path('content/'), $page->file);

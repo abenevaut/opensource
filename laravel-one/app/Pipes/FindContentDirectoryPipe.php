@@ -4,7 +4,7 @@ namespace App\Pipes;
 
 use App\GeneratorSettings;
 
-class ValidateContentDirectoryPipe extends PipeAbstract
+class FindContentDirectoryPipe extends PipeAbstract
 {
     public function handle(GeneratorSettings $generatorSettings, \Closure $next): GeneratorSettings
     {

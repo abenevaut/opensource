@@ -4,11 +4,11 @@ namespace App\Pipes;
 
 use App\Domain\Pages\Pages\Page;
 use App\GeneratorSettings;
-use App\Process\GeneratePageProcess;
+use App\Processes\GeneratePageProcess;
 use Illuminate\Support\Str;
 use Symfony\Component\Yaml\Yaml;
 
-class PrepareContentPipe extends PipeAbstract
+class ListPagesPipe extends PipeAbstract
 {
     /**
      * @throws \Exception
@@ -44,14 +44,7 @@ class PrepareContentPipe extends PipeAbstract
 
             $page->notify();
 
-            $generatorSettings->processes[] = new GeneratePageProcess(
-                json_encode([
-                    'file' => $page->file,
-                    'distUrl' => $page->distUrl,
-                    'distUri' => $page->distUri,
-                    'content' => [],
-                ])
-            );
+            $generatorSettings->processes[] = new GeneratePageProcess($page);
         }
 
         return $next($generatorSettings);

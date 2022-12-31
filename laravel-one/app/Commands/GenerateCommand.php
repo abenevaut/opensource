@@ -5,11 +5,13 @@ namespace App\Commands;
 use abenevaut\Infrastructure\Console\ProcessPoolCommandAbstract;
 use App\Domain\Pages\Sitemaps\Services\Sitemap;
 use App\GeneratorSettings;
-use App\Pipes\PrepareCacheDirectoryPipe;
-use App\Pipes\PrepareContentPipe;
-use App\Pipes\PrepareDistributionDirectoryPipe;
-use App\Pipes\ValidateContentDirectoryPipe;
-use App\Pipes\ValidateThemeDirectoryPipe;
+use App\Pipes\FindOrCreateCacheDirectoryPipe;
+use App\Pipes\SetViewCompiledConfigPipe;
+use App\Pipes\SetViewPathsConfigPipe;
+use App\Pipes\ListPagesPipe;
+use App\Pipes\FindOrCreateDistributionDirectoryPipe;
+use App\Pipes\FindContentDirectoryPipe;
+use App\Pipes\FindThemeDirectoryPipe;
 use Illuminate\Pipeline\Pipeline;
 
 class GenerateCommand extends ProcessPoolCommandAbstract
@@ -27,11 +29,6 @@ class GenerateCommand extends ProcessPoolCommandAbstract
 
     public function boot(): self
     {
-//        config()->set('content.fallback_lang', 'en');
-//        config()->set('content.langs', ['en', 'fr']);
-        // dd(LARAVEL_ONE_BINARY);
-        // dd(config('content.langs'));
-
         $generatorSettings = new GeneratorSettings(
             $this->argument('url'),
             [
@@ -42,11 +39,13 @@ class GenerateCommand extends ProcessPoolCommandAbstract
         $pages = app(Pipeline::class)
             ->send($generatorSettings)
             ->through([
-                ValidateContentDirectoryPipe::class,
-                ValidateThemeDirectoryPipe::class,
-                PrepareContentPipe::class,
-                PrepareCacheDirectoryPipe::class,
-                PrepareDistributionDirectoryPipe::class,
+                FindContentDirectoryPipe::class,
+                FindThemeDirectoryPipe::class,
+                FindOrCreateCacheDirectoryPipe::class,
+                FindOrCreateDistributionDirectoryPipe::class,
+                SetViewCompiledConfigPipe::class,
+                SetViewPathsConfigPipe::class,
+                ListPagesPipe::class,
             ])
             ->thenReturn();
 

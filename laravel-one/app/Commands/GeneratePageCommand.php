@@ -3,13 +3,10 @@
 namespace App\Commands;
 
 use App\Domain\Pages\Pages\Page;
-use App\Pipes\PrepareContentDistributionDirectoryPipe;
-use Illuminate\Console\Scheduling\Schedule;
+use App\Pipes\FindOrCreatePageDistributionDirectoryPipe;
+use App\Pipes\WritePagePipe;
 use Illuminate\Pipeline\Pipeline;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
-use Symfony\Component\Yaml\Yaml;
 
 class GeneratePageCommand extends Command
 {
@@ -20,15 +17,14 @@ class GeneratePageCommand extends Command
 
     public function handle(): bool
     {
-        /** @var Page $page */
         $page = json_decode($this->argument('page'), true);
-
         $page = new Page(...$page);
 
         app(Pipeline::class)
             ->send($page)
             ->through([
-                PrepareContentDistributionDirectoryPipe::class,
+                FindOrCreatePageDistributionDirectoryPipe::class,
+                WritePagePipe::class,
             ])
             ->thenReturn()
         ;

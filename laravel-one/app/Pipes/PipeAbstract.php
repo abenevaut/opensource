@@ -2,7 +2,7 @@
 
 namespace App\Pipes;
 
-class PipeAbstract
+abstract class PipeAbstract
 {
     protected function path($path)
     {
