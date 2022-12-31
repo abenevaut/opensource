@@ -19,6 +19,11 @@ abstract class ProcessPoolCommandAbstract extends Command
 
     abstract protected function boot(): self;
 
+    public function getQueueLength(): int
+    {
+        return $this->queueLength;
+    }
+
     public function handle(): bool
     {
         return $this
@@ -26,17 +31,25 @@ abstract class ProcessPoolCommandAbstract extends Command
             ->compute();
     }
 
-    public function push(Process $process): self
+    public function title(): string
     {
-        $this->queue[] = $process;
-        $this->queueLength++;
+        return "{$this->getQueueLength()} process to compute";
+    }
+
+    /**
+     * @param array<Process> $process
+     */
+    public function push(array $process): self
+    {
+        $this->queue = $process;
+        $this->queueLength = count($process);
 
         return $this;
     }
 
     public function compute(): int
     {
-        $this->output->title("{$this->queueLength} process to compute");
+        $this->output->title($this->title());
 
         $processPreparationBar = $this->output->createProgressBar($this->queueLength);
         $processPreparationBar->setFormat('debug');

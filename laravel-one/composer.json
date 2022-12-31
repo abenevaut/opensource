@@ -28,6 +28,7 @@
         "illuminate/routing": "^9.36",
         "illuminate/view": "^9.0",
         "nunomaduro/termwind": "^1.14",
+        "spatie/laravel-data": "^2.2",
         "spatie/laravel-sitemap": "^6.2",
         "symfony/yaml": "^6.1"
     },

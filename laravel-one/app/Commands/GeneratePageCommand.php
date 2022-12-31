@@ -2,7 +2,10 @@
 
 namespace App\Commands;
 
+use App\Domain\Pages\Pages\Page;
+use App\Pipes\PrepareContentDistributionDirectoryPipe;
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
@@ -17,7 +20,23 @@ class GeneratePageCommand extends Command
 
     public function handle(): bool
     {
-        $file = $this->argument('file');
+        /** @var Page $page */
+        $page = $this->argument('page');
+
+        app(Pipeline::class)
+            ->send($page)
+            ->through([
+                PrepareContentDistributionDirectoryPipe::class,
+            ])
+            ->thenReturn()
+        ;
+
+
+
+
+
+
+
 
         $content = Yaml::parse(file_get_contents($file));
         $dirPath = Str::replace('content', 'dist', dirname($file));
@@ -38,21 +57,5 @@ class GeneratePageCommand extends Command
         }
 
         return self::SUCCESS;
-    }
-
-    /**
-     * Define the command's schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @return void
-     */
-    public function schedule(Schedule $schedule)
-    {
-        // $schedule->command(static::class)->everyMinute();
-    }
-
-    private function path($path)
-    {
-        return getcwd() . DIRECTORY_SEPARATOR . $path;
     }
 }

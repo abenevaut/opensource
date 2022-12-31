@@ -2,17 +2,18 @@
 
 namespace App\Process;
 
+use App\Domain\Pages\Pages\Page;
 use Symfony\Component\Process\Process;
 
 class GeneratePageProcess extends Process
 {
-    public function __construct($file)
+    public function __construct(Page $page)
     {
         parent::__construct([
             'php',
             LARAVEL_ONE_BINARY,
             'generate:page',
-            $file,
+            $page->toJson(),
         ]);
     }
 }

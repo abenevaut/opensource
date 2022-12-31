@@ -3,8 +3,14 @@
 namespace App\Commands;
 
 use abenevaut\Infrastructure\Console\ProcessPoolCommandAbstract;
-use App\Domain\Pages\Pages\Builders\PageBuilder;
-use Illuminate\Console\Scheduling\Schedule;
+use App\Domain\Pages\Sitemaps\Services\Sitemap;
+use App\GeneratorSettings;
+use App\Pipes\PrepareCacheDirectoryPipe;
+use App\Pipes\PrepareContentPipe;
+use App\Pipes\PrepareDistributionDirectoryPipe;
+use App\Pipes\ValidateContentDirectoryPipe;
+use App\Pipes\ValidateThemeDirectoryPipe;
+use Illuminate\Pipeline\Pipeline;
 
 class GenerateCommand extends ProcessPoolCommandAbstract
 {
@@ -14,42 +20,49 @@ class GenerateCommand extends ProcessPoolCommandAbstract
 
     protected $description = 'Generate static web pages';
 
-    protected function defaultConcurrency(): int
+    public function title(): string
     {
-        return $this->option('concurrency') ?? 4;
+        return "{$this->getQueueLength()} pages to generate";
     }
 
     public function boot(): self
     {
-        config()->set('content.fallback_lang', 'en');
-        config()->set('content.langs', ['en', 'fr']);
-
+//        config()->set('content.fallback_lang', 'en');
+//        config()->set('content.langs', ['en', 'fr']);
         // dd(LARAVEL_ONE_BINARY);
         // dd(config('content.langs'));
 
-        $pageBuilder = new PageBuilder();
-        $pageBuilder->prepare();
+        $generatorSettings = new GeneratorSettings(
+            $this->argument('url'),
+            [
+                Sitemap::create(),
+            ]
+        );
 
-        foreach ($pageBuilder->generate($this->argument('url')) as $process) {
-            $this->push($process);
+        $pages = app(Pipeline::class)
+            ->send($generatorSettings)
+            ->through([
+                ValidateContentDirectoryPipe::class,
+                ValidateThemeDirectoryPipe::class,
+                PrepareContentPipe::class,
+                PrepareCacheDirectoryPipe::class,
+                PrepareDistributionDirectoryPipe::class,
+            ])
+            ->thenReturn();
+
+        dd($generatorSettings);
+
+        $this->push($pages->processes);
+
+        foreach ($generatorSettings->plugins as $plugin) {
+            $plugin->generate();
         }
-
-        config()->set('view.compiled', $pageBuilder->getCacheDirectory());
-        config()->set('view.paths', array_merge(config('view.paths'), [$pageBuilder->getThemeDirectory()]));
 
         return $this;
     }
 
-    /**
-     * Define the command's schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @return void
-     */
-    public function schedule(Schedule $schedule)
+    protected function defaultConcurrency(): int
     {
-        // $schedule->command(static::class)->everyMinute();
+        return $this->option('concurrency') ?? 4;
     }
-
-
 }
