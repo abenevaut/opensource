@@ -9,6 +9,8 @@
       <sourceFolder url="file://$MODULE_DIR$/laravel-one/content" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-one/dist" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-one/theme" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-infrastructure/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-infrastructure/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-stripe/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-ohdear/.phpunit.cache" />
