@@ -61,7 +61,9 @@ jobs:
             ${{ runner.os }}-node-php_${{ env.php_version }}-web-pages-cache-
 
       - name: Run tests
-        run: vendor/bin/pest
+        run: |
+          php laravel-one test:arkitect
+          php laravel-one test
 
       - name: Send coverage
         run: |
