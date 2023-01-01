@@ -56,3 +56,9 @@ jobs:
           vendor/bin/phparkitect check --config arkitect.php --target-php-version ${{ env.php_version }}
           vendor/bin/phpcs --standard=PSR12 src tests
           vendor/bin/phpunit
+
+      - name: Send coverage
+        run: |
+          bash <(curl -s https://codecov.io/bash) -f coverage/clover.xml -F laravel-infrastructure
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
