@@ -1,3 +1,3 @@
 <component name="DependencyValidationManager">
-  <scope name="laravel-infrastructure" pattern="file:.github/workflows/laravel-infrastructure-release.yml||file[opensource]:laravel-infrastructure//*" />
+  <scope name="laravel-infrastructure" pattern="file:.github/workflows/laravel-infrastructure-release.yml||file[opensource]:laravel-infrastructure//*||file:.github/workflows/laravel-infrastructure-test.yml" />
 </component>
