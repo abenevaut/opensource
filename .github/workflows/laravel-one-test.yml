@@ -62,3 +62,9 @@ jobs:
 
       - name: Run tests
         run: vendor/bin/pest
+
+      - name: Send coverage
+        run: |
+          bash <(curl -s https://codecov.io/bash) -f coverage/clover.xml -F laravel-one
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
