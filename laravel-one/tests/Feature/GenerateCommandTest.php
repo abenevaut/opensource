@@ -1,13 +1,17 @@
 <?php
 
 beforeEach(function () {
-    $files = array_diff(scandir('./dist'), ['.', '..']);
+    $files = scandir('./dist');
 
-    foreach ($files as $file) {
-        unlink("./dist/$file");
+    if (is_array($files)) {
+        $files = array_diff($files, ['.', '..']);
+
+        foreach ($files as $file) {
+            unlink("./dist/$file");
+        }
+
+        rmdir('./dist');
     }
-
-    return rmdir('./dist');
 });
 
 it('generate laravel-one web pages', function () {
