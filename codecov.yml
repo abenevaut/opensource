@@ -3,6 +3,10 @@ coverage:
     project:
       default:
         target: 75%
+      laravel-one:
+        target: 75%
+        flags:
+          - laravel-one
       laravel-ohdear:
         target: 75%
         flags:
@@ -13,6 +17,10 @@ coverage:
           - phpunit-slicer
 
 flags:
+  laravel-one:
+    carryforward: true
+    paths:
+      - laravel-one/
   laravel-ohdear:
     carryforward: true
     paths:
