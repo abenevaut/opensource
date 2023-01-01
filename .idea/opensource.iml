@@ -19,6 +19,7 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/bootstrap" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/builds" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/.cache" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/coverage" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

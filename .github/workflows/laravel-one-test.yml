@@ -31,7 +31,7 @@ jobs:
       - name: Checkout project
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          fetch-depth: 2
 
       - name: Initialize PHP ${{ env.php_version }}
         uses: shivammathur/setup-php@v2
@@ -60,7 +60,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-php_${{ env.php_version }}-web-pages-cache-
 
-      - name: Generate static pages
+      - name: Run tests
+        run: vendor/bin/pest
+
+      - name: Send coverage
         run: |
-          vendor/bin/pest
-          php laravel-one generate https://laravel-one.abenevaut.dev
+          bash <(curl -s https://codecov.io/bash) -f coverage/clover.xml -F laravel-one
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
