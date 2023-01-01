@@ -1,10 +1,10 @@
 <?php
 
 beforeEach(function () {
-    $files = scandir('./dist');
+    $distDirectoryExists = is_dir('./dist');
 
-    if (is_array($files)) {
-        $files = array_diff($files, ['.', '..']);
+    if ($distDirectoryExists) {
+        $files = array_diff(scandir('./dist'), ['.', '..']);
 
         foreach ($files as $file) {
             unlink("./dist/$file");
