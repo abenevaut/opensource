@@ -37,7 +37,19 @@ updates:
     - dep:php
 
 - package-ecosystem: composer
-  directory: "laravel-standards"
+  directory: "laravel-infrastructure"
+  schedule:
+    interval: monthly
+    time: "06:00"
+    timezone: Europe/Paris
+  open-pull-requests-limit: 3
+  target-branch: master
+  labels:
+    - dependencies
+    - dep:php
+
+- package-ecosystem: composer
+  directory: "laravel-one"
   schedule:
     interval: monthly
     time: "06:00"

@@ -17,6 +17,8 @@
             <path value="file://$PROJECT_DIR$/laravel-one/resources" />
             <path value="file://$PROJECT_DIR$/laravel-one/.github" />
             <path value="file://$PROJECT_DIR$/.github" />
+            <path value="file://$PROJECT_DIR$/laravel-one/storage" />
+            <path value="file://$PROJECT_DIR$/laravel-one/config" />
           </resourceRoots>
         </entryData>
       </entry>
