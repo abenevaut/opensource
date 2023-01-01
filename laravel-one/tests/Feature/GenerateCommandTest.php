@@ -1,9 +1,7 @@
 <?php
 
 beforeEach(function () {
-    $distDirectoryExists = is_dir('./dist');
-
-    if ($distDirectoryExists) {
+    if (is_dir('./dist')) {
         $files = array_diff(scandir('./dist'), ['.', '..']);
 
         foreach ($files as $file) {
@@ -11,6 +9,16 @@ beforeEach(function () {
         }
 
         rmdir('./dist');
+    }
+
+    if (is_dir('./.cache')) {
+        $files = array_diff(scandir('./.cache'), ['.', '..']);
+
+        foreach ($files as $file) {
+            unlink("./.cache/$file");
+        }
+
+        rmdir('./.cache');
     }
 });
 
@@ -24,6 +32,8 @@ it('generate laravel-one web pages', function () {
     expect('./.cache')->toBeWritableDirectory();
 
     $files = array_diff(scandir('./dist'), ['.', '..']);
-
     expect(count($files))->toBe(3);
+
+    $files = array_diff(scandir('./.cache'), ['.', '..']);
+    expect(count($files))->toBe(2);
 });
