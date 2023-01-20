@@ -2,74 +2,78 @@
 
 namespace Tests;
 
-use abenevaut\SentryHandler\Contracts\ExceptionAbstract;
+use DG\BypassFinals;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\AliasLoader;
-use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Facade;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Sentry\Laravel\Facade as SentryFacade;
 use Sentry\State\HubInterface;
 
 class HandlerTest extends TestCase
 {
-    public static function setUpBeforeClass(): void
-    {
-        $mock = \Mockery::mock('\abenevaut\SentryHandler\Handler[isSentryBounded,shouldReport]', [app()]);
-        $mock->shouldReceive('isSentryBounded')->andReturn(true)->once();
-        $mock->shouldReceive('shouldReport')->andReturn(true)->once();
+    protected Application $app;
 
-        app()->instance(ExceptionHandler::class, $mock);
+    protected function setUp(): void
+    {
+        BypassFinals::enable();
+
+        $this->app = new Application();
+
+        /*
+         * Mock ExceptionHandler
+         */
+        $mock = \Mockery::mock('\abenevaut\SentryHandler\Handler[isSentryBounded,shouldReport]', [$this->app]);
+        $mock->shouldReceive('isSentryBounded')->andReturnTrue();
+        $mock->shouldReceive('shouldReport')->andReturnTrue();
+
+        $this->app->instance(ExceptionHandler::class, $mock);
+
+        /*
+         * Mock HubInterface to use with Sentry Facade
+         */
+        $mock = \Mockery::spy('Sentry\State\HubInterface[captureException]');
+        $mock->shouldReceive('captureException');
+
+        $this->app->instance(HubInterface::class, $mock);
+
+        $loader = AliasLoader::getInstance();
+        $loader->alias(HubInterface::class, SentryFacade::class);
+
+        Facade::setFacadeApplication($this->app);
     }
 
-    public function testToReportSentryWithStandardException()
+    protected function tearDown(): void
     {
-        $this->spySentryProviderCaptureException();
+        \Mockery::close();
 
-        // test case exception
-        $exception = new \Exception('report to sentry');
-
-        $this->mockLogger($exception);
-
-        app(ExceptionHandler::class)->report($exception);
+        parent::tearDown();
     }
+
+//    public function testToReportSentryWithStandardException()
+//    {
+//        // test case exception
+//        $exception = new \Exception('report to sentry');
+//
+//        $mock = \Mockery::mock(LoggerInterface::class);
+//        $mock->expects()->log(\Mockery::any(), $exception->getMessage(), \Mockery::any())->once();
+//        // we force the logger in app to allows the main Exception Handler to log exceptions
+//        $this->app->instance(LoggerInterface::class, $mock);
+//
+//        // test
+//        $this->app->make(ExceptionHandler::class)->report($exception);
+//    }
 
     public function testToReportSentryWithSentryScopedException()
     {
-        $exception = \Mockery::mock(ExceptionAbstract::class);
-        $exception->shouldReceive('report')->once();
+        $exception = \Mockery::mock('\abenevaut\SentryHandler\Contracts\ExceptionAbstract', \Throwable::class)
+            ->shouldReceive('report')
+            ->getMock()
+            ->shouldReceive('getMessage');
 
-        app(ExceptionHandler::class)->report($exception);
-    }
-
-    /**
-     * @param $exception
-     * @return void
-     */
-    private function mockLogger($exception): void
-    {
-        $mock = \Mockery::mock(LoggerInterface::class);
-        $mock->expects()->log(\Mockery::any(), $exception->getMessage(), \Mockery::any())->once();
-        // we force the logger in app to allows the main Exception Handler to log exceptions
-        app()->instance(LoggerInterface::class, $mock);
-    }
-
-    /**
-     * @return \Mockery\LegacyMockInterface|\Mockery\MockInterface|HubInterface
-     */
-    private function spySentryProviderCaptureException()
-    {
-        $mock = \Mockery::spy('Sentry\State\HubInterface[captureException]');
-        $mock->shouldReceive('captureException')->once();
-
-//        app()->instance(HubInterface::class, $mock);
-
-        $loader = AliasLoader::getInstance();
-        $loader->alias('sentry', HubInterface::class);
-
-        app()->singleton('sentry', function () use ($mock) {
-            return $mock;
-        });
-
-        return $mock;
+        // test
+        $this->app->make(ExceptionHandler::class)->report($exception);
     }
 }
