@@ -24,7 +24,7 @@ jobs:
     strategy:
       fail-fast: true
     concurrency:
-      group: laravel-sentry-handler-test
+      group: laravel-sentry-handler-test-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
     steps:
 
