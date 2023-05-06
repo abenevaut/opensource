@@ -61,7 +61,7 @@ return [
             ResourceCollectionsExtending::class,
             ModelsExtending::class,
             NotificationsExtending::class,
-            ProvidersExtending::class,
+            // ProvidersExtending::class,
             ViewsExtending::class,
             FactoriesExtending::class,
             SeedersExtending::class,
