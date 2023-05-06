@@ -42,7 +42,7 @@ jobs:
           coverage: pcov
 
       - name: Configure Composer cache
-        id: composer-cache-${{ matrix.php_version }}
+        id: composer-cache
         uses: actions/cache@v3
         with:
           path: phpunit-slicer/vendor
@@ -54,7 +54,7 @@ jobs:
         run: composer validate --strict
 
       - name: Composer install
-        if: steps.composer-cache-${{ matrix.php_version }}.outputs.cache-hit != 'true'
+        if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --optimize-autoloader --no-interaction --prefer-dist
 
       - name: Test
