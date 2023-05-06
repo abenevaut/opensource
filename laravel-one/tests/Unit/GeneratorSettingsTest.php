@@ -1,11 +1,11 @@
 <?php
 
 use App\GeneratorSettings;
-use function Pest\Faker\faker;
+
 
 test('GeneratorSettings', function () {
 
-    $url = faker()->url;
+    $url = fake()->url;
     $plugins = [];
 
     $generatorSettings = new GeneratorSettings($url, $plugins);
