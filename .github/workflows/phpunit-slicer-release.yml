@@ -10,7 +10,7 @@ defaults:
     working-directory: ./phpunit-slicer
 
 env:
-  php_version: 8.0
+  php_version: 8.1
 
 jobs:
 

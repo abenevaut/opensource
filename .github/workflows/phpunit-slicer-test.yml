@@ -21,12 +21,12 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php_version: [ 8.0, 8.1, 8.2 ]
+        php_version: [ 8.1, 8.2 ]
         include:
           - php_version: 8.2
             record_coverage: true
     concurrency:
-      group: phpunit-slicer-test
+      group: phpunit-slicer-test-${{ matrix.php_version }}
       cancel-in-progress: true
     steps:
 
