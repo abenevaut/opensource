@@ -12,6 +12,7 @@ updates:
   labels:
     - dependencies
     - dep:php
+
 - package-ecosystem: composer
   directory: "laravel-ohdear"
   schedule:
