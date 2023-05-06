@@ -29,8 +29,8 @@ jobs:
           fetch-depth: 1
 
       - name: Get current release semver tag
-        id: branch_name
-        run: echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/phpunit-slicer-}
+        id: branch-name
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/phpunit-slicer-}" >> $GITHUB_OUTPUT
 
       - name: Initialize PHP ${{ env.php_version }}
         uses: shivammathur/setup-php@v2
@@ -48,13 +48,10 @@ jobs:
 
       - name: Composer install
         if: steps.composer-cache.outputs.cache-hit != 'true'
-        run: |
-          composer -V
-          composer validate --strict
-          composer install --optimize-autoloader --no-interaction --prefer-dist
+        run: composer install --optimize-autoloader --no-interaction --prefer-dist
 
       - name: Build
-        run: php phpunit-slicer app:build phpunit-slicer --build-version=${{ steps.branch_name.outputs.SOURCE_TAG }}
+        run: php phpunit-slicer app:build phpunit-slicer --build-version=${{ steps.branch-name.outputs.SOURCE_TAG }}
 
       - name: Publish to readonly repository abenevaut/phpunit-slicer
         uses: s0/git-publish-subdir-action@develop
@@ -63,4 +60,4 @@ jobs:
           BRANCH: master
           FOLDER: phpunit-slicer
           SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_PHPUNIT_SLICER }}
-          TAG: ${{ steps.branch_name.outputs.SOURCE_TAG }}
+          TAG: ${{ steps.branch-name.outputs.SOURCE_TAG }}
