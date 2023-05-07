@@ -14,38 +14,44 @@ defaults:
   run:
     working-directory: ./laravel-one
 
-env:
-  php_version: 8.1
-
 jobs:
 
   test:
     runs-on: ubuntu-latest
-    concurrency:
-      group: laravel-one-test-${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
     strategy:
       fail-fast: true
+      matrix:
+        php_version: [ 8.1, 8.2 ]
+        include:
+          - php_version: 8.2
+            record_coverage: true
+    concurrency:
+      group: laravel-one-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      cancel-in-progress: true
     steps:
 
       - name: Checkout project
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 2
 
-      - name: Initialize PHP ${{ env.php_version }}
+      - name: Initialize PHP ${{ matrix.php_version }}
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ env.php_version }}
+          php-version: ${{ matrix.php_version }}
+          coverage: pcov
 
       - name: Configure Composer cache
         id: composer-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: laravel-one/vendor
-          key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-node-php_${{ env.php_version }}-
+            ${{ runner.os }}-node-php_${{ matrix.php_version }}-
+
+      - name: Validate Composer.json
+        run: composer validate --strict
 
       - name: Composer install
         if: steps.composer-cache.outputs.cache-hit != 'true'
@@ -53,12 +59,12 @@ jobs:
 
       - name: Web pages cache
         id: web-pages-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: laravel-one/.cache
-          key: ${{ runner.os }}-node-php_${{ env.php_version }}-web-pages-cache-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-web-pages-cache-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-node-php_${{ env.php_version }}-web-pages-cache-
+            ${{ runner.os }}-node-php_${{ matrix.php_version }}-web-pages-cache-
 
       - name: Run tests
         run: |
@@ -66,7 +72,7 @@ jobs:
           php laravel-one test
 
       - name: Send coverage
-        run: |
-          bash <(curl -s https://codecov.io/bash) -f coverage/clover.xml -F laravel-one
+        if: ${{ matrix.record_coverage }}
+        run: bash <(curl -s https://codecov.io/bash) -f coverage/clover.xml -F laravel-one
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

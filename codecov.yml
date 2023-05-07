@@ -15,6 +15,10 @@ coverage:
         target: 75%
         flags:
           - laravel-one
+      laravel-sentry-handler:
+        target: 75%
+        flags:
+          - laravel-sentry-handler
       phpunit-slicer:
         target: 100%
         flags:
@@ -37,6 +41,10 @@ flags:
     carryforward: true
     paths:
       - laravel-one/
+  laravel-sentry-handler:
+    carryforward: true
+    paths:
+      - laravel-sentry-handler/
   phpunit-slicer:
     carryforward: true
     paths:

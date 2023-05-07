@@ -14,17 +14,19 @@ defaults:
   run:
     working-directory: ./phpunit-slicer
 
-env:
-  php_version: 8.1
-
 jobs:
 
   test:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
+      matrix:
+        php_version: [ 8.1, 8.2 ]
+        include:
+          - php_version: 8.2
+            record_coverage: true
     concurrency:
-      group: phpunit-slicer-test-${{ github.workflow }}-${{ github.ref }}
+      group: phpunit-slicer-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
     steps:
 
@@ -33,10 +35,10 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Initialize PHP ${{ env.php_version }}
+      - name: Initialize PHP ${{ matrix.php_version }}
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ env.php_version }}
+          php-version: ${{ matrix.php_version }}
           coverage: pcov
 
       - name: Configure Composer cache
@@ -44,21 +46,22 @@ jobs:
         uses: actions/cache@v3
         with:
           path: phpunit-slicer/vendor
-          key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.json') }}
+          key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-php_${{ env.php_version }}-
+            ${{ runner.os }}-node-php_${{ matrix.php_version }}-
+
+      - name: Validate Composer.json
+        run: composer validate --strict
 
       - name: Composer install
         if: steps.composer-cache.outputs.cache-hit != 'true'
-        run: |
-          composer -V
-          composer validate --strict
-          composer install --optimize-autoloader --no-interaction --prefer-dist
+        run: composer install --optimize-autoloader --no-interaction --prefer-dist
 
       - name: Test
         run: php phpunit-slicer test
 
       - name: Send coverage
+        if: ${{ matrix.record_coverage }}
         run: bash <(curl -s https://codecov.io/bash) -f coverage/clover.xml -F phpunit-slicer
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

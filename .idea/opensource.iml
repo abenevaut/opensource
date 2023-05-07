@@ -11,6 +11,12 @@
       <sourceFolder url="file://$MODULE_DIR$/laravel-one/theme" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-infrastructure/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-infrastructure/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-sentry-handler/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-sentry-handler/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-one/spec" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-stripe/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-ohdear/.phpunit.cache" />
@@ -21,6 +27,31 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/coverage" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/brianium/paratest" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/doctrine/deprecations" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/fidry/cpu-core-counter" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/illuminate/process" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/jean85/pretty-package-versions" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/pestphp/pest-plugin-arch" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/phpdocumentor/reflection-common" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/phpdocumentor/reflection-docblock" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/phpdocumentor/type-resolver" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/phpstan/phpdoc-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/psr/event-dispatcher" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/symfony/event-dispatcher" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/symfony/event-dispatcher-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/ta-tikoma/phpunit-architecture-test" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/brianium/paratest" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/doctrine/deprecations" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/fidry/cpu-core-counter" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/guzzlehttp/uri-template" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/illuminate/process" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/jean85/pretty-package-versions" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/flysystem-local" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/ondram/ci-detector" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/pestphp/pest-plugin-arch" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/phpdocumentor/reflection-docblock" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/ta-tikoma/phpunit-architecture-test" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -38,7 +38,11 @@
     "require-dev": {
         "laravel/framework": "^9.17",
         "phpunit/phpunit": "^9.5",
-        "mockery/mockery": "^1.5",
-        "dg/bypass-finals": "^1.4"
+        "mockery/mockery": "^1.5"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     }
 }
