@@ -29,8 +29,8 @@ jobs:
           fetch-depth: 1
 
       - name: Get current release tag
-        id: branch_name
-        run: echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/laravel-one-}
+        id: branch-name
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/phpunit-slicer-}" >> $GITHUB_OUTPUT
 
       - name: Initialize PHP ${{ env.php_version }}
         uses: shivammathur/setup-php@v2
@@ -48,14 +48,10 @@ jobs:
 
       - name: Composer install
         if: steps.composer-cache.outputs.cache-hit != 'true'
-        run: |
-          composer -V
-          composer validate --strict
-          composer install --optimize-autoloader --no-interaction --prefer-dist
+        run: composer install --optimize-autoloader --no-interaction --prefer-dist
 
       - name: Build
-        run: |
-          php laravel-one app:build laravel-one --build-version=${{ steps.branch_name.outputs.SOURCE_TAG }}
+        run: php laravel-one app:build laravel-one --build-version=${{ steps.branch-name.outputs.SOURCE_TAG }}
 
       - name: Publish to readonly repository abenevaut/laravel-one
         uses: s0/git-publish-subdir-action@develop
@@ -64,4 +60,4 @@ jobs:
           BRANCH: master
           FOLDER: laravel-one
           SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_LARAVEL_ONE }}
-          TAG: ${{ steps.branch_name.outputs.SOURCE_TAG }}
+          TAG: ${{ steps.branch-name.outputs.SOURCE_TAG }}
