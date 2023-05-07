@@ -48,7 +48,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: laravel-sentry-handler/vendor
-          key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.json') }}
           restore-keys: |
             ${{ runner.os }}-node-php_${{ matrix.php_version }}-
 
@@ -74,7 +74,6 @@ jobs:
         if: ${{ matrix.record_coverage }}
         with:
           file: smelly-code-detector.txt
-          single_comment: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
