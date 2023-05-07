@@ -43,7 +43,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: auth/vendor
-          key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.json') }}
           restore-keys: ${{ runner.os }}-node-php_${{ env.php_version }}-
 
       - name: Composer install

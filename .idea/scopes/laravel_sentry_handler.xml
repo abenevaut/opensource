@@ -1,3 +1,3 @@
 <component name="DependencyValidationManager">
-  <scope name="laravel-sentry-handler" pattern="file:.github/workflows/laravel-sentry-handler-release.yml||file[opensource]:demo-laravel-sentry-handler//*||file[opensource]:laravel-sentry-handler//*" />
+  <scope name="laravel-sentry-handler" pattern="file:.github/workflows/laravel-sentry-handler-release.yml||file[opensource]:demo-laravel-sentry-handler//*||file[opensource]:laravel-sentry-handler//*||file:.github/workflows/laravel-sentry-handler-test.yml" />
 </component>
