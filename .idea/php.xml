@@ -962,6 +962,17 @@
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/psr/http-client" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/psr/log" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/composer" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/laravel-zero/framework" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/jolicode/jolinotif" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/laravel-zero/foundation" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/nunomaduro/collision" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/nunomaduro/laravel-console-summary" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/nunomaduro/laravel-console-task" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/nunomaduro/laravel-desktop-notifier" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/filp/whoops" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/degraciamathieu/php-smelly-code-detector" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/degraciamathieu/php-file-explorer" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
