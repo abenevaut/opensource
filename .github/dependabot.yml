@@ -14,30 +14,6 @@ updates:
     - dep:php
 
 - package-ecosystem: composer
-  directory: "laravel-ohdear"
-  schedule:
-    interval: monthly
-    time: "06:00"
-    timezone: Europe/Paris
-  open-pull-requests-limit: 3
-  target-branch: master
-  labels:
-    - dependencies
-    - dep:php
-
-- package-ecosystem: composer
-  directory: "laravel-sentry-handler"
-  schedule:
-    interval: monthly
-    time: "06:00"
-    timezone: Europe/Paris
-  open-pull-requests-limit: 3
-  target-branch: master
-  labels:
-    - dependencies
-    - dep:php
-
-- package-ecosystem: composer
   directory: "laravel-infrastructure"
   schedule:
     interval: monthly
@@ -50,7 +26,31 @@ updates:
     - dep:php
 
 - package-ecosystem: composer
+  directory: "laravel-ohdear"
+  schedule:
+    interval: monthly
+    time: "06:00"
+    timezone: Europe/Paris
+  open-pull-requests-limit: 3
+  target-branch: master
+  labels:
+    - dependencies
+    - dep:php
+
+- package-ecosystem: composer
   directory: "laravel-one"
+  schedule:
+    interval: monthly
+    time: "06:00"
+    timezone: Europe/Paris
+  open-pull-requests-limit: 3
+  target-branch: master
+  labels:
+    - dependencies
+    - dep:php
+
+- package-ecosystem: composer
+  directory: "laravel-sentry-handler"
   schedule:
     interval: monthly
     time: "06:00"
