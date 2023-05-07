@@ -61,16 +61,12 @@ jobs:
 
       - name: Smelly Code Detector
         if: ${{ matrix.record_coverage }}
-        id: smelly-code-detector
-        run: |
-          vendor/bin/smelly-code-detector inspect src > smelly-code-detector.txt
-          echo "DETECTION=$(cat smelly-code-detector.txt))" >> $GITHUB_OUTPUT
-          echo $DETECTION
+        run: vendor/bin/smelly-code-detector inspect src > ../.github/workflows/laravel-sentry-handler/smelly-code-detector.txt
 
       - uses: NejcZdovc/comment-pr@v2
         if: ${{ matrix.record_coverage }}
         with:
-          message: ${{ steps.smelly-code-detector.outputs.DETECTION }}
+          file: smelly-code-detector.txt
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
