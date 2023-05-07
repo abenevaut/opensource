@@ -1,0 +1,67 @@
+name: laravel-sentry-handler-test
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'laravel-sentry-handler/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'laravel-sentry-handler/**'
+
+defaults:
+  run:
+    working-directory: laravel-sentry-handler
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php_version: [ 8.1, 8.2 ]
+        include:
+          - php_version: 8.2
+            record_coverage: true
+    concurrency:
+      group: laravel-sentry-handler-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      cancel-in-progress: true
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Initialize PHP ${{ matrix.php_version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php_version }}
+          coverage: pcov
+
+      - name: Configure Composer cache
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: laravel-sentry-handler/vendor
+          key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-php_${{ matrix.php_version }}-
+
+      - name: Validate Composer.json
+        run: composer validate --strict
+
+      - name: Composer install
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install -o --no-interaction --prefer-dist
+
+      - name: Test
+        run: vendor/bin/phpunit
+
+      - name: Send coverage
+        if: ${{ matrix.record_coverage }}
+        run: bash <(curl -s https://codecov.io/bash) -f coverage/clover.xml -F laravel-sentry-handler
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
