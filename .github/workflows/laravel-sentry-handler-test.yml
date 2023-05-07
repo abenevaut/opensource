@@ -61,7 +61,7 @@ jobs:
 
       - name: Smelly Code Detector
         if: ${{ matrix.record_coverage }}
-        run: vendor/bin/smelly-code-detector inspect src > ../.github/workflows/laravel-sentry-handler/smelly-code-detector.txt
+        run: vendor/bin/smelly-code-detector inspect src > ../.github/workflows/smelly-code-detector.txt
 
       - uses: NejcZdovc/comment-pr@v2
         if: ${{ matrix.record_coverage }}
