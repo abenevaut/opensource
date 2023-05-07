@@ -63,7 +63,7 @@ jobs:
         if: ${{ matrix.record_coverage }}
         run: |
           vendor/bin/smelly-code-detector inspect src > ../.github/workflows/smelly-code-detector.txt
-          sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g" ../.github/workflows/smelly-code-detector.txt > ../.github/workflows/smelly-code-detector.txt
+          sed "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g" > ../.github/workflows/smelly-code-detector.txt
           sed '$d' ../.github/workflows/smelly-code-detector.txt > ../.github/workflows/smelly-code-detector.txt
           sed '$d' ../.github/workflows/smelly-code-detector.txt > ../.github/workflows/smelly-code-detector.txt
           sed '2d' ../.github/workflows/smelly-code-detector.txt > ../.github/workflows/smelly-code-detector.txt
