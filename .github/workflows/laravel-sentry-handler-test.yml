@@ -60,7 +60,7 @@ jobs:
         run: composer install -o --no-interaction --prefer-dist
 
       - name: Smelly Code Detector
-        if: ${{ matrix.record_coverage }}
+        if: github.event_name == 'pull_request' && matrix.record_coverage
         run: |
           vendor/bin/smelly-code-detector inspect src | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g" > tmp.txt
           sed '$d' tmp.txt > tmp2.txt
@@ -71,7 +71,7 @@ jobs:
           sed 's/+/|/g' tmp2.txt > ../.github/workflows/smelly-code-detector.txt
 
       - uses: NejcZdovc/comment-pr@v2
-        if: ${{ matrix.record_coverage }}
+        if: github.event_name == 'pull_request' && matrix.record_coverage
         with:
           file: smelly-code-detector.txt
         env:
