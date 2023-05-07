@@ -69,7 +69,7 @@ jobs:
           sed '2d' ../.github/workflows/smelly-code-detector.txt > ../.github/workflows/smelly-code-detector.txt
           sed '2d' ../.github/workflows/smelly-code-detector.txt > ../.github/workflows/smelly-code-detector.txt
           sed '2d' ../.github/workflows/smelly-code-detector.txt > ../.github/workflows/smelly-code-detector.txt
-          sed -i 's/+/|/' ../.github/workflows/smelly-code-detector.txt > ../.github/workflows/smelly-code-detector.txt
+          sed 's/+/|/g' ../.github/workflows/smelly-code-detector.txt > ../.github/workflows/smelly-code-detector.txt
 
       - uses: NejcZdovc/comment-pr@v2
         if: ${{ matrix.record_coverage }}
