@@ -59,7 +59,7 @@ jobs:
 
       - name: Web pages cache
         id: web-pages-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: laravel-one/.cache
           key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-web-pages-cache-${{ hashFiles('**/composer.lock') }}
