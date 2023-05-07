@@ -50,6 +50,11 @@ jobs:
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --optimize-autoloader --no-interaction --prefer-dist
 
+      - name: Build VHS
+        uses: charmbracelet/vhs-action@v1
+        with:
+          path: 'phpunit-slicer/demo.tape'
+
       - name: Build
         run: php phpunit-slicer app:build phpunit-slicer --build-version=${{ steps.branch-name.outputs.SOURCE_TAG }}
 
