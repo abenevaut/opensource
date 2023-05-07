@@ -26,7 +26,7 @@ jobs:
           - php_version: 8.2
             record_coverage: true
     concurrency:
-      group: laravel-one-test-${{ matrix.php_version }}
+      group: laravel-one-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
     steps:
 

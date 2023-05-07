@@ -53,7 +53,7 @@ jobs:
       - name: Build VHS
         uses: charmbracelet/vhs-action@v1
         with:
-          path: 'laravel-one-demo.tape'
+          path: 'laravel-one/laravel-one-demo.tape'
 
       - name: Build
         run: php laravel-one app:build laravel-one --build-version=${{ steps.branch-name.outputs.SOURCE_TAG }}
