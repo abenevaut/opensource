@@ -2,11 +2,8 @@ name: laravel-sentry-handler-release
 
 on:
   push:
-    branches: [ master ]
-    paths:
-      - 'laravel-sentry-handler/**'
-#    tags:
-#      - laravel-sentry-handler-*
+    tags:
+      - laravel-sentry-handler-*
 
 defaults:
   run:
@@ -28,9 +25,9 @@ jobs:
         with:
           fetch-depth: 1
 
-#      - name: Get current release semver tag
-#        id: branch-name
-#        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/phpunit-slicer-}" >> $GITHUB_OUTPUT
+      - name: Get current release semver tag
+        id: branch-name
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/phpunit-slicer-}" >> $GITHUB_OUTPUT
 
       - name: Publish to repository opensource/laravel-sentry-handler
         uses: s0/git-publish-subdir-action@develop
@@ -39,4 +36,4 @@ jobs:
           BRANCH: master
           FOLDER: laravel-sentry-handler
           SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_LARAVEL_SENTRY_HANDLER }}
-#          TAG: ${{ steps.branch-name.outputs.SOURCE_TAG }}
+          TAG: ${{ steps.branch-name.outputs.SOURCE_TAG }}
