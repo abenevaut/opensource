@@ -59,25 +59,25 @@ jobs:
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install -o --no-interaction --prefer-dist
 
-      - name: Smelly Code Detector
-        if: ${{ matrix.record_coverage }}
-        run: |
-          vendor/bin/smelly-code-detector inspect src | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g" > tmp.txt
-          sed '$d' tmp.txt > tmp2.txt
-          sed '$d' tmp2.txt > tmp.txt
-          sed '2d' tmp.txt > tmp2.txt
-          sed '2d' tmp2.txt > tmp.txt
-          sed '2d' tmp.txt > tmp2.txt
-          sed 's/+/|/g' tmp2.txt > ../.github/workflows/smelly-code-detector.txt
-
-      - uses: NejcZdovc/comment-pr@v2
-        if: ${{ matrix.record_coverage }}
-        with:
-          identifier: ${{ github.ref }}-smelly-code-detector
-          file: smelly-code-detector.txt
-          single_comment: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Smelly Code Detector
+#        if: ${{ matrix.record_coverage }}
+#        run: |
+#          vendor/bin/smelly-code-detector inspect src | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g" > tmp.txt
+#          sed '$d' tmp.txt > tmp2.txt
+#          sed '$d' tmp2.txt > tmp.txt
+#          sed '2d' tmp.txt > tmp2.txt
+#          sed '2d' tmp2.txt > tmp.txt
+#          sed '2d' tmp.txt > tmp2.txt
+#          sed 's/+/|/g' tmp2.txt > ../.github/workflows/smelly-code-detector.txt
+#
+#      - uses: NejcZdovc/comment-pr@v2
+#        if: ${{ matrix.record_coverage }}
+#        with:
+#          identifier: ${{ github.ref }}-smelly-code-detector
+#          file: smelly-code-detector.txt
+#          single_comment: true
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Test
         run: vendor/bin/phpunit
