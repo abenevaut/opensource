@@ -60,12 +60,17 @@ jobs:
         run: composer install -o --no-interaction --prefer-dist
 
       - name: Smelly Code Detector
-        run: vendor/bin/smelly-code-detector inspect src > smelly-code-detector.txt
+        if: ${{ matrix.record_coverage }}
+        id: smelly-code-detector
+        run: |
+          vendor/bin/smelly-code-detector inspect src > smelly-code-detector.txt
+          echo "DETECTION=$(cat smelly-code-detector.txt))" >> $GITHUB_OUTPUT
+          echo $DETECTION
 
       - uses: NejcZdovc/comment-pr@v2
         if: ${{ matrix.record_coverage }}
         with:
-          file: laravel-sentry-handler/smelly-code-detector.txt
+          message: ${{ steps.smelly-code-detector.outputs.DETECTION }}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
