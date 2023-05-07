@@ -110,7 +110,21 @@ class HandlerTest extends TestCase
         /*
          * Mock config service
          */
-        $this->app->instance('config', \Mockery::mock(\Illuminate\Config\Repository::class));
+        $mock = \Mockery::mock(\Illuminate\Config\Repository::class);
+        // Refer to call in abenevaut\SentryHandler\Scopes\DefaultScope
+        $mock->shouldReceive('get')->with('app.locale')->andReturn('en');
+
+        $this->app->instance('config', $mock);
+
+        /*
+         * Mock request service
+         */
+        $mock = \Mockery::mock(\Illuminate\Http\Request::class);
+        // Refer to call in abenevaut\SentryHandler\Scopes\DefaultScope
+        $mock->shouldReceive('server')->with('HTTP_X_FORWARDED_FOR')->andReturn('127.0.0.1');
+        $mock->shouldReceive('server')->with('HTTP_CF_CONNECTING_IP')->andReturn(null);
+
+        $this->app->instance('request', $mock);
 
         Facade::setFacadeApplication($this->app);
     }
