@@ -63,8 +63,9 @@ jobs:
         run: vendor/bin/smelly-code-detector inspect src > smelly-code-detector.txt
 
       - uses: NejcZdovc/comment-pr@v2
+        if: ${{ matrix.record_coverage }}
         with:
-          file: smelly-code-detector.txt
+          file: laravel-sentry-handler/smelly-code-detector.txt
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
