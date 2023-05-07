@@ -73,7 +73,7 @@ jobs:
       - uses: NejcZdovc/comment-pr@v2
         if: ${{ matrix.record_coverage }}
         with:
-          identifier: ${GITHUB_REF#refs/pull/}-smelly-code-detector
+          identifier: ${{ github.ref }}-smelly-code-detector
           file: smelly-code-detector.txt
           single_comment: true
         env:
