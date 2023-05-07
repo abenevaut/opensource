@@ -18,6 +18,8 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     strategy:
       fail-fast: true
       matrix:
@@ -56,6 +58,15 @@ jobs:
       - name: Composer install
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install -o --no-interaction --prefer-dist
+
+      - name: Smelly Code Detector
+        run: vendor/bin/smelly-code-detector inspect src > smelly-code-detector.txt
+
+      - uses: NejcZdovc/comment-pr@v2
+        with:
+          file: smelly-code-detector.txt
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Test
         run: vendor/bin/phpunit

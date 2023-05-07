@@ -823,7 +823,6 @@
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/guzzlehttp/promises" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/guzzlehttp/uri-template" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/webmozart/assert" />
-      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/sebastian/resource-operations" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/sebastian/exporter" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/sebastian/environment" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/sebastian/code-unit" />
@@ -833,7 +832,6 @@
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/php-http/discovery" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/php-http/client-common" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/hamcrest/hamcrest-php" />
-      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/doctrine/instantiator" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/doctrine/inflector" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/doctrine/lexer" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/sebastian/object-enumerator" />
@@ -964,6 +962,17 @@
       <path value="$PROJECT_DIR$/laravel-one/vendor/ondram/ci-detector" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/jean85/pretty-package-versions" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/brianium/paratest" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/laravel-zero/framework" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/laravel-zero/foundation" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/jolicode/jolinotif" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/degraciamathieu/php-file-explorer" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/degraciamathieu/php-smelly-code-detector" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/filp/whoops" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/nunomaduro/laravel-console-summary" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/nunomaduro/collision" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/nunomaduro/laravel-desktop-notifier" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/nunomaduro/laravel-console-task" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">

@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use DG\BypassFinals;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
@@ -16,16 +15,48 @@ class HandlerTest extends TestCase
 {
     protected Application $app;
 
+    public function testToReportSentryWithStandardException()
+    {
+        // test case exception
+        $exception = new \Exception('report to sentry');
+
+        $mock = \Mockery::mock(LoggerInterface::class);
+        $mock->makePartial();
+        $mock->expects()->log(\Mockery::any(), $exception->getMessage(), \Mockery::any())->once();
+        // we force the logger in app to allows the main Exception Handler to log exceptions
+        $this->app->instance(LoggerInterface::class, $mock);
+
+        $mock = $this->app->make(HubInterface::class);
+        $mock->expects()->shouldNotHaveReceived('captureException');
+
+        // test
+        $this->app->make(ExceptionHandler::class)->report($exception);
+    }
+
+//    public function testToReportSentryWithSentryScopedException()
+//    {
+//        $exception = \Mockery::mock(\abenevaut\SentryHandler\Contracts\ExceptionAbstract::class);
+//
+////        $exception->shouldHaveReceived('report');
+//
+//
+//        $mock = $this->app->make(HubInterface::class);
+//        $mock->shouldHaveReceived('captureException');
+//
+//        $this->app->make(ExceptionHandler::class)->report($exception);
+//    }
+
     protected function setUp(): void
     {
-        BypassFinals::enable();
-
         $this->app = new Application();
 
         /*
          * Mock ExceptionHandler
          */
-        $mock = \Mockery::mock('\abenevaut\SentryHandler\Handler[isSentryBounded,shouldReport]', [$this->app]);
+        $mock = \Mockery::mock('\abenevaut\SentryHandler\Handler[isSentryBounded,shouldReport]', [$this->app])
+            ->makePartial()
+            ->shouldAllowMockingProtectedMethods()
+        ;
         $mock->shouldReceive('isSentryBounded')->andReturnTrue();
         $mock->shouldReceive('shouldReport')->andReturnTrue();
 
@@ -39,6 +70,11 @@ class HandlerTest extends TestCase
 
         $this->app->instance(HubInterface::class, $mock);
 
+        /*
+         * Set config service
+         */
+        $this->app->instance('config', new \Illuminate\Config\Repository());
+
         $loader = AliasLoader::getInstance();
         $loader->alias(HubInterface::class, SentryFacade::class);
 
@@ -50,30 +86,5 @@ class HandlerTest extends TestCase
         \Mockery::close();
 
         parent::tearDown();
-    }
-
-//    public function testToReportSentryWithStandardException()
-//    {
-//        // test case exception
-//        $exception = new \Exception('report to sentry');
-//
-//        $mock = \Mockery::mock(LoggerInterface::class);
-//        $mock->expects()->log(\Mockery::any(), $exception->getMessage(), \Mockery::any())->once();
-//        // we force the logger in app to allows the main Exception Handler to log exceptions
-//        $this->app->instance(LoggerInterface::class, $mock);
-//
-//        // test
-//        $this->app->make(ExceptionHandler::class)->report($exception);
-//    }
-
-    public function testToReportSentryWithSentryScopedException()
-    {
-        $exception = \Mockery::mock('\abenevaut\SentryHandler\Contracts\ExceptionAbstract', \Throwable::class)
-            ->shouldReceive('report')
-            ->getMock()
-            ->shouldReceive('getMessage');
-
-        // test
-        $this->app->make(ExceptionHandler::class)->report($exception);
     }
 }
