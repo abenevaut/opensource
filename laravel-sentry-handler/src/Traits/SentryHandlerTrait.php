@@ -26,7 +26,13 @@ trait SentryHandlerTrait
      */
     public function reportToSentry(Throwable $exception): void
     {
-        if ($this->isSentryBounded() && $this->shouldReport($exception) === true) {
+        $isExceptionScoped = $exception instanceof ExceptionAbstract;
+
+        if (
+            $this->isSentryBounded()
+            && $this->shouldReport($exception)
+            && false === $isExceptionScoped
+        ) {
             SentryFacade::captureException($exception);
         }
     }

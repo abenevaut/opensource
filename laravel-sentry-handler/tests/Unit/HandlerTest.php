@@ -31,6 +31,7 @@ class HandlerTest extends TestCase
 
         $mock = $this->app->make(HubInterface::class);
         $mock->shouldReceive('captureException')->with($exception)->once();
+        $mock->shouldNotReceive('captureMessage');
 
         // test
         $this->app->make(ExceptionHandler::class)->report($exception);
@@ -41,20 +42,46 @@ class HandlerTest extends TestCase
      */
     public function testToReportScopedException()
     {
-        $exception = \Mockery::mock(\abenevaut\SentryHandler\Contracts\ExceptionAbstract::class)
-            ->makePartial();
-        $exception->shouldReceive('report')->once();
+        $exception = \Mockery::mock('\abenevaut\SentryHandler\Contracts\ExceptionAbstract[isSentryMessage,getMessage]');
+        $exception->shouldReceive('isSentryMessage')->andReturn(false)->atLeast(2);
 
         $mock = $this->app->make(ExceptionHandler::class);
         $mock->shouldReceive('shouldReport')->with($exception)->andReturnTrue()->once();
 
         $mock = $this->app->make(HubInterface::class);
         $mock->shouldReceive('captureException')->with($exception)->once();
+        $mock->shouldNotReceive('captureMessage');
 
         // report
         $this->app->make(ExceptionHandler::class)->report($exception);
 
         $this->assertFalse($exception->isSentryMessage());
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testToReportScopedExceptionAsSentryMessage()
+    {
+        $exception = \Mockery::mock('\abenevaut\SentryHandler\Contracts\ExceptionAbstract[isSentryMessage,getMessage]');
+        $exception->shouldReceive('isSentryMessage')->andReturn(true)->atLeast(2);
+        // @todo: find a way to mock getMessage on exception
+        //        $exception->shouldReceive('getMessage')->andReturn('report to sentry')->once();
+
+        $mock = $this->app->make(ExceptionHandler::class);
+        $mock->shouldReceive('shouldReport')->with($exception)->andReturnTrue()->once();
+
+        $mock = $this->app->make(HubInterface::class);
+        $mock->shouldNotReceive('captureException');
+        $mock->shouldReceive('captureMessage')
+            // @todo: find a way to mock getMessage on exception
+            //            ->with($exception->getMessage(), $exception->getSeverity())
+        ;
+
+        // report
+        $this->app->make(ExceptionHandler::class)->report($exception);
+
+        $this->assertTrue($exception->isSentryMessage());
     }
 
     protected function setUp(): void
@@ -65,14 +92,14 @@ class HandlerTest extends TestCase
          * Mock ExceptionHandler
          */
         $mock = \Mockery::mock('\abenevaut\SentryHandler\Handler[isSentryBounded,shouldReport]', [$this->app]);
-        $mock->shouldReceive('isSentryBounded')->andReturnTrue()->once();
+        $mock->shouldReceive('isSentryBounded')->andReturnTrue()->atLeast(1);
 
         $this->app->instance(ExceptionHandler::class, $mock);
 
         /*
          * Mock HubInterface to use with Sentry Facade
          */
-        $this->app->instance(HubInterface::class, \Mockery::mock('Sentry\State\HubInterface[captureException]'));
+        $this->app->instance(HubInterface::class, \Mockery::mock('Sentry\State\HubInterface[captureException,captureMessage]'));
         AliasLoader::getInstance()->alias(HubInterface::class, SentryFacade::class);
 
         /*
