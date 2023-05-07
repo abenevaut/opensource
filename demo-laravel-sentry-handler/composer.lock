@@ -12,22 +12,23 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/abenevaut/laravel-sentry-handler.git",
-                "reference": "cfe553305e39508bdc6c5fcd9875a5f6f5f6e640"
+                "reference": "9c76f5d6c49a1033568e85dd2437ad7d6442e1f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/abenevaut/laravel-sentry-handler/zipball/cfe553305e39508bdc6c5fcd9875a5f6f5f6e640",
-                "reference": "cfe553305e39508bdc6c5fcd9875a5f6f5f6e640",
+                "url": "https://api.github.com/repos/abenevaut/laravel-sentry-handler/zipball/9c76f5d6c49a1033568e85dd2437ad7d6442e1f1",
+                "reference": "9c76f5d6c49a1033568e85dd2437ad7d6442e1f1",
                 "shasum": ""
             },
             "require": {
                 "php": "^8.1",
-                "sentry/sentry-laravel": "^2.12"
+                "sentry/sentry-laravel": "^2.12 || ^3.0"
             },
             "require-dev": {
-                "laravel/framework": "^9.17",
+                "degraciamathieu/php-smelly-code-detector": "^1.1",
+                "laravel/framework": "^9.17 || ^10",
                 "mockery/mockery": "^1.5",
-                "phpunit/phpunit": "^9.5"
+                "phpunit/phpunit": "^10.1"
             },
             "default-branch": true,
             "type": "library",
@@ -43,7 +44,7 @@
             "authors": [
                 {
                     "name": "Antoine Benevaut",
-                    "email": "antoine@benevaut.fr"
+                    "email": "me@abenevaut.dev"
                 }
             ],
             "description": "Laravel sentry exceptions handler",
@@ -57,7 +58,7 @@
                 "issues": "https://github.com/abenevaut/laravel-sentry-handler/issues",
                 "source": "https://github.com/abenevaut/laravel-sentry-handler/tree/master"
             },
-            "time": "2022-09-15T20:49:40+00:00"
+            "time": "2023-05-07T20:56:42+00:00"
         },
         {
             "name": "brick/math",
