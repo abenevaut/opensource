@@ -58,8 +58,63 @@ php artisan sentry:test
 Laravel ExceptionHandler allows an exception to report herself by implementing `report()` method.
 We use that place to compute exception context and then throw it to Sentry.
 
+```php
+final class MyException extends \abenevaut\SentryHandler\Contracts\ExceptionAbstract
+{
+    /**
+     * @var array|string[]
+     */
+    private array $scopes = [
+        /*
+         * Context always reported
+         */
+        DefaultScope::class,
+    ];
+} 
 
+$exception = new MyException();
 
+// Depending context, add relative scope
+$exception->addScope( DefaultScope::class );
+// You can also pass an instantiated object, if you required to compute something
+$exception->addScope( new DefaultScope( ... ) );
+
+report($exception);
+```
+
+- Set exception severity
+```php
+// incoming soon
+```
+
+- Send Sentry message
+```php
+// incoming soon
+```
+
+### What a scope
+
+```php
+final class DefaultScope extends \abenevaut\SentryHandler\Contracts\ScopeAbstract
+{
+    public function handle(Scope $scope, Closure $next)
+    {
+        /*
+         * Stack context in Sentry scope.
+         * @seealso https://docs.sentry.io/platforms/php/guides/laravel/enriching-events/?original_referrer=https%3A%2F%2Fwww.google.com%2F
+         */
+        $scope
+            ->setUser([
+                // ...
+            ])
+            ->setTags([
+                // ...
+            ]);
+
+        return $next($scope);
+    }
+}
+```
 
 ## Tests
 ```shell
