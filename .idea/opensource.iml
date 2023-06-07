@@ -17,6 +17,11 @@
       <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-one/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/demo-laravel-sentry-handler/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/demo-laravel-stripe/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-asana/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-paypal/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-stripe/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-stripe/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-ohdear/.phpunit.cache" />
