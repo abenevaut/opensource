@@ -9,9 +9,6 @@ use Illuminate\Support\ServiceProvider;
 
 class TestingDatabaseServiceProvider extends ServiceProvider
 {
-    public static array $queries = [];
-    public static int $nbQueries = 0;
-
     /**
      * Register any application services.
      *
@@ -19,7 +16,11 @@ class TestingDatabaseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(TestingDatabaseService::class, function () {
+            // @codeCoverageIgnoreStart
+            return new TestingDatabaseService();
+            // @codeCoverageIgnoreEnd
+        });
     }
 
     /**
@@ -30,19 +31,19 @@ class TestingDatabaseServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->app->environment('testing')) {
-
             DB::listen(function (QueryExecuted $query) {
-                self::$nbQueries++;
+                $this->app->make(TestingDatabaseService::class)->pushQuery($query);
             });
-
-            DB::whenQueryingForLongerThan(2, function (Connection $connection, QueryExecuted $query) {
-                self::$queries[] = [
-                    'sql' => $query->sql,
-                    'bindings' => $query->bindings,
-                    'time' => $query->time,
-                ];
+            DB::whenQueryingForLongerThan(3, function (Connection $connection, QueryExecuted $query) {
+                $this->app->make(TestingDatabaseService::class)->flagQuery($query);
             });
-
         }
+    }
+
+    public function provides()
+    {
+        return [
+            TestingDatabaseService::class,
+        ];
     }
 }
