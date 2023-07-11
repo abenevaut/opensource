@@ -20,4 +20,4 @@ Then visit
 - http://127.0.0.1:8000/report-scoped-exception
 - http://127.0.0.1:8000/throw-scoped-exception-to-handler
 
-Check you Sentry ;)
+Check your Sentry ;)

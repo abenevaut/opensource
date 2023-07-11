@@ -15,10 +15,18 @@ coverage:
         target: 75%
         flags:
           - laravel-one
+      laravel-sentry-handler:
+        target: 75%
+        flags:
+          - laravel-sentry-handler
       phpunit-slicer:
         target: 100%
         flags:
           - phpunit-slicer
+      laravel-sentry-handler:
+        target: 75%
+        flags:
+          - laravel-sentry-handler
 
 flags:
   laravel-infrastructure:
@@ -33,10 +41,18 @@ flags:
     carryforward: true
     paths:
       - laravel-one/
+  laravel-sentry-handler:
+    carryforward: true
+    paths:
+      - laravel-sentry-handler/
   phpunit-slicer:
     carryforward: true
     paths:
       - phpunit-slicer/
+  laravel-sentry-handler:
+    carryforward: true
+    paths:
+      - laravel-sentry-handler/
 
 # https://docs.codecov.com/docs/pull-request-comments
 comment:
