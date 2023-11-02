@@ -7544,20 +7544,20 @@
         },
         {
             "name": "pestphp/pest",
-            "version": "v2.24.1",
+            "version": "v2.24.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pestphp/pest.git",
-                "reference": "fd4f161edd0e26029ba9efb769cfe16bf5483840"
+                "reference": "0a680dd06e02bdc58132d6bb3f155498355160a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pestphp/pest/zipball/fd4f161edd0e26029ba9efb769cfe16bf5483840",
-                "reference": "fd4f161edd0e26029ba9efb769cfe16bf5483840",
+                "url": "https://api.github.com/repos/pestphp/pest/zipball/0a680dd06e02bdc58132d6bb3f155498355160a5",
+                "reference": "0a680dd06e02bdc58132d6bb3f155498355160a5",
                 "shasum": ""
             },
             "require": {
-                "brianium/paratest": "^7.3.0",
+                "brianium/paratest": "^7.3.1",
                 "nunomaduro/collision": "^7.10.0|^8.0.0",
                 "nunomaduro/termwind": "^1.15.1|^2.0.0",
                 "pestphp/pest-plugin": "^2.1.1",
@@ -7599,6 +7599,11 @@
                         "Pest\\Plugins\\Version",
                         "Pest\\Plugins\\Parallel"
                     ]
+                },
+                "phpstan": {
+                    "includes": [
+                        "extension.neon"
+                    ]
                 }
             },
             "autoload": {
@@ -7631,7 +7636,7 @@
             ],
             "support": {
                 "issues": "https://github.com/pestphp/pest/issues",
-                "source": "https://github.com/pestphp/pest/tree/v2.24.1"
+                "source": "https://github.com/pestphp/pest/tree/v2.24.2"
             },
             "funding": [
                 {
@@ -7643,7 +7648,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-10-26T15:02:35+00:00"
+            "time": "2023-11-01T23:10:11+00:00"
         },
         {
             "name": "pestphp/pest-plugin",
