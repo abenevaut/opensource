@@ -24,7 +24,7 @@ jobs:
     strategy:
       fail-fast: true
     concurrency:
-      group: laravel-ohdear-test
+      group: laravel-ohdear-test-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
     steps:
 
@@ -41,7 +41,7 @@ jobs:
 
       - name: Configure Composer cache
         id: composer-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/vendor
           key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.json') }}
