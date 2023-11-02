@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="phpunit-slicer" pattern="file:.github/workflows/phpunit-slicer-test.yml||file:.github/workflows/phpunit-slicer-release.yml||file[opensource]:phpunit-slicer//*" />
+</component>
