@@ -57,7 +57,16 @@
             </div>
         </div>
     </footer>
+    <script src="https://unpkg.com/shiki"></script>
     <script>
+        /* Code highlighting */
+        shiki.getHighlighter({
+            theme: 'github-light',
+            langs: ['php'],
+        }).then(highlighter => {
+            const code = highlighter.codeToHtml(`console.log('shiki');`, { lang: 'php' })
+            document.getElementById('output').innerHTML = code
+        });
         /* Progress bar */
         //Source: https://alligator.io/js/progress-bar-javascript-css-variables/
         var h = document.documentElement,
