@@ -32,14 +32,17 @@
     "scripts": {
         "test": [
             "vendor/bin/phpunit",
-            "vendor/bin/phpcs --standard=PSR12 ./src/Exceptions"
+            "vendor/bin/phpcs --standard=PSR12 ./src",
+            "vendor/bin/phpcs --standard=PSR12 ./tests",
+            "vendor/bin/smelly-code-detector inspect ./src"
         ]
     },
     "require-dev": {
         "laravel/framework": "^9.17 || ^10",
         "phpunit/phpunit": "^10.1",
         "mockery/mockery": "^1.5",
-        "degraciamathieu/php-smelly-code-detector": "^1.1"
+        "degraciamathieu/php-smelly-code-detector": "^1.1",
+        "squizlabs/php_codesniffer": "^3.7"
     },
     "config": {
         "allow-plugins": {
