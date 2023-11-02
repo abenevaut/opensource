@@ -36,7 +36,7 @@
         <option name="myPath" value="$PROJECT_DIR$/laravel-sentry-handler" />
       </PhpSpecSuiteConfiguration>
       <PhpSpecSuiteConfiguration>
-        <option name="myPath" value="$PROJECT_DIR$/laravel-sentry-handler" />
+        <option name="myPath" value="$PROJECT_DIR$/laravel-session" />
       </PhpSpecSuiteConfiguration>
     </suites>
   </component>

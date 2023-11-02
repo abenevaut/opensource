@@ -472,7 +472,6 @@
       <path value="$PROJECT_DIR$/laravel-session/vendor/illuminate/bus" />
       <path value="$PROJECT_DIR$/laravel-session/vendor/sebastian/diff" />
       <path value="$PROJECT_DIR$/laravel-session/vendor/illuminate/collections" />
-      <path value="$PROJECT_DIR$/laravel-session/vendor/abenevaut/laravel-infrastructure" />
       <path value="$PROJECT_DIR$/laravel-session/vendor/doctrine/instantiator" />
       <path value="$PROJECT_DIR$/laravel-session/vendor/doctrine/inflector" />
       <path value="$PROJECT_DIR$/laravel-session/vendor/webmozart/assert" />
@@ -528,7 +527,6 @@
       <path value="$PROJECT_DIR$/laravel-session/vendor/voku/portable-ascii" />
       <path value="$PROJECT_DIR$/laravel-session/vendor/symfony/polyfill-mbstring" />
       <path value="$PROJECT_DIR$/laravel-session/vendor/phpunit/php-timer" />
-      <path value="$PROJECT_DIR$/laravel-session/vendor/spatie/data-transfer-object" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/graham-campbell/result-type" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/phpunit/php-timer" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/hamcrest/hamcrest-php" />
@@ -1084,7 +1082,22 @@
       <path value="$PROJECT_DIR$/demo-laravel-stripe/vendor/brick/math" />
       <path value="$PROJECT_DIR$/demo-laravel-stripe/vendor/psr/event-dispatcher" />
       <path value="$PROJECT_DIR$/demo-laravel-stripe/vendor/composer" />
+      <path value="$PROJECT_DIR$/laravel-session/vendor/ondram/ci-detector" />
+      <path value="$PROJECT_DIR$/laravel-session/vendor/psr/clock" />
+      <path value="$PROJECT_DIR$/laravel-session/vendor/symfony/polyfill-php83" />
+      <path value="$PROJECT_DIR$/laravel-session/vendor/brick/math" />
+      <path value="$PROJECT_DIR$/laravel-session/vendor/abenevaut/laravel-infrastructure" />
+      <path value="$PROJECT_DIR$/laravel-session/vendor/spatie/data-transfer-object" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/squizlabs/php_codesniffer" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/league/commonmark" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/league/config" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/psr/clock" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/shiki-php" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/laravel-markdown" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/commonmark-shiki-highlighter" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/nette/utils" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/nette/schema" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/dflydev/dot-access-data" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
@@ -1095,7 +1108,15 @@
   </component>
   <component name="PhpUnit">
     <phpunit_settings>
+      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravel-stripe/phpunit.xml" custom_loader_path="$PROJECT_DIR$/laravel-stripe/vendor/autoload.php" use_configuration_file="true" />
+      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravel-ohdear/phpunit.xml" custom_loader_path="$PROJECT_DIR$/laravel-ohdear/vendor/autoload.php" use_configuration_file="true" />
+      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravel-sentry-handler/phpunit.xml" custom_loader_path="$PROJECT_DIR$/laravel-sentry-handler/vendor/autoload.php" use_configuration_file="true" />
+      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravel-infrastructure/phpunit.xml" custom_loader_path="$PROJECT_DIR$/laravel-infrastructure/vendor/autoload.php" use_configuration_file="true" />
+      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/demo-laravel-sentry-handler/phpunit.xml" custom_loader_path="$PROJECT_DIR$/demo-laravel-sentry-handler/vendor/autoload.php" use_configuration_file="true" />
+      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravel-session/phpunit.xml" custom_loader_path="$PROJECT_DIR$/laravel-session/vendor/autoload.php" use_configuration_file="true" />
+      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravel-paypal/phpunit.xml" custom_loader_path="$PROJECT_DIR$/laravel-paypal/vendor/autoload.php" use_configuration_file="true" />
       <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravel-one/phpunit.xml.dist" custom_loader_path="$PROJECT_DIR$/laravel-one/vendor/autoload.php" use_configuration_file="true" />
+      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/demo-laravel-stripe/phpunit.xml" custom_loader_path="$PROJECT_DIR$/demo-laravel-stripe/vendor/autoload.php" use_configuration_file="true" />
     </phpunit_settings>
   </component>
   <component name="PsalmOptionsConfiguration">
