@@ -4,7 +4,6 @@
     <option name="directories">
       <list>
         <option value="$PROJECT_DIR$/phpunit-slicer/tests" />
-        <option value="$PROJECT_DIR$/laravel-one/tests" />
         <option value="$PROJECT_DIR$/laravel-asana/tests" />
         <option value="$PROJECT_DIR$/laravel-paypal/tests" />
         <option value="$PROJECT_DIR$/demo-laravel-stripe/tests" />
@@ -14,6 +13,7 @@
         <option value="$PROJECT_DIR$/laravel-infrastructure/tests" />
         <option value="$PROJECT_DIR$/laravel-session/tests" />
         <option value="$PROJECT_DIR$/laravel-sentry-handler/tests" />
+        <option value="$PROJECT_DIR$/laravel-one/tests" />
       </list>
     </option>
   </component>
