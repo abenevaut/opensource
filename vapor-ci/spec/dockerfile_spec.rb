@@ -19,8 +19,8 @@ describe 'Dockerfile' do
 
     image = ::Docker::Image.build_from_dir(
       '.',
-      't' => 'abenevaut/opensource:rspec-vapor-ci',
-      'cache-from' => 'abenevaut/opensource:latest-vapor-ci',
+      't' => 'abenevaut/vapor-ci:rspec',
+      'cache-from' => 'abenevaut/vapor-ci:latest',
       'buildargs' => build_args
     )
 

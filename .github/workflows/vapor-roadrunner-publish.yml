@@ -22,10 +22,10 @@ jobs:
 
       - name: Build docker image
         run: |
-          TAG_VAPOR_ROADRUNNER=latest-vapor-roadrunner docker-compose build vapor-roadrunner
+          TAG_VAPOR_ROADRUNNER=latest docker-compose build vapor-roadrunner
           docker-compose build vapor-roadrunner
 
       - name: Publish docker image
         run: |
-          TAG_VAPOR_ROADRUNNER=latest-vapor-roadrunner docker-compose push vapor-roadrunner
+          TAG_VAPOR_ROADRUNNER=latest docker-compose push vapor-roadrunner
           docker-compose push vapor-roadrunner

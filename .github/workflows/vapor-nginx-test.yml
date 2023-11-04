@@ -1,4 +1,4 @@
-name: vapor-nginx
+name: vapor-nginx-test
 
 on:
   pull_request:

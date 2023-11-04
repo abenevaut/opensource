@@ -22,10 +22,10 @@ jobs:
 
       - name: Build docker image
         run: |
-          TAG_VAPOR_CI=latest-vapor-ci docker-compose build vapor-ci
+          TAG_VAPOR_CI=latest docker-compose build vapor-ci
           docker-compose build vapor-ci
 
       - name: Publish docker image
         run: |
-          TAG_VAPOR_CI=latest-vapor-ci docker-compose push vapor-ci
+          TAG_VAPOR_CI=latest docker-compose push vapor-ci
           docker-compose push vapor-ci

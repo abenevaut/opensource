@@ -22,10 +22,10 @@ jobs:
 
       - name: Build docker image
         run: |
-          TAG_VAPOR_NGINX=latest-vapor-nginx docker-compose build vapor-nginx
+          TAG_VAPOR_NGINX=latest docker-compose build vapor-nginx
           docker-compose build vapor-nginx
 
       - name: Publish docker image
         run: |
-          TAG_VAPOR_NGINX=latest-vapor-nginx docker-compose push vapor-nginx
+          TAG_VAPOR_NGINX=latest docker-compose push vapor-nginx
           docker-compose push vapor-nginx

@@ -1,4 +1,4 @@
-name: vapor-roadrunner
+name: vapor-roadrunner-test
 
 on:
   pull_request:
