@@ -22,7 +22,6 @@ describe 'Dockerfile' do
       't' => 'abenevaut/vapor-roadrunner:rspec',
       'buildargs' => build_args
     )
-    #'cache-from' => 'abenevaut/vapor-roadrunner:latest',
 
     set :os, family: :alpine
     set :backend, :docker

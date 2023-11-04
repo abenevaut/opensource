@@ -13,6 +13,11 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+    concurrency:
+      group: vapor-ci-build-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     steps:
 
     - uses: actions/checkout@v2
