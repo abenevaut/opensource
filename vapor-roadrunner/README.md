@@ -1,44 +1,65 @@
-#
-# docker build --build-arg VAPOR_VERSION="81" . --tag abenevaut/vapor-roadrunner:latest
-#
-# Add `--add-host host.docker.internal:host-gateway` when you use windows
-# docker run --rm -v "./.docker/storage:/var/task/storage" -p 8080:8080 abenevaut/vapor-roadrunner:latest
-#
+## Image contains
 
-# Docker images
+| Tool           | Version                  |
+|----------------|--------------------------|
+| PHP            | VAPOR_VERSION            |
+| rr           | defined by alpine images |
 
-First of all, do `cp .env.example .env`
+## Build
 
-## Set up servers
 
-- Create your environment file `cp .env.example .env` & set it up with your own parameters
+```shell
+docker build . --file Dockerfile --tag abenevaut/vapor-roadrunner:test \
+    --build-arg VAPOR_VERSION=81 
+```
 
-### Build parameters
+- VAPOR_VERSION: vapor docker version, default `81`
+- 🤓see also defined env variable in docker-compose en file located in upper directory (`../.env.example`)
 
-- VAPOR_VERSION : vapor docker image version, default `81` (https://hub.docker.com/r/laravelphp/vapor/tags)
-- COMPOSER_HASH : composer hash to validate the composer binary (https://getcomposer.org/download/)
+## Usage
 
-#### Images tags
+### Inheritance
 
-- TAG_VAPOR : tag the `vapor` image during build, default `node_16-php_${VAPOR_VERSION}`
+```dockerfile
+FROM --platform=linux/amd64 abenevaut/vapor-roadrunner:latest
 
-## Build images
+COPY . /var/task
 
-- in this project, `vapor-roadrunner` image is pushed to docker hub
-- the production tag defined is `TAG_VAPOR` with `php${VAPOR_VERSION}`
+USER root
+RUN chown -R nobody.nobody /var/task
 
-### Build latest image (example with `vapor` image)
+CMD rr serve -c /var/task/.rr.yaml -w /var/task
+```
 
-This image is create when we update node or php or both version
+### Customize with heritage
 
-- update `.env` with new node/php version
-- first build the latest tag with command `TAG_VAPOR=latest docker-compose build vapor-roadrunner`
-- build the new tag with command `docker-compose build vapor-roadrunner`; that build should be really fast, because it uses the `latest` tag as cache
-- finally, push tags to docker hub `TAG_VAPOR=latest docker-compose push vapor-roadrunner` then `docker-compose push vapor-roadrunner`
+#### Install PHP extension
 
-### Build unfollowed revision tag (example with `vapor` image)
+```dockerfile
+RUN pecl install pcov imagick
+RUN docker-php-ext-enable imagick
+```
 
-- update `.env` with new node/php version
-- for this kind of build, we DO NOT build `latest` tag
-- build the new tag with command `docker-compose build vapor-roadrunner`; you are able to create custom tag by using  `TAG_VAPOR=<custom_tag> docker-compose vapor-roadrunner`
-- finally, push tags to docker hub `docker-compose push vapor-roadrunner`; you are able to create custom tag by using  `TAG_VAPOR=<custom_tag> docker-compose vapor-roadrunner`
+## Test
+
+Docker testing is running with Ruby (with https://bundler.io/)
+
+```shell
+bundle config path vendor/bundle
+bundle install
+bundle exec rspec
+```
+
+### On Windows
+
+- Setup Docker with setting "Expose daemon on tcp://localhost:2375 without TLS"
+
+```shell
+DOCKER_URL=tcp://localhost:2375 bundle exec rspec
+```
+
+## Linter
+
+```shell
+bundle exec rubocop
+```
