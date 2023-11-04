@@ -6,7 +6,7 @@ services:
     image: ghcr.io/abenevaut/vapor-ci:${TAG_VAPOR_CI:-latest}
     build:
       context: ./vapor-ci
-      cache_from: ghcr.io/abenevaut/vapor-ci:latest
+      cache-from: type=registry,ref=ghcr.io/abenevaut/vapor-ci:latest
       args:
         - VAPOR_VERSION=${VAPOR_VERSION}
         - COMPOSER_HASH=${COMPOSER_HASH}
