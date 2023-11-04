@@ -13,7 +13,7 @@ RUN apk --update --no-cache add \
         git
 
 RUN pecl install pcov
-RUN docker-php-ext-install pcov
+RUN docker-php-ext-enable pcov
 
 ENV COMPOSER_HOME /composer
 ENV PATH /composer/vendor/bin:$PATH
