@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="vapor-ci" pattern="file:.env.example||file:docker-compose.yml||file:.env||file[opensource]:vapor-ci/*||file[opensource]:vapor-ci//*||file:.github/workflows/vapor-ci-build.yml||file:.github/workflows/vapor-ci-publish.yml||file:.github/workflows/vapor-ci-test.yml||file:docs/vapor-ci.md" />
+</component>
