@@ -1,0 +1,10 @@
+.idea
+.git
+.github
+.gitignore
+Gemfile
+Gemfile.lock
+spec
+.rspec
+.rubocop.yml
+vendor
