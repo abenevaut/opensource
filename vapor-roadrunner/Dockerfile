@@ -1,4 +1,5 @@
-FROM ghcr.io/roadrunner-server/roadrunner:2023.3.3 AS roadrunner
+FROM ghcr.io/roadrunner-server/roadrunner:latest AS roadrunner
+
 ARG VAPOR_VERSION
 FROM --platform=linux/amd64 laravelphp/vapor:php${VAPOR_VERSION}
 
