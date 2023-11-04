@@ -7,7 +7,8 @@ require 'json'
 
 describe 'Dockerfile' do
   before(:all) do # rubocop:disable RSpec/BeforeAfterAll
-    ::Docker.options[:read_timeout] = 3000
+    ::Docker.options[:read_timeout] = 1000
+    ::Docker.options[:write_timeout] = 1000
 
     Dotenv.load('./../.env.example')
 
