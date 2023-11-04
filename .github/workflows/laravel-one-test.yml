@@ -21,26 +21,20 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php_version: [ 8.1, 8.2 ]
+        php_version: [ 81, 82 ]
         include:
-          - php_version: 8.2
+          - php_version: 82
             record_coverage: true
     concurrency:
       group: laravel-one-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
-    container: ghcr.io/abenevaut/vapor-ci:latest
+    container: ghcr.io/abenevaut/vapor-ci:latest # ${{ matrix.php_version }}
     steps:
 
       - name: Checkout project
         uses: actions/checkout@v3
         with:
           fetch-depth: 2
-
-      - name: Initialize PHP ${{ matrix.php_version }}
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php_version }}
-          coverage: pcov
 
       - name: Configure Composer cache
         id: composer-cache
