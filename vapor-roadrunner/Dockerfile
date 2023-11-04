@@ -13,10 +13,8 @@ EXPOSE 8080
 
 WORKDIR /var/task
 
-COPY . /var/task
-
 USER root
 
 RUN chown -R nobody.nobody /var/task
 
-CMD rr serve -c /var/task/.rr.yaml -w /var/task
+#CMD rr serve -c /var/task/.rr.yaml -w /var/task

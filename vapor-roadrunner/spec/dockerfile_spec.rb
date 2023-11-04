@@ -20,12 +20,18 @@ describe 'Dockerfile' do
     image = ::Docker::Image.build_from_dir(
       '.',
       't': 'abenevaut/vapor-roadrunner:rspec',
+      'cache-from': 'abenevaut/vapor-roadrunner:latest',
       'buildargs': build_args
     )
 
     set :os, family: :alpine
     set :backend, :docker
     set :docker_image, image.id
+  end
+
+  after(:all) do
+    # Reset the docker backend so other images/containers can be tested.
+    Specinfra::Backend::Docker.clear
   end
 
   describe file('/etc/os-release') do
