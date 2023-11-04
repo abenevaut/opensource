@@ -5,7 +5,7 @@
 | PHP            | VAPOR_VERSION            |
 | pcov           | defined by alpine images |
 | codecov        | latest                   |
-| composer       | COMPOSER_HASH            |
+| composer       | latest, COMPOSER_HASH    |
 | nodejs         | defined by alpine images |
 | npm            | defined by alpine images |
 | bash           | defined by alpine images |

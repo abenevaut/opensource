@@ -131,23 +131,7 @@ describe 'Dockerfile' do
   end
 
   it 'installs codecov' do
-    expect(codecov_version).to include('0.6.2')
-  end
-
-  def nodejs_version
-    command('node -v').stdout
-  end
-
-  it 'installs nodejs' do
-    expect(nodejs_version).to include('18.17.0')
-  end
-
-  def npm_version
-    command('npm -v').stdout
-  end
-
-  it 'installs npm' do
-    expect(npm_version).to include('9.6.6')
+    expect(codecov_version).to include('0.7.1')
   end
 
   def php_pcov_loaded
@@ -163,6 +147,6 @@ describe 'Dockerfile' do
   end
 
   it 'installs composer' do
-    expect(composer_version).to include('2.5.8')
+    expect(composer_version).to include('2.6.5')
   end
 end
