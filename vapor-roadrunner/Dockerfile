@@ -9,12 +9,8 @@ LABEL org.opencontainers.image.source https://github.com/abenevaut/opensource
 
 COPY --from=roadrunner /usr/bin/rr /usr/local/bin/rr
 
-EXPOSE 8080
+USER nobody
 
 WORKDIR /var/task
 
-USER root
-
-RUN chown -R nobody.nobody /var/task
-
-#CMD rr serve -c /var/task/.rr.yaml -w /var/task
+EXPOSE 8080
