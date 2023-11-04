@@ -5,8 +5,6 @@ on:
     branches: [ master ]
     paths:
       - 'vapor-ci/**'
-      - 'vapor-nginx/**'
-      - 'vapor-roadrunner/**'
       - 'docker-compose.yml'
 
 jobs:
