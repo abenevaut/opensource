@@ -27,6 +27,7 @@ jobs:
       cancel-in-progress: true
     strategy:
       fail-fast: true
+    container: ghcr.io/abenevaut/vapor-ci:latest
     steps:
 
       - name: Checkout project

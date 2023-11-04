@@ -28,6 +28,7 @@ jobs:
     concurrency:
       group: laravel-one-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
+    container: ghcr.io/abenevaut/vapor-ci:latest
     steps:
 
       - name: Checkout project
