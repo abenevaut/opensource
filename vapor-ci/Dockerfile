@@ -33,6 +33,4 @@ RUN curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyr
     && chmod +x codecov \
     && mv codecov /usr/local/bin
 
-USER nobody
-
 WORKDIR /var/task

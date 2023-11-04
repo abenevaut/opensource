@@ -44,9 +44,6 @@ RUN apk --no-cache add \
 # Add configuration files
 COPY --chown=nobody rootfs/ /
 
-# Switch to use a non-root user from here on
-USER nobody
-
 # Add application
 WORKDIR /var/task
 
