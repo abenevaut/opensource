@@ -9,7 +9,7 @@
 
 
 ```shell
-docker build . --file Dockerfile --tag abenevaut/vapor-ci:test \
+docker build . --file Dockerfile --tag abenevaut/vapor-roadrunner:test \
     --build-arg VAPOR_VERSION=81 
 ```
 
