@@ -24,7 +24,6 @@ docker build . --file Dockerfile --tag abenevaut/vapor-ci:test \
 ```
 
 - VAPOR_VERSION: vapor docker version, default `81`
-- NODE_VERSION: vapor docker version, default `18`
 - COMPOSER_HASH: composer hash to validate the binary (https://getcomposer.org/download/)
 - 🤓see also defined env variable in docker-compose en file located in upper directory (`../.env.example`)
 
@@ -40,10 +39,10 @@ version: 2
 jobs:
   build:
     docker:
-      - image: abenevaut/vapor-ci:latest
+      - image: ghcr.io/abenevaut/vapor-ci:latest
 ```
 
-### Customize with heritage
+### Customize with inheritance
 
 #### Install PHP extension
 

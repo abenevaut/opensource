@@ -8,10 +8,7 @@ RUN apk --update --no-cache add \
         bash \
         gnupg \
         gpgv \
-        # To have `shasum`
         perl-utils \
-        nodejs \
-        npm \
         openssh-client \
         git
 
