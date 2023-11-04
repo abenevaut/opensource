@@ -1,5 +1,6 @@
 .vs
 .env
+.docker
 node_modules
 vendor
 npm-debug.log

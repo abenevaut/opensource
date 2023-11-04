@@ -1,0 +1,27 @@
+name: vapor-nginx-build
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'vapor-nginx/**'
+      - 'docker-compose.yml'
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+    concurrency:
+      group: vapor-nginx-build-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: Prepare environment
+      run: cp .env.example .env
+
+    - name: Build docker image
+      run: docker-compose build vapor-nginx

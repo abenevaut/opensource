@@ -1108,15 +1108,11 @@
   </component>
   <component name="PhpUnit">
     <phpunit_settings>
-      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravel-stripe/phpunit.xml" custom_loader_path="$PROJECT_DIR$/laravel-stripe/vendor/autoload.php" use_configuration_file="true" />
-      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravel-ohdear/phpunit.xml" custom_loader_path="$PROJECT_DIR$/laravel-ohdear/vendor/autoload.php" use_configuration_file="true" />
       <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravel-sentry-handler/phpunit.xml" custom_loader_path="$PROJECT_DIR$/laravel-sentry-handler/vendor/autoload.php" use_configuration_file="true" />
       <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravel-infrastructure/phpunit.xml" custom_loader_path="$PROJECT_DIR$/laravel-infrastructure/vendor/autoload.php" use_configuration_file="true" />
       <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/demo-laravel-sentry-handler/phpunit.xml" custom_loader_path="$PROJECT_DIR$/demo-laravel-sentry-handler/vendor/autoload.php" use_configuration_file="true" />
       <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravel-session/phpunit.xml" custom_loader_path="$PROJECT_DIR$/laravel-session/vendor/autoload.php" use_configuration_file="true" />
-      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravel-paypal/phpunit.xml" custom_loader_path="$PROJECT_DIR$/laravel-paypal/vendor/autoload.php" use_configuration_file="true" />
-      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravel-one/phpunit.xml.dist" custom_loader_path="$PROJECT_DIR$/laravel-one/vendor/autoload.php" use_configuration_file="true" />
-      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/demo-laravel-stripe/phpunit.xml" custom_loader_path="$PROJECT_DIR$/demo-laravel-stripe/vendor/autoload.php" use_configuration_file="true" />
+      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravel-stripe/phpunit.xml" custom_loader_path="$PROJECT_DIR$/laravel-stripe/vendor/autoload.php" use_configuration_file="true" />
     </phpunit_settings>
   </component>
   <component name="PsalmOptionsConfiguration">

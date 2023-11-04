@@ -78,7 +78,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Test
-        run: vendor/bin/phpunit
+        run: composer test
 
       - name: Send coverage
         if: ${{ matrix.record_coverage }}
