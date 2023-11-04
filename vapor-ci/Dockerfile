@@ -12,8 +12,8 @@ RUN apk --update --no-cache add \
         openssh-client \
         git
 
-RUN pecl install pcov
-RUN docker-php-ext-enable pcov
+RUN pecl install pcov \
+    && docker-php-ext-enable pcov
 
 ENV COMPOSER_HOME /composer
 ENV PATH /composer/vendor/bin:$PATH
