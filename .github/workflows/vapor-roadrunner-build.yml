@@ -1,0 +1,27 @@
+name: vapor-roadrunner-build
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'vapor-roadrunner/**'
+      - 'docker-compose.yml'
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+    concurrency:
+      group: vapor-roadrunner-build-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: Prepare environment
+      run: cp .env.example .env
+
+    - name: Build docker image
+      run: docker-compose build vapor-roadrunner

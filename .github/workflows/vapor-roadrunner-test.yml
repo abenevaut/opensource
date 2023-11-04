@@ -1,0 +1,45 @@
+name: vapor-roadrunner-test
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'vapor-roadrunner/**'
+
+defaults:
+  run:
+    working-directory: ./vapor-roadrunner
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+    concurrency:
+      group: vapor-roadrunner-test-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - uses: actions/cache@v3
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+
+    - run: |
+        gem install bundler
+        bundle config path vendor/bundle
+        bundle install --jobs 4 --retry 3
+
+    - run: |
+        bundle exec rspec
+
+#        bundle exec rubocop
