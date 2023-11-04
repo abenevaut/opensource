@@ -20,6 +20,7 @@ describe 'Dockerfile' do
     image = ::Docker::Image.build_from_dir(
       '.',
       't': 'abenevaut/vapor-roadrunner:rspec',
+      'cache-from': 'abenevaut/vapor-roadrunner:latest',
       'buildargs': build_args
     )
 
