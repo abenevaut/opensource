@@ -8,4 +8,3 @@ spec
 .rspec
 .rubocop.yml
 vendor
-Dockerfile
