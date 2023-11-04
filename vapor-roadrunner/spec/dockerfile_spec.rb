@@ -13,7 +13,7 @@ describe 'Dockerfile' do
 
     build_args = JSON.generate(
       'VAPOR_VERSION': ENV['VAPOR_VERSION'],
-      'TAG_VAPOR_NGINX': ENV['TAG_VAPOR_NGINX'],
+      'TAG_VAPOR_ROADRUNNER': ENV['TAG_VAPOR_NGINX'],
       'COMPOSER_HASH': ENV['COMPOSER_HASH']
     )
 
