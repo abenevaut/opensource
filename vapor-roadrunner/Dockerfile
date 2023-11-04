@@ -13,8 +13,6 @@ EXPOSE 8080
 
 WORKDIR /var/task
 
-COPY . /var/task
-
 USER root
 
 RUN chown -R nobody.nobody /var/task
