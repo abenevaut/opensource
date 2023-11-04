@@ -30,6 +30,11 @@ describe 'Dockerfile' do
     set :docker_image, image.id
   end
 
+  after(:all) do
+    # Reset the docker backend so other images/containers can be tested.
+    Specinfra::Backend::Docker.clear
+  end
+
   describe file('/etc/os-release') do
     it { is_expected.to be_file }
   end
