@@ -15,7 +15,6 @@ LABEL org.opencontainers.image.source https://github.com/abenevaut/opensource
 RUN apk --no-cache add \
         nginx \
         runit \
-        curl \
 # Bring in gettext so we can get `envsubst`, then throw
 # the rest away. To do this, we need to install `gettext`
 # then move `envsubst` out of the way so `gettext` can
@@ -73,7 +72,3 @@ ENV client_max_body_size=2M \
     post_max_size=8M \
     upload_max_filesize=2M \
     zlib_output_compression=On
-
-# when you copy, assure that vendor/bundle (ruby stuff) is not present
-# when you copy, assure that node_modules (node stuff) is not present
-COPY . /var/task

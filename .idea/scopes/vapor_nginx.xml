@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="vapor-nginx" pattern="file:.github/workflows/vapor-nginx-build.yml||file:.github/workflows/vapor-nginx-publish.yml||file:.github/workflows/vapor-nginx-test.yml||file[opensource]:vapor-nginx//*||file:docs/vapor-nginx.md||file:.env||file:.env.example||file:docker-compose.yml" />
+</component>

@@ -1,15 +1,15 @@
 ## Image contains
 
-| Tool           | Version                  |
-|----------------|--------------------------|
-| PHP            | VAPOR_VERSION            |
-| rr           | defined by alpine images |
+| Tool  | Version                  |
+|-------|--------------------------|
+| PHP   | VAPOR_VERSION            |
+| nginx | defined by alpine images |
 
 ## Build
 
 
 ```shell
-docker build . --file Dockerfile --tag abenevaut/vapor-roadrunner:test \
+docker build . --file Dockerfile --tag abenevaut/vapor-nginx:test \
     --build-arg VAPOR_VERSION=81 
 ```
 
@@ -21,14 +21,12 @@ docker build . --file Dockerfile --tag abenevaut/vapor-roadrunner:test \
 ### Inheritance
 
 ```dockerfile
-FROM --platform=linux/amd64 abenevaut/vapor-roadrunner:latest
+FROM --platform=linux/amd64 abenevaut/vapor-nginx:latest
 
 COPY . /var/task
 
 USER root
 RUN chown -R nobody.nobody /var/task
-
-CMD rr serve -c /var/task/.rr.yaml -w /var/task
 ```
 
 ### Customize with heritage
