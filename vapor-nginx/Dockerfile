@@ -73,7 +73,3 @@ ENV client_max_body_size=2M \
     post_max_size=8M \
     upload_max_filesize=2M \
     zlib_output_compression=On
-
-# when you copy, assure that vendor/bundle (ruby stuff) is not present
-# when you copy, assure that node_modules (node stuff) is not present
-COPY . /var/task
