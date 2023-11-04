@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+
+  vapor-ci:
+    image: ghcr.io/abenevaut/vapor-ci:${TAG_VAPOR_CI:-latest}
+    build:
+      context: ./vapor-ci
+#      cache_from:
+#        - ghcr.io/abenevaut/vapor-ci:latest
+      args:
+        - VAPOR_VERSION=${VAPOR_VERSION}
+        - COMPOSER_HASH=${COMPOSER_HASH}
+
+  vapor-nginx:
+    image: ghcr.io/abenevaut/vapor-nginx:${TAG_VAPOR_NGINX:-latest}
+    build:
+      context: ./vapor-nginx
+      #      cache_from:
+      #        - ghcr.io/abenevaut/vapor-nginx:latest
+      args:
+        - VAPOR_VERSION=${VAPOR_VERSION}
+
+  vapor-roadrunner:
+    image: ghcr.io/abenevaut/vapor-roadrunner:${TAG_VAPOR_NGINX:-latest}
+    build:
+      context: ./vapor-roadrunner
+      #      cache_from:
+      #        - ghcr.io/abenevaut/vapor-nginx:latest
+      args:
+        - VAPOR_VERSION=${VAPOR_VERSION}

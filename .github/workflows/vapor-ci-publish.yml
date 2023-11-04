@@ -1,0 +1,31 @@
+name: vapor-ci-publish
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v1
+
+      - name: Prepare environment
+        run: cp .env.example .env
+
+      - name: Log to docker hub
+        run: docker login ghcr.io --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build docker image
+        run: |
+          TAG_VAPOR_CI=latest-vapor-ci docker-compose build vapor-ci
+          docker-compose build vapor-ci
+
+      - name: Publish docker image
+        run: |
+          TAG_VAPOR_CI=latest-vapor-ci docker-compose push vapor-ci
+          docker-compose push vapor-ci

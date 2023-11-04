@@ -1,0 +1,24 @@
+name: vapor-ci-build
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'vapor-ci/**'
+      - 'vapor-nginx/**'
+      - 'vapor-roadrunner/**'
+      - 'docker-compose.yml'
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: Prepare environment
+      run: cp .env.example .env
+
+    - name: Build docker image
+      run: docker-compose build vapor-ci
