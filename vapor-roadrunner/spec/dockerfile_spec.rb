@@ -26,8 +26,8 @@ describe 'Dockerfile' do
       }
     )
 
-    set :os, family: :alpine
-    set :backend, :docker
+    set :os, { 'family' => 'alpine' }
+    set :backend, :cmd
     set :docker_image, image.id
   end
 
