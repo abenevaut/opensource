@@ -31,13 +31,13 @@ jobs:
     container: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
     steps:
 
-      - name: Install PHP extension
-        run: docker-php-ext-install exif
-
       - name: Checkout project
         uses: actions/checkout@v3
         with:
           fetch-depth: 2
+
+      - name: Install PHP extension
+        run: docker-php-ext-install exif
 
       - name: Configure Composer cache
         id: composer-cache

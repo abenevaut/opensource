@@ -24,9 +24,6 @@ jobs:
     container: ghcr.io/abenevaut/vapor-ci:php${{ env.php_version }}
     steps:
 
-      - name: Install PHP extension
-        run: docker-php-ext-install exif
-
       - name: Checkout project
         uses: actions/checkout@v3
         with:
@@ -35,6 +32,9 @@ jobs:
       - name: Get current release tag
         id: branch-name
         run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/phpunit-slicer-}" >> $GITHUB_OUTPUT
+
+      - name: Install PHP extension
+        run: docker-php-ext-install exif
 
       - name: Configure Composer cache
         id: composer-cache
