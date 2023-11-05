@@ -48,6 +48,9 @@ jobs:
       - name: Validate Composer.json
         run: composer validate --strict
 
+      - name: Install PHP extension
+        run: docker-php-ext-install exif
+
       - name: Composer install
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install -o --no-interaction --prefer-dist
