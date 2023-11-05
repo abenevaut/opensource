@@ -9,19 +9,18 @@ defaults:
   run:
     working-directory: ./laravel-one
 
-env:
-  php_version: 81
-
 jobs:
 
   release:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
+      matrix:
+        php_version: [ 81 ]
     concurrency:
-      group: laravel-one-release
+      group: laravel-one-release-${{ matrix.php_version }}
       cancel-in-progress: false
-    container: ghcr.io/abenevaut/vapor-ci:php${{ env.php_version }}
+    container: ghcr.io/abenevaut/vapor-ci:php81
     steps:
 
       - name: Checkout project
@@ -41,9 +40,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: laravel-one/vendor
-          key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.json') }}
+          key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-php_${{ env.php_version }}-
+            ${{ runner.os }}-node-php_${{ matrix.php_version }}-
 
       - name: Composer install
         if: steps.composer-cache.outputs.cache-hit != 'true'
