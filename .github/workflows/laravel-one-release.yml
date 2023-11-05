@@ -20,7 +20,9 @@ jobs:
     concurrency:
       group: laravel-one-release-${{ matrix.php_version }}
       cancel-in-progress: false
-    container: ghcr.io/abenevaut/vapor-ci:php81
+    container:
+      image: ghcr.io/abenevaut/vapor-ci:php81
+      options: --user nobody
     steps:
 
       - name: Checkout project
@@ -52,9 +54,13 @@ jobs:
         run: composer install --optimize-autoloader --no-interaction --prefer-dist
 
       - name: Build VHS
-        uses: charmbracelet/vhs-action@v1
+        uses: charmbracelet/vhs-action@v2
         with:
           path: 'laravel-one/demo.tape'
+          install-only: true
+
+      - name: Build VHS
+        run: vhs laravel-one/demo.tape
 
       - name: Build
         run: php laravel-one app:build laravel-one --build-version=${{ steps.branch-name.outputs.SOURCE_TAG }}
