@@ -14,6 +14,8 @@ jobs:
         include:
           - php_version: 82
             latest: true
+          - php_version: 83
+            release-candidate: true
     concurrency:
       group: vapor-ci-release
       cancel-in-progress: false
@@ -31,12 +33,20 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build "latest" docker image
-        if: ${{ matrix.record_coverage }}
+        if: ${{ matrix.latest }}
         run: TAG_VAPOR_CI=latest docker-compose build vapor-ci
 
       - name: Publish "latest" docker image
-        if: ${{ matrix.record_coverage }}
+        if: ${{ matrix.latest }}
         run: TAG_VAPOR_CI=latest docker-compose push vapor-ci
+
+      - name: Build "release-candidate" docker image
+        if: ${{ matrix.release-candidate }}
+        run: TAG_VAPOR_CI=release-candidate docker-compose build vapor-ci
+
+      - name: Publish "release-candidate" docker image
+        if: ${{ matrix.release-candidate }}
+        run: TAG_VAPOR_CI=release-candidate docker-compose push vapor-ci
 
       - name: Build "php${{ matrix.php_version }}" docker image
         run: VAPOR_VERSION=php${{ matrix.php_version }} docker-compose build vapor-ci
