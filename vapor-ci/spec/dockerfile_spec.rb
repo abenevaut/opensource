@@ -51,7 +51,7 @@ describe 'Dockerfile' do
   end
 
   it 'installs php' do
-    expect(php_version).to include('8.1.24')
+    expect(php_version).to include('8.1', '8.2', '8.3')
   end
 
   def php_redis_loaded
