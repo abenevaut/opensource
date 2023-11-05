@@ -56,7 +56,6 @@ jobs:
       - name: Build VHS
         uses: charmbracelet/vhs-action@v2
         with:
-          path: 'laravel-one/demo.tape'
           install-only: true
 
       - name: Build VHS
