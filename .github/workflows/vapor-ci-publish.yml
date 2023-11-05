@@ -9,6 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
+      matrix:
+        php_version: [ 81, 82, 83 ]
+        include:
+          - php_version: 82
+            latest: true
+          - php_version: 83
+            release-candidate: true
     concurrency:
       group: vapor-ci-release
       cancel-in-progress: false
@@ -25,12 +32,24 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build docker image
-        run: |
-          TAG_VAPOR_CI=latest docker-compose build vapor-ci
-          docker-compose build vapor-ci
+      - name: Build "latest" docker image
+        if: ${{ matrix.latest }}
+        run: TAG_VAPOR_CI=latest docker-compose build vapor-ci
 
-      - name: Publish docker image
-        run: |
-          TAG_VAPOR_CI=latest docker-compose push vapor-ci
-          docker-compose push vapor-ci
+      - name: Publish "latest" docker image
+        if: ${{ matrix.latest }}
+        run: TAG_VAPOR_CI=latest docker-compose push vapor-ci
+
+      - name: Build "release-candidate" docker image
+        if: ${{ matrix.release-candidate }}
+        run: TAG_VAPOR_CI=release-candidate docker-compose build vapor-ci
+
+      - name: Publish "release-candidate" docker image
+        if: ${{ matrix.release-candidate }}
+        run: TAG_VAPOR_CI=release-candidate docker-compose push vapor-ci
+
+      - name: Build "php${{ matrix.php_version }}" docker image
+        run: VAPOR_VERSION=php${{ matrix.php_version }} docker-compose build vapor-ci
+
+      - name: Publish "php${{ matrix.php_version }}" docker image
+        run: VAPOR_VERSION=php${{ matrix.php_version }} docker-compose push vapor-ci

@@ -13,8 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
+      matrix:
+        php_version: [ 81, 82, 83 ]
     concurrency:
-      group: vapor-ci-build-${{ github.workflow }}-${{ github.ref }}
+      group: vapor-ci-build-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
     steps:
 
@@ -24,4 +26,4 @@ jobs:
       run: cp .env.example .env
 
     - name: Build docker image
-      run: docker-compose build vapor-ci
+      run: TAG_VAPOR_CI=php${{ matrix.php_version }} docker-compose build vapor-ci
