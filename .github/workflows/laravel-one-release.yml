@@ -20,9 +20,7 @@ jobs:
     concurrency:
       group: laravel-one-release-${{ matrix.php_version }}
       cancel-in-progress: false
-    container:
-      image: ghcr.io/abenevaut/vapor-ci:php81
-      options: --user nobody
+    container: ghcr.io/abenevaut/vapor-ci:php81
     steps:
 
       - name: Checkout project
