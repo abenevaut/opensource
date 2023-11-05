@@ -34,7 +34,7 @@ jobs:
 
       - name: Build "latest" docker image
         if: ${{ matrix.latest }}
-        run: TAG_VAPOR_CI=latest docker-compose build vapor-ci
+        run: TAG_VAPOR_CI=latest VAPOR_VERSION=${{ matrix.php_version }} docker-compose build vapor-ci
 
       - name: Publish "latest" docker image
         if: ${{ matrix.latest }}
@@ -42,14 +42,14 @@ jobs:
 
       - name: Build "release-candidate" docker image
         if: ${{ matrix.release-candidate }}
-        run: TAG_VAPOR_CI=release-candidate docker-compose build vapor-ci
+        run: TAG_VAPOR_CI=release-candidate VAPOR_VERSION=${{ matrix.php_version }} docker-compose build vapor-ci
 
       - name: Publish "release-candidate" docker image
         if: ${{ matrix.release-candidate }}
         run: TAG_VAPOR_CI=release-candidate docker-compose push vapor-ci
 
       - name: Build "php${{ matrix.php_version }}" docker image
-        run: VAPOR_VERSION=php${{ matrix.php_version }} docker-compose build vapor-ci
+        run: VAPOR_VERSION=${{ matrix.php_version }} docker-compose build vapor-ci
 
       - name: Publish "php${{ matrix.php_version }}" docker image
-        run: VAPOR_VERSION=php${{ matrix.php_version }} docker-compose push vapor-ci
+        run: VAPOR_VERSION=${{ matrix.php_version }} docker-compose push vapor-ci
