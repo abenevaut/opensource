@@ -11,7 +11,7 @@
 | bash           | defined by alpine images |
 | gnupg          | defined by alpine images |
 | gpgv           | defined by alpine images |
-| perl-utils           | defined by alpine images |
+| perl-utils     | defined by alpine images |
 | openssh-client | defined by alpine images |
 | git            | defined by alpine images |
 
