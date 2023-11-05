@@ -49,7 +49,7 @@ jobs:
         run: TAG_VAPOR_CI=release-candidate docker-compose push vapor-ci
 
       - name: Build "php${{ matrix.php_version }}" docker image
-        run: VAPOR_VERSION=${{ matrix.php_version }} docker-compose build vapor-ci
+        run: TAG_VAPOR_CI=php${{ matrix.php_version }} VAPOR_VERSION=${{ matrix.php_version }} docker-compose build vapor-ci
 
       - name: Publish "php${{ matrix.php_version }}" docker image
-        run: VAPOR_VERSION=${{ matrix.php_version }} docker-compose push vapor-ci
+        run: TAG_VAPOR_CI=php${{ matrix.php_version }} docker-compose push vapor-ci
