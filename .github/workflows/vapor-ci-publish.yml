@@ -17,7 +17,7 @@ jobs:
           - php_version: 83
             release-candidate: true
     concurrency:
-      group: vapor-ci-release
+      group: vapor-ci-release--${{ matrix.php_version }}
       cancel-in-progress: false
     steps:
 
