@@ -32,6 +32,9 @@ jobs:
         id: branch-name
         run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/phpunit-slicer-}" >> $GITHUB_OUTPUT
 
+      - name: Install Chromium (required by VHS)
+        run: apk add chromium
+
       - name: Install PHP extension
         run: docker-php-ext-install exif
 
