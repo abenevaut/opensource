@@ -10,7 +10,7 @@ defaults:
     working-directory: ./laravel-one
 
 env:
-  php_version: 8.1
+  php_version: 81
 
 jobs:
 
@@ -21,7 +21,11 @@ jobs:
     concurrency:
       group: laravel-one-release
       cancel-in-progress: false
+    container: ghcr.io/abenevaut/vapor-ci:php${{ env.php_version }}
     steps:
+
+      - name: Install PHP extension
+        run: docker-php-ext-install exif
 
       - name: Checkout project
         uses: actions/checkout@v3
@@ -31,11 +35,6 @@ jobs:
       - name: Get current release tag
         id: branch-name
         run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/phpunit-slicer-}" >> $GITHUB_OUTPUT
-
-      - name: Initialize PHP ${{ env.php_version }}
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ env.php_version }}
 
       - name: Configure Composer cache
         id: composer-cache

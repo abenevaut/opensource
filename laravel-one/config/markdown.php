@@ -7,7 +7,7 @@ return [
          *
          * More info: https://spatie.be/docs/laravel-markdown/v1/installation-setup
          */
-        'enabled' => true,
+        'enabled' => false,
 
         /*
          * The name of or path to a Shiki theme
@@ -25,7 +25,7 @@ return [
     /**
      * When enabled, anchors will be rendered as links.
      */
-    'render_anchors_as_links' => false,
+    'render_anchors_as_links' => true,
 
     /*
      * These options will be passed to the league/commonmark package which is

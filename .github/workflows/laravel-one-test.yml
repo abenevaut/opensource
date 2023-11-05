@@ -31,6 +31,9 @@ jobs:
     container: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
     steps:
 
+      - name: Install PHP extension
+        run: docker-php-ext-install exif
+
       - name: Checkout project
         uses: actions/checkout@v3
         with:
@@ -47,9 +50,6 @@ jobs:
 
       - name: Validate Composer.json
         run: composer validate --strict
-
-      - name: Install PHP extension
-        run: docker-php-ext-install exif
 
       - name: Composer install
         if: steps.composer-cache.outputs.cache-hit != 'true'
@@ -71,6 +71,6 @@ jobs:
 
       - name: Send coverage
         if: ${{ matrix.record_coverage }}
-        run: bash <(curl -s https://codecov.io/bash) -f coverage/clover.xml -F laravel-one
+        run: codecov -f coverage/clover.xml -F laravel-one
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
