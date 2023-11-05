@@ -15,6 +15,10 @@
       <sourceFolder url="file://$MODULE_DIR$/laravel-paypal/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-session/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-stripe/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-one/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-one/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-sentry-handler/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-session/spec" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-stripe/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-ohdear/.phpunit.cache" />
@@ -175,6 +179,8 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/vendor/ondram/ci-detector" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/vendor/psr/clock" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/vendor/symfony/polyfill-php83" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/laravel/prompts" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/symfony/polyfill-php83" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

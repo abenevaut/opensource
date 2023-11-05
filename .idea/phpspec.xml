@@ -38,6 +38,9 @@
       <PhpSpecSuiteConfiguration>
         <option name="myPath" value="$PROJECT_DIR$/laravel-session" />
       </PhpSpecSuiteConfiguration>
+      <PhpSpecSuiteConfiguration>
+        <option name="myPath" value="$PROJECT_DIR$/laravel-one" />
+      </PhpSpecSuiteConfiguration>
     </suites>
   </component>
 </project>
