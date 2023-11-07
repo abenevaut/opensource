@@ -6,8 +6,6 @@
 | pcov           | defined by alpine images |
 | codecov        | latest                   |
 | composer       | latest, COMPOSER_HASH    |
-| nodejs         | defined by alpine images |
-| npm            | defined by alpine images |
 | bash           | defined by alpine images |
 | gnupg          | defined by alpine images |
 | gpgv           | defined by alpine images |
