@@ -45,8 +45,12 @@ describe 'Dockerfile' do
     end
   end
 
-  describe package('rr') do
-    it { is_expected.to be_installed }
+  def rr_version
+    command('rr -v').stdout
+  end
+
+  it 'installs roadrunnger' do
+    expect(rr_version).to include('2023.3')
   end
 
   def php_version
