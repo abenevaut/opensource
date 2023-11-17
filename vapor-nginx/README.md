@@ -38,6 +38,11 @@ RUN pecl install imagick
 RUN docker-php-ext-enable imagick
 ```
 
+Then, setup extension file (ex: `imagick.ini`) in `rootfs/usr/local/etc/php/conf.d` or in `rootfs/usr/local/etc/php/templates/conf.d`, if you would like to override configuration values with ENV vars.
+
+Note: the entrypoint script run services located in `rootfs/etc/service`, and `php/run` setup templates.
+
+
 ## Test
 
 Docker testing is running with Ruby (with https://bundler.io/)
