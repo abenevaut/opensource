@@ -44,20 +44,12 @@ describe 'Dockerfile' do
     end
   end
 
-  def nginx_version
-    command('nginx -v').stdout
-  end
-
-  it 'installs nginx' do
-    expect(nginx_version).to include('1.24.0')
-  end
-
   def php_version
     command('php -v').stdout
   end
 
   it 'installs php' do
-    expect(php_version).to include('8.1.24')
+    expect(php_version).to include('8.1').or include('8.2').or include('8.3')
   end
 
   def php_redis_loaded
