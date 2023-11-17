@@ -21,7 +21,7 @@ describe 'Dockerfile' do
     image = ::Docker::Image.build_from_dir(
       '.',
       't': 'abenevaut/vapor-ci:rspec',
-      'cache-from': 'abenevaut/vapor-ci:latest',
+      'cache-from': 'ghcr.io/abenevaut/vapor-ci:latest',
       'buildargs': build_args
     )
 
@@ -30,7 +30,7 @@ describe 'Dockerfile' do
     set :docker_image, image.id
   end
 
-  after(:all) do
+  after(:all) do # rubocop:disable RSpec/BeforeAfterAll
     # Reset the docker backend so other images/containers can be tested.
     Specinfra::Backend::Docker.clear
   end
@@ -135,7 +135,7 @@ describe 'Dockerfile' do
   end
 
   def php_opcache_loaded
-    command('php -r "var_dump(extension_loaded(\'opcache\'));"').stdout
+    command('php -r "var_dump(extension_loaded(\'Zend OPcache\'));"').stdout
   end
 
   it 'installs php-opcache' do
@@ -143,11 +143,11 @@ describe 'Dockerfile' do
   end
 
   def php_opcache_enabled
-    command('php -r "var_dump(ini_get(\'opcache.enabled\'));"').stdout
+    command('php -r "var_dump(ini_get(\'opcache.enable\'));"').stdout
   end
 
   it 'php-opcache is not enabled' do
-    expect(php_opcache_enabled).to include('0')
+    expect(php_opcache_enabled).not_to include('string(1) "1"')
   end
 
   def composer_version
