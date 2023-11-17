@@ -60,6 +60,7 @@ ENV client_max_body_size=2M \
     post_max_size=8M \
     upload_max_filesize=2M \
     zlib_output_compression=On \
+    opcache_enable=Off \
     date_timezone=UTC
 
 RUN pecl install pcov
