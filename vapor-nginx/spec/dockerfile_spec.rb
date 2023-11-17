@@ -44,6 +44,14 @@ describe 'Dockerfile' do
     end
   end
 
+  def nginx_version
+    command('nginx -v').stdout
+  end
+
+  it 'installs nginx' do
+    expect(nginx_version).to include('1.24.0')
+  end
+
   def php_version
     command('php -v').stdout
   end
