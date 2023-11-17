@@ -45,11 +45,11 @@ describe 'Dockerfile' do
   end
 
   describe package('nginx') do
-    it { should be_installed }
+    it { is_expected.to be_installed }
   end
 
   describe port(8080) do
-    it { should be_listening }
+    it { is_expected.to be_listening }
   end
 
   def php_version
@@ -61,7 +61,7 @@ describe 'Dockerfile' do
   end
 
   describe port(9000) do
-    it { should be_listening }
+    it { is_expected.to be_listening }
   end
 
   def php_redis_loaded
