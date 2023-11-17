@@ -134,6 +134,22 @@ describe 'Dockerfile' do
     expect(php_pcov_loaded).to include('true')
   end
 
+  def php_opcache_loaded
+    command('php -r "var_dump(extension_loaded(\'opcache\'));"').stdout
+  end
+
+  it 'installs php-opcache' do
+    expect(php_opcache_loaded).to include('true')
+  end
+
+  def php_opcache_enabled
+    command('php -r "var_dump(ini_get(\'opcache.enabled\'));"').stdout
+  end
+
+  it 'php-opcache is not enabled' do
+    expect(php_opcache_enabled).to include('0')
+  end
+
   def composer_version
     command('composer -V').stdout
   end
