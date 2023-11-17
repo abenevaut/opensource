@@ -1,20 +1,12 @@
-#
-# docker build --build-arg VAPOR_VERSION="81" . --tag abenevaut/opensource:latest-vapor-nginx
-#
-# Add `--add-host host.docker.internal:host-gateway` when you use windows
-# docker run --rm -v "./.docker/storage:/var/task/storage" -p 8080:8080 abenevaut/opensource:latest-vapor-nginx
-#
-
 ARG VAPOR_VERSION
 FROM --platform=linux/amd64 laravelphp/vapor:php${VAPOR_VERSION}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.source https://github.com/abenevaut/opensource
 
-# Install packages
-RUN apk --no-cache add \
-        nginx \
+RUN apk --update --no-cache add \
         runit \
+        nginx \
 # Bring in gettext so we can get `envsubst`, then throw
 # the rest away. To do this, we need to install `gettext`
 # then move `envsubst` out of the way so `gettext` can
@@ -32,14 +24,15 @@ RUN apk --no-cache add \
     && apk del .gettext \
     && mv /tmp/envsubst /usr/local/bin/ \
 # Remove alpine cache
-    && rm -rf /var/cache/apk/* \
-# Remove default server definition
-    && rm /etc/nginx/http.d/default.conf \
+    && rm -rf /var/cache/apk/*
+
 # Make sure files/folders needed by the processes are accessable when they run under the nobody user
-    && chown -R nobody.nobody /run \
+RUN chown -R nobody.nobody /run
+
+# Remove NGINX default server definition
+RUN rm /etc/nginx/http.d/default.conf \
     && chown -R nobody.nobody /var/lib/nginx \
     && chown -R nobody.nobody /var/log/nginx
-
 
 # Add configuration files
 COPY --chown=nobody rootfs/ /
@@ -47,11 +40,16 @@ COPY --chown=nobody rootfs/ /
 # Add application
 WORKDIR /var/task
 
+# Expose the port php-fpm is reachable on
+EXPOSE 9000
+
 # Expose the port nginx is reachable on
 EXPOSE 8080
 
 # Let runit start nginx & php-fpm
-CMD [ "/bin/docker-entrypoint.sh" ]
+ENTRYPOINT [ "/bin/docker-entrypoint.sh" ]
+
+CMD []
 
 # Configure a healthcheck to validate that everything is up&running
 HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:8080/fpm-ping
@@ -68,4 +66,6 @@ ENV client_max_body_size=2M \
     memory_limit=128M \
     post_max_size=8M \
     upload_max_filesize=2M \
-    zlib_output_compression=On
+    zlib_output_compression=On \
+    opcache_enable=On \
+    date_timezone=UTC

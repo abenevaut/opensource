@@ -42,8 +42,7 @@ jobs:
         bundle install --jobs 4 --retry 3
 
     - run: |
+        bundle exec rubocop
         bundle exec rspec
       env:
         VAPOR_VERSION: ${{ matrix.php_version }}
-
-#        bundle exec rubocop

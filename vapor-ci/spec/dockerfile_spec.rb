@@ -150,6 +150,14 @@ describe 'Dockerfile' do
     expect(php_opcache_enabled).not_to include('string(1) "1"')
   end
 
+  def php_opcache_cli_enabled
+    command('php -r "var_dump(ini_get(\'opcache.enable_cli\'));"').stdout
+  end
+
+  it 'php-opcache cli is not enabled' do
+    expect(php_opcache_cli_enabled).not_to include('string(1) "1"')
+  end
+
   def composer_version
     command('composer -V').stdout
   end

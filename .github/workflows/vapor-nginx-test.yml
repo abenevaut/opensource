@@ -16,8 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
+      matrix:
+        php_version: [ 81, 82, 83 ]
     concurrency:
-      group: vapor-nginx-test-${{ github.workflow }}-${{ github.ref }}
+      group: vapor-nginx-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
     steps:
 
@@ -42,3 +44,5 @@ jobs:
     - run: |
         bundle exec rubocop
         bundle exec rspec
+      env:
+        VAPOR_VERSION: ${{ matrix.php_version }}

@@ -1,5 +1,9 @@
 #!/bin/sh
 
+#
+# Manage services in `/etc/service`
+#
+
 shutdown() {
   echo "shutting down container"
 
