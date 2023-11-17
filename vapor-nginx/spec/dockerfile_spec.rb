@@ -44,12 +44,24 @@ describe 'Dockerfile' do
     end
   end
 
+  describe package('nginx') do
+    it { should be_installed }
+  end
+
+  describe port(8080) do
+    it { should be_listening }
+  end
+
   def php_version
     command('php -v').stdout
   end
 
   it 'installs php' do
     expect(php_version).to include('8.1').or include('8.2').or include('8.3')
+  end
+
+  describe port(9000) do
+    it { should be_listening }
   end
 
   def php_redis_loaded
