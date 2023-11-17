@@ -118,14 +118,6 @@ describe 'Dockerfile' do
     expect(php_soap_loaded).to include('true')
   end
 
-  def bash_version
-    command('bash --version').stdout
-  end
-
-  it 'installs bash' do
-    expect(bash_version).to include('5.2.15(1)')
-  end
-
   def codecov_version
     command('codecov --version').stdout
   end

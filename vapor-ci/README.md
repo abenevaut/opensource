@@ -47,7 +47,7 @@ jobs:
 #### Install PHP extension
 
 ```dockerfile
-RUN pecl install pcov imagick
+RUN pecl install imagick
 RUN docker-php-ext-enable imagick
 ```
 
