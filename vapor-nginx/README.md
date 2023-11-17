@@ -7,7 +7,6 @@
 
 ## Build
 
-
 ```shell
 docker build . --file Dockerfile --tag abenevaut/vapor-nginx:test \
     --build-arg VAPOR_VERSION=81 
