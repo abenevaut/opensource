@@ -40,6 +40,19 @@ jobs:
       - image: ghcr.io/abenevaut/vapor-ci:latest
 ```
 
+### With GithubAction
+
+- Set the docker image in `.github/workflows/<your-pipeline>.yml`
+
+```yaml
+name: <your-pipeline>
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ghcr.io/abenevaut/vapor-ci:latest
+```
+
 ### Customize with inheritance
 
 #### Install PHP extension
