@@ -43,7 +43,7 @@ jobs:
       - name: Configure Composer cache
         uses: actions/cache@v3
         with:
-          path: auth/vendor
+          path: laravel-infrastructure/vendor
           key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.json') }}
           restore-keys: ${{ runner.os }}-node-php_${{ env.php_version }}-
 
