@@ -1,10 +1,3 @@
-## Image contains
-
-| Tool | Version                  |
-|------|--------------------------|
-| PHP  | VAPOR_VERSION            |
-| rr   | defined by alpine images |
-
 ## Build
 
 ```shell
@@ -32,7 +25,18 @@ CMD rr serve -c /var/task/.rr.yaml -w /var/task
 EXPOSE 8080
 ```
 
-### Customize with heritage
+Note: the `CMD` instruction is required to execute roadrunner binary with flexibilities.
+If you are adventurous you can add a roadrunner service in `rootfs/etc/service` to lunch it automatically.
+
+- example of `rootfs/etc/service/roadrunner/run`: (remember to `COPY` it from your Dockerfile)
+
+```shell
+#!/bin/sh -e
+
+rr serve -c /var/task/.rr.yaml -w /var/task
+```
+
+### Customize with inheritance
 
 #### Install PHP extension
 
