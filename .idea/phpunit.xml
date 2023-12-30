@@ -11,9 +11,9 @@
         <option value="$PROJECT_DIR$/laravel-stripe/tests" />
         <option value="$PROJECT_DIR$/laravel-one/tests" />
         <option value="$PROJECT_DIR$/laravel-session/tests" />
-        <option value="$PROJECT_DIR$/laravel-infrastructure/tests" />
-        <option value="$PROJECT_DIR$/demo-laravel-sentry-handler/tests" />
         <option value="$PROJECT_DIR$/laravel-sentry-handler/tests" />
+        <option value="$PROJECT_DIR$/demo-laravel-sentry-handler/tests" />
+        <option value="$PROJECT_DIR$/laravel-infrastructure/tests" />
       </list>
     </option>
   </component>

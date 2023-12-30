@@ -14,8 +14,8 @@ jobs:
         include:
           - php_version: 83
             latest: true
-          - php_version: 84
-            release-candidate: true
+#          - php_version: 84
+#            release-candidate: true
     concurrency:
       group: vapor-nginx-release-${{ matrix.php_version }}
       cancel-in-progress: false
