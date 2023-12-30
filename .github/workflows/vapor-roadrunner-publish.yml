@@ -12,9 +12,9 @@ jobs:
       matrix:
         php_version: [ 81, 82, 83 ]
         include:
-          - php_version: 82
-            latest: true
           - php_version: 83
+            latest: true
+          - php_version: 84
             release-candidate: true
     concurrency:
       group: vapor-roadrunner-release-${{ matrix.php_version }}
