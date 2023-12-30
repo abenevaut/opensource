@@ -1,10 +1,3 @@
-## Image contains
-
-| Tool  | Version                  |
-|-------|--------------------------|
-| PHP   | VAPOR_VERSION            |
-| nginx | defined by alpine images |
-
 ## Build
 
 ```shell
