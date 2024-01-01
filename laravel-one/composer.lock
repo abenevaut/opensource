@@ -835,16 +835,16 @@
         },
         {
             "name": "illuminate/bus",
-            "version": "v10.30.1",
+            "version": "v10.39.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/bus.git",
-                "reference": "aba48b9b7b9266a62b8e5ece47919533b3d49de7"
+                "reference": "8db4b00a3f6071075e9f08094c6c7b059f8deddf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/bus/zipball/aba48b9b7b9266a62b8e5ece47919533b3d49de7",
-                "reference": "aba48b9b7b9266a62b8e5ece47919533b3d49de7",
+                "url": "https://api.github.com/repos/illuminate/bus/zipball/8db4b00a3f6071075e9f08094c6c7b059f8deddf",
+                "reference": "8db4b00a3f6071075e9f08094c6c7b059f8deddf",
                 "shasum": ""
             },
             "require": {
@@ -884,20 +884,20 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-08-27T20:33:50+00:00"
+            "time": "2023-12-15T14:09:57+00:00"
         },
         {
             "name": "illuminate/cache",
-            "version": "v10.30.1",
+            "version": "v10.39.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/cache.git",
-                "reference": "7138cb3be775955f9d19a2f4be69c37a4e8d368b"
+                "reference": "2386b503f88ebb13c0dae4f9610cdc2736282414"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/cache/zipball/7138cb3be775955f9d19a2f4be69c37a4e8d368b",
-                "reference": "7138cb3be775955f9d19a2f4be69c37a4e8d368b",
+                "url": "https://api.github.com/repos/illuminate/cache/zipball/2386b503f88ebb13c0dae4f9610cdc2736282414",
+                "reference": "2386b503f88ebb13c0dae4f9610cdc2736282414",
                 "shasum": ""
             },
             "require": {
@@ -946,7 +946,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-10-26T14:06:20+00:00"
+            "time": "2023-12-15T14:08:40+00:00"
         },
         {
             "name": "illuminate/collections",
@@ -1150,7 +1150,7 @@
         },
         {
             "name": "illuminate/events",
-            "version": "v10.30.1",
+            "version": "v10.39.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/events.git",
@@ -1667,16 +1667,16 @@
         },
         {
             "name": "illuminate/view",
-            "version": "v10.30.1",
+            "version": "v10.39.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/view.git",
-                "reference": "482ea8ac83bb4290b7f65ac086bd52b27b9bec48"
+                "reference": "2a921307ddf8d32f926d85a5999e529f178ac6f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/view/zipball/482ea8ac83bb4290b7f65ac086bd52b27b9bec48",
-                "reference": "482ea8ac83bb4290b7f65ac086bd52b27b9bec48",
+                "url": "https://api.github.com/repos/illuminate/view/zipball/2a921307ddf8d32f926d85a5999e529f178ac6f5",
+                "reference": "2a921307ddf8d32f926d85a5999e529f178ac6f5",
                 "shasum": ""
             },
             "require": {
@@ -1717,7 +1717,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-10-13T14:15:52+00:00"
+            "time": "2023-12-23T15:09:08+00:00"
         },
         {
             "name": "intervention/image",
@@ -4106,16 +4106,16 @@
         },
         {
             "name": "spatie/laravel-markdown",
-            "version": "2.4.0",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-markdown.git",
-                "reference": "38d11c666ccdbf111535677c1d927b349b64aca4"
+                "reference": "c47bfee45b705a203550f621eb43ecce164a36c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-markdown/zipball/38d11c666ccdbf111535677c1d927b349b64aca4",
-                "reference": "38d11c666ccdbf111535677c1d927b349b64aca4",
+                "url": "https://api.github.com/repos/spatie/laravel-markdown/zipball/c47bfee45b705a203550f621eb43ecce164a36c3",
+                "reference": "c47bfee45b705a203550f621eb43ecce164a36c3",
                 "shasum": ""
             },
             "require": {
@@ -4170,7 +4170,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/laravel-markdown/tree/2.4.0"
+                "source": "https://github.com/spatie/laravel-markdown/tree/2.4.1"
             },
             "funding": [
                 {
@@ -4178,7 +4178,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-08-17T06:59:15+00:00"
+            "time": "2023-12-30T19:55:09+00:00"
         },
         {
             "name": "spatie/laravel-package-tools",
@@ -5954,16 +5954,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v6.4.0",
+            "version": "v6.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "191703b1566d97a5425dc969e4350d32b8ef17aa"
+                "reference": "c4b1ef0bc80533d87a2e969806172f1c2a980241"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/191703b1566d97a5425dc969e4350d32b8ef17aa",
-                "reference": "191703b1566d97a5425dc969e4350d32b8ef17aa",
+                "url": "https://api.github.com/repos/symfony/process/zipball/c4b1ef0bc80533d87a2e969806172f1c2a980241",
+                "reference": "c4b1ef0bc80533d87a2e969806172f1c2a980241",
                 "shasum": ""
             },
             "require": {
@@ -5995,7 +5995,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v6.4.0"
+                "source": "https://github.com/symfony/process/tree/v6.4.2"
             },
             "funding": [
                 {
@@ -6011,7 +6011,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-17T21:06:49+00:00"
+            "time": "2023-12-22T16:42:54+00:00"
         },
         {
             "name": "symfony/routing",
@@ -6266,16 +6266,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v6.4.0",
+            "version": "v6.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "b1035dbc2a344b21f8fa8ac451c7ecec4ea45f37"
+                "reference": "a2ab2ec1a462e53016de8e8d5e8912bfd62ea681"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/b1035dbc2a344b21f8fa8ac451c7ecec4ea45f37",
-                "reference": "b1035dbc2a344b21f8fa8ac451c7ecec4ea45f37",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/a2ab2ec1a462e53016de8e8d5e8912bfd62ea681",
+                "reference": "a2ab2ec1a462e53016de8e8d5e8912bfd62ea681",
                 "shasum": ""
             },
             "require": {
@@ -6341,7 +6341,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v6.4.0"
+                "source": "https://github.com/symfony/translation/tree/v6.4.2"
             },
             "funding": [
                 {
@@ -6357,7 +6357,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-11-29T08:14:36+00:00"
+            "time": "2023-12-18T09:25:29+00:00"
         },
         {
             "name": "symfony/translation-contracts",
@@ -7807,16 +7807,16 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "1.6.6",
+            "version": "1.6.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mockery/mockery.git",
-                "reference": "b8e0bb7d8c604046539c1115994632c74dcb361e"
+                "reference": "0cc058854b3195ba21dc6b1f7b1f60f4ef3a9c06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mockery/mockery/zipball/b8e0bb7d8c604046539c1115994632c74dcb361e",
-                "reference": "b8e0bb7d8c604046539c1115994632c74dcb361e",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/0cc058854b3195ba21dc6b1f7b1f60f4ef3a9c06",
+                "reference": "0cc058854b3195ba21dc6b1f7b1f60f4ef3a9c06",
                 "shasum": ""
             },
             "require": {
@@ -7829,9 +7829,7 @@
             },
             "require-dev": {
                 "phpunit/phpunit": "^8.5 || ^9.6.10",
-                "psalm/plugin-phpunit": "^0.18.4",
-                "symplify/easy-coding-standard": "^11.5.0",
-                "vimeo/psalm": "^4.30"
+                "symplify/easy-coding-standard": "^12.0.8"
             },
             "type": "library",
             "autoload": {
@@ -7888,7 +7886,7 @@
                 "security": "https://github.com/mockery/mockery/security/advisories",
                 "source": "https://github.com/mockery/mockery"
             },
-            "time": "2023-08-09T00:03:52+00:00"
+            "time": "2023-12-10T02:24:34+00:00"
         },
         {
             "name": "myclabs/deep-copy",
