@@ -33,12 +33,10 @@
       <path value="$PROJECT_DIR$/laravel-one/vendor/jolicode/jolinotif" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/browsershot" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/crawler" />
-      <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/image-optimizer" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/robots-txt" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/laravel-package-tools" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/laravel-sitemap" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/temporary-directory" />
-      <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/image" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/laravel-data" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/mockery/mockery" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/fakerphp/faker" />
@@ -48,7 +46,6 @@
       <path value="$PROJECT_DIR$/laravel-one/vendor/laravel-zero/foundation" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/vlucas/phpdotenv" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/league/flysystem" />
-      <path value="$PROJECT_DIR$/laravel-one/vendor/league/glide" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/league/mime-type-detection" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/phpunit/php-code-coverage" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/phpunit/php-file-iterator" />
@@ -124,7 +121,6 @@
       <path value="$PROJECT_DIR$/laravel-one/vendor/illuminate/bus" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/myclabs/deep-copy" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/abenevaut/laravel-infrastructure" />
-      <path value="$PROJECT_DIR$/laravel-one/vendor/intervention/image" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/phpdocumentor/reflection-common" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/phpdocumentor/type-resolver" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/nunomaduro/collision" />
@@ -1100,6 +1096,26 @@
       <path value="$PROJECT_DIR$/laravel-one/vendor/dflydev/dot-access-data" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/laravel/prompts" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/symfony/polyfill-php83" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/php-structure-discoverer" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/carbonphp/carbon-doctrine-types" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/amphp/pipeline" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/amphp/windows-registry" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/amphp/serialization" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/amphp/parser" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/amphp/parallel" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/amphp/cache" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/amphp/sync" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/amphp/dns" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/amphp/byte-stream" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/amphp/amp" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/amphp/socket" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/amphp/process" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/league/uri-interfaces" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/league/uri" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/kelunik/certificate" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/revolt/event-loop" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/daverandom/libdns" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/jolicode/php-os-helper" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
