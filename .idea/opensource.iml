@@ -17,6 +17,7 @@
       <sourceFolder url="file://$MODULE_DIR$/laravel-stripe/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-sentry-handler/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-session/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-one/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-stripe/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-ohdear/.phpunit.cache" />
