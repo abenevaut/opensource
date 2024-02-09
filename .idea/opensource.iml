@@ -195,11 +195,15 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/amphp/windows-registry" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/carbonphp/carbon-doctrine-types" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/daverandom/libdns" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/intervention/image" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/jolicode/php-os-helper" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/kelunik/certificate" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/glide" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/uri" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/uri-interfaces" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/revolt/event-loop" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/image" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/image-optimizer" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/php-structure-discoverer" />
     </content>
     <orderEntry type="inheritedJdk" />

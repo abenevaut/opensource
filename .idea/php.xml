@@ -1116,6 +1116,10 @@
       <path value="$PROJECT_DIR$/laravel-one/vendor/revolt/event-loop" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/daverandom/libdns" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/jolicode/php-os-helper" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/image" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/image-optimizer" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/league/glide" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/intervention/image" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
