@@ -59,6 +59,9 @@
       <PhpSpecSuiteConfiguration>
         <option name="myPath" value="$PROJECT_DIR$/phpunit-slicer" />
       </PhpSpecSuiteConfiguration>
+      <PhpSpecSuiteConfiguration>
+        <option name="myPath" value="$PROJECT_DIR$/laravel-infrastructure" />
+      </PhpSpecSuiteConfiguration>
     </suites>
   </component>
 </project>
