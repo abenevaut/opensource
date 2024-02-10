@@ -71,7 +71,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: smelly-code-detector
-          path: ../.github/workflows/smelly-code-detector.txt
+          path: ${{ github.workspace }}/../.github/workflows/smelly-code-detector.txt
           retention-days: 1
           compression-level: 9
           overwrite: true
