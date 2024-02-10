@@ -66,6 +66,7 @@ jobs:
           sed '2d' tmp2.txt > tmp.txt
           sed '2d' tmp.txt > tmp2.txt
           sed 's/+/|/g' tmp2.txt > smelly-code-detector.txt
+          rm tmp.txt tmp2.txt
 
       - uses: actions/upload-artifact@v4
         with:
@@ -92,12 +93,24 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     needs: test
+    strategy:
+      fail-fast: true
+      matrix:
+        php_version: [ 81, 82, 83 ]
+        include:
+          - php_version: 81
+            record_coverage: false
+          - php_version: 82
+            record_coverage: false
+          - php_version: 83
+            record_coverage: true
     concurrency:
       group: laravel-sentry-handler-comment-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: false
     steps:
 
       - uses: actions/download-artifact@v4
+        if: github.event_name == 'pull_request' && matrix.record_coverage
         with:
           name: smelly-code-detector
           path: ${{ github.workspace }}/laravel-sentry-handler/smelly-code-detector.txt
