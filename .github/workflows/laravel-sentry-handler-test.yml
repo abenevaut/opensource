@@ -65,7 +65,7 @@ jobs:
           sed '2d' tmp.txt > tmp2.txt
           sed '2d' tmp2.txt > tmp.txt
           sed '2d' tmp.txt > tmp2.txt
-          sed 's/+/|/g' tmp2.txt > ${{ github.workspace }}/laravel-sentry-handler/smelly-code-detector.txt
+          sed 's/+/|/g' tmp2.txt > smelly-code-detector.txt
 
       - uses: actions/upload-artifact@v4
         with:
