@@ -9,12 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
+      matrix:
+        php_version: [ 81, 82, 83 ]
+        include:
+          - php_version: 83
+            latest: true
+#          - php_version: 84
+#            release-candidate: true
     concurrency:
-      group: vapor-roadrunner-release
+      group: vapor-roadrunner-release-${{ matrix.php_version }}
       cancel-in-progress: false
     steps:
 
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
       - name: Prepare environment
         run: cp .env.example .env
@@ -25,12 +32,24 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build docker image
-        run: |
-          TAG_VAPOR_ROADRUNNER=latest docker-compose build vapor-roadrunner
-          docker-compose build vapor-roadrunner
+      - name: Build "latest" docker image
+        if: ${{ matrix.latest }}
+        run: TAG_VAPOR_ROADRUNNER=latest VAPOR_VERSION=${{ matrix.php_version }} docker-compose build vapor-roadrunner
 
-      - name: Publish docker image
-        run: |
-          TAG_VAPOR_ROADRUNNER=latest docker-compose push vapor-roadrunner
-          docker-compose push vapor-roadrunner
+      - name: Publish "latest" docker image
+        if: ${{ matrix.latest }}
+        run: TAG_VAPOR_ROADRUNNER=latest docker-compose push vapor-roadrunner
+
+      - name: Build "release-candidate" docker image
+        if: ${{ matrix.release-candidate }}
+        run: TAG_VAPOR_ROADRUNNER=release-candidate VAPOR_VERSION=${{ matrix.php_version }} docker-compose build vapor-roadrunner
+
+      - name: Publish "release-candidate" docker image
+        if: ${{ matrix.release-candidate }}
+        run: TAG_VAPOR_ROADRUNNER=release-candidate docker-compose push vapor-roadrunner
+
+      - name: Build "php${{ matrix.php_version }}" docker image
+        run: TAG_VAPOR_ROADRUNNER=php${{ matrix.php_version }} VAPOR_VERSION=${{ matrix.php_version }} docker-compose build vapor-roadrunner
+
+      - name: Publish "php${{ matrix.php_version }}" docker image
+        run: TAG_VAPOR_ROADRUNNER=php${{ matrix.php_version }} docker-compose push vapor-roadrunner

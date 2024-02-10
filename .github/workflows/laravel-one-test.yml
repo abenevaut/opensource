@@ -21,26 +21,23 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php_version: [ 8.1, 8.2 ]
+        php_version: [ 81, 82, 83 ]
         include:
-          - php_version: 8.2
+          - php_version: 83
             record_coverage: true
     concurrency:
       group: laravel-one-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
-    container: ghcr.io/abenevaut/vapor-ci:latest
+    container: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
     steps:
 
       - name: Checkout project
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 2
 
-      - name: Initialize PHP ${{ matrix.php_version }}
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php_version }}
-          coverage: pcov
+      - name: Install PHP extension
+        run: docker-php-ext-install exif
 
       - name: Configure Composer cache
         id: composer-cache
@@ -74,6 +71,6 @@ jobs:
 
       - name: Send coverage
         if: ${{ matrix.record_coverage }}
-        run: bash <(curl -s https://codecov.io/bash) -f coverage/clover.xml -F laravel-one
+        run: codecov -f coverage/clover.xml -F laravel-one
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

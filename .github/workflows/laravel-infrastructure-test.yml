@@ -31,7 +31,7 @@ jobs:
     steps:
 
       - name: Checkout project
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 2
 
@@ -43,7 +43,7 @@ jobs:
       - name: Configure Composer cache
         uses: actions/cache@v3
         with:
-          path: auth/vendor
+          path: laravel-infrastructure/vendor
           key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.json') }}
           restore-keys: ${{ runner.os }}-node-php_${{ env.php_version }}-
 

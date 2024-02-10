@@ -1,12 +1,4 @@
-## Image contains
-
-| Tool           | Version                  |
-|----------------|--------------------------|
-| PHP            | VAPOR_VERSION            |
-| rr           | defined by alpine images |
-
 ## Build
-
 
 ```shell
 docker build . --file Dockerfile --tag abenevaut/vapor-roadrunner:test \
@@ -29,9 +21,22 @@ USER root
 RUN chown -R nobody.nobody /var/task
 
 CMD rr serve -c /var/task/.rr.yaml -w /var/task
+
+EXPOSE 8080
 ```
 
-### Customize with heritage
+Note: the `CMD` instruction is required to execute roadrunner binary with flexibilities.
+If you are adventurous you can add a roadrunner service in `rootfs/etc/service` to lunch it automatically.
+
+- example of `rootfs/etc/service/roadrunner/run`: (remember to `COPY` it from your Dockerfile)
+
+```shell
+#!/bin/sh -e
+
+rr serve -c /var/task/.rr.yaml -w /var/task
+```
+
+### Customize with inheritance
 
 #### Install PHP extension
 
@@ -39,6 +44,10 @@ CMD rr serve -c /var/task/.rr.yaml -w /var/task
 RUN pecl install imagick
 RUN docker-php-ext-enable imagick
 ```
+
+Then, setup extension file (ex: `imagick.ini`) in `rootfs/usr/local/etc/php/conf.d` or in `rootfs/usr/local/etc/php/templates/conf.d`, if you would like to override configuration values with ENV vars.
+
+Note: the entrypoint script run services located in `rootfs/etc/service`, and `php/run` setup templates.
 
 ## Test
 

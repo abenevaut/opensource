@@ -1,20 +1,3 @@
-## Image contains
-
-| Tool           | Version                  |
-|----------------|--------------------------|
-| PHP            | VAPOR_VERSION            |
-| pcov           | defined by alpine images |
-| codecov        | latest                   |
-| composer       | latest, COMPOSER_HASH    |
-| nodejs         | defined by alpine images |
-| npm            | defined by alpine images |
-| bash           | defined by alpine images |
-| gnupg          | defined by alpine images |
-| gpgv           | defined by alpine images |
-| perl-utils           | defined by alpine images |
-| openssh-client | defined by alpine images |
-| git            | defined by alpine images |
-
 ## Build
 
 ```shell
@@ -42,14 +25,31 @@ jobs:
       - image: ghcr.io/abenevaut/vapor-ci:latest
 ```
 
+### With GithubAction
+
+- Set the docker image in `.github/workflows/<your-pipeline>.yml`
+
+```yaml
+name: <your-pipeline>
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ghcr.io/abenevaut/vapor-ci:latest
+```
+
 ### Customize with inheritance
 
 #### Install PHP extension
 
 ```dockerfile
-RUN pecl install pcov imagick
+RUN pecl install imagick
 RUN docker-php-ext-enable imagick
 ```
+
+Then, setup extension file (ex: `imagick.ini`) in `rootfs/usr/local/etc/php/conf.d` or in `rootfs/usr/local/etc/php/templates/conf.d`, if you would like to override configuration values with ENV vars.
+
+Note: the entrypoint script run services located in `rootfs/etc/service`, and `php/run` setup templates.
 
 ## Test
 

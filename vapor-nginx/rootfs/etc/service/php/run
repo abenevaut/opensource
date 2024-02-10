@@ -1,13 +1,20 @@
 #!/bin/sh -e
 
+#
 # Replace ENV vars in configuration files
-tmpfile=$(mktemp)
-cat /etc/php81/conf.d/custom.ini | envsubst "$(env | cut -d= -f1 | sed -e 's/^/$/')" | tee "$tmpfile" > /dev/null
-mv "$tmpfile" /etc/php81/conf.d/custom.ini
+#
+
+for entry in "/usr/local/etc/php/templates/conf.d"/*;do
+    if [[ -f $entry ]] ;then
+      tmpfile=$(mktemp)
+      cat $entry | envsubst "$(env | cut -d= -f1 | sed -e 's/^/$/')" | tee "$tmpfile" > /dev/null
+      mv "$tmpfile" "/usr/local/etc/php/conf.d/$(basename $entry)"
+    fi
+done
 
 tmpfile=$(mktemp)
-cat /etc/php81/php-fpm.d/www.conf | envsubst "$(env | cut -d= -f1 | sed -e 's/^/$/')" | tee "$tmpfile" > /dev/null
-mv "$tmpfile" /etc/php81/php-fpm.d/www.conf
+cat /usr/local/etc/php/templates/php-fpm.d/www.conf | envsubst "$(env | cut -d= -f1 | sed -e 's/^/$/')" | tee "$tmpfile" > /dev/null
+mv "$tmpfile" /usr/local/etc/php-fpm.d/www.conf
 
 # pipe stderr to stdout and run php-fpm
 exec 2>&1

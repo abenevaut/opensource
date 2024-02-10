@@ -9,54 +9,103 @@ defaults:
   run:
     working-directory: ./laravel-one
 
-env:
-  php_version: 8.1
-
 jobs:
 
-  release:
+  buildVhs:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
     concurrency:
-      group: laravel-one-release
+      group: laravel-one-buildVhs
       cancel-in-progress: false
     steps:
 
       - name: Checkout project
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Install VHS
+        uses: charmbracelet/vhs-action@v2
+        with:
+          path: ${{ github.workspace }}/laravel-one/demo.tape
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vhs
+          path: ${{ github.workspace }}/laravel-one/demo.gif
+          retention-days: 1
+          compression-level: 9
+          overwrite: true
+
+  release:
+    runs-on: ubuntu-latest
+    needs: buildVhs
+    strategy:
+      fail-fast: true
+      matrix:
+        php_version: [ 81 ]
+    concurrency:
+      group: laravel-one-release-${{ matrix.php_version }}
+      cancel-in-progress: false
+    container: ghcr.io/abenevaut/vapor-ci:php81
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
       - name: Get current release tag
         id: branch-name
-        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/phpunit-slicer-}" >> $GITHUB_OUTPUT
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/laravel-one-}" >> $GITHUB_OUTPUT
 
-      - name: Initialize PHP ${{ env.php_version }}
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ env.php_version }}
+      - name: Install PHP extension
+        run: docker-php-ext-install exif
 
       - name: Configure Composer cache
         id: composer-cache
         uses: actions/cache@v3
         with:
           path: laravel-one/vendor
-          key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.json') }}
+          key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-php_${{ env.php_version }}-
+            ${{ runner.os }}-node-php_${{ matrix.php_version }}-
 
       - name: Composer install
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --optimize-autoloader --no-interaction --prefer-dist
 
-      - name: Build VHS
-        uses: charmbracelet/vhs-action@v1
-        with:
-          path: 'laravel-one/demo.tape'
-
       - name: Build
         run: php laravel-one app:build laravel-one --build-version=${{ steps.branch-name.outputs.SOURCE_TAG }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: vhs
+          path: ${{ github.workspace }}/laravel-one/demo.gif
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release
+          path: ${{ github.workspace }}/laravel-one
+          retention-days: 1
+          compression-level: 9
+          overwrite: true
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: release
+    concurrency:
+      group: laravel-one-publish
+      cancel-in-progress: false
+    steps:
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: release
+          path: ${{ github.workspace }}/laravel-one
+
+      - name: Get current release tag
+        id: branch-name
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/laravel-one-}" >> $GITHUB_OUTPUT
 
       - name: Publish to readonly repository abenevaut/laravel-one
         uses: s0/git-publish-subdir-action@develop

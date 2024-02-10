@@ -9,12 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
+      matrix:
+        php_version: [ 81, 82, 83 ]
+        include:
+          - php_version: 83
+            latest: true
+#          - php_version: 84
+#            release-candidate: true
     concurrency:
-      group: vapor-nginx-release
+      group: vapor-nginx-release-${{ matrix.php_version }}
       cancel-in-progress: false
     steps:
 
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
       - name: Prepare environment
         run: cp .env.example .env
@@ -25,12 +32,24 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build docker image
-        run: |
-          TAG_VAPOR_NGINX=latest docker-compose build vapor-nginx
-          docker-compose build vapor-nginx
+      - name: Build "latest" docker image
+        if: ${{ matrix.latest }}
+        run: TAG_VAPOR_NGINX=latest VAPOR_VERSION=${{ matrix.php_version }} docker-compose build vapor-nginx
 
-      - name: Publish docker image
-        run: |
-          TAG_VAPOR_NGINX=latest docker-compose push vapor-nginx
-          docker-compose push vapor-nginx
+      - name: Publish "latest" docker image
+        if: ${{ matrix.latest }}
+        run: TAG_VAPOR_NGINX=latest docker-compose push vapor-nginx
+
+      - name: Build "release-candidate" docker image
+        if: ${{ matrix.release-candidate }}
+        run: TAG_VAPOR_NGINX=release-candidate VAPOR_VERSION=${{ matrix.php_version }} docker-compose build vapor-nginx
+
+      - name: Publish "release-candidate" docker image
+        if: ${{ matrix.release-candidate }}
+        run: TAG_VAPOR_NGINX=release-candidate docker-compose push vapor-nginx
+
+      - name: Build "php${{ matrix.php_version }}" docker image
+        run: TAG_VAPOR_NGINX=php${{ matrix.php_version }} VAPOR_VERSION=${{ matrix.php_version }} docker-compose build vapor-nginx
+
+      - name: Publish "php${{ matrix.php_version }}" docker image
+        run: TAG_VAPOR_NGINX=php${{ matrix.php_version }} docker-compose push vapor-nginx

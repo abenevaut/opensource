@@ -16,8 +16,8 @@ services:
     image: ghcr.io/abenevaut/vapor-nginx:${TAG_VAPOR_NGINX:-latest}
     build:
       context: ./vapor-nginx
-      #      cache_from:
-      #        - ghcr.io/abenevaut/vapor-nginx:latest
+      cache_from:
+        - ghcr.io/abenevaut/vapor-nginx:latest
       args:
         - VAPOR_VERSION=${VAPOR_VERSION}
 
@@ -25,7 +25,7 @@ services:
     image: ghcr.io/abenevaut/vapor-roadrunner:${TAG_VAPOR_ROADRUNNER:-latest}
     build:
       context: ./vapor-roadrunner
-      #      cache_from:
-      #        - ghcr.io/abenevaut/vapor-nginx:latest
+      cache_from:
+        - ghcr.io/abenevaut/vapor-roadrunner:latest
       args:
         - VAPOR_VERSION=${VAPOR_VERSION}

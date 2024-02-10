@@ -16,16 +16,18 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
+      matrix:
+        php_version: [ 81, 82, 83 ]
     concurrency:
-      group: vapor-nginx-test-${{ github.workflow }}-${{ github.ref }}
+      group: vapor-nginx-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
     steps:
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - uses: actions/cache@v2
       with:
-        path: vendor/bundle
+        path: vapor-nginx/vendor/bundle
         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-gems-
@@ -40,6 +42,7 @@ jobs:
         bundle install --jobs 4 --retry 3
 
     - run: |
+        bundle exec rubocop
         bundle exec rspec
-
-#        bundle exec rubocop
+      env:
+        VAPOR_VERSION: ${{ matrix.php_version }}

@@ -19,7 +19,8 @@ describe 'Dockerfile' do
 
     image = ::Docker::Image.build_from_dir(
       '.',
-      't': 'abenevaut/vapor-nginx:rspec',
+      't': 'ghcr.io/abenevaut/vapor-nginx:rspec',
+      'cache-from': 'ghcr.io/abenevaut/vapor-nginx:latest',
       'buildargs': build_args
     )
 
@@ -28,7 +29,7 @@ describe 'Dockerfile' do
     set :docker_image, image.id
   end
 
-  after(:all) do
+  after(:all) do # rubocop:disable RSpec/BeforeAfterAll
     # Reset the docker backend so other images/containers can be tested.
     Specinfra::Backend::Docker.clear
   end
@@ -44,12 +45,24 @@ describe 'Dockerfile' do
     end
   end
 
+  describe package('nginx') do
+    it { is_expected.to be_installed }
+  end
+
+  describe port(8080) do
+    it { is_expected.to be_listening }
+  end
+
   def php_version
     command('php -v').stdout
   end
 
   it 'installs php' do
-    expect(php_version).to include('8.1.24')
+    expect(php_version).to include('8.1').or include('8.2').or include('8.3')
+  end
+
+  describe port(9000) do
+    it { is_expected.to be_listening }
   end
 
   def php_redis_loaded
@@ -114,5 +127,29 @@ describe 'Dockerfile' do
 
   it 'installs php-soap' do
     expect(php_soap_loaded).to include('true')
+  end
+
+  def php_opcache_loaded
+    command('php -r "var_dump(extension_loaded(\'Zend OPcache\'));"').stdout
+  end
+
+  it 'installs php-opcache' do
+    expect(php_opcache_loaded).to include('true')
+  end
+
+  def php_opcache_enabled
+    command('php -r "var_dump(ini_get(\'opcache.enable\'));"').stdout
+  end
+
+  it 'php-opcache is not enabled' do
+    expect(php_opcache_enabled).to include('string(1) "1"')
+  end
+
+  def php_opcache_cli_enabled
+    command('php -r "var_dump(ini_get(\'opcache.enable_cli\'));"').stdout
+  end
+
+  it 'php-opcache cli is not enabled' do
+    expect(php_opcache_cli_enabled).to include('string(1) "1"')
   end
 end
