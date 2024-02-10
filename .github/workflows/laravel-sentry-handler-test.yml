@@ -84,6 +84,6 @@ jobs:
 
       - name: Send coverage
         if: ${{ matrix.record_coverage }}
-        run: code -f coverage/clover.xml -F laravel-sentry-handler
+        run: codecov -f coverage/clover.xml -F laravel-sentry-handler
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
