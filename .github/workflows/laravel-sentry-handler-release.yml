@@ -13,10 +13,8 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
     concurrency:
-      group: laravel-sentry-handler-release
+      group: laravel-sentry-handler-release-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: false
     steps:
 

@@ -5,8 +5,6 @@
       <sourceFolder url="file://$MODULE_DIR$/laravel-infrastructure/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-infrastructure/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-sentry-handler/tests" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/spec" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/demo-laravel-sentry-handler/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/demo-laravel-stripe/tests" isTestSource="true" />
@@ -19,6 +17,9 @@
       <sourceFolder url="file://$MODULE_DIR$/laravel-session/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-one/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-one/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-infrastructure/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-stripe/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-ohdear/.phpunit.cache" />
@@ -205,6 +206,23 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/image" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/image-optimizer" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/php-structure-discoverer" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/abenevaut/laravel-infrastructure" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/carbonphp/carbon-doctrine-types" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/fakerphp/faker" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/jolicode/php-os-helper" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/laravel/prompts" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/mortexa/laravel-arkitect" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/ondram/ci-detector" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/pestphp/pest-plugin-faker" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/phparkitect/phparkitect" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/psr/clock" />
+      <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/symfony/polyfill-php83" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/carbonphp/carbon-doctrine-types" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/guzzlehttp/uri-template" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/league/flysystem-local" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/psr/clock" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/symfony/polyfill-php83" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/symfony/validator" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

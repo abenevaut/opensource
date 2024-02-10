@@ -14,10 +14,8 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
     concurrency:
-      group: docs-release
+      group: docs-release-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
     steps:
 

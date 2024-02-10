@@ -17,7 +17,7 @@ jobs:
 #          - php_version: 84
 #            release-candidate: true
     concurrency:
-      group: vapor-nginx-release-${{ matrix.php_version }}
+      group: vapor-nginx-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: false
     steps:
 

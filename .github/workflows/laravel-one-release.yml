@@ -14,7 +14,7 @@ jobs:
   buildVhs:
     runs-on: ubuntu-latest
     concurrency:
-      group: laravel-one-buildVhs
+      group: laravel-one-buildVhs-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: false
     steps:
 
@@ -44,7 +44,7 @@ jobs:
       matrix:
         php_version: [ 81 ]
     concurrency:
-      group: laravel-one-release-${{ matrix.php_version }}
+      group: laravel-one-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: false
     container: ghcr.io/abenevaut/vapor-ci:php81
     steps:
@@ -94,7 +94,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: release
     concurrency:
-      group: laravel-one-publish
+      group: laravel-one-publish-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: false
     steps:
 
