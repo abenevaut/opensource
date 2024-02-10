@@ -65,14 +65,15 @@ jobs:
           sed '2d' tmp.txt > tmp2.txt
           sed '2d' tmp2.txt > tmp.txt
           sed '2d' tmp.txt > tmp2.txt
-          sed 's/+/|/g' tmp2.txt > ../.github/workflows/smelly-code-detector.txt
+          sed 's/+/|/g' tmp2.txt > ${{ github.workspace }}/laravel-sentry-handler/smelly-code-detector.txt
 
-#      - uses: NejcZdovc/comment-pr@v2
-#        if: github.event_name == 'pull_request' && matrix.record_coverage
-#        with:
-#          file: smelly-code-detector.txt
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smelly-code-detector
+          path: ${{ github.workspace }}/laravel-sentry-handler/smelly-code-detector.txt
+          retention-days: 1
+          compression-level: 9
+          overwrite: true
 
       - name: Run tests
         run: |
@@ -87,3 +88,23 @@ jobs:
         run: codecov -f coverage/clover.xml -F laravel-sentry-handler
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  comment:
+    runs-on: ubuntu-latest
+    needs: test
+    concurrency:
+      group: laravel-sentry-handler-comment-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: smelly-code-detector
+          path: ${{ github.workspace }}/laravel-sentry-handler/smelly-code-detector.txt
+
+      - uses: NejcZdovc/comment-pr@v2
+        if: github.event_name == 'pull_request' && matrix.record_coverage
+        with:
+          file: smelly-code-detector.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
