@@ -12,22 +12,30 @@ on:
 
 defaults:
   run:
-    working-directory: laravel-infrastructure
-
-env:
-  php_version: 8.1
-  node_version: lts/gallium
+    working-directory: ./laravel-infrastructure
 
 jobs:
 
   test:
     runs-on: ubuntu-latest
-    concurrency:
-      group: laravel-infrastructure-test-${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
     strategy:
       fail-fast: true
-    container: ghcr.io/abenevaut/vapor-ci:latest
+      matrix:
+        php_version: [ 81, 82, 83 ]
+        include:
+          - php_version: 81
+            original_php_version: 8.1
+            record_coverage: false
+          - php_version: 82
+            original_php_version: 8.2
+            record_coverage: false
+          - php_version: 83
+            original_php_version: 8.3
+            record_coverage: true
+    concurrency:
+      group: laravel-infrastructure-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      cancel-in-progress: true
+    container: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
     steps:
 
       - name: Checkout project
@@ -35,31 +43,28 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Initialize PHP ${{ env.php_version }}
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ env.php_version }}
-
       - name: Configure Composer cache
         uses: actions/cache@v3
         with:
           path: laravel-infrastructure/vendor
-          key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.json') }}
-          restore-keys: ${{ runner.os }}-node-php_${{ env.php_version }}-
+          key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-node-php_${{ matrix.php_version }}-
+
+      - name: Validate Composer.json
+        run: composer validate --strict
 
       - name: Composer install
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install -o --no-interaction --prefer-dist
 
-      - name: Test
+      - name: Run tests
         run: |
           vendor/bin/composer-unused
-          vendor/bin/phparkitect check --config arkitect.php --target-php-version ${{ env.php_version }}
+          vendor/bin/phparkitect check --config arkitect.php --target-php-version ${{ matrix.original_php_version }}
           vendor/bin/phpcs --standard=PSR12 src tests
           vendor/bin/phpunit
 
       - name: Send coverage
-        run: |
-          bash <(curl -s https://codecov.io/bash) -f coverage/clover.xml -F laravel-infrastructure
+        run: codecov -f coverage/clover.xml -F laravel-infrastructure
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

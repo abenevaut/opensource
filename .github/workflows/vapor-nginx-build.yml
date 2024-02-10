@@ -11,8 +11,6 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
     concurrency:
       group: vapor-nginx-build-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
