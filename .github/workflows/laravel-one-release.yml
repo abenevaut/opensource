@@ -33,7 +33,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: vhs
-          path: ./demo.gif
+          path: ${{ github.workspace }}/demo.gif
           retention-days: 1
           compression-level: 9
           overwrite: true
@@ -82,7 +82,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: vhs
-          path: ./demo.gif
+          path: ${{ github.workspace }}/demo.gif
 
       - name: Publish to readonly repository abenevaut/laravel-one
         uses: s0/git-publish-subdir-action@develop
