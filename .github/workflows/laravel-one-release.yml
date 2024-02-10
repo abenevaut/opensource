@@ -11,6 +11,33 @@ defaults:
 
 jobs:
 
+  buildVhs:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: laravel-one-buildVhs
+      cancel-in-progress: false
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Install VHS
+        uses: charmbracelet/vhs-action@v2
+        with:
+          install-only: true
+
+      - name: Build VHS
+        run: vhs demo.tape
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vhs
+          path: laravel-one/demo.gif
+          retention-days: 1
+          compression-level: 9
+          overwrite: true
+
   release:
     runs-on: ubuntu-latest
     strategy:
@@ -32,14 +59,6 @@ jobs:
         id: branch-name
         run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/phpunit-slicer-}" >> $GITHUB_OUTPUT
 
-#      - name: Install Chromium (required by VHS)
-#        run: apk add chromium
-
-#      - name: Install VHS
-#        uses: charmbracelet/vhs-action@v2
-#        with:
-#          install-only: true
-
       - name: Install PHP extension
         run: docker-php-ext-install exif
 
@@ -56,11 +75,13 @@ jobs:
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --optimize-autoloader --no-interaction --prefer-dist
 
-#      - name: Build VHS
-#        run: vhs demo.tape
-
       - name: Build
         run: php laravel-one app:build laravel-one --build-version=${{ steps.branch-name.outputs.SOURCE_TAG }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: vhs
+          path: laravel-one/demo.gif
 
       - name: Publish to readonly repository abenevaut/laravel-one
         uses: s0/git-publish-subdir-action@develop
