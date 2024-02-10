@@ -2,7 +2,6 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/laravel-infrastructure/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-infrastructure/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-sentry-handler/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
@@ -223,6 +222,26 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/psr/clock" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/symfony/polyfill-php83" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/symfony/validator" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/carbonphp/carbon-doctrine-types" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/composer-unused/contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/composer-unused/symbol-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/icanhazstring/composer-unused" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/jolicode/php-os-helper" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/laravel/prompts" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/mortexa/laravel-arkitect" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/ondram/ci-detector" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/phparkitect/phparkitect" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/phpstan/phpdoc-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/psr/clock" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/config" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/dependency-injection" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/polyfill-php83" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/property-access" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/property-info" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/serializer" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/validator" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/var-exporter" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/webmozart/glob" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

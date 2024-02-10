@@ -1136,6 +1136,27 @@
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/carbonphp/carbon-doctrine-types" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/validator" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/polyfill-php83" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/jolicode/php-os-helper" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/laravel/prompts" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/carbonphp/carbon-doctrine-types" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/psr/clock" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/polyfill-php83" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/dependency-injection" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/property-access" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/property-info" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/validator" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/serializer" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/config" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/var-exporter" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/icanhazstring/composer-unused" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/composer-unused/contracts" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/composer-unused/symbol-parser" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/ondram/ci-detector" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/phpstan/phpdoc-parser" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/webmozart/glob" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/phparkitect/phparkitect" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/mortexa/laravel-arkitect" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">

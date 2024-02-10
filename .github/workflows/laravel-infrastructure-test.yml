@@ -65,6 +65,7 @@ jobs:
           vendor/bin/phpunit
 
       - name: Send coverage
+        if: ${{ matrix.record_coverage }}
         run: codecov -f coverage/clover.xml -F laravel-infrastructure
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

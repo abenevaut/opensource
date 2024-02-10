@@ -12,37 +12,29 @@ on:
 
 defaults:
   run:
-    working-directory: laravel-sentry-handler
+    working-directory: ./laravel-sentry-handler
 
 jobs:
 
   test:
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
     strategy:
       fail-fast: true
       matrix:
-        php_version: [ 8.1, 8.2 ]
+        php_version: [ 81, 82, 83 ]
         include:
-          - php_version: 8.2
+          - php_version: 83
             record_coverage: true
     concurrency:
       group: laravel-sentry-handler-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
-    container: ghcr.io/abenevaut/vapor-ci:latest
+    container: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
     steps:
 
       - name: Checkout project
         uses: actions/checkout@v4
         with:
           fetch-depth: 2
-
-      - name: Initialize PHP ${{ matrix.php_version }}
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php_version }}
-          coverage: pcov
 
       - name: Configure Composer cache
         id: composer-cache
@@ -78,11 +70,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Test
-        run: composer test
+      - name: Run tests
+        run: |
+          vendor/bin/composer-unused
+          vendor/bin/smelly-code-detector inspect ./src
+          vendor/bin/phparkitect check --config arkitect.php --target-php-version ${{ matrix.original_php_version }}
+          vendor/bin/phpcs --standard=PSR12 src tests
+          vendor/bin/phpunit
 
       - name: Send coverage
         if: ${{ matrix.record_coverage }}
-        run: bash <(curl -s https://codecov.io/bash) -f coverage/clover.xml -F laravel-sentry-handler
+        run: code -f coverage/clover.xml -F laravel-sentry-handler
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
