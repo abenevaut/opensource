@@ -46,7 +46,7 @@ jobs:
     concurrency:
       group: phpunit-slicer-release-${{ matrix.php_version }}
       cancel-in-progress: false
-    container: ghcr.io/abenevaut/vapor-ci:php81
+    container: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
     steps:
 
       - name: Checkout project
@@ -86,7 +86,6 @@ jobs:
           retention-days: 1
           compression-level: 9
           overwrite: true
-
 
   publish:
     runs-on: ubuntu-latest

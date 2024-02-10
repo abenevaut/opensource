@@ -21,9 +21,9 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php_version: [ 8.1, 8.2, 8.3 ]
+        php_version: [ 81, 82, 83 ]
         include:
-          - php_version: 8.3
+          - php_version: 83
             record_coverage: true
     concurrency:
       group: phpunit-slicer-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
