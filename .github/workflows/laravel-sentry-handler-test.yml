@@ -65,13 +65,13 @@ jobs:
           sed '2d' tmp.txt > tmp2.txt
           sed '2d' tmp2.txt > tmp.txt
           sed '2d' tmp.txt > tmp2.txt
-          sed 's/+/|/g' tmp2.txt > ../.github/workflows/smelly-code-detector.txt
+          sed 's/+/|/g' tmp2.txt > ${{ github.path }}/.github/workflows/smelly-code-detector.txt
           rm tmp.txt tmp2.txt
 
       - uses: actions/upload-artifact@v4
         with:
           name: smelly-code-detector
-          path: ${{ github.workspace }}/../.github/workflows/smelly-code-detector.txt
+          path: ${{ github.path }}/.github/workflows/smelly-code-detector.txt
           retention-days: 1
           compression-level: 9
           overwrite: true
@@ -113,7 +113,7 @@ jobs:
         if: github.event_name == 'pull_request' && matrix.record_coverage
         with:
           name: smelly-code-detector
-          path: ${{ github.workspace }}/.github/workflows/smelly-code-detector.txt
+          path: ${{ github.path }}/.github/workflows/smelly-code-detector.txt
 
       - uses: NejcZdovc/comment-pr@v2
         if: github.event_name == 'pull_request' && matrix.record_coverage
