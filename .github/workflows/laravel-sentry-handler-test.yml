@@ -107,7 +107,7 @@ jobs:
           - php_version: 83
             record_coverage: true
     concurrency:
-      group: laravel-sentry-handler-comment-${{ github.workflow }}-${{ github.ref }}
+      group: laravel-sentry-handler-comment-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: false
     steps:
 
