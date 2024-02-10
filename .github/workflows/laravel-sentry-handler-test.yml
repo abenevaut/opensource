@@ -23,6 +23,10 @@ jobs:
       matrix:
         php_version: [ 81, 82, 83 ]
         include:
+          - php_version: 81
+            record_coverage: false
+          - php_version: 82
+            record_coverage: false
           - php_version: 83
             record_coverage: true
     concurrency:
@@ -63,12 +67,12 @@ jobs:
           sed '2d' tmp.txt > tmp2.txt
           sed 's/+/|/g' tmp2.txt > ../.github/workflows/smelly-code-detector.txt
 
-      - uses: NejcZdovc/comment-pr@v2
-        if: github.event_name == 'pull_request' && matrix.record_coverage
-        with:
-          file: smelly-code-detector.txt
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - uses: NejcZdovc/comment-pr@v2
+#        if: github.event_name == 'pull_request' && matrix.record_coverage
+#        with:
+#          file: smelly-code-detector.txt
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run tests
         run: |
