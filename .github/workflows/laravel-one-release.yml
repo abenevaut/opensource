@@ -98,14 +98,14 @@ jobs:
       cancel-in-progress: false
     steps:
 
-      - name: Get current release tag
-        id: branch-name
-        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/laravel-one-}" >> $GITHUB_OUTPUT
-
       - uses: actions/download-artifact@v4
         with:
           name: release
           path: ${{ github.workspace }}/laravel-one
+
+      - name: Get current release tag
+        id: branch-name
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/laravel-one-}" >> $GITHUB_OUTPUT
 
       - name: Publish to readonly repository abenevaut/laravel-one
         uses: s0/git-publish-subdir-action@develop
