@@ -23,6 +23,12 @@ jobs:
       matrix:
         php_version: [ 81, 82, 83 ]
         include:
+          - php_version: 81
+            original_php_version: 8.1
+            record_coverage: false
+          - php_version: 82
+            original_php_version: 8.2
+            record_coverage: false
           - php_version: 83
             original_php_version: 8.3
             record_coverage: true
