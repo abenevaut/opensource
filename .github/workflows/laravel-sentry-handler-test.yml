@@ -94,7 +94,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     permissions:
-      pull-requests: write # needed by `NejcZdovc/comment-pr` action
+      # needed by `NejcZdovc/comment-pr` action
+      pull-requests: write
     strategy:
       fail-fast: true
       matrix:
@@ -115,7 +116,7 @@ jobs:
         if: github.event_name == 'pull_request' && matrix.record_coverage
         with:
           name: smelly-code-detector
-          path: ${{ github.workspace }}/.github/workflows/smelly-code-detector.txt
+          path: ${{ github.workspace }}/.github/workflows
 
       - uses: NejcZdovc/comment-pr@v2
         if: github.event_name == 'pull_request' && matrix.record_coverage
