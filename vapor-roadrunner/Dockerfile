@@ -1,3 +1,4 @@
+ARG VAPOR_PLATFORM
 ARG VAPOR_VERSION
 FROM ghcr.io/roadrunner-server/roadrunner:latest AS roadrunner
 
