@@ -17,7 +17,27 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
+        platform: [ "linux/adm64", "linux/arm64" ]
         php_version: [ 81, 82, 83 ]
+        include:
+          - php_version: 81
+            platform: "linux/arm64"
+            build_tag: 81-arm
+          - php_version: 81
+            platform: "linux/adm64"
+            build_tag: 81-arm
+          - php_version: 82
+            platform: "linux/arm64"
+            build_tag: 82-arm
+          - php_version: 82
+            platform: "linux/adm64"
+            build_tag: 82-arm
+          - php_version: 83
+            platform: "linux/arm64"
+            build_tag: 83-arm
+          - php_version: 83
+            platform: "linux/adm64"
+            build_tag: 83-arm
     concurrency:
       group: vapor-ci-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
@@ -45,4 +65,5 @@ jobs:
         bundle exec rubocop
         bundle exec rspec
       env:
-        VAPOR_VERSION: ${{ matrix.php_version }}
+        VAPOR_VERSION: ${{ matrix.build_tag }}
+        VAPOR_PLATFORM: ${{ matrix.platform }}
