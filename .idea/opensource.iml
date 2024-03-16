@@ -242,6 +242,15 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/validator" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/var-exporter" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/webmozart/glob" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/guzzlehttp/guzzle" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/guzzlehttp/promises" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/guzzlehttp/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/laravel/prompts" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/psr/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/psr/http-factory" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/psr/http-message" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/ralouphie/getallheaders" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/symfony/clock" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
