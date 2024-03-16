@@ -14,13 +14,14 @@ describe 'Dockerfile' do
 
     build_args = JSON.generate(
       'VAPOR_VERSION': ENV['VAPOR_VERSION'],
+      'VAPOR_PLATFORM': ENV['VAPOR_PLATFORM'],
       'TAG_VAPOR_ROADRUNNER': ENV['TAG_VAPOR_ROADRUNNER']
     )
 
     image = ::Docker::Image.build_from_dir(
       '.',
       't': 'abenevaut/vapor-roadrunner:rspec',
-      'cache-from': 'ghcr.io/abenevaut/vapor-roadrunner:latest',
+      'platform': ENV['VAPOR_PLATFORM'],
       'buildargs': build_args
     )
 
@@ -49,7 +50,7 @@ describe 'Dockerfile' do
     command('rr -v').stdout
   end
 
-  it 'installs roadrunnger' do
+  it 'installs roadrunner' do
     expect(rr_version).to include('2023.3')
   end
 
