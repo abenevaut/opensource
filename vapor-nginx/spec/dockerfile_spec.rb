@@ -21,6 +21,7 @@ describe 'Dockerfile' do
     image = ::Docker::Image.build_from_dir(
       '.',
       't': 'ghcr.io/abenevaut/vapor-nginx:rspec',
+      'platform': ENV['VAPOR_PLATFORM'],
       'buildargs': build_args
     )
 

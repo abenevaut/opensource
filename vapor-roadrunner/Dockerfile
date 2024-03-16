@@ -1,11 +1,8 @@
-ARG VAPOR_PLATFORM
 ARG VAPOR_VERSION
-ARG FROM_INSTRUCTION="--platform=${VAPOR_PLATFORM} laravelphp/vapor:php${VAPOR_VERSION}"
-
 FROM ghcr.io/roadrunner-server/roadrunner:latest AS roadrunner
 
-ARG FROM_INSTRUCTION
-FROM ${FROM_INSTRUCTION}
+ARG VAPOR_VERSION
+FROM laravelphp/vapor:php${VAPOR_VERSION}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.source https://github.com/abenevaut/opensource

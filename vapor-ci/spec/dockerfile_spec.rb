@@ -22,6 +22,7 @@ describe 'Dockerfile' do
     image = ::Docker::Image.build_from_dir(
       '.',
       't': 'abenevaut/vapor-ci:rspec',
+      'platform': ENV['VAPOR_PLATFORM'],
       'buildargs': build_args
     )
 
