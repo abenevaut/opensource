@@ -39,7 +39,7 @@ jobs:
             platform: "linux/adm64"
             build_tag: 83-arm
     concurrency:
-      group: vapor-nginx-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      group: vapor-nginx-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.platform }}-${{ matrix.php_version }}
       cancel-in-progress: true
     steps:
 
