@@ -53,16 +53,16 @@ describe 'Dockerfile' do
     it { is_expected.to be_listening }
   end
 
+  describe port(9000) do
+    it { is_expected.to be_listening }
+  end
+
   def php_version
     command('php -v').stdout
   end
 
   it 'installs php' do
     expect(php_version).to include('8.1').or include('8.2').or include('8.3')
-  end
-
-  describe port(9000) do
-    it { is_expected.to be_listening }
   end
 
   def php_redis_loaded

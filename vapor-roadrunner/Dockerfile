@@ -1,8 +1,8 @@
 ARG VAPOR_VERSION
 FROM ghcr.io/roadrunner-server/roadrunner:latest AS roadrunner
 
-ARG VAPOR_VERSION
 ARG VAPOR_PLATFORM
+ARG VAPOR_VERSION
 FROM --platform=${VAPOR_PLATFORM} laravelphp/vapor:php${VAPOR_VERSION}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
