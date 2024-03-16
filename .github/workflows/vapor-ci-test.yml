@@ -21,9 +21,6 @@ jobs:
         php_version: [ 81, 82, 83 ]
         include:
           - php_version: 81
-            platform: "linux/arm64"
-            build_tag: 81-arm
-          - php_version: 81
             platform: "linux/adm64"
             build_tag: 81-amd
           - php_version: 82
