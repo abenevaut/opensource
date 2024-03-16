@@ -596,7 +596,6 @@
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/composer-unused/contracts" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/nesbot/carbon" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/doctrine/lexer" />
-      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/doctrine/instantiator" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/doctrine/inflector" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/squizlabs/php_codesniffer" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/phpoption/phpoption" />
@@ -617,7 +616,6 @@
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/sebastian/diff" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/phparkitect/phparkitect" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/sebastian/recursion-context" />
-      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/sebastian/resource-operations" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/sebastian/code-unit-reverse-lookup" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/sebastian/global-state" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/sebastian/environment" />
@@ -1157,6 +1155,15 @@
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/webmozart/glob" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/phparkitect/phparkitect" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/mortexa/laravel-arkitect" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/clock" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/laravel/prompts" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
