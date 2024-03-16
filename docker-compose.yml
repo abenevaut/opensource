@@ -25,6 +25,7 @@ services:
 
   vapor-roadrunner:
     image: ghcr.io/abenevaut/vapor-roadrunner:${TAG_VAPOR_ROADRUNNER:-latest}
+    platform: linux/amd64,linux/arm64
     build:
       context: ./vapor-roadrunner
       cache_from:
