@@ -14,6 +14,7 @@ describe 'Dockerfile' do
 
     build_args = JSON.generate(
       'VAPOR_VERSION': ENV['VAPOR_VERSION'],
+      'VAPOR_PLATFORM': ENV['VAPOR_PLATFORM'],
       'TAG_VAPOR_CI': ENV['TAG_VAPOR_CI'],
       'COMPOSER_HASH': ENV['COMPOSER_HASH']
     )
@@ -21,7 +22,7 @@ describe 'Dockerfile' do
     image = ::Docker::Image.build_from_dir(
       '.',
       't': 'abenevaut/vapor-ci:rspec',
-      'cache-from': 'ghcr.io/abenevaut/vapor-ci:latest',
+      'platform': ENV['VAPOR_PLATFORM'],
       'buildargs': build_args
     )
 
