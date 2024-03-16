@@ -51,7 +51,7 @@ Note: the entrypoint script run services located in `rootfs/etc/service`, and `p
 
 ## Test
 
-Docker testing is running with Ruby (with https://bundler.io/)
+Docker testing is running with Ruby 2.7 (with https://bundler.io/)
 
 ```shell
 bundle config path vendor/bundle

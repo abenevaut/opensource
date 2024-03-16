@@ -13,7 +13,6 @@
       <sourceFolder url="file://$MODULE_DIR$/laravel-session/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-stripe/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-sentry-handler/spec" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/laravel-session/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-one/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-one/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-infrastructure/spec" isTestSource="true" />
