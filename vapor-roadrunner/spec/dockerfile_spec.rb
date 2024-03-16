@@ -50,7 +50,7 @@ describe 'Dockerfile' do
     command('rr -v').stdout
   end
 
-  it 'installs roadrunnger' do
+  it 'installs roadrunner' do
     expect(rr_version).to include('2023.3')
   end
 
