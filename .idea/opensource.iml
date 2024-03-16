@@ -14,8 +14,6 @@
       <sourceFolder url="file://$MODULE_DIR$/laravel-stripe/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-sentry-handler/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-session/spec" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/laravel-one/tests" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/laravel-one/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-infrastructure/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/tests" isTestSource="true" />
@@ -195,15 +193,11 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/amphp/windows-registry" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/carbonphp/carbon-doctrine-types" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/daverandom/libdns" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/intervention/image" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/jolicode/php-os-helper" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/kelunik/certificate" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/glide" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/uri" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/uri-interfaces" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/revolt/event-loop" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/image" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/image-optimizer" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/php-structure-discoverer" />
       <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/abenevaut/laravel-infrastructure" />
       <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/carbonphp/carbon-doctrine-types" />
