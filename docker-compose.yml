@@ -10,7 +10,6 @@ services:
         - ghcr.io/abenevaut/vapor-ci:latest
       args:
         - VAPOR_VERSION=${VAPOR_VERSION}
-        - VAPOR_PLATFORM=${VAPOR_PLATFORM}
         - COMPOSER_HASH=${COMPOSER_HASH}
 
   vapor-nginx:
@@ -21,7 +20,6 @@ services:
         - ghcr.io/abenevaut/vapor-nginx:latest
       args:
         - VAPOR_VERSION=${VAPOR_VERSION}
-        - VAPOR_PLATFORM=${VAPOR_PLATFORM}
 
   vapor-roadrunner:
     image: ghcr.io/abenevaut/vapor-roadrunner:${TAG_VAPOR_ROADRUNNER:-latest}
@@ -31,4 +29,3 @@ services:
         - ghcr.io/abenevaut/vapor-roadrunner:latest
       args:
         - VAPOR_VERSION=${VAPOR_VERSION}
-        - VAPOR_PLATFORM=${VAPOR_PLATFORM} # linux/amd64 , linux/arm64
