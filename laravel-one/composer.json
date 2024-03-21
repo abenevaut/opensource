@@ -1,7 +1,7 @@
 {
     "name": "abenevaut/laravel-one",
     "description": "The Laravel One static web pages generator.",
-    "keywords": ["laravel-one", "static", "web", "pages","generator"],
+    "keywords": ["laravel-one", "static", "web", "pages", "generator"],
     "homepage": "https://laravel-one.abenevaut.dev",
     "type": "project",
     "license": "GPL-3.0-only",
