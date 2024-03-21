@@ -3,6 +3,7 @@
 namespace App\Pipes;
 
 use App\GeneratorSettings;
+use Illuminate\Support\Facades\Lang;
 
 class FindContentDirectoryPipe extends PipeAbstract
 {
