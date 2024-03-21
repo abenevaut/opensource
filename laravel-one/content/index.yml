@@ -6,8 +6,6 @@ seo:
   keywords: laravel-one, static webpages, sitemap, blade php
   author: Antoine Benevaut
 
-# readme: content::test.ab
-
 readme: >1
   # laravel-one documentation
   Tool to generate static webpages based on [Blade Templates](https://laravel.com/docs/9.x/blade).

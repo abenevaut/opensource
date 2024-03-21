@@ -31,6 +31,15 @@ To display your content, you have to create a new blade template `theme/the-blad
 {{ $key_example }}
 ```
 
+### Content translation
+- add `content/lang` directory and another directory peer language like `content/lang/en`
+- the language namespace is `content`, call translation `{{ \Illuminate\Support\Facades\Lang::get($readme, [], 'en') }}`
+
+### Markdown content
+```html
+<x-markdown>{{ $readme }}</x-markdown>
+```
+
 Generate the static website:
 ```shell
 laravel-one generate https://my-website.com
