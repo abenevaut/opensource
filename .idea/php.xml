@@ -1162,6 +1162,14 @@
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/laravel/prompts" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/doctrine/instantiator" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/sebastian/resource-operations" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/image" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/image-optimizer" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/league/glide" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/intervention/image" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/illuminate/translation" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/illuminate/validation" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/egulias/email-validator" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
