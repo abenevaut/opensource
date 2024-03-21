@@ -20,7 +20,7 @@ class GeneratePageCommand extends Command
     {
         try {
             Validator::validate($this->arguments(), [
-                'page' => 'required',
+                'page' => 'string',
             ]);
 
             $page = json_decode($this->argument('page'), true);
