@@ -86,11 +86,17 @@ jobs:
 
       - name: Create "latest" docker manifest
         if: ${{ matrix.latest }}
-        run: docker manifest create ghcr.io/abenevaut/vapor-roadrunner:latest ghcr.io/abenevaut/vapor-roadrunner:php${{ matrix.php_version }}-amd ghcr.io/abenevaut/vapor-roadrunner:php${{ matrix.php_version }}-arm
+        run: |
+          docker manifest create ghcr.io/abenevaut/vapor-roadrunner:latest ghcr.io/abenevaut/vapor-roadrunner:php${{ matrix.php_version }}-amd ghcr.io/abenevaut/vapor-roadrunner:php${{ matrix.php_version }}-arm
+          docker manifest push ghcr.io/abenevaut/vapor-ci:release-candidate
 
       - name: Create "release-candidate" docker manifest
         if: ${{ matrix.release-candidate }}
-        run: docker manifest create ghcr.io/abenevaut/vapor-roadrunner:release-candidate ghcr.io/abenevaut/vapor-roadrunner:php${{ matrix.php_version }}-amd ghcr.io/abenevaut/vapor-roadrunner:php${{ matrix.php_version }}-arm
+        run: |
+          docker manifest create ghcr.io/abenevaut/vapor-roadrunner:release-candidate ghcr.io/abenevaut/vapor-roadrunner:php${{ matrix.php_version }}-amd ghcr.io/abenevaut/vapor-roadrunner:php${{ matrix.php_version }}-arm
+          docker manifest push ghcr.io/abenevaut/vapor-ci:release-candidate
 
       - name: Create "php${{ matrix.php_version }}" docker manifest
-        run: docker manifest create ghcr.io/abenevaut/vapor-roadrunner:php${{ matrix.php_version }} ghcr.io/abenevaut/vapor-roadrunner:php${{ matrix.php_version }}-amd ghcr.io/abenevaut/vapor-roadrunner:php${{ matrix.php_version }}-arm
+        run: |
+          docker manifest create ghcr.io/abenevaut/vapor-roadrunner:php${{ matrix.php_version }} ghcr.io/abenevaut/vapor-roadrunner:php${{ matrix.php_version }}-amd ghcr.io/abenevaut/vapor-roadrunner:php${{ matrix.php_version }}-arm
+          docker manifest push ghcr.io/abenevaut/vapor-roadrunner:php${{ matrix.php_version }}
