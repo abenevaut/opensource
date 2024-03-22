@@ -14,13 +14,14 @@ describe 'Dockerfile' do
 
     build_args = JSON.generate(
       'VAPOR_VERSION': ENV['VAPOR_VERSION'],
+      'VAPOR_PLATFORM': ENV['VAPOR_PLATFORM'],
       'TAG_VAPOR_ROADRUNNER': ENV['TAG_VAPOR_ROADRUNNER']
     )
 
     image = ::Docker::Image.build_from_dir(
       '.',
       't': 'abenevaut/vapor-roadrunner:rspec',
-      'cache-from': 'ghcr.io/abenevaut/vapor-roadrunner:latest',
+      'platform': ENV['VAPOR_PLATFORM'],
       'buildargs': build_args
     )
 
@@ -41,7 +42,7 @@ describe 'Dockerfile' do
   describe command('cat /etc/os-release') do
     it 'confirm alpine version' do
       expect(subject.stdout).to match(/Alpine Linux/)
-      expect(subject.stdout).to match(/3.18.4/)
+      expect(subject.stdout).to match(/3.19.1/)
     end
   end
 
@@ -49,7 +50,7 @@ describe 'Dockerfile' do
     command('rr -v').stdout
   end
 
-  it 'installs roadrunnger' do
+  it 'installs roadrunner' do
     expect(rr_version).to include('2023.3')
   end
 
@@ -58,7 +59,7 @@ describe 'Dockerfile' do
   end
 
   it 'installs php' do
-    expect(php_version).to include('8.1').or include('8.2').or include('8.3')
+    expect(php_version).to include('8.2').or include('8.3')
   end
 
   def php_redis_loaded
@@ -130,7 +131,7 @@ describe 'Dockerfile' do
   end
 
   it 'installs php-opcache' do
-    expect(php_opcache_loaded).to include('true')
+    expect(php_opcache_loaded).to include('false')
   end
 
   def php_opcache_enabled
@@ -138,7 +139,7 @@ describe 'Dockerfile' do
   end
 
   it 'php-opcache is not enabled' do
-    expect(php_opcache_enabled).to include('string(1) "1"')
+    expect(php_opcache_enabled).not_to include('string(1) "1"')
   end
 
   def php_opcache_cli_enabled
@@ -146,6 +147,6 @@ describe 'Dockerfile' do
   end
 
   it 'php-opcache cli is not enabled' do
-    expect(php_opcache_cli_enabled).to include('string(1) "1"')
+    expect(php_opcache_cli_enabled).not_to include('string(1) "1"')
   end
 end

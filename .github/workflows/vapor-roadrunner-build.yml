@@ -5,21 +5,43 @@ on:
     branches: [ master ]
     paths:
       - 'vapor-roadrunner/**'
+      - '.env.example'
       - 'docker-compose.yml'
 
 jobs:
 
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php_version: [ 82, 83 ]
+        platform: [ "linux/amd64", "linux/arm64/v8" ]
+        include:
+          - php_version: 82
+            platform: "linux/arm64/v8"
+            build_tag: 82-arm
+          - php_version: 82
+            platform: "linux/amd64"
+            build_tag: 82-amd
+          - php_version: 83
+            platform: "linux/arm64/v8"
+            build_tag: 83-arm
+          - php_version: 83
+            platform: "linux/amd64"
+            build_tag: 83-amd
     concurrency:
-      group: vapor-roadrunner-build-${{ github.workflow }}-${{ github.ref }}
+      group: vapor-roadrunner-build-${{ github.workflow }}-${{ github.ref }}-${{ matrix.build_tag }}
       cancel-in-progress: true
     steps:
 
-    - uses: actions/checkout@v4
+    - name: Checkout project
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
 
     - name: Prepare environment
       run: cp .env.example .env
 
     - name: Build docker image
-      run: docker-compose build vapor-roadrunner
+      run: TAG_VAPOR_CI=php${{ matrix.build_tag }} VAPOR_PLATFORM=${{ matrix.platform }} VAPOR_VERSION=${{ matrix.php_version }} docker-compose build vapor-roadrunner
