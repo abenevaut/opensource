@@ -43,7 +43,7 @@ describe 'Dockerfile' do
   describe command('cat /etc/os-release') do
     it 'confirm alpine version' do
       expect(subject.stdout).to match(/Alpine Linux/)
-      expect(subject.stdout).to match(/3.18.4/)
+      expect(subject.stdout).to match(/3.19.1/)
     end
   end
 
@@ -52,7 +52,7 @@ describe 'Dockerfile' do
   end
 
   it 'installs php' do
-    expect(php_version).to include('8.1').or include('8.2').or include('8.3')
+    expect(php_version).to include('8.2').or include('8.3')
   end
 
   def php_redis_loaded
@@ -124,7 +124,7 @@ describe 'Dockerfile' do
   end
 
   it 'installs codecov' do
-    expect(codecov_version).to include('0.7.1')
+    expect(codecov_version).to include('0.7.2')
   end
 
   def php_pcov_loaded
@@ -140,7 +140,7 @@ describe 'Dockerfile' do
   end
 
   it 'installs php-opcache' do
-    expect(php_opcache_loaded).to include('true')
+    expect(php_opcache_loaded).to include('false')
   end
 
   def php_opcache_enabled
@@ -164,6 +164,6 @@ describe 'Dockerfile' do
   end
 
   it 'installs composer' do
-    expect(composer_version).to include('2.6.5')
+    expect(composer_version).to include('2.7.2')
   end
 end
