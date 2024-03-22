@@ -11,6 +11,13 @@ Tool to generate static webpages based on [Blade Templates](https://laravel.com/
 composer global require abenevaut/laravel-one
 ```
 
+or download the standalone phar (replace `<x.x.x>` by a version)
+```shell
+wget https://github.com/abenevaut/laravel-one/releases/download/<x.x.x>/laravel-one
+wget https://github.com/abenevaut/laravel-one/releases/download/<x.x.x>/laravel-one.sha512sum
+sha512sum -c laravel-one.sha512sum
+```
+
 ## Usage
 To create a new project, you have to create the following directories & files:
 
