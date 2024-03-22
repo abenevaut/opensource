@@ -27,14 +27,15 @@ class ListPagesPipe extends PipeAbstract
         foreach ($files as $file) {
             $content = Yaml::parse(file_get_contents($file));
 
-            $distUri = Str::remove($this->path('content/'), $file);
+            $distUri = Str::remove($this->executionPath('content/'), $file);
             $distUri = Str::replace('yml', 'html', $distUri);
 
             $page = new Page(
                 $file,
                 $generatorSettings->url,
                 $distUri,
-                $content
+                $content,
+                config('view')
             );
 
             // Attach observers

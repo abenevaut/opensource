@@ -13,11 +13,12 @@
       <sourceFolder url="file://$MODULE_DIR$/laravel-session/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-stripe/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-session/spec" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/laravel-one/tests" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/laravel-one/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-infrastructure/spec" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-one/app" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-one/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-one/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-stripe/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-ohdear/.phpunit.cache" />
@@ -194,15 +195,11 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/amphp/windows-registry" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/carbonphp/carbon-doctrine-types" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/daverandom/libdns" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/intervention/image" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/jolicode/php-os-helper" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/kelunik/certificate" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/glide" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/uri" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/uri-interfaces" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/revolt/event-loop" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/image" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/image-optimizer" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/php-structure-discoverer" />
       <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/abenevaut/laravel-infrastructure" />
       <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/carbonphp/carbon-doctrine-types" />
@@ -241,6 +238,19 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/validator" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/var-exporter" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/webmozart/glob" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/guzzlehttp/guzzle" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/guzzlehttp/promises" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/guzzlehttp/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/laravel/prompts" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/psr/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/psr/http-factory" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/psr/http-message" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/ralouphie/getallheaders" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/symfony/clock" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/doctrine/lexer" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/egulias/email-validator" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/illuminate/translation" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/illuminate/validation" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
