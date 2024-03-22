@@ -88,7 +88,7 @@ jobs:
         if: ${{ matrix.latest }}
         run: |
           docker manifest create ghcr.io/abenevaut/vapor-roadrunner:latest ghcr.io/abenevaut/vapor-roadrunner:php${{ matrix.php_version }}-amd ghcr.io/abenevaut/vapor-roadrunner:php${{ matrix.php_version }}-arm
-          docker manifest push ghcr.io/abenevaut/vapor-roadrunner:release-candidate
+          docker manifest push ghcr.io/abenevaut/vapor-roadrunner:latest
 
       - name: Create "release-candidate" docker manifest
         if: ${{ matrix.release-candidate }}
