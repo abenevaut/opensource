@@ -51,10 +51,10 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build "php${{ matrix.build_tag }}" docker image
-        run: TAG_VAPOR_CI=php${{ matrix.build_tag }} VAPOR_PLATFORM=${{ matrix.platform }} VAPOR_VERSION=${{ matrix.php_version }} docker-compose build vapor-nginx
+        run: TAG_VAPOR_NGINX=php${{ matrix.build_tag }} VAPOR_PLATFORM=${{ matrix.platform }} VAPOR_VERSION=${{ matrix.php_version }} docker-compose build vapor-nginx
 
       - name: Publish "php${{ matrix.build_tag }}" docker image
-        run: TAG_VAPOR_CI=php${{ matrix.build_tag }} docker-compose push vapor-nginx
+        run: TAG_VAPOR_NGINX=php${{ matrix.build_tag }} docker-compose push vapor-nginx
 
   release:
     runs-on: ubuntu-latest
@@ -88,13 +88,13 @@ jobs:
         if: ${{ matrix.latest }}
         run: |
           docker manifest create ghcr.io/abenevaut/vapor-nginx:latest ghcr.io/abenevaut/vapor-nginx:php${{ matrix.php_version }}-amd ghcr.io/abenevaut/vapor-nginx:php${{ matrix.php_version }}-arm
-          docker manifest push ghcr.io/abenevaut/vapor-ci:latest
+          docker manifest push ghcr.io/abenevaut/vapor-nginx:latest
 
       - name: Create "release-candidate" docker manifest
         if: ${{ matrix.release-candidate }}
         run: |
           docker manifest create ghcr.io/abenevaut/vapor-nginx:release-candidate ghcr.io/abenevaut/vapor-nginx:php${{ matrix.php_version }}-amd ghcr.io/abenevaut/vapor-nginx:php${{ matrix.php_version }}-arm
-          docker manifest push ghcr.io/abenevaut/vapor-ci:release-candidate
+          docker manifest push ghcr.io/abenevaut/vapor-nginx:release-candidate
 
       - name: Create "php${{ matrix.php_version }}" docker manifest
         run: |
