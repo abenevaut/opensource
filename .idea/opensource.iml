@@ -17,6 +17,9 @@
       <sourceFolder url="file://$MODULE_DIR$/laravel-infrastructure/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-one/app" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-one/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-one/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-stripe/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-ohdear/.phpunit.cache" />
