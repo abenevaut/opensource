@@ -37,7 +37,10 @@ jobs:
       cancel-in-progress: true
     steps:
 
-    - uses: actions/checkout@v4
+    - name: Checkout project
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
 
     - uses: actions/cache@v2
       with:
