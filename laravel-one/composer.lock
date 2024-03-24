@@ -2373,7 +2373,7 @@
         },
         {
             "name": "illuminate/http",
-            "version": "v10.48.3",
+            "version": "v10.48.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/http.git",
@@ -2528,7 +2528,7 @@
         },
         {
             "name": "illuminate/pipeline",
-            "version": "v10.48.3",
+            "version": "v10.48.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/pipeline.git",
@@ -2576,7 +2576,7 @@
         },
         {
             "name": "illuminate/routing",
-            "version": "v10.48.3",
+            "version": "v10.48.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/routing.git",
@@ -2640,7 +2640,7 @@
         },
         {
             "name": "illuminate/session",
-            "version": "v10.48.3",
+            "version": "v10.48.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/session.git",
