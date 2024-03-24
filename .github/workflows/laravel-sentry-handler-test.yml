@@ -42,7 +42,7 @@ jobs:
 
       - name: Configure Composer cache
         id: composer-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: laravel-sentry-handler/vendor
           key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.json') }}

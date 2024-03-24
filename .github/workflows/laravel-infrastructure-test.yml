@@ -44,7 +44,7 @@ jobs:
           fetch-depth: 2
 
       - name: Configure Composer cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: laravel-infrastructure/vendor
           key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.json') }}
