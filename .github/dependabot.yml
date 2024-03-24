@@ -1,6 +1,13 @@
 version: 2
 updates:
 
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    interval: monthly
+    time: "06:00"
+    timezone: Europe/Paris
+
 - package-ecosystem: composer
   directory: "laravel-infrastructure"
   schedule:
