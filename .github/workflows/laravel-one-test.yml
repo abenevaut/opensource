@@ -41,7 +41,7 @@ jobs:
 
       - name: Configure Composer cache
         id: composer-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: laravel-one/vendor
           key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.lock') }}
@@ -57,7 +57,7 @@ jobs:
 
       - name: Web pages cache
         id: web-pages-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: laravel-one/.cache
           key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-web-pages-cache-${{ hashFiles('**/composer.lock') }}
