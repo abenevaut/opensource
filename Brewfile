@@ -13,6 +13,7 @@ brew "zlib"
 brew "vhs"
 brew "imagemagick"
 brew "protobuf@21"
+brew "nvm"
 brew "siege"
 brew "terminal-notifier" if OS.mac?
 
