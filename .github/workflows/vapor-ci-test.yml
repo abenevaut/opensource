@@ -42,7 +42,7 @@ jobs:
       with:
         fetch-depth: 1
 
-    - uses: actions/cache@v2
+    - uses: actions/cache@v4
       with:
         path: vapor-ci/vendor/bundle
         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
