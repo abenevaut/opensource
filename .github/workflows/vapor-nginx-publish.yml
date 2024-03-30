@@ -52,6 +52,10 @@ jobs:
 
       - name: Build "php${{ matrix.build_tag }}" docker image
         run: TAG_VAPOR_NGINX=php${{ matrix.build_tag }} VAPOR_VERSION=${{ matrix.php_version }} docker-compose build vapor-nginx
+        env:
+          COMPOSE_DOCKER_CLI_BUILD: 1
+          DOCKER_BUILDKIT: 1
+          DOCKER_DEFAULT_PLATFORM: ${{ matrix.platform }}
 
       - name: Publish "php${{ matrix.build_tag }}" docker image
         run: TAG_VAPOR_NGINX=php${{ matrix.build_tag }} docker-compose push vapor-nginx
