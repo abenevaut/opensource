@@ -62,7 +62,6 @@ jobs:
         bundle exec rspec
       env:
         VAPOR_VERSION: ${{ matrix.php_version }}
-        VAPOR_PLATFORM: ${{ matrix.platform }}
         COMPOSE_DOCKER_CLI_BUILD: 1
         DOCKER_BUILDKIT: 1
         DOCKER_DEFAULT_PLATFORM: ${{ matrix.platform }}
