@@ -14,14 +14,13 @@ describe 'Dockerfile' do
 
     build_args = JSON.generate(
       'VAPOR_VERSION': ENV['VAPOR_VERSION'],
-      'VAPOR_PLATFORM': ENV['VAPOR_PLATFORM'],
       'TAG_VAPOR_ROADRUNNER': ENV['TAG_VAPOR_ROADRUNNER']
     )
 
     image = ::Docker::Image.build_from_dir(
       '.',
       't': 'abenevaut/vapor-roadrunner:rspec',
-      'platform': ENV['VAPOR_PLATFORM'],
+      'platform': ENV['DOCKER_DEFAULT_PLATFORM'],
       'buildargs': build_args
     )
 
