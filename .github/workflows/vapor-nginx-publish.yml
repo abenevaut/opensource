@@ -51,7 +51,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build "php${{ matrix.build_tag }}" docker image
-        run: TAG_VAPOR_NGINX=php${{ matrix.build_tag }} VAPOR_PLATFORM=${{ matrix.platform }} VAPOR_VERSION=${{ matrix.php_version }} docker-compose build vapor-nginx
+        run: TAG_VAPOR_NGINX=php${{ matrix.build_tag }} VAPOR_VERSION=${{ matrix.php_version }} docker-compose build --platform=${{ matrix.platform }} vapor-nginx
 
       - name: Publish "php${{ matrix.build_tag }}" docker image
         run: TAG_VAPOR_NGINX=php${{ matrix.build_tag }} docker-compose push vapor-nginx
