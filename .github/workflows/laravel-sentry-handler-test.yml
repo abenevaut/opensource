@@ -12,25 +12,27 @@ on:
 
 defaults:
   run:
-    working-directory: laravel-sentry-handler
+    working-directory: ./laravel-sentry-handler
 
 jobs:
 
   test:
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
     strategy:
       fail-fast: true
       matrix:
-        php_version: [ 8.1, 8.2 ]
+        php_version: [ 81, 82, 83 ]
         include:
-          - php_version: 8.2
+          - php_version: 81
+            record_coverage: false
+          - php_version: 82
+            record_coverage: false
+          - php_version: 83
             record_coverage: true
     concurrency:
       group: laravel-sentry-handler-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
-    container: ghcr.io/abenevaut/vapor-ci:latest
+    container: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
     steps:
 
       - name: Checkout project
@@ -38,15 +40,9 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Initialize PHP ${{ matrix.php_version }}
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php_version }}
-          coverage: pcov
-
       - name: Configure Composer cache
         id: composer-cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: laravel-sentry-handler/vendor
           key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.json') }}
@@ -70,6 +66,56 @@ jobs:
           sed '2d' tmp2.txt > tmp.txt
           sed '2d' tmp.txt > tmp2.txt
           sed 's/+/|/g' tmp2.txt > ../.github/workflows/smelly-code-detector.txt
+          rm tmp.txt tmp2.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smelly-code-detector
+          path: ${{ github.workspace }}/.github/workflows/smelly-code-detector.txt
+          retention-days: 1
+          compression-level: 9
+          overwrite: true
+
+      - name: Run tests
+        run: |
+          vendor/bin/composer-unused
+          vendor/bin/smelly-code-detector inspect ./src
+          vendor/bin/phpcs --standard=PSR12 src tests
+          vendor/bin/phpunit
+
+      - name: Send coverage
+        if: ${{ matrix.record_coverage }}
+        run: codecov -f coverage/clover.xml -F laravel-sentry-handler
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  comment:
+    runs-on: ubuntu-latest
+    needs: test
+    permissions:
+      # needed by `NejcZdovc/comment-pr` action
+      pull-requests: write
+    strategy:
+      fail-fast: true
+      matrix:
+        php_version: [ 81, 82, 83 ]
+        include:
+          - php_version: 81
+            record_coverage: false
+          - php_version: 82
+            record_coverage: false
+          - php_version: 83
+            record_coverage: true
+    concurrency:
+      group: laravel-sentry-handler-comment-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      cancel-in-progress: false
+    steps:
+
+      - uses: actions/download-artifact@v4
+        if: github.event_name == 'pull_request' && matrix.record_coverage
+        with:
+          name: smelly-code-detector
+          path: ${{ github.workspace }}/.github/workflows
 
       - uses: NejcZdovc/comment-pr@v2
         if: github.event_name == 'pull_request' && matrix.record_coverage
@@ -77,12 +123,3 @@ jobs:
           file: smelly-code-detector.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Test
-        run: composer test
-
-      - name: Send coverage
-        if: ${{ matrix.record_coverage }}
-        run: bash <(curl -s https://codecov.io/bash) -f coverage/clover.xml -F laravel-sentry-handler
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

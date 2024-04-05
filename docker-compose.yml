@@ -4,6 +4,7 @@ services:
 
   vapor-ci:
     image: ghcr.io/abenevaut/vapor-ci:${TAG_VAPOR_CI:-latest}
+    platform: ${DOCKER_DEFAULT_PLATFORM}
     build:
       context: ./vapor-ci
       cache_from:
@@ -14,6 +15,7 @@ services:
 
   vapor-nginx:
     image: ghcr.io/abenevaut/vapor-nginx:${TAG_VAPOR_NGINX:-latest}
+    platform: ${DOCKER_DEFAULT_PLATFORM}
     build:
       context: ./vapor-nginx
       cache_from:
@@ -23,9 +25,8 @@ services:
 
   vapor-roadrunner:
     image: ghcr.io/abenevaut/vapor-roadrunner:${TAG_VAPOR_ROADRUNNER:-latest}
+    platform: ${DOCKER_DEFAULT_PLATFORM}
     build:
       context: ./vapor-roadrunner
-      cache_from:
-        - ghcr.io/abenevaut/vapor-roadrunner:latest
       args:
         - VAPOR_VERSION=${VAPOR_VERSION}

@@ -2,7 +2,8 @@
 
 ```shell
 docker build . --file Dockerfile --tag abenevaut/vapor-nginx:test \
-    --build-arg VAPOR_VERSION=81 
+    --build-arg VAPOR_VERSION=82 \
+    --platform=linux/arm64
 ```
 
 - VAPOR_VERSION: vapor docker version, default `81`
@@ -37,7 +38,7 @@ Note: the entrypoint script run services located in `rootfs/etc/service`, and `p
 
 ## Test
 
-Docker testing is running with Ruby (with https://bundler.io/)
+Docker testing is running with Ruby 2.7 (with https://bundler.io/)
 
 ```shell
 bundle config path vendor/bundle

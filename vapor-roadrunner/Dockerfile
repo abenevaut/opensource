@@ -1,8 +1,8 @@
 ARG VAPOR_VERSION
-FROM ghcr.io/roadrunner-server/roadrunner:latest AS roadrunner
+FROM --platform=${TARGETPLATFORM} ghcr.io/roadrunner-server/roadrunner:latest AS roadrunner
 
 ARG VAPOR_VERSION
-FROM --platform=linux/amd64 laravelphp/vapor:php${VAPOR_VERSION}
+FROM --platform=${TARGETPLATFORM} laravelphp/vapor:php${VAPOR_VERSION}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.source https://github.com/abenevaut/opensource
@@ -36,13 +36,23 @@ RUN chown -R nobody.nobody /run
 # Add configuration files
 COPY --chown=nobody rootfs/ /
 
+# Remove windows end of line character
+RUN sed -i 's/\r//g' /bin/docker-entrypoint.sh \
+    && sed -i 's/\r//g' /docker-entrypoint-init.d/01-uname.sh \
+    && sed -i 's/\r//g' /etc/service/roadrunner/run
+
 # Add application
 WORKDIR /var/task
 
-# Let runit start nginx & php-fpm
+EXPOSE 8080
+
+# Let runit start services
 ENTRYPOINT [ "/bin/docker-entrypoint.sh" ]
 
 CMD []
+
+# Configure a healthcheck to validate that everything is up&running
+HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:8080/
 
 ENV client_max_body_size=2M \
     clear_env=no \
