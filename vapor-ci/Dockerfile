@@ -1,5 +1,5 @@
 ARG VAPOR_VERSION
-FROM --platform=linux/amd64 laravelphp/vapor:php${VAPOR_VERSION}
+FROM --platform=${TARGETPLATFORM} laravelphp/vapor:php${VAPOR_VERSION}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.source https://github.com/abenevaut/opensource
@@ -36,13 +36,15 @@ RUN chown -R nobody.nobody /run
 # Add configuration files
 COPY --chown=nobody rootfs/ /
 
+# Remove windows end of line character
+RUN sed -i 's/\r//g' /bin/docker-entrypoint.sh \
+    && sed -i 's/\r//g' /docker-entrypoint-init.d/01-uname.sh \
+    && sed -i 's/\r//g' /etc/service/php/run
+
 # Add application
 WORKDIR /var/task
 
-# Expose the port php-fpm is reachable on
-EXPOSE 9000
-
-# Let runit start nginx & php-fpm
+# Let runit start services
 ENTRYPOINT [ "/bin/docker-entrypoint.sh" ]
 
 CMD []

@@ -11,3 +11,7 @@ for entry in "/usr/local/etc/php/templates/conf.d"/*;do
       mv "$tmpfile" "/usr/local/etc/php/conf.d/$(basename $entry)"
     fi
 done
+
+# pipe stderr to stdout and run nginx omitting ENV vars to avoid security leaks
+exec 2>&1
+exec rr serve -c /var/task/.rr.yaml -w /var/task

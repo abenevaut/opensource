@@ -2,7 +2,8 @@
 
 ```shell
 docker build . --file Dockerfile --tag abenevaut/vapor-roadrunner:test \
-    --build-arg VAPOR_VERSION=81 
+    --build-arg VAPOR_VERSION=81 \
+    --platform=linux/arm64/v8
 ```
 
 - VAPOR_VERSION: vapor docker version, default `81`
@@ -18,22 +19,49 @@ FROM --platform=linux/amd64 abenevaut/vapor-roadrunner:latest
 COPY . /var/task
 
 USER root
-RUN chown -R nobody.nobody /var/task
 
-CMD rr serve -c /var/task/.rr.yaml -w /var/task
+# Add services & configuration files
+COPY --chown=nobody rootfs/ /
+
+RUN chown -R nobody.nobody /var/task
 
 EXPOSE 8080
 ```
 
-Note: the `CMD` instruction is required to execute roadrunner binary with flexibilities.
-If you are adventurous you can add a roadrunner service in `rootfs/etc/service` to lunch it automatically.
+Add a roadrunner service in `rootfs/etc/service` to lunch it automatically.
 
-- example of `rootfs/etc/service/roadrunner/run`: (remember to `COPY` it from your Dockerfile)
-
+- example of `rootfs/etc/service/roadrunner/run`:
 ```shell
 #!/bin/sh -e
 
-rr serve -c /var/task/.rr.yaml -w /var/task
+for entry in "/usr/local/etc/php/templates/conf.d"/*;do
+    if [[ -f $entry ]] ;then
+      tmpfile=$(mktemp)
+      cat $entry | envsubst "$(env | cut -d= -f1 | sed -e 's/^/$/')" | tee "$tmpfile" > /dev/null
+      mv "$tmpfile" "/usr/local/etc/php/conf.d/$(basename $entry)"
+    fi
+done
+
+# pipe stderr to stdout and run nginx omiting ENV vars to avoid security leaks
+exec 2>&1
+exec rr serve -c /var/task/.rr.yaml -w /var/task
+```
+
+- example of `rootfs/etc/service/octane/run`:
+```shell
+#!/bin/sh -e
+
+for entry in "/usr/local/etc/php/templates/conf.d"/*;do
+    if [[ -f $entry ]] ;then
+      tmpfile=$(mktemp)
+      cat $entry | envsubst "$(env | cut -d= -f1 | sed -e 's/^/$/')" | tee "$tmpfile" > /dev/null
+      mv "$tmpfile" "/usr/local/etc/php/conf.d/$(basename $entry)"
+    fi
+done
+
+# pipe stderr to stdout and run nginx omitting ENV vars to avoid security leaks
+exec 2>&1
+exec php /var/task/artisan octane:start --port=8080 --rr-config=/var/task/.rr.yaml
 ```
 
 ### Customize with inheritance
