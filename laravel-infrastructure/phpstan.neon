@@ -1,4 +1,8 @@
 parameters:
+  editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
   level: max
   paths:
     - src
+    - tests/Rules
+rules:
+  - Tests\Rules\ControllersExtendsBaseControllerRule
