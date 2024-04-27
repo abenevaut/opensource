@@ -17,7 +17,7 @@ class ControllersExtendsBaseControllerRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
-        if (! str_starts_with($scope->getNamespace(), 'abenevaut\Infrastructure\Http\Controllers')) {
+        if (empty($scope->getNamespace()) || !str_starts_with($scope->getNamespace(), 'abenevaut\Infrastructure\Http\Controllers')) {
             return [];
         }
 
@@ -27,9 +27,9 @@ class ControllersExtendsBaseControllerRule implements Rule
             return [];
         }
 
-        if (!$reflectionClass->isSubclassOf('abenevaut\Infrastructure\Http\Controllers\ControllerAbstract')) {
+        if (!$reflectionClass->isSubclassOf('Illuminate\Routing\Controller')) {
             return [
-                "Controllers should extend 'abenevaut\Infrastructure\Http\Controllers\ControllerAbstract' (see rule #49)"
+                "Controllers should extend 'Illuminate\Routing\Controller' (see rule #49)"
             ];
         }
 

@@ -3,6 +3,6 @@ parameters:
   level: max
   paths:
     - src
-    - tests/Rules
+    - tests
 rules:
   - Tests\Rules\ControllersExtendsBaseControllerRule
