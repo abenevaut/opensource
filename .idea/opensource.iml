@@ -13,9 +13,12 @@
       <sourceFolder url="file://$MODULE_DIR$/laravel-session/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-stripe/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-session/spec" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/tests" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-one/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-one/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-sentry-handler/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-stripe/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-ohdear/.phpunit.cache" />
@@ -52,7 +55,6 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/phpdocumentor/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/ta-tikoma/phpunit-architecture-test" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/brick/math" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/clue/stream-filter" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/degraciamathieu/php-file-explorer" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/degraciamathieu/php-smelly-code-detector" />
@@ -64,11 +66,9 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/filp/whoops" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/fruitcake/php-cors" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/graham-campbell/result-type" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/guzzlehttp/promises" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/guzzlehttp/psr7" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/guzzlehttp/uri-template" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/hamcrest/hamcrest-php" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/http-interop/http-factory-guzzle" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/jean85/pretty-package-versions" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/jolicode/jolinotif" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/laravel-zero/foundation" />
@@ -95,12 +95,6 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/nyholm/psr7" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/phar-io/manifest" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/phar-io/version" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/php-http/client-common" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/php-http/discovery" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/php-http/httplug" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/php-http/message" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/php-http/message-factory" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/php-http/promise" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/phpoption/phpoption" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/phpunit/php-code-coverage" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/phpunit/php-file-iterator" />
@@ -110,7 +104,6 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/phpunit/phpunit" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/psr/container" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/psr/event-dispatcher" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/psr/http-client" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/psr/http-factory" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/psr/http-message" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/psr/log" />
@@ -143,8 +136,6 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/event-dispatcher-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/filesystem" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/finder" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/http-client" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/http-client-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/http-foundation" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/http-kernel" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/mailer" />
@@ -214,16 +205,13 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/league/flysystem-local" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/psr/clock" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/symfony/polyfill-php83" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/symfony/validator" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/carbonphp/carbon-doctrine-types" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/composer-unused/contracts" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/composer-unused/symbol-parser" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/icanhazstring/composer-unused" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/jolicode/php-os-helper" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/laravel/prompts" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/mortexa/laravel-arkitect" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/ondram/ci-detector" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/phparkitect/phparkitect" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/phpstan/phpdoc-parser" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/psr/clock" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/symfony/config" />
@@ -248,6 +236,7 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/egulias/email-validator" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/illuminate/translation" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/illuminate/validation" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/phpstan/phpstan" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

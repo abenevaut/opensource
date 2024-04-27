@@ -526,7 +526,6 @@
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/graham-campbell/result-type" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/phpunit/php-timer" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/hamcrest/hamcrest-php" />
-      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/mortexa/laravel-arkitect" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/phpunit/phpunit" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/phpunit/php-text-template" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/phpunit/php-invoker" />
@@ -536,7 +535,6 @@
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/tijsverkoyen/css-to-inline-styles" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/myclabs/deep-copy" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/dflydev/dot-access-data" />
-      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/ondram/ci-detector" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/dragonmantank/cron-expression" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/deprecation-contracts" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/polyfill-mbstring" />
@@ -547,29 +545,21 @@
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/polyfill-intl-grapheme" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/phar-io/manifest" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/css-selector" />
-      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/var-exporter" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/composer" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/egulias/email-validator" />
-      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/icanhazstring/composer-unused" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/polyfill-ctype" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/webmozart/assert" />
-      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/property-info" />
-      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/webmozart/glob" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/error-handler" />
-      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/filesystem" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/polyfill-intl-idn" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/console" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/event-dispatcher" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/var-dumper" />
-      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/dependency-injection" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/polyfill-php80" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/event-dispatcher-contracts" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/ramsey/collection" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/polyfill-php72" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/ramsey/uuid" />
-      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/config" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/brick/math" />
-      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/property-access" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/mailer" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/mime" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/process" />
@@ -587,13 +577,10 @@
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/psr/container" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/service-contracts" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/string" />
-      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/serializer" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/translation" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/theseer/tokenizer" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/voku/portable-ascii" />
-      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/composer-unused/symbol-parser" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/nunomaduro/termwind" />
-      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/composer-unused/contracts" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/nesbot/carbon" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/doctrine/lexer" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/doctrine/inflector" />
@@ -610,11 +597,9 @@
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/sebastian/exporter" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/sebastian/version" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/sebastian/complexity" />
-      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/phpstan/phpdoc-parser" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/sebastian/type" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/sebastian/diff" />
-      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/phparkitect/phparkitect" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/sebastian/recursion-context" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/sebastian/code-unit-reverse-lookup" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/sebastian/global-state" />
@@ -846,10 +831,8 @@
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/tijsverkoyen/css-to-inline-styles" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/dragonmantank/cron-expression" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/graham-campbell/result-type" />
-      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/guzzlehttp/promises" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/guzzlehttp/psr7" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/nunomaduro/termwind" />
-      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/http-interop/http-factory-guzzle" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/sebastian/type" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/sebastian/version" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/sebastian/cli-parser" />
@@ -866,10 +849,6 @@
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/sebastian/diff" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/sebastian/recursion-context" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/sebastian/lines-of-code" />
-      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/php-http/message" />
-      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/php-http/httplug" />
-      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/php-http/message-factory" />
-      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/php-http/promise" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/fruitcake/php-cors" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/phpoption/phpoption" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/ralouphie/getallheaders" />
@@ -877,8 +856,6 @@
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/doctrine/lexer" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/doctrine/inflector" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/hamcrest/hamcrest-php" />
-      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/php-http/client-common" />
-      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/php-http/discovery" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/error-handler" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/process" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/console" />
@@ -891,7 +868,6 @@
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/deprecation-contracts" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/routing" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/service-contracts" />
-      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/http-client-contracts" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/http-foundation" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/polyfill-intl-idn" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/polyfill-uuid" />
@@ -899,7 +875,6 @@
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/css-selector" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/event-dispatcher-contracts" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/finder" />
-      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/http-client" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/psr-http-message-bridge" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/translation" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/translation-contracts" />
@@ -942,7 +917,6 @@
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/nesbot/carbon" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/psr/simple-cache" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/psr/http-factory" />
-      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/clue/stream-filter" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/voku/portable-ascii" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/brick/math" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/nette/utils" />
@@ -950,7 +924,6 @@
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/psr/event-dispatcher" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/psr/http-message" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/psr/container" />
-      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/psr/http-client" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/psr/log" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/composer" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/filesystem" />
@@ -1128,7 +1101,6 @@
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/psr/clock" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/guzzlehttp/uri-template" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/carbonphp/carbon-doctrine-types" />
-      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/validator" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/polyfill-php83" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/doctrine/deprecations" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/jolicode/php-os-helper" />
@@ -1149,8 +1121,6 @@
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/ondram/ci-detector" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/phpstan/phpdoc-parser" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/webmozart/glob" />
-      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/phparkitect/phparkitect" />
-      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/mortexa/laravel-arkitect" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/clock" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/ralouphie/getallheaders" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/psr/http-factory" />
@@ -1170,6 +1140,21 @@
       <path value="$PROJECT_DIR$/laravel-one/vendor/illuminate/validation" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/doctrine/lexer" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/http-interop/http-factory-guzzle" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/php-http/message" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/php-http/httplug" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/php-http/message-factory" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/php-http/promise" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/php-http/client-common" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/php-http/discovery" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/http-client-contracts" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/symfony/http-client" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/clue/stream-filter" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/phparkitect/phparkitect" />
+      <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/mortexa/laravel-arkitect" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/phpstan/phpstan" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
