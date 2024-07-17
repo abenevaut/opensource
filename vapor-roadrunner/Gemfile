@@ -5,6 +5,6 @@ source 'https://rubygems.org'
 gem 'docker-api', require: 'docker'
 gem 'dotenv'
 gem 'json'
-gem 'rubocop', require: false
-gem 'rubocop-rspec', require: false
+gem 'rubocop', '>= 1.63.0', require: false
+gem 'rubocop-rspec', '>= 2.28.0', require: false
 gem 'serverspec'
