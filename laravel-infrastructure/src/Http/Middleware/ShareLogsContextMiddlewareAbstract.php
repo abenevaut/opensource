@@ -10,9 +10,12 @@ use Illuminate\Support\Str;
 
 abstract class ShareLogsContextMiddlewareAbstract
 {
+    /**
+     * @return array<string, string>
+     */
     abstract protected function additionalContext(Request $request): array;
 
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         $sharedContext = array_merge(
             $this->requestHitId(),
@@ -28,6 +31,9 @@ abstract class ShareLogsContextMiddlewareAbstract
         return $response;
     }
 
+    /**
+     * @return array<string, string>
+     */
     protected function requestHitId(): array
     {
         return [

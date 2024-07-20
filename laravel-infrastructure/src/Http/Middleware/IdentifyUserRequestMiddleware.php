@@ -3,13 +3,23 @@
 namespace abenevaut\Infrastructure\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IdentifyUserRequestMiddleware
 {
+    /**
+     * @return array<string, mixed>
+     */
     protected function additionalContext(Request $request): array
     {
+        $userId = '';
+        if (Auth::check()) {
+            // @phpstan-ignore-next-line
+            $userId = Auth::user()->getAuthIdentifier();
+        }
+
         return [
-            'user-id' => auth()?->user()?->id,
+            'user-id' => $userId,
         ];
     }
 }
