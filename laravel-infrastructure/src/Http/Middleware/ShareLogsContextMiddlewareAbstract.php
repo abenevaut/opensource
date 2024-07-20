@@ -4,6 +4,7 @@ namespace abenevaut\Infrastructure\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -20,11 +21,14 @@ abstract class ShareLogsContextMiddlewareAbstract
 
         Log::shareContext($sharedContext);
 
-        return $next($request)
-            ->header('REQUEST-HIT-ID', $sharedContext['request-hit-id']);
+        /** @var Response $response */
+        $response = $next($request);
+        $response->header('REQUEST-HIT-ID', $sharedContext['request-hit-id']);
+
+        return $response;
     }
 
-    private function requestHitId(): array
+    protected function requestHitId(): array
     {
         return [
             'request-hit-id' => (string) Str::ulid()
