@@ -25,7 +25,7 @@ jobs:
 
       - name: Get current release semver tag
         id: branch-name
-        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/phpunit-slicer-}" >> $GITHUB_OUTPUT
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/laravel-sentry-handler-}" >> $GITHUB_OUTPUT
 
       - name: Publish to repository opensource/laravel-sentry-handler
         uses: s0/git-publish-subdir-action@develop

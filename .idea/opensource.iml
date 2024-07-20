@@ -15,6 +15,10 @@
       <sourceFolder url="file://$MODULE_DIR$/laravel-session/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-one/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-one/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-sentry-handler/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-stripe/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-ohdear/.phpunit.cache" />
@@ -201,7 +205,6 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/league/flysystem-local" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/psr/clock" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/symfony/polyfill-php83" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/symfony/validator" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/carbonphp/carbon-doctrine-types" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/composer-unused/contracts" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/composer-unused/symbol-parser" />
@@ -233,6 +236,8 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/egulias/email-validator" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/illuminate/translation" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/illuminate/validation" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/phpstan/phpstan" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/fakerphp/faker" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
