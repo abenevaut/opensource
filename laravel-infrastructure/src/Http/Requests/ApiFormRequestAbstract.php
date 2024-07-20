@@ -11,6 +11,8 @@ abstract class ApiFormRequestAbstract extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         // @phpstan-ignore-next-line
-        throw new HttpResponseException(response()->json(['errors' => $validator->errors()], 400));
+        $response = response()->json(['errors' => $validator->errors()], 400);
+
+        throw new HttpResponseException($response);
     }
 }
