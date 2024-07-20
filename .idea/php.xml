@@ -1155,6 +1155,23 @@
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/phparkitect/phparkitect" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/mortexa/laravel-arkitect" />
       <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/phpstan/phpstan" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/mortexa/laravel-arkitect" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/ondram/ci-detector" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/var-exporter" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/icanhazstring/composer-unused" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/property-info" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/webmozart/glob" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/dependency-injection" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/config" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/property-access" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/serializer" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/composer-unused/symbol-parser" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/composer-unused/contracts" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/phpstan/phpdoc-parser" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/phparkitect/phparkitect" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/symfony/validator" />
+      <path value="$PROJECT_DIR$/laravel-infrastructure/vendor/fakerphp/faker" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">

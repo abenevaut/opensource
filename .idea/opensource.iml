@@ -237,6 +237,7 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/illuminate/translation" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/illuminate/validation" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/phpstan/phpstan" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/fakerphp/faker" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
