@@ -19,7 +19,14 @@ class ShareLogsContextMiddlewareAbstractTest extends TestCase
 
         $requestHitId = $this->makeFaker()->uuid;
 
-        $middlewareStub = $this->createPartialMock(ShareLogsContextMiddlewareAbstract::class, ['requestHitId', 'additionalContext']);
+        $middlewareStub = $this
+            ->createPartialMock(
+                ShareLogsContextMiddlewareAbstract::class,
+                [
+                    'requestHitId',
+                    'additionalContext'
+                ]
+            );
 
         $middlewareStub
             ->expects($this->once())
@@ -32,9 +39,13 @@ class ShareLogsContextMiddlewareAbstractTest extends TestCase
             ->willReturn([]);
 
         /** @var Response $request */
-        $response = $middlewareStub->handle($this->createMock(Request::class), function ($request) {
-            return new Response();
-        });
+        $response = $middlewareStub
+            ->handle(
+                $this->createMock(Request::class),
+                function ($request) {
+                    return new Response();
+                }
+            );
 
         Log::shouldHaveReceived('shareContext')->once()->withAnyArgs();
 
