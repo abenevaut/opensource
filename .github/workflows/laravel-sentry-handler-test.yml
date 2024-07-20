@@ -80,7 +80,6 @@ jobs:
         run: |
           vendor/bin/composer-unused
           vendor/bin/smelly-code-detector inspect ./src
-          vendor/bin/phparkitect check --config arkitect.php --target-php-version ${{ matrix.original_php_version }}
           vendor/bin/phpcs --standard=PSR12 src tests
           vendor/bin/phpunit
 

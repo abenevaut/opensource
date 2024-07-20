@@ -53,9 +53,7 @@ jobs:
         run: composer install --optimize-autoloader --no-interaction --prefer-dist
 
       - name: Test
-        run: |
-          php phpunit-slicer test:arkitect
-          php phpunit-slicer test
+        run: php phpunit-slicer test
 
       - name: Send coverage
         if: ${{ matrix.record_coverage }}

@@ -53,7 +53,7 @@ Note: the entrypoint script run services located in `rootfs/etc/service`, and `p
 
 ## Test
 
-Docker testing is running with Ruby (with https://bundler.io/)
+Docker testing is running with Ruby 2.7 (with https://bundler.io/)
 
 ```shell
 bundle config path vendor/bundle
@@ -63,6 +63,7 @@ bundle exec rspec
 
 ### On Windows
 
+- https://rubyinstaller.org/downloads/
 - Setup Docker with setting "Expose daemon on tcp://localhost:2375 without TLS"
 
 ```shell
