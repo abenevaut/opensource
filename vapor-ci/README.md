@@ -63,6 +63,7 @@ bundle exec rspec
 
 ### On Windows
 
+- https://rubyinstaller.org/downloads/
 - Setup Docker with setting "Expose daemon on tcp://localhost:2375 without TLS"
 
 ```shell
