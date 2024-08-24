@@ -7,22 +7,22 @@ require 'json'
 
 describe 'Dockerfile' do
   before(:all) do # rubocop:disable RSpec/BeforeAfterAll
-    ::Docker.options[:read_timeout] = 1000
-    ::Docker.options[:write_timeout] = 1000
+    Docker.options[:read_timeout] = 1000
+    Docker.options[:write_timeout] = 1000
 
     Dotenv.load('./../.env.example')
 
     build_args = JSON.generate(
-      'VAPOR_VERSION': ENV['VAPOR_VERSION'],
-      'TAG_VAPOR_CI': ENV['TAG_VAPOR_CI'],
-      'COMPOSER_HASH': ENV['COMPOSER_HASH']
+      VAPOR_VERSION: ENV.fetch('VAPOR_VERSION'),
+      TAG_VAPOR_CI: ENV.fetch('TAG_VAPOR_CI'),
+      COMPOSER_HASH: ENV.fetch('COMPOSER_HASH')
     )
 
-    image = ::Docker::Image.build_from_dir(
+    image = Docker::Image.build_from_dir(
       '.',
-      't': 'abenevaut/vapor-ci:rspec',
-      'platform': ENV['DOCKER_DEFAULT_PLATFORM'],
-      'buildargs': build_args
+      t: 'abenevaut/vapor-ci:rspec',
+      platform: ENV.fetch('DOCKER_DEFAULT_PLATFORM', 'linux/amd64'),
+      buildargs: build_args
     )
 
     set :os, family: :alpine
@@ -42,7 +42,7 @@ describe 'Dockerfile' do
   describe command('cat /etc/os-release') do
     it 'confirm alpine version' do
       expect(subject.stdout).to match(/Alpine Linux/)
-      expect(subject.stdout).to match(/3.19.1/)
+      expect(subject.stdout).to match(/3.20.0/)
     end
   end
 
@@ -123,7 +123,7 @@ describe 'Dockerfile' do
   end
 
   it 'installs codecov' do
-    expect(codecov_version).to include('0.7.2')
+    expect(codecov_version).to include('0.8.0')
   end
 
   def php_pcov_loaded
@@ -163,6 +163,6 @@ describe 'Dockerfile' do
   end
 
   it 'installs composer' do
-    expect(composer_version).to include('2.7.2')
+    expect(composer_version).to include('2.7.8')
   end
 end

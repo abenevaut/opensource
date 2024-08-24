@@ -1,8 +1,8 @@
 ARG VAPOR_VERSION
-FROM --platform=${TARGETPLATFORM} ghcr.io/roadrunner-server/roadrunner:latest AS roadrunner
+FROM ghcr.io/roadrunner-server/roadrunner:latest AS roadrunner
 
 ARG VAPOR_VERSION
-FROM --platform=${TARGETPLATFORM} laravelphp/vapor:php${VAPOR_VERSION}
+FROM laravelphp/vapor:php${VAPOR_VERSION}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.source https://github.com/abenevaut/opensource
@@ -39,6 +39,7 @@ COPY --chown=nobody rootfs/ /
 # Remove windows end of line character
 RUN sed -i 's/\r//g' /bin/docker-entrypoint.sh \
     && sed -i 's/\r//g' /docker-entrypoint-init.d/01-uname.sh \
+    && sed -i 's/\r//g' /docker-entrypoint-init.d/02-update-php-template-with-env-vars.sh \
     && sed -i 's/\r//g' /etc/service/roadrunner/run
 
 # Add application
