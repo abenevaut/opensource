@@ -44,8 +44,8 @@ jobs:
       run: cp .env.example .env
 
     - name: Build docker image
-      run: TAG_VAPOR_CI=php${{ matrix.build_tag }} VAPOR_VERSION=${{ matrix.php_version }} docker compose build --platform=${{ matrix.platform }} vapor-roadrunner
+      run: docker compose build vapor-roadrunner
       env:
-        COMPOSE_DOCKER_CLI_BUILD: 1
-        DOCKER_BUILDKIT: 1
+        TAG_VAPOR_CI: php${{ matrix.build_tag }}
+        VAPOR_VERSION: ${{ matrix.php_version }}
         DOCKER_DEFAULT_PLATFORM: ${{ matrix.platform }}

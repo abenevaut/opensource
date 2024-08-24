@@ -1,5 +1,5 @@
 ARG VAPOR_VERSION
-FROM --platform=${TARGETPLATFORM} laravelphp/vapor:php${VAPOR_VERSION}
+FROM laravelphp/vapor:php${VAPOR_VERSION}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.source https://github.com/abenevaut/opensource
