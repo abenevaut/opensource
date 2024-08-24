@@ -50,7 +50,7 @@ describe 'Dockerfile' do
   end
 
   it 'installs roadrunner' do
-    expect(rr_version).to include('2023.3')
+    expect(rr_version).to include('2024.2')
   end
 
   def php_version
