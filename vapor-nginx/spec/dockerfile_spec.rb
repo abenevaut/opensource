@@ -17,7 +17,7 @@ describe 'Dockerfile' do
       TAG_VAPOR_NGINX: ENV.fetch('TAG_VAPOR_NGINX')
     )
 
-    image = ::Docker::Image.build_from_dir(
+    image = Docker::Image.build_from_dir(
       '.',
       t: 'ghcr.io/abenevaut/vapor-nginx:rspec',
       platform: ENV.fetch('DOCKER_DEFAULT_PLATFORM', 'linux/amd64'),

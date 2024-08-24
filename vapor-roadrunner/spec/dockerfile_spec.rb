@@ -17,7 +17,7 @@ describe 'Dockerfile' do
       TAG_VAPOR_ROADRUNNER: ENV.fetch('TAG_VAPOR_ROADRUNNER')
     )
 
-    image = ::Docker::Image.build_from_dir(
+    image = Docker::Image.build_from_dir(
       '.',
       t: 'abenevaut/vapor-roadrunner:rspec',
       platform: ENV.fetch('DOCKER_DEFAULT_PLATFORM', 'linux/amd64'),
