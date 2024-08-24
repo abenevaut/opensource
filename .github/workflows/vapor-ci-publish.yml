@@ -51,14 +51,14 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build "php${{ matrix.build_tag }}" docker image
-        run: TAG_VAPOR_CI=php${{ matrix.build_tag }} VAPOR_VERSION=${{ matrix.php_version }} docker-compose build vapor-ci
+        run: TAG_VAPOR_CI=php${{ matrix.build_tag }} VAPOR_VERSION=${{ matrix.php_version }} docker compose build vapor-ci
         env:
           COMPOSE_DOCKER_CLI_BUILD: 1
           DOCKER_BUILDKIT: 1
           DOCKER_DEFAULT_PLATFORM: ${{ matrix.platform }}
 
       - name: Publish "php${{ matrix.build_tag }}" docker image
-        run: TAG_VAPOR_CI=php${{ matrix.build_tag }} docker-compose push vapor-ci
+        run: TAG_VAPOR_CI=php${{ matrix.build_tag }} docker compose push vapor-ci
 
   release:
     runs-on: ubuntu-latest
