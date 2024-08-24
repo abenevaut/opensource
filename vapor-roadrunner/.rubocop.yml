@@ -1,18 +1,26 @@
 require:
   - rubocop-rspec
 
+AllCops:
+  NewCops: enable
+
 RSpec/DescribeClass:
+  Enabled: true
   Exclude:
     - 'spec/*.rb'
 RSpec/MultipleExpectations:
+  Enabled: true
   Exclude:
     - 'spec/*.rb'
 RSpec/NamedSubject:
+  Enabled: true
   Exclude:
     - 'spec/*.rb'
-Metrics/LineLength:
+Layout/LineLength:
+  Enabled: true
   Exclude:
     - 'spec/*.rb'
 Metrics/BlockLength:
+  Enabled: true
   Exclude:
     - 'spec/*.rb'

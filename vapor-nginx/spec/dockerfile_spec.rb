@@ -7,21 +7,21 @@ require 'json'
 
 describe 'Dockerfile' do
   before(:all) do # rubocop:disable RSpec/BeforeAfterAll
-    ::Docker.options[:read_timeout] = 1000
-    ::Docker.options[:write_timeout] = 1000
+    Docker.options[:read_timeout] = 1000
+    Docker.options[:write_timeout] = 1000
 
     Dotenv.load('./../.env.example')
 
     build_args = JSON.generate(
-      'VAPOR_VERSION': ENV['VAPOR_VERSION'],
-      'TAG_VAPOR_NGINX': ENV['TAG_VAPOR_NGINX']
+      VAPOR_VERSION: ENV.fetch('VAPOR_VERSION'),
+      TAG_VAPOR_NGINX: ENV.fetch('TAG_VAPOR_NGINX')
     )
 
     image = ::Docker::Image.build_from_dir(
       '.',
-      't': 'ghcr.io/abenevaut/vapor-nginx:rspec',
-      'platform': ENV['DOCKER_DEFAULT_PLATFORM'],
-      'buildargs': build_args
+      t: 'ghcr.io/abenevaut/vapor-nginx:rspec',
+      platform: ENV.fetch('DOCKER_DEFAULT_PLATFORM', 'linux/amd64'),
+      buildargs: build_args
     )
 
     set :os, family: :alpine

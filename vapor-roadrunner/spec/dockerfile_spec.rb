@@ -13,15 +13,15 @@ describe 'Dockerfile' do
     Dotenv.load('./../.env.example')
 
     build_args = JSON.generate(
-      'VAPOR_VERSION': ENV['VAPOR_VERSION'],
-      'TAG_VAPOR_ROADRUNNER': ENV['TAG_VAPOR_ROADRUNNER']
+      VAPOR_VERSION: ENV.fetch('VAPOR_VERSION'),
+      TAG_VAPOR_ROADRUNNER: ENV.fetch('TAG_VAPOR_ROADRUNNER')
     )
 
     image = ::Docker::Image.build_from_dir(
       '.',
-      't': 'abenevaut/vapor-roadrunner:rspec',
-      'platform': ENV['DOCKER_DEFAULT_PLATFORM'],
-      'buildargs': build_args
+      t: 'abenevaut/vapor-roadrunner:rspec',
+      platform: ENV.fetch('DOCKER_DEFAULT_PLATFORM', 'linux/amd64'),
+      buildargs: build_args
     )
 
     set :os, family: :alpine
