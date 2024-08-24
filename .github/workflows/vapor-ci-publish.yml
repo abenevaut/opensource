@@ -14,17 +14,17 @@ jobs:
         platform: [ "linux/amd64", "linux/arm64" ]
         include:
           - php_version: 82
-            platform: "linux/arm64"
-            build_tag: 82-arm
-          - php_version: 82
             platform: "linux/amd64"
             build_tag: 82-amd
           - php_version: 83
-            platform: "linux/arm64"
-            build_tag: 83-arm
-          - php_version: 83
             platform: "linux/amd64"
             build_tag: 83-amd
+#          - php_version: 82
+#            platform: "linux/arm64"
+#            build_tag: 82-arm
+#          - php_version: 83
+#            platform: "linux/arm64"
+#            build_tag: 83-arm
 #          - php_version: 84
 #            platform: "linux/arm64"
 #            build_tag: 84-arm
@@ -51,14 +51,14 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build "php${{ matrix.build_tag }}" docker image
-        run: TAG_VAPOR_CI=php${{ matrix.build_tag }} VAPOR_VERSION=${{ matrix.php_version }} docker-compose build vapor-ci
+        run: TAG_VAPOR_CI=php${{ matrix.build_tag }} VAPOR_VERSION=${{ matrix.php_version }} docker compose build vapor-ci
         env:
           COMPOSE_DOCKER_CLI_BUILD: 1
           DOCKER_BUILDKIT: 1
           DOCKER_DEFAULT_PLATFORM: ${{ matrix.platform }}
 
       - name: Publish "php${{ matrix.build_tag }}" docker image
-        run: TAG_VAPOR_CI=php${{ matrix.build_tag }} docker-compose push vapor-ci
+        run: TAG_VAPOR_CI=php${{ matrix.build_tag }} docker compose push vapor-ci
 
   release:
     runs-on: ubuntu-latest
