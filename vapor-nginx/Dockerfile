@@ -40,6 +40,9 @@ COPY --chown=nobody rootfs/ /
 # Remove windows end of line character
 RUN sed -i 's/\r//g' /bin/docker-entrypoint.sh \
     && sed -i 's/\r//g' /docker-entrypoint-init.d/01-uname.sh \
+    && sed -i 's/\r//g' /docker-entrypoint-init.d/02-update-php-template-with-env-vars.sh \
+    && sed -i 's/\r//g' /docker-entrypoint-init.d/03-update-nginx-template-with-env-vars.sh \
+    && sed -i 's/\r//g' /docker-entrypoint-init.d/03-update-php-fpm-template-with-env-vars.sh \
     && sed -i 's/\r//g' /etc/service/nginx/run \
     && sed -i 's/\r//g' /etc/service/php/run
 
