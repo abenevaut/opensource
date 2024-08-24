@@ -18,18 +18,18 @@ jobs:
         php_version: [ 82, 83 ]
         platform: [ "linux/amd64", "linux/arm64" ]
         include:
-#          - php_version: 82
-#            platform: "linux/arm64"
-#            build_tag: 82-arm
           - php_version: 82
             platform: "linux/amd64"
             build_tag: 82-amd
-#          - php_version: 83
-#            platform: "linux/arm64"
-#            build_tag: 83-arm
           - php_version: 83
             platform: "linux/amd64"
             build_tag: 83-amd
+#          - php_version: 82
+#            platform: "linux/arm64"
+#            build_tag: 82-arm
+#          - php_version: 83
+#            platform: "linux/arm64"
+#            build_tag: 83-arm
     concurrency:
       group: vapor-roadrunner-build-${{ github.workflow }}-${{ github.ref }}-${{ matrix.build_tag }}
       cancel-in-progress: true
