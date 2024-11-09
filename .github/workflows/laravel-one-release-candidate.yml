@@ -1,10 +1,7 @@
 name: laravel-one-release-candidate
 
 on:
-  push:
-    branches: [ master ]
-    paths:
-      - 'laravel-one/**'
+  workflow_dispatch:
 
 defaults:
   run:
