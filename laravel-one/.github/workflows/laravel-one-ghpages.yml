@@ -52,7 +52,7 @@ jobs:
       - name: Generate static pages
         run: php laravel-one generate https://laravel-one.abenevaut.dev
 
-      - uses: JamesIves/github-pages-deploy-action@releases/v3
+      - uses: JamesIves/github-pages-deploy-action@v4
         with:
           ACCESS_TOKEN: ${{ secrets.ABENEVAUT_GITHUB_TOKEN }}
           BRANCH: gh-pages
