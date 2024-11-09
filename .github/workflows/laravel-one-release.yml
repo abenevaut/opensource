@@ -129,6 +129,8 @@ jobs:
           name: vhs
           path: ${{ github.workspace }}/laravel-one
 
+      - run: mkdir ${{ github.workspace }}/laravel-one/builds
+
       - uses: actions/download-artifact@v4
         with:
           name: release
