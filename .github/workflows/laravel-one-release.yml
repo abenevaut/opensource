@@ -103,7 +103,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: release
-          path: ${{ github.workspace }}/laravel-one/builds
+          path: ${{ github.workspace }}/laravel-one/builds/laravel-one
           include-hidden-files: true
           retention-days: 1
           compression-level: 9
