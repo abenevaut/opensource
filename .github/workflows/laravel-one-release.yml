@@ -132,7 +132,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: release
-          path: ${{ github.workspace }}/laravel-one
+          path: ${{ github.workspace }}/laravel-one/builds
 
       - name: Get current release tag
         id: branch-name
