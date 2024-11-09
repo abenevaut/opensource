@@ -271,12 +271,14 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/illuminate/support" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/illuminate/testing" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/illuminate/view" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/intervention/image" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/jolicode/jolinotif" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/laravel-zero/foundation" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/laravel-zero/framework" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/commonmark" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/config" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/flysystem" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/glide" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/mime-type-detection" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/masterminds/html5" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/mockery/mockery" />
@@ -337,6 +339,8 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/browsershot" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/commonmark-shiki-highlighter" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/crawler" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/image" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/image-optimizer" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/laravel-data" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/laravel-markdown" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/laravel-package-tools" />

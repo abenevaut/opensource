@@ -1165,6 +1165,10 @@
       <path value="$PROJECT_DIR$/laravel-one/vendor/nunomaduro/collision" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/masterminds/html5" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/laravel-zero/framework" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/image" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/spatie/image-optimizer" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/league/glide" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/intervention/image" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
