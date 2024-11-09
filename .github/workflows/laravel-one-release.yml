@@ -129,12 +129,14 @@ jobs:
           name: vhs
           path: ${{ github.workspace }}/laravel-one
 
-      - run: mkdir ${{ github.workspace }}/laravel-one/builds
-
       - uses: actions/download-artifact@v4
         with:
           name: release
-          path: ${{ github.workspace }}/laravel-one/builds
+          path: ${{ github.workspace }}/laravel-one
+
+      - run: |
+          mkdir ${{ github.workspace }}/laravel-one/builds
+          mv ${{ github.workspace }}/laravel-one/laravel-one ${{ github.workspace }}/laravel-one/builds
 
       - name: Get current release tag
         id: branch-name
