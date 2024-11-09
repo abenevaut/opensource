@@ -1,4 +1,4 @@
-name: laravel-one-release
+name: laravel-one-release-candidate
 
 on:
   push:
