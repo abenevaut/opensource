@@ -3,14 +3,22 @@
 import { useLocation } from "react-router-dom";
 import PiwikPro from '@piwikpro/react-piwik-pro';
 import * as Sentry from "@sentry/react";
-import { ChevronDownIcon } from '@heroicons/react/16/solid'
-import { Avatar } from '@abenevaut/tailwindui/src/js/Catalyst/avatar'
-import { Dropdown, DropdownButton, DropdownItem, DropdownLabel, DropdownMenu } from '@abenevaut/tailwindui/src/js/Catalyst/dropdown'
-import { Navbar, NavbarItem, NavbarLabel, NavbarSection, NavbarDivider, NavbarSpacer } from '@abenevaut/tailwindui/src/js/Catalyst/navbar'
-import { Sidebar, SidebarBody, SidebarHeader, SidebarItem, SidebarLabel, SidebarSection } from '@abenevaut/tailwindui/src/js/Catalyst/sidebar'
-import logoUrl from '@abenevaut/maskot-2013/dist/app-icon.webp'
-import { StackedLayout } from "@abenevaut/tailwindui/src/js/Catalyst/stacked-layout.jsx";
+import { ChevronDownIcon } from '@heroicons/react/16/solid';
+import { Avatar } from '@abenevaut/tailwindui/src/js/Catalyst/avatar';
+import { Dropdown, DropdownButton, DropdownItem, DropdownLabel, DropdownMenu } from '@abenevaut/tailwindui/src/js/Catalyst/dropdown';
+import { Navbar, NavbarItem, NavbarLabel, NavbarSection, NavbarDivider, NavbarSpacer } from '@abenevaut/tailwindui/src/js/Catalyst/navbar';
+import {
+    Sidebar,
+    SidebarBody,
+    SidebarHeader,
+    SidebarItem,
+    SidebarLabel,
+    SidebarSection,
+    SidebarSpacer
+} from '@abenevaut/tailwindui/src/js/Catalyst/sidebar';
+import logoUrl from '@abenevaut/maskot-2013/dist/app-icon.webp';
 import { ThemeProvider } from "@abenevaut/tailwindui/src/js/Providers/ThemeProvider.jsx";
+import {SidebarLayout} from "@abenevaut/tailwindui/src/js/Catalyst/sidebar-layout.jsx";
 
 const appEnv = import.meta.env.VITE_APP_ENV || false;
 const isProductionEnvironment = 'production' === appEnv || true;
@@ -20,13 +28,19 @@ if (isProductionEnvironment) {
 }
 
 Sentry.init({
-  dsn: 'https://bf032283abab4fdb9fbcd7328ed39b28@o229053.ingest.us.sentry.io/1385819',
+  dsn: 'https://ce8b13241096d9f48e86a55e950d9da6@o229053.ingest.us.sentry.io/4508267232296960',
   environment: appEnv,
 });
 
 const navItems = [
-  { label: 'Portfolio', url: 'index.html' },
-  // { label: 'About me', url: 'profile.html' },
+    { label: 'Home', url: 'index.html' },
+    { label: 'Generate GitHub pages', url: 'github-pages.html' },
+]
+
+const navFooterItems = [
+    { label: 'Support', url: 'https://github.com/abenevaut/opensource/issues?q=is%3Aopen+is%3Aissue+label%3Alaravel-one' },
+    { label: 'Changelog', url: 'https://github.com/abenevaut/opensource/releases' },
+    { label: 'Portfolio', url: 'https://www.abenevaut.dev/index.html' },
 ]
 
 function TeamDropdownMenu() {
@@ -70,7 +84,7 @@ export default function App({ children }) {
 
   return (
     <ThemeProvider>
-      <StackedLayout
+      <SidebarLayout
         className="pb-10 pt-2"
         navbar={
           <Navbar>
@@ -172,12 +186,31 @@ export default function App({ children }) {
                   </SidebarItem>
                 )) }
               </SidebarSection>
+
+                {/*<SidebarSection className="max-lg:hidden">*/}
+                {/*    <SidebarHeading>Upcoming Events</SidebarHeading>*/}
+                {/*    {events.map((event) => (*/}
+                {/*        <SidebarItem key={event.id} href={event.url}>*/}
+                {/*            {event.name}*/}
+                {/*        </SidebarItem>*/}
+                {/*    ))}*/}
+                {/*</SidebarSection>*/}
+
+                <SidebarSpacer />
+
+                <SidebarSection>
+                    { navFooterItems.map(({ label, url }) => (
+                        <SidebarItem key={ label } href={ url } current={pathname === url}>
+                            { label }
+                        </SidebarItem>
+                    )) }
+                </SidebarSection>
             </SidebarBody>
           </Sidebar>
         }
       >
         {children}
-      </StackedLayout>
+      </SidebarLayout>
     </ThemeProvider>
   )
 }
