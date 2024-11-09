@@ -50,7 +50,6 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/illuminate/process" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/jean85/pretty-package-versions" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/flysystem-local" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/ondram/ci-detector" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/pestphp/pest-plugin-arch" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/phpdocumentor/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/ta-tikoma/phpunit-architecture-test" />
@@ -238,6 +237,7 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/illuminate/validation" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/phpstan/phpstan" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/fakerphp/faker" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/phpdocumentor/reflection" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
