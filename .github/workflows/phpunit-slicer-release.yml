@@ -9,6 +9,9 @@ defaults:
   run:
     working-directory: ./phpunit-slicer
 
+env:
+  php_version: 8.3
+
 jobs:
 
   buildVhs:
@@ -23,7 +26,28 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Install VHS
+      - name: Initialize PHP ${{ env.php_version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.php_version }}
+          coverage: exif
+
+      - name: Configure Composer cache
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: phpunit-slicer/vendor
+          key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-node-php_${{ env.php_version }}-
+
+      - name: Composer install
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: |
+          composer -V
+          composer validate --strict
+          composer install --optimize-autoloader --no-interaction --prefer-dist
+
+      - name: Generate VHS
         uses: charmbracelet/vhs-action@v2
         with:
           path: ${{ github.workspace }}/phpunit-slicer/demo.tape

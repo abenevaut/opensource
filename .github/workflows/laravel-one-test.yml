@@ -19,7 +19,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         php_version: [ 81, 82, 83 ]
         include:
