@@ -2,8 +2,9 @@ name: laravel-one-release
 
 on:
   push:
-    tags:
-      - laravel-one-*
+    branches: [ master ]
+    paths:
+      - 'laravel-one/**'
 
 defaults:
   run:
@@ -54,7 +55,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: vhs
+          name: buildVhs
           path: ${{ github.workspace }}/laravel-one/demo.gif
           retention-days: 1
           compression-level: 9
@@ -103,13 +104,13 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: release
+          name: build
           path: |
             ${{ github.workspace }}/laravel-one
             !${{ github.workspace }}/laravel-one/.idea
           include-hidden-files: true
           retention-days: 1
-          compression-level: 0
+          compression-level: 9
           overwrite: true
 
   publish:
@@ -124,23 +125,23 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          name: release
+          name: build
           path: ${{ github.workspace }}/laravel-one
 
       - uses: actions/download-artifact@v4
         with:
-          name: vhs
+          name: buildVhs
           path: ${{ github.workspace }}/laravel-one
 
       - name: Get current release tag
         id: branch-name
         run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/laravel-one-}" >> $GITHUB_OUTPUT
 
-      - name: Publish to readonly repository abenevaut/laravel-one
-        uses: s0/git-publish-subdir-action@develop
-        env:
-          REPO: git@github.com:abenevaut/laravel-one.git
-          BRANCH: master
-          FOLDER: laravel-one
-          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_LARAVEL_ONE }}
-          TAG: ${{ steps.branch-name.outputs.SOURCE_TAG }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-candidate
+          path: ${{ github.workspace }}/laravel-one
+          include-hidden-files: true
+          retention-days: 1
+          compression-level: 9
+          overwrite: true
