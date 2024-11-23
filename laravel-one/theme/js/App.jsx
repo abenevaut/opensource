@@ -34,7 +34,8 @@ Sentry.init({
 
 const navItems = [
     { label: 'Home', url: 'index.html' },
-    { label: 'Generate GitHub pages', url: 'github-pages.html' },
+    { label: 'Create your content', url: 'create-your-content.html' },
+    { label: 'Generate GitHub pages', url: 'generate-github-pages.html' },
 ]
 
 const navFooterItems = [
