@@ -1,11 +1,11 @@
-name: laravel-one-release-candidate
+name: phpunit-slicer-release-candidate
 
 on:
   workflow_dispatch:
 
 defaults:
   run:
-    working-directory: ./laravel-one
+    working-directory: ./phpunit-slicer
 
 env:
   php_version: 8.3
@@ -15,7 +15,7 @@ jobs:
   buildVhs:
     runs-on: ubuntu-latest
     concurrency:
-      group: laravel-one-buildVhs-${{ github.workflow }}-${{ github.ref }}
+      group: phpunit-slicer-buildVhs-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: false
     steps:
 
@@ -28,7 +28,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.php_version }}
-          coverage: exif
 
       - name: Configure Composer cache
         id: composer-cache
@@ -48,12 +47,12 @@ jobs:
       - name: Install VHS
         uses: charmbracelet/vhs-action@v2
         with:
-          path: ${{ github.workspace }}/laravel-one/demo.tape
+          path: ${{ github.workspace }}/phpunit-slicer/demo.tape
 
       - uses: actions/upload-artifact@v4
         with:
           name: buildVhs
-          path: ${{ github.workspace }}/laravel-one/demo.gif
+          path: ${{ github.workspace }}/phpunit-slicer/demo.gif
           retention-days: 1
           compression-level: 9
           overwrite: true
@@ -65,7 +64,7 @@ jobs:
       matrix:
         php_version: [ 81 ]
     concurrency:
-      group: laravel-one-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      group: phpunit-slicer-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: false
     container: ghcr.io/abenevaut/vapor-ci:php81
     steps:
@@ -77,16 +76,13 @@ jobs:
 
       - name: Get current release tag
         id: branch-name
-        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/laravel-one-}" >> $GITHUB_OUTPUT
-
-      - name: Install PHP extension
-        run: docker-php-ext-install exif
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/phpunit-slicer-}" >> $GITHUB_OUTPUT
 
       - name: Configure Composer cache
         id: composer-cache
         uses: actions/cache@v4
         with:
-          path: laravel-one/vendor
+          path: phpunit-slicer/vendor
           key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.json') }}
           restore-keys: |
             ${{ runner.os }}-node-php_${{ matrix.php_version }}-
@@ -96,14 +92,14 @@ jobs:
         run: composer install --optimize-autoloader --no-interaction --prefer-dist
 
       - name: Build
-        run: php laravel-one app:build laravel-one --build-version=${{ steps.branch-name.outputs.SOURCE_TAG }}
+        run: php phpunit-slicer app:build phpunit-slicer --build-version=${{ steps.branch-name.outputs.SOURCE_TAG }}
 
       - uses: actions/upload-artifact@v4
         with:
           name: build
           path: |
-            ${{ github.workspace }}/laravel-one
-            !${{ github.workspace }}/laravel-one/.idea
+            ${{ github.workspace }}/phpunit-slicer
+            !${{ github.workspace }}/phpunit-slicer/.idea
           include-hidden-files: true
           retention-days: 1
           compression-level: 9
@@ -115,30 +111,30 @@ jobs:
       - build
       - buildVhs
     concurrency:
-      group: laravel-one-publish-${{ github.workflow }}-${{ github.ref }}
+      group: phpunit-slicer-publish-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: false
     steps:
 
       - uses: actions/download-artifact@v4
         with:
           name: build
-          path: ${{ github.workspace }}/laravel-one
+          path: ${{ github.workspace }}/phpunit-slicer
 
       - uses: actions/download-artifact@v4
         with:
           name: buildVhs
-          path: ${{ github.workspace }}/laravel-one
+          path: ${{ github.workspace }}/phpunit-slicer
 
       - name: Get current release tag
         id: branch-name
-        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/laravel-one-}" >> $GITHUB_OUTPUT
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/phpunit-slicer-}" >> $GITHUB_OUTPUT
 
       - run: sed '/\/builds/d' .gitignore > .gitignore.tmp && mv .gitignore.tmp .gitignore
 
       - uses: actions/upload-artifact@v4
         with:
           name: release-candidate
-          path: ${{ github.workspace }}/laravel-one
+          path: ${{ github.workspace }}/phpunit-slicer
           include-hidden-files: true
           retention-days: 1
           compression-level: 9
