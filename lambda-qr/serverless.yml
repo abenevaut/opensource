@@ -13,9 +13,9 @@ functions:
     qr:
         handler: index.php
         description: 'QRCode generator'
-        runtime: php-82
+        runtime: php-83
         layers:
-            - ${bref-extra:imagick-php-82}
+            - ${bref-extra:imagick-php-83}
 
 # Exclude files from deployment
 package:
