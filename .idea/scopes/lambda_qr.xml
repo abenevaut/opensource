@@ -1,3 +1,3 @@
 <component name="DependencyValidationManager">
-  <scope name="lambda-qr" pattern="file[opensource]:lambda-qr//*" />
+  <scope name="lambda-qr" pattern="file[opensource]:lambda-qr//*||file:docs/lambda-qr.md" />
 </component>
