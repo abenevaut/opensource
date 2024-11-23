@@ -6,7 +6,7 @@ seo:
   keywords: laravel, blade, static, webpages, generator
   author: Antoine Benevaut
   twitter: "@abenevaut"
-  og-image: https://www.abenevaut.dev/seo/abenevaut-og.webp
+  og-image: https://raw.githubusercontent.com/abenevaut/laravel-one/master/demo.gif
   url: https://www.abenevaut.dev/
 
 article: |+
@@ -50,6 +50,8 @@ article: |+
   ```bash
   laravel-one generate https://my-website.com
   ```
+
+  Detailed documentation is available on [here](/create-your-content.html).
 
   When done, publish your static(s) webpage(s) with on [GitHub Pages](/github-pages.html).
 
