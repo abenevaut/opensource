@@ -52,6 +52,11 @@ class GenerateCommand extends ProcessPoolCommandAbstract
                     FindOrCreateDistributionDirectoryPipe::class,
                     SetViewCompiledConfigPipe::class,
                     SetViewPathsConfigPipe::class,
+
+                    // determinate default language
+                    // specified in command line ? or config file ?
+                    // if no default, looks lang dir en check if 'en' directory exists or take first lang directory name as default
+
                     ListPagesPipe::class,
                 ])
                 ->thenReturn();
