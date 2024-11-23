@@ -1,0 +1,26 @@
+{
+    "name": "abenevaut/flash",
+    "description": "QRCode generator",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "abenevaut\\Flash\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Antoine Benevaut",
+            "email": "me@abenevaut.dev"
+        }
+    ],
+    "require": {
+        "ext-imagick": "*",
+        "simplesoftwareio/simple-qrcode": "^4.2",
+        "illuminate/validation": "^11",
+        "illuminate/translation": "^11",
+        "bref/bref": "^2.1",
+        "bref/extra-php-extensions": "^1.4"
+    },
+    "minimum-stability": "stable"
+}

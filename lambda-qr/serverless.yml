@@ -1,0 +1,25 @@
+service: lambda-qr
+
+provider:
+    name: aws
+    runtime: provided.al2
+    region: eu-west-3
+
+plugins:
+    - ./vendor/bref/bref
+    - ./vendor/bref/extra-php-extensions
+
+functions:
+    qr:
+        handler: index.php
+        description: 'QRCode generator'
+        runtime: php-82
+        layers:
+            - ${bref-extra:imagick-php-82}
+
+# Exclude files from deployment
+package:
+    patterns:
+        - '!tests/**'
+        - README.md
+        - serverless.yml
