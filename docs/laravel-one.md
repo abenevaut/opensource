@@ -1,4 +1,7 @@
-- host: https://packagist.org/packages/abenevaut/laravel-one
+- host:
+  - https://laravel-one.abenevaut.dev
+  - https://github.com/abenevaut/laravel-one
+  - https://packagist.org/packages/abenevaut/laravel-one
 
 ## Project
 

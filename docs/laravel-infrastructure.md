@@ -1,8 +1,10 @@
-- host: https://packagist.org/packages/abenevaut/laravel-infrastructure
+- host:
+  - https://github.com/abenevaut/laravel-infrastructure
+  - https://packagist.org/packages/abenevaut/laravel-infrastructure
 
 ## Project
 
-- N/A
+- https://github.com/users/abenevaut/projects/14
 
 ## Release
 
