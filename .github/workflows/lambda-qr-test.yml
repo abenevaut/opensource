@@ -21,13 +21,6 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        php_version: [ 81, 82, 83 ]
-        include:
-          - php_version: 83
-            record_coverage: true
     concurrency:
       group: lambda-qr-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
