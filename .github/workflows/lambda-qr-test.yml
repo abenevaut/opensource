@@ -1,0 +1,57 @@
+name: lambda-qr-test
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'lambda-qr/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'lambda-qr/**'
+
+defaults:
+  run:
+    working-directory: ./lambda-qr
+
+env:
+  node_version: lts/iron
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php_version: [ 81, 82, 83 ]
+        include:
+          - php_version: 83
+            record_coverage: true
+    concurrency:
+      group: lambda-qr-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      cancel-in-progress: true
+    container: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js ${{ env.node_version }}
+        uses: actions/setup-node@v3
+
+      - name: Install Serverless tool
+        run: npm install -g serverless@3
+
+      - name: Setup Bats and bats libs
+        id: setup-bats
+        uses: bats-core/bats-action@3.0.0
+
+      - name: Test
+        shell: bash
+        env:
+          BATS_LIB_PATH: ${{ steps.setup-bats.outputs.lib-path }}
+          TERM: xterm
+        run: bats tests/run-lambda-qr
