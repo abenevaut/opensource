@@ -116,6 +116,9 @@ jobs:
     needs:
       - build
       - buildVhs
+    environment:
+      name: laravel-one
+      url: https://github.com/abenevaut/laravel-one
     concurrency:
       group: laravel-one-publish-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: false
