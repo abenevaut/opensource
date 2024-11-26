@@ -1,5 +1,6 @@
 setup() {
-    load 'test_helper/bats-assert/load'
+    load 'bats-support/load'
+    load 'bats-assert/load'
 }
 
 @test "Generate QR Code with required parameters" {

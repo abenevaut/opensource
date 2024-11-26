@@ -40,6 +40,9 @@ jobs:
       - name: Setup Bats and bats libs
         id: setup-bats
         uses: bats-core/bats-action@3.0.0
+        with:
+          support-path: "${{ github.workspace }}/lambda-qr/tests/bats-support"
+          assert-path: "${{ github.workspace }}/lambda-qr/tests/bats-assert"
 
       - name: Test
         shell: bash
