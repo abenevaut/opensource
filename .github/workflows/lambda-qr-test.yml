@@ -39,7 +39,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.php_version }}
-          coverage: pcov
           extensions: gd
 
       - name: Install Serverless tool
@@ -49,7 +48,7 @@ jobs:
         id: composer-cache
         uses: actions/cache@v3
         with:
-          path: laravel-kite/vendor
+          path: lambda-qr/vendor
           key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-node-php_${{ env.php_version }}-
 
