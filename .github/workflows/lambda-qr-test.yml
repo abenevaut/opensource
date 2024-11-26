@@ -15,6 +15,7 @@ defaults:
     working-directory: ./lambda-qr
 
 env:
+  php_version: 8.3
   node_version: lts/iron
 
 jobs:
@@ -34,8 +35,28 @@ jobs:
       - name: Use Node.js ${{ env.node_version }}
         uses: actions/setup-node@v3
 
+      - name: Initialize PHP ${{ env.php_version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.php_version }}
+          coverage: pcov
+
       - name: Install Serverless tool
         run: npm install -g serverless@3
+
+      - name: Configure Composer cache
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: laravel-kite/vendor
+          key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-node-php_${{ env.php_version }}-
+
+      - name: Composer install
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: |
+          composer validate --strict
+          composer install --optimize-autoloader --no-interaction --prefer-dist
 
       - name: Setup Bats and bats libs
         id: setup-bats
