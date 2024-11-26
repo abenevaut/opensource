@@ -39,3 +39,8 @@ serverless deploy
 composer install --prefer-dist --optimize-autoloader --no-dev
 serverless deploy --stage=production
 ```
+
+## Automated testing
+
+- [bats-core](https://bats-core.readthedocs.io/en/stable/index.html)
+- [bats-core GitHub Action](https://github.com/bats-core/bats-action)
