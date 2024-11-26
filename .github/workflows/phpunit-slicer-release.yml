@@ -112,6 +112,9 @@ jobs:
     needs:
       - build
       - buildVhs
+    environment:
+      name: phpunit-slicer
+      url: https://github.com/abenevaut/phpunit-slicer
     concurrency:
       group: phpunit-slicer-publish-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: false
