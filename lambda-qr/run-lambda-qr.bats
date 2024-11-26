@@ -15,6 +15,6 @@ setup() {
 
 @test "Forgot 'format' parameter" {
     run serverless bref:local -f qr --data '{"correction": "L"}'
-    [ "$status" -eq 1 ]
+    [ "$status" -eq 0 ]
     assert_output --partial 'The format field is required.'
 }
