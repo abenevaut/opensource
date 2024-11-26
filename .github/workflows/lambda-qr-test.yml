@@ -49,4 +49,4 @@ jobs:
         env:
           BATS_LIB_PATH: ${{ steps.setup-bats.outputs.lib-path }}
           TERM: xterm
-        run: bats tests/run-lambda-qr.bats
+        run: bats run-lambda-qr.bats
