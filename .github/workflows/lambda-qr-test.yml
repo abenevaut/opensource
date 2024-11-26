@@ -40,6 +40,7 @@ jobs:
         with:
           php-version: ${{ env.php_version }}
           coverage: pcov
+          extensions: gd
 
       - name: Install Serverless tool
         run: npm install -g serverless@3
