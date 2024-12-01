@@ -20,6 +20,12 @@ functions:
 # Exclude files from deployment
 package:
     patterns:
+        - '!.github/**'
+        - '!docs/**'
         - '!tests/**'
-        - README.md
-        - serverless.yml
+        - '!.gitignore'
+        - '!composer.json'
+        - '!composer.lock'
+        - '!README.md'
+        - '!run-lambda-qr.bats'
+        - '!serverless.yml'
