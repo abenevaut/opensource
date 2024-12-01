@@ -13,13 +13,19 @@ functions:
     qr:
         handler: index.php
         description: 'QRCode generator'
-        runtime: php-82
+        runtime: php-83
         layers:
-            - ${bref-extra:imagick-php-82}
+            - ${bref-extra:imagick-php-83}
 
 # Exclude files from deployment
 package:
     patterns:
+        - '!.github/**'
+        - '!docs/**'
         - '!tests/**'
-        - README.md
-        - serverless.yml
+        - '!.gitignore'
+        - '!composer.json'
+        - '!composer.lock'
+        - '!README.md'
+        - '!run-lambda-qr.bats'
+        - '!serverless.yml'
