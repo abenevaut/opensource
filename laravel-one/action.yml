@@ -27,11 +27,3 @@ runs:
       shell: bash
       env:
         URL: ${{ inputs.url }}
-
-#    - name: Configure Composer cache
-#      uses: actions/cache@v3
-#      with:
-#        path: ~/vendor
-#        key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.json') }}
-#        restore-keys: |
-#          ${{ runner.os }}-node-php_${{ env.php_version }}-
