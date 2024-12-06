@@ -6,7 +6,7 @@ inputs:
     required: true
   php-version:
     description: 'The PHP version to use'
-    required: true
+    required: false
 outputs:
   logs:
     description: "laravel-one output"
@@ -15,15 +15,16 @@ runs:
   using: "composite"
   steps:
 
-    - name: Initialize PHP ${{ inputs.php-version }}
+    - name: Initialize PHP ${{env.PHP_VERSION}}
       uses: shivammathur/setup-php@v2
       with:
-        php-version: ${{ inputs.php-version }}
+        php-version: ${{env.PHP_VERSION}}
         tools: abenevaut/laravel-one
+      env:
+        PHP_VERSION: ${{ inputs.php-version }}
 
     - name: Generate static pages
-      id: laravel-one-generation
-      run: echo "logs=$(echo laravel-one generate $URL)" >> $GITHUB_OUTPUT
+      run: laravel-one generate ${{env.URL}}
       shell: bash
       env:
         URL: ${{ inputs.url }}
