@@ -4,6 +4,9 @@ inputs:
   url:
     description: 'The base URL of the website'
     required: true
+  php-version:
+    description: 'The PHP version to use'
+    required: true
 outputs:
   logs:
     description: "laravel-one output"
@@ -12,10 +15,10 @@ runs:
   using: "composite"
   steps:
 
-    - name: Initialize PHP ${{ env.php_version }}
+    - name: Initialize PHP ${{ inputs.php-version }}
       uses: shivammathur/setup-php@v2
       with:
-        php-version: ${{ env.php_version }}
+        php-version: ${{ inputs.php-version }}
         tools: abenevaut/laravel-one
 
     - name: Generate static pages
