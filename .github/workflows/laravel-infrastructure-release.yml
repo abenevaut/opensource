@@ -13,6 +13,9 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
+    environment:
+      name: laravel-infrastructure
+      url: https://github.com/abenevaut/laravel-infrastructure
     concurrency:
       group: laravel-infrastructure-release-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: false

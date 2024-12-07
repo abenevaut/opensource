@@ -13,12 +13,9 @@
       <sourceFolder url="file://$MODULE_DIR$/laravel-session/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-stripe/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-session/spec" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/laravel-one/tests" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/tests" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/laravel-one/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-sentry-handler/spec" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-infrastructure/spec" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-stripe/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-ohdear/.phpunit.cache" />
@@ -43,17 +40,6 @@
       <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/symfony/event-dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/symfony/event-dispatcher-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/ta-tikoma/phpunit-architecture-test" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/brianium/paratest" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/doctrine/deprecations" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/fidry/cpu-core-counter" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/guzzlehttp/uri-template" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/illuminate/process" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/jean85/pretty-package-versions" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/flysystem-local" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/ondram/ci-detector" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/pestphp/pest-plugin-arch" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/phpdocumentor/reflection-docblock" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/ta-tikoma/phpunit-architecture-test" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/brick/math" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/degraciamathieu/php-file-explorer" />
@@ -167,28 +153,6 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/vendor/ondram/ci-detector" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/vendor/psr/clock" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/vendor/symfony/polyfill-php83" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/laravel/prompts" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/symfony/polyfill-php83" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/amphp/amp" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/amphp/byte-stream" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/amphp/cache" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/amphp/dns" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/amphp/parallel" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/amphp/parser" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/amphp/pipeline" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/amphp/process" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/amphp/serialization" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/amphp/socket" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/amphp/sync" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/amphp/windows-registry" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/carbonphp/carbon-doctrine-types" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/daverandom/libdns" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/jolicode/php-os-helper" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/kelunik/certificate" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/uri" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/league/uri-interfaces" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/revolt/event-loop" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/spatie/php-structure-discoverer" />
       <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/abenevaut/laravel-infrastructure" />
       <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/carbonphp/carbon-doctrine-types" />
       <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/fakerphp/faker" />
@@ -232,10 +196,6 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/psr/http-message" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/ralouphie/getallheaders" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/symfony/clock" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/doctrine/lexer" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/egulias/email-validator" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/illuminate/translation" />
-      <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/illuminate/validation" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/phpstan/phpstan" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/fakerphp/faker" />
     </content>
