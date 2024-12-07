@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh
 
 #
 # Replace ENV vars in configuration files
