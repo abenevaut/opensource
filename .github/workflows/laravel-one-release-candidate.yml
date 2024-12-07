@@ -1,0 +1,145 @@
+name: laravel-one-release-candidate
+
+on:
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: ./laravel-one
+
+env:
+  php_version: 8.3
+
+jobs:
+
+  buildVhs:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: laravel-one-buildVhs-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Initialize PHP ${{ env.php_version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.php_version }}
+          coverage: exif
+
+      - name: Configure Composer cache
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: phpunit-slicer/vendor
+          key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-node-php_${{ env.php_version }}-
+
+      - name: Composer install
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: |
+          composer -V
+          composer validate --strict
+          composer install --optimize-autoloader --no-interaction --prefer-dist
+
+      - name: Install VHS
+        uses: charmbracelet/vhs-action@v2
+        with:
+          path: ${{ github.workspace }}/laravel-one/demo.tape
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: buildVhs
+          path: ${{ github.workspace }}/laravel-one/demo.gif
+          retention-days: 1
+          compression-level: 9
+          overwrite: true
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php_version: [ 81 ]
+    concurrency:
+      group: laravel-one-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      cancel-in-progress: false
+    container: ghcr.io/abenevaut/vapor-ci:php81
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Get current release tag
+        id: branch-name
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/laravel-one-}" >> $GITHUB_OUTPUT
+
+      - name: Install PHP extension
+        run: docker-php-ext-install exif
+
+      - name: Configure Composer cache
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: laravel-one/vendor
+          key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-php_${{ matrix.php_version }}-
+
+      - name: Composer install
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install --optimize-autoloader --no-interaction --prefer-dist
+
+      - name: Build
+        run: php laravel-one app:build laravel-one --build-version=${{ steps.branch-name.outputs.SOURCE_TAG }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: |
+            ${{ github.workspace }}/laravel-one
+            !${{ github.workspace }}/laravel-one/.idea
+          include-hidden-files: true
+          retention-days: 1
+          compression-level: 9
+          overwrite: true
+
+  publish:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+      - buildVhs
+    concurrency:
+      group: laravel-one-publish-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: ${{ github.workspace }}/laravel-one
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: buildVhs
+          path: ${{ github.workspace }}/laravel-one
+
+      - name: Get current release tag
+        id: branch-name
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/laravel-one-}" >> $GITHUB_OUTPUT
+
+      - run: sed '/\/builds/d' .gitignore > .gitignore.tmp && mv .gitignore.tmp .gitignore
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-candidate
+          path: ${{ github.workspace }}/laravel-one
+          include-hidden-files: true
+          retention-days: 1
+          compression-level: 9
+          overwrite: true

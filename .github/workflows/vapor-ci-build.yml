@@ -19,17 +19,17 @@ jobs:
         platform: [ "linux/amd64", "linux/arm64" ]
         include:
           - php_version: 82
-            platform: "linux/arm64"
-            build_tag: 82-arm
-          - php_version: 82
             platform: "linux/amd64"
             build_tag: 82-amd
           - php_version: 83
-            platform: "linux/arm64"
-            build_tag: 83-arm
-          - php_version: 83
             platform: "linux/amd64"
             build_tag: 83-amd
+#          - php_version: 82
+#            platform: "linux/arm64"
+#            build_tag: 82-arm
+#          - php_version: 83
+#            platform: "linux/arm64"
+#            build_tag: 83-arm
     concurrency:
       group: vapor-ci-build-${{ github.workflow }}-${{ github.ref }}-${{ matrix.build_tag }}
       cancel-in-progress: true
@@ -44,4 +44,8 @@ jobs:
       run: cp .env.example .env
 
     - name: Build docker image
-      run: TAG_VAPOR_CI=php${{ matrix.build_tag }} VAPOR_VERSION=${{ matrix.php_version }} docker-compose build --platform=${{ matrix.platform }} vapor-ci
+      run: docker compose build vapor-ci
+      env:
+        TAG_VAPOR_CI: php${{ matrix.build_tag }}
+        VAPOR_VERSION: ${{ matrix.php_version }}
+        DOCKER_DEFAULT_PLATFORM: ${{ matrix.platform }}
