@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class IdentifyClientRequestMiddleware extends ShareLogsContextMiddlewareAbstract
 {
     /**
-     * @return array<string, string>
+     * @return array<string, int|string>
      */
     protected function additionalContext(Request $request): array
     {
