@@ -6,4 +6,6 @@
 /.idea
 /.vscode
 /.vagrant
+phpunit.xml.test
+phpunit.xml
 .phpunit.result.cache

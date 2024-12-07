@@ -11,8 +11,6 @@ How the rootfs files ares used:
 
 ![](./vapor-roadrunner.svg)
 
-
-
 ## Tools
 
 - https://serverspec.org/resource_types.html

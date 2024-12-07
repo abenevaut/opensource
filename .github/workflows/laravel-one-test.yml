@@ -53,7 +53,7 @@ jobs:
 
       - name: Composer install
         if: steps.composer-cache.outputs.cache-hit != 'true'
-        run: composer install -o --no-interaction --prefer-dist
+        run: composer install --optimize-autoloader --no-interaction --prefer-dist
 
       - name: Web pages cache
         id: web-pages-cache

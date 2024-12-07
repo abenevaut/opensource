@@ -2,7 +2,7 @@
 
 ## Project
 
-N/A.
+- N/A.
 
 ## Release
 
