@@ -1,8 +1,10 @@
-- host: https://packagist.org/packages/abenevaut/laravel-sentry-handler
+- host:
+  - https://github.com/abenevaut/laravel-sentry-handler
+  - https://packagist.org/packages/abenevaut/laravel-sentry-handler
 
 ## Project
 
-- N/A
+- https://github.com/users/abenevaut/projects/14
 
 ## Release
 

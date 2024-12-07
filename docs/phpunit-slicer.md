@@ -1,8 +1,10 @@
-- host: https://packagist.org/packages/abenevaut/phpunit-slicer
+- host:
+  - https://github.com/abenevaut/phpunit-slicer
+  - https://packagist.org/packages/abenevaut/phpunit-slicer
 
 ## Project
 
-- https://github.com/users/abenevaut/projects/9
+- https://github.com/users/abenevaut/projects/14
 
 ## Release
 

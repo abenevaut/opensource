@@ -19,11 +19,11 @@
 ### Git
 
 - Git ignore root file, [ignore none sharable PHPStorm files](https://intellij-support.jetbrains.com/hc/en-us/articles/206544839)
-- Larges files have to be pushed to the Github LFS
+- Larges files have to be pushed to the GitHub LFS
 
 ### NMV
 
-- You have to use NVM to use the project NodeJS required version.
+- You have to use NVM to use the project Node.js required version.
 
 ```shell
 nvm use
@@ -37,12 +37,26 @@ nvm use
 ## Projects
 
 - [docs](/abenevaut/opensource/wiki/docs)
+- [lambda-qr](/abenevaut/opensource/wiki/lambda-qr)
+- [laravel-infrastructure](/abenevaut/opensource/wiki/laravel-infrastructure)
+- [laravel-one](/abenevaut/opensource/wiki/laravel-one)
+- [laravel-sentry-handler](/abenevaut/opensource/wiki/laravel-sentry-handler)
+- [laravel-session](/abenevaut/opensource/wiki/laravel-session)
 - [phpunit-slicer](/abenevaut/opensource/wiki/phpunit-slicer)
+- [vapor-ci](/abenevaut/opensource/wiki/vapor-ci)
+- [vapor-nginx](/abenevaut/opensource/wiki/vapor-nginx)
+- [vapor-roadrunner](/abenevaut/opensource/wiki/vapor-roadrunner)
 
 ## PHP & Tools supported versions
 
-- All PHP projects are rigorously following the PHP "Active Support", [have a look to the Global roadmap](https://github.com/users/abenevaut/projects/17)
+- All PHP projects are rigorously following the PHP "Active Support", [have a look to the Global roadmap](https://github.com/users/abenevaut/projects/14)
 
 ## Third Services
 
 - [Codecov](/abenevaut/opensource/wiki/ThirdServices/Codecov)
+- [Dependabot](/abenevaut/opensource/wiki/ThirdServices/Dependabot)
+
+## Licensing
+
+- The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/license/mit/).
+- The Laravel Zero is open-sourced software licensed under the [MIT license](https://opensource.org/license/mit/).

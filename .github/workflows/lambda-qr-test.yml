@@ -1,0 +1,73 @@
+name: lambda-qr-test
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'lambda-qr/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'lambda-qr/**'
+
+defaults:
+  run:
+    working-directory: ./lambda-qr
+
+env:
+  php_version: 8.3
+  node_version: lts/iron
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: lambda-qr-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      cancel-in-progress: true
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js ${{ env.node_version }}
+        uses: actions/setup-node@v4
+
+      - name: Initialize PHP ${{ env.php_version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.php_version }}
+          extensions: gd
+
+      - name: Install Serverless tool
+        run: npm install -g serverless@3
+
+      - name: Configure Composer cache
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: lambda-qr/vendor
+          key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-node-php_${{ env.php_version }}-
+
+      - name: Composer install
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: |
+          composer validate --strict
+          composer install --optimize-autoloader --no-interaction --prefer-dist
+
+      - name: Setup Bats and bats libs
+        id: setup-bats
+        uses: bats-core/bats-action@3.0.0
+        with:
+          support-path: "${{ github.workspace }}/lambda-qr/bats-support"
+          assert-path: "${{ github.workspace }}/lambda-qr/bats-assert"
+
+      - name: Test
+        shell: bash
+        env:
+          BATS_LIB_PATH: ${{ steps.setup-bats.outputs.lib-path }}
+          TERM: xterm
+        run: bats run-lambda-qr.bats

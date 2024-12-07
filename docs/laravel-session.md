@@ -1,8 +1,10 @@
-- host: https://packagist.org/packages/abenevaut/laravel-session
+- host:
+  - https://github.com/abenevaut/laravel-session
+  - https://packagist.org/packages/abenevaut/laravel-session
 
 ## Project
 
-- N/A
+- https://github.com/users/abenevaut/projects/14
 
 ## Release
 
