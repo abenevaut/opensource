@@ -7,6 +7,8 @@ inputs:
   number-tests-suites:
     description: 'Number of tests suites to generate'
     required: true
+    default: '1'
+    pattern: '^[0-9]+$'
   phpunit-configuration:
     description: 'Path to phpunit.xml.dist (or phpunit.xml) to add generated tests suites'
     required: true
@@ -17,8 +19,10 @@ inputs:
     description: 'Path to tests directory where to search tests. All tests should end with "Test.php"'
     required: true
   php-version:
-    description: 'The PHP version to use'
+    description: 'PHP version to use (supports 8.0 and above)'
     required: false
+    default: '8.3'
+    pattern: '^8\.[0-9]+$'
 runs:
   using: "composite"
   steps:
