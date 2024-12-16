@@ -40,7 +40,7 @@ describe 'Dockerfile' do
   describe command('cat /etc/os-release') do
     it 'confirm alpine version' do
       expect(subject.stdout).to match(/Alpine Linux/)
-      expect(subject.stdout).to match(/3.20.0/)
+      expect(subject.stdout).to match(/3.20.3/)
     end
   end
 
@@ -161,6 +161,6 @@ describe 'Dockerfile' do
   end
 
   it 'installs composer' do
-    expect(composer_version).to include('2.7.8')
+    expect(composer_version).to include('2.8.4')
   end
 end
