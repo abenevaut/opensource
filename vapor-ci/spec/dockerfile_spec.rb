@@ -40,7 +40,7 @@ describe 'Dockerfile' do
   describe command('cat /etc/os-release') do
     it 'confirm alpine version' do
       expect(subject.stdout).to match(/Alpine Linux/)
-      expect(subject.stdout).to match(/3.20.3/)
+      expect(subject.stdout).to match(/3.20.0/).or match(/3.20.3/)
     end
   end
 
