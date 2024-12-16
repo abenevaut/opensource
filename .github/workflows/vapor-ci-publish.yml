@@ -11,96 +11,55 @@ jobs:
       fail-fast: true
       matrix:
         php_version: [ 82, 83 ]
-        platform: [ "linux/amd64", "linux/arm64" ]
         include:
           - php_version: 82
-            platform: "linux/amd64"
-            build_tag: 82-amd
+            latest: false
           - php_version: 83
-            platform: "linux/amd64"
-            build_tag: 83-amd
-#          - php_version: 82
-#            platform: "linux/arm64"
-#            build_tag: 82-arm
-#          - php_version: 83
-#            platform: "linux/arm64"
-#            build_tag: 83-arm
-#          - php_version: 84
-#            platform: "linux/arm64"
-#            build_tag: 84-arm
-#          - php_version: 84
-#            platform: "linux/amd64"
-#            build_tag: 84-amd
+            latest: true
     concurrency:
-      group: vapor-ci-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.build_tag }}
+      group: vapor-ci-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: false
     steps:
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date '+%Y%m%d')"
 
       - name: Checkout project
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
-      - name: Prepare environment
-        run: cp .env.example .env
-
       - name: Log to github registry
         run: docker login ghcr.io --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build "php${{ matrix.build_tag }}" docker image
-        run: TAG_VAPOR_CI=php${{ matrix.build_tag }} VAPOR_VERSION=${{ matrix.php_version }} docker compose build vapor-ci
-        env:
-          COMPOSE_DOCKER_CLI_BUILD: 1
-          DOCKER_BUILDKIT: 1
-          DOCKER_DEFAULT_PLATFORM: ${{ matrix.platform }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
-      - name: Publish "php${{ matrix.build_tag }}" docker image
-        run: TAG_VAPOR_CI=php${{ matrix.build_tag }} docker compose push vapor-ci
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-  release:
-    runs-on: ubuntu-latest
-    needs: publish
-    strategy:
-      fail-fast: true
-      matrix:
-        php_version: [ 82, 83 ]
-        include:
-          - php_version: 83
-            latest: true
-    #          - php_version: 84
-    #            release-candidate: true
-    concurrency:
-      group: vapor-ci-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
-      cancel-in-progress: false
-    steps:
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/abenevaut/vapor-ci
+          tags: |
+            type=raw,value=php${{ matrix.php_version }}
+            type=raw,value=php${{ matrix.php_version }}-${{ steps.date.outputs.date }}
+            type=raw,value=latest,enable=${{ matrix.latest }}
 
-      - uses: actions/checkout@v4
-
-      - name: Prepare environment
-        run: cp .env.example .env
-
-      - name: Log to github registry
-        run: docker login ghcr.io --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Create "latest" docker manifest
-        if: ${{ matrix.latest }}
-        run: |
-          docker manifest create ghcr.io/abenevaut/vapor-ci:latest ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}-amd ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}-arm
-          docker manifest push ghcr.io/abenevaut/vapor-ci:latest
-
-      - name: Create "release-candidate" docker manifest
-        if: ${{ matrix.release-candidate }}
-        run: |
-          docker manifest create ghcr.io/abenevaut/vapor-ci:release-candidate ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}-amd ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}-arm
-          docker manifest push ghcr.io/abenevaut/vapor-ci:release-candidate
-
-      - name: Create "php${{ matrix.php_version }}" docker manifest
-        run: |
-          docker manifest create ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }} ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}-amd ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}-arm
-          docker manifest push ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: vapor-ci
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            "VAPOR_VERSION=83"
+            "COMPOSER_HASH=dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6"

@@ -46,6 +46,5 @@ jobs:
     - name: Build docker image
       run: docker compose build vapor-ci
       env:
-        TAG_VAPOR_CI: php${{ matrix.build_tag }}
         VAPOR_VERSION: ${{ matrix.php_version }}
         DOCKER_DEFAULT_PLATFORM: ${{ matrix.platform }}

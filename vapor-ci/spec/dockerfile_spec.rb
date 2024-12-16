@@ -10,12 +10,9 @@ describe 'Dockerfile' do
     Docker.options[:read_timeout] = 1000
     Docker.options[:write_timeout] = 1000
 
-    Dotenv.load('./../.env.example')
-
     build_args = JSON.generate(
-      VAPOR_VERSION: ENV.fetch('VAPOR_VERSION'),
-      TAG_VAPOR_CI: ENV.fetch('TAG_VAPOR_CI'),
-      COMPOSER_HASH: ENV.fetch('COMPOSER_HASH')
+      VAPOR_VERSION: '83',
+      COMPOSER_HASH: 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6'
     )
 
     image = Docker::Image.build_from_dir(

@@ -10,11 +10,8 @@ describe 'Dockerfile' do
     Docker.options[:read_timeout] = 1000
     Docker.options[:write_timeout] = 1000
 
-    Dotenv.load('./../.env.example')
-
     build_args = JSON.generate(
-      VAPOR_VERSION: ENV.fetch('VAPOR_VERSION'),
-      TAG_VAPOR_ROADRUNNER: ENV.fetch('TAG_VAPOR_ROADRUNNER')
+      VAPOR_VERSION: '83'
     )
 
     image = Docker::Image.build_from_dir(

@@ -3,7 +3,7 @@
 ```shell
 docker build . --file Dockerfile --tag abenevaut/vapor-ci:test \
     --build-arg VAPOR_VERSION=81 \
-    --build-arg COMPOSER_HASH=e21205b207c3ff031906575712edab6f13eb0b361f2085f1f1237b7126d785e826a450292b6cfd1d64d92e6563bbde02
+    --build-arg COMPOSER_HASH=dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6
 ```
 
 - VAPOR_VERSION: vapor docker version, default `81`
