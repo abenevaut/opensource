@@ -9,12 +9,10 @@ describe 'Dockerfile' do
   before(:all) do # rubocop:disable RSpec/BeforeAfterAll
     Docker.options[:read_timeout] = 1000
     Docker.options[:write_timeout] = 1000
-
-    Dotenv.load('./../.env.example')
+    # Dotenv.load('./../.env.example')
 
     build_args = JSON.generate(
       VAPOR_VERSION: ENV.fetch('VAPOR_VERSION'),
-      TAG_VAPOR_CI: ENV.fetch('TAG_VAPOR_CI'),
       COMPOSER_HASH: ENV.fetch('COMPOSER_HASH')
     )
 
@@ -42,7 +40,7 @@ describe 'Dockerfile' do
   describe command('cat /etc/os-release') do
     it 'confirm alpine version' do
       expect(subject.stdout).to match(/Alpine Linux/)
-      expect(subject.stdout).to match(/3.20.0/)
+      expect(subject.stdout).to match(/3.20.0/).or match(/3.20.3/)
     end
   end
 
@@ -163,6 +161,6 @@ describe 'Dockerfile' do
   end
 
   it 'installs composer' do
-    expect(composer_version).to include('2.7.8')
+    expect(composer_version).to include('2.8.4')
   end
 end
