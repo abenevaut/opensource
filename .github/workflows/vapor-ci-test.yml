@@ -18,29 +18,15 @@ jobs:
       fail-fast: false
       matrix:
         php_version: [ 82, 83 ]
-        platform: [ "linux/amd64", "linux/arm64" ]
-        include:
-          - php_version: 82
-            platform: "linux/amd64"
-            build_tag: 82-amd
-          - php_version: 83
-            platform: "linux/amd64"
-            build_tag: 83-amd
-#          - php_version: 82
-#            platform: "linux/arm64"
-#            build_tag: 82-arm
-#          - php_version: 83
-#            platform: "linux/arm64"
-#            build_tag: 83-arm
     concurrency:
-      group: vapor-ci-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.build_tag }}
+      group: vapor-ci-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
     steps:
 
     - name: Checkout project
       uses: actions/checkout@v4
       with:
-        fetch-depth: 1
+        fetch-depth: 0
 
     - uses: actions/cache@v4
       with:
@@ -64,4 +50,3 @@ jobs:
         VAPOR_VERSION: ${{ matrix.php_version }}
         COMPOSE_DOCKER_CLI_BUILD: 1
         DOCKER_BUILDKIT: 1
-        DOCKER_DEFAULT_PLATFORM: ${{ matrix.platform }}
