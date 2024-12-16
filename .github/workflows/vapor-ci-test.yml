@@ -48,5 +48,6 @@ jobs:
         bundle exec rspec
       env:
         VAPOR_VERSION: ${{ matrix.php_version }}
+        COMPOSER_HASH: dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6
         COMPOSE_DOCKER_CLI_BUILD: 1
         DOCKER_BUILDKIT: 1
