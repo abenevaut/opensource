@@ -2,7 +2,7 @@ ARG VAPOR_VERSION
 FROM laravelphp/vapor:php${VAPOR_VERSION}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
-LABEL org.opencontainers.image.source https://github.com/abenevaut/opensource
+LABEL org.opencontainers.image.source=https://github.com/abenevaut/opensource
 
 RUN apk --update --no-cache add \
         runit \
