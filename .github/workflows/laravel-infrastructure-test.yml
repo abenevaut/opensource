@@ -34,7 +34,7 @@ jobs:
       cancel-in-progress: true
     container: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
     env:
-      php_xdebug_log=/var/task/xdebug-errors.log
+      php_xdebug_log: /var/task/xdebug-errors.log
     steps:
 
       - name: Checkout project
