@@ -1,4 +1,4 @@
-name: vapor-nginx-publish
+name: vapor-default-publish
 
 on:
   workflow_dispatch:
@@ -22,7 +22,7 @@ jobs:
             latest: false
             release-candidate: true
     concurrency:
-      group: vapor-nginx-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      group: vapor-default-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: false
     steps:
 
@@ -51,7 +51,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/abenevaut/vapor-nginx
+          images: ghcr.io/abenevaut/vapor-default
           tags: |
             type=raw,value=php${{ matrix.php_version }}
             type=raw,value=php${{ matrix.php_version }}-${{ steps.date.outputs.date }}
@@ -61,10 +61,11 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: vapor-nginx
+          context: vapor-default
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            "VAPOR_DEFAULT_VERSION=${{ matrix.php_version }}"
+            "VAPOR_VERSION=${{ matrix.php_version }}"
+            "COMPOSER_HASH=dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6"
