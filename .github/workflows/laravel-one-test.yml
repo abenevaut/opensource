@@ -21,14 +21,14 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php_version: [ 81, 82, 83, 84 ]
+        php_version: [ 81, 82, 83 ]
         include:
           - php_version: 83
             continue-on-error: false
             record_coverage: true
-#          - php_version: 84
-#            continue-on-error: true
-#            record_coverage: false
+          - php_version: 84
+            continue-on-error: true
+            record_coverage: false
     concurrency:
       group: laravel-one-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
