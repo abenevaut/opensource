@@ -21,17 +21,14 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php_version: [ 81, 82, 83 ]
+        php_version: [ 82, 83, 84 ]
         include:
-          - php_version: 81
-            original_php_version: 8.1
-            record_coverage: false
           - php_version: 82
-            original_php_version: 8.2
             record_coverage: false
           - php_version: 83
-            original_php_version: 8.3
             record_coverage: true
+          - php_version: 84
+            record_coverage: false
     concurrency:
       group: laravel-infrastructure-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
