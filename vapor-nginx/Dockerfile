@@ -36,7 +36,8 @@ EXPOSE 8080
 # Configure a healthcheck to validate that everything is up&running
 HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:8080/fpm-ping
 
-ENV php_allow_url_fopen=On \
+ENV nginx_client_max_body_size=2M \
+    php_allow_url_fopen=On \
     php_allow_url_include=Off \
     # enable debug stack, important de le transformer en argument de demarrage dev/prod
     php_log_errors=On \
