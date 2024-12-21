@@ -54,9 +54,6 @@ jobs:
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install -o --no-interaction --prefer-dist
 
-      - name: xdebug
-        run: php -i | grep xdebug
-
       - name: Run tests
         run: |
           vendor/bin/phpstan analyse
