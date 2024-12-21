@@ -81,7 +81,6 @@ jobs:
       - name: Send coverage
         if: ${{ matrix.record_coverage }}
         run: |
-          ls coverage
           ls /usr/local/etc/php/conf.d/
           cat /usr/local/etc/php/conf.d/xdebug.ini
           codecov -Z -f coverage/clover.xml -F laravel-one
