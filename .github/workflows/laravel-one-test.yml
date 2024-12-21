@@ -70,7 +70,7 @@ jobs:
       - name: Run tests
         run: |
           vendor/bin/phpstan analyse
-          vendor/bin/phpcs --standard=PSR12 src
+          vendor/bin/phpcs --standard=PSR12 app
           php laravel-one test
 
       - name: Send coverage
