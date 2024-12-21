@@ -31,7 +31,7 @@ class CommandsExtendBaseCommandRule implements Rule
 //            && !$reflectionClass->isSubclassOf('Illuminate\Console\Command')
 //        ) {
 //            return [
-//                RuleErrorBuilder::message("abenevaut\Infrastructure\Console\Commands\CommandAbstract should extend 'Illuminate\Console\Command'")->build(),
+//                RuleErrorBuilder::message("CommandAbstract should extend 'Illuminate\Console\Command'")->build(),
 //            ];
 //        }
 
@@ -40,7 +40,8 @@ class CommandsExtendBaseCommandRule implements Rule
             && !$reflectionClass->isSubclassOf('Illuminate\Console\Command')
         ) {
             return [
-                RuleErrorBuilder::message("Listener should extend 'Illuminate\Console\Command'")->build(),
+                RuleErrorBuilder::message("Listener should extend 'Illuminate\Console\Command'")
+                    ->build(),
             ];
         }
 

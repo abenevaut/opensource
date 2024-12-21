@@ -2,6 +2,7 @@
 
 namespace Tests\Rules;
 
+use abenevaut\Infrastructure\Http\Controllers\ControllerAbstract;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Node\InClassNode;
@@ -31,7 +32,8 @@ class ControllersExtendBaseControllerRule implements Rule
             && !$reflectionClass->isSubclassOf('Illuminate\Routing\Controller')
         ) {
             return [
-                RuleErrorBuilder::message("abenevaut\Infrastructure\Http\Controllers\ControllerAbstract should extend 'Illuminate\Routing\Controller'")->build(),
+                RuleErrorBuilder::message(ControllerAbstract::class . " should extend 'Illuminate\Routing\Controller'")
+                    ->build(),
             ];
         }
 
@@ -40,7 +42,8 @@ class ControllersExtendBaseControllerRule implements Rule
             && !$reflectionClass->isSubclassOf('abenevaut\Infrastructure\Http\Controllers\ControllerAbstract')
         ) {
             return [
-                RuleErrorBuilder::message("Controller should extend 'abenevaut\Infrastructure\Http\Controllers\ControllerAbstract'")->build(),
+                RuleErrorBuilder::message("Controller should extend '" . ControllerAbstract::class . "'")
+                    ->build(),
             ];
         }
 

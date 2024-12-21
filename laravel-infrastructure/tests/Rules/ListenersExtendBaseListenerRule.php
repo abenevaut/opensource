@@ -2,6 +2,7 @@
 
 namespace Tests\Rules;
 
+use abenevaut\Infrastructure\App\Listeners\ListenerAbstract;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Node\InClassNode;
@@ -31,7 +32,8 @@ class ListenersExtendBaseListenerRule implements Rule
             && $reflectionClass->getParentClass() !== null
         ) {
             return [
-                RuleErrorBuilder::message("abenevaut\Infrastructure\App\Listeners\ListenerAbstract should not extend any class")->build(),
+                RuleErrorBuilder::message(ListenerAbstract::class . " should not extend any class")
+                    ->build(),
             ];
         }
 
@@ -40,7 +42,8 @@ class ListenersExtendBaseListenerRule implements Rule
             && !$reflectionClass->isSubclassOf('abenevaut\Infrastructure\App\Listeners\ListenerAbstract')
         ) {
             return [
-                RuleErrorBuilder::message("Listener should extend 'abenevaut\Infrastructure\App\Listeners\ListenerAbstract'")->build(),
+                RuleErrorBuilder::message("Listener should extend '" . ListenerAbstract::class . "'")
+                    ->build(),
             ];
         }
 
