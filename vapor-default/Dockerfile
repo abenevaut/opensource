@@ -6,11 +6,6 @@ LABEL org.opencontainers.image.source=https://github.com/abenevaut/opensource
 
 RUN apk --update --no-cache add \
         runit \
-        gnupg \
-        gpgv \
-        perl-utils \
-        openssh-client \
-        git \
 # Bring in gettext so we can get `envsubst`, then throw
 # the rest away. To do this, we need to install `gettext`
 # then move `envsubst` out of the way so `gettext` can
@@ -39,7 +34,10 @@ COPY --chown=nobody rootfs/ /
 # Remove windows end of line character
 RUN sed -i 's/\r//g' /bin/docker-entrypoint.sh \
     && sed -i 's/\r//g' /docker-entrypoint-init.d/01-uname.sh \
-    && sed -i 's/\r//g' /docker-entrypoint-init.d/02-update-php-template-with-env-vars.sh
+    && sed -i 's/\r//g' /docker-entrypoint-init.d/02-update-php-template-with-env-vars.sh \
+    && chmod +x /bin/docker-entrypoint.sh \
+    && chmod +x /docker-entrypoint-init.d/01-uname.sh \
+    && chmod +x /docker-entrypoint-init.d/02-update-php-template-with-env-vars.sh
 
 # Add application
 WORKDIR /var/task
