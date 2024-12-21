@@ -76,14 +76,12 @@ jobs:
         run: |
           vendor/bin/phpstan analyse
           vendor/bin/phpcs --standard=PSR12 app
-          php laravel-one test
+          vendor/bin/pest
 
       - name: Send coverage
         if: ${{ matrix.record_coverage }}
         run: |
-          pwd
           ls -la
-          php -i | grep xdebug
           codecov -Z -f coverage/clover.xml -F laravel-one
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
