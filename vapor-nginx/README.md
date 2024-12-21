@@ -2,11 +2,11 @@
 
 ```shell
 docker build . --file Dockerfile --tag abenevaut/vapor-nginx:test \
-    --build-arg VAPOR_VERSION=82 \
+    --build-arg VAPOR_DEFAULT_VERSION=82 \
     --platform=linux/arm64
 ```
 
-- VAPOR_VERSION: vapor docker version, default `81`
+- VAPOR_DEFAULT_VERSION: vapor docker version, default `81`
 
 ## Usage
 

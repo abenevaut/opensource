@@ -47,18 +47,17 @@ ENTRYPOINT [ "/bin/docker-entrypoint.sh" ]
 
 CMD []
 
-ENV client_max_body_size=2M \
-    clear_env=no \
-    allow_url_fopen=On \
-    allow_url_include=Off \
-    display_errors=Off \
-    file_uploads=On \
-    max_execution_time=0 \
-    max_input_time=-1 \
-    max_input_vars=1000 \
-    memory_limit=128M \
-    post_max_size=8M \
-    upload_max_filesize=2M \
-    zlib_output_compression=On \
-    opcache_enable=Off \
-    date_timezone=UTC
+ENV php_clear_env=no \
+    php_allow_url_fopen=On \
+    php_allow_url_include=Off \
+    php_display_errors=Off \
+    php_file_uploads=On \
+    php_max_execution_time=0 \
+    php_max_input_time=-1 \
+    php_max_input_vars=1000 \
+    php_memory_limit=128M \
+    php_post_max_size=8M \
+    php_upload_max_filesize=2M \
+    php_zlib_output_compression=On \
+    php_opcache_enable=Off \
+    php_date_timezone=UTC

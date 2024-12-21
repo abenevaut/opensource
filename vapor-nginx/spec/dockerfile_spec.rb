@@ -11,7 +11,7 @@ describe 'Dockerfile' do
     Docker.options[:write_timeout] = 1000
 
     build_args = JSON.generate(
-      VAPOR_VERSION: '83'
+      VAPOR_DEFAULT_VERSION: '83'
     )
 
     image = Docker::Image.build_from_dir(
