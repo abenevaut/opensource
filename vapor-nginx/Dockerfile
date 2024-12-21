@@ -1,4 +1,4 @@
-ARG VAPOR_DEFAULT_VERSION
+ARG VAPOR_DEFAULT_VERSION=83
 FROM ghcr.io/abenevaut/vapor-default:php${VAPOR_DEFAULT_VERSION}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"

@@ -1,4 +1,4 @@
-ARG VAPOR_VERSION
+ARG VAPOR_VERSION=83
 FROM laravelphp/vapor:php${VAPOR_VERSION}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
