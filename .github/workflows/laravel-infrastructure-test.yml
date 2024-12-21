@@ -32,7 +32,6 @@ jobs:
     concurrency:
       group: laravel-infrastructure-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
-    # https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/customizing-the-containers-used-by-jobs#arguments-for-prepare_job
     container:
       image: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
       env:
