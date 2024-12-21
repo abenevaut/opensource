@@ -8,13 +8,12 @@ use Illuminate\Support\Facades\Auth;
 class IdentifyClientRequestMiddleware extends ShareLogsContextMiddlewareAbstract
 {
     /**
-     * @return array<string, string>
+     * @return array<string, int|string>
      */
     protected function additionalContext(Request $request): array
     {
         $clientId = '';
         if (Auth::guard('api')->check()) {
-            // @phpstan-ignore-next-line
             $clientId = Auth::guard('api')->client()->id;
         }
 

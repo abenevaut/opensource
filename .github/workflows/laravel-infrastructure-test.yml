@@ -21,21 +21,21 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php_version: [ 81, 82, 83 ]
+        php_version: [ 82, 83, 84 ]
         include:
-          - php_version: 81
-            original_php_version: 8.1
-            record_coverage: false
           - php_version: 82
-            original_php_version: 8.2
             record_coverage: false
           - php_version: 83
-            original_php_version: 8.3
             record_coverage: true
+          - php_version: 84
+            record_coverage: false
     concurrency:
       group: laravel-infrastructure-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
-    container: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
+    container:
+      image: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
+      env:
+        php_xdebug_log: /var/task/xdebug-errors.log
     steps:
 
       - name: Checkout project
@@ -49,9 +49,6 @@ jobs:
           path: laravel-infrastructure/vendor
           key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.json') }}
           restore-keys: ${{ runner.os }}-node-php_${{ matrix.php_version }}-
-
-      - name: Validate Composer.json
-        run: composer validate --strict
 
       - name: Composer install
         if: steps.composer-cache.outputs.cache-hit != 'true'

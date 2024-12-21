@@ -1,6 +1,6 @@
 <?php
 
-namespace Unit;
+namespace Tests\Unit;
 
 use abenevaut\Infrastructure\Http\Middleware\ShareLogsContextMiddlewareAbstract;
 use Illuminate\Foundation\Testing\WithFaker;
