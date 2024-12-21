@@ -22,12 +22,6 @@ RUN apk --update --no-cache add \
 # Add configuration files
 COPY --chown=nobody rootfs/ /
 
-#
-# Force the execution of the following scripts
-# GitHub Action will not execute the entrypoint when starting as Custom container fro a pipeline
-#
-RUN /docker-entrypoint-init.d/02-update-php-template-with-env-vars.sh
-
 ENV COMPOSER_HOME=/composer \
     PATH=/composer/vendor/bin:$PATH
 
@@ -80,3 +74,9 @@ ENV php_allow_url_fopen=On \
     php_opcache_revalidate_freq=Off \
     # default: 0
     php_opcache_enable_cli=On
+
+#
+# Force the execution of the following scripts
+# GitHub Action will not execute the entrypoint when starting as Custom container fro a pipeline
+#
+RUN /docker-entrypoint-init.d/02-update-php-template-with-env-vars.sh
