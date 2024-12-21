@@ -35,8 +35,8 @@ jobs:
     # https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/customizing-the-containers-used-by-jobs#arguments-for-prepare_job
     container:
       image: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
-      environmentVariables:
-        - php_xdebug_log: /var/task/xdebug-errors.log
+      env:
+        php_xdebug_log: /var/task/xdebug-errors.log
     steps:
 
       - name: Checkout project
