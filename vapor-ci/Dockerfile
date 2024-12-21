@@ -16,8 +16,6 @@ RUN apk --update --no-cache add \
 # Add configuration files
 COPY --chown=nobody rootfs/ /
 
-RUN pecl install pcov
-
 ENV COMPOSER_HOME=/composer \
     PATH=/composer/vendor/bin:$PATH
 
@@ -55,7 +53,7 @@ ENV php_allow_url_fopen=On \
 ## XDebug PHP
     # https://xdebug.org/docs/all_settings#mode
     # values : develop,trace,debug,coverage
-    php_xdebug_mode=off \
+    php_xdebug_mode=coverage \
     php_xdebug_idekey=PHPSTORM \
     php_xdebug_log="/var/task/storage/logs/xdebug-errors.log" \
 ## OPCACHE PHP

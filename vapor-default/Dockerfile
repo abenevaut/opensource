@@ -50,6 +50,8 @@ ENTRYPOINT [ "/bin/docker-entrypoint.sh" ]
 
 CMD []
 
+RUN pecl install xdebug
+
 ENV php_allow_url_fopen=On \
     php_allow_url_include=Off \
     # enable debug stack, important de le transformer en argument de demarrage dev/prod
