@@ -1,0 +1,64 @@
+name: laravel-session-test
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'laravel-session/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'laravel-session/**'
+
+defaults:
+  run:
+    working-directory: ./laravel-session
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php_version: [ 83, 84 ]
+        include:
+          - php_version: 83
+            record_coverage: true
+          - php_version: 84
+            record_coverage: false
+    concurrency:
+      group: laravel-session-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      cancel-in-progress: true
+    container: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Configure Composer cache
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: laravel-session/vendor
+          key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-php_${{ matrix.php_version }}-
+
+      - name: Composer install
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install -o --no-interaction --prefer-dist
+
+      - name: Run tests
+        run: |
+          vendor/bin/phpstan analyse
+          vendor/bin/phpcs --standard=PSR12 src tests
+          vendor/bin/phpunit
+
+      - name: Send coverage
+        if: ${{ matrix.record_coverage }}
+        run: codecov -f coverage/clover.xml -F laravel-session
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
