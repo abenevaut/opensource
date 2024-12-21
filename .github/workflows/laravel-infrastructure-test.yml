@@ -21,10 +21,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php_version: [ 82, 83, 84 ]
+        php_version: [ 83, 84 ]
         include:
-          - php_version: 82
-            record_coverage: false
           - php_version: 83
             record_coverage: true
           - php_version: 84
