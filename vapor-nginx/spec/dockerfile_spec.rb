@@ -43,11 +43,9 @@ describe 'Dockerfile' do
     it { is_expected.to be_installed }
   end
 
-  describe port(8080) do
-    it { is_expected.to be_listening }
-  end
-
-  describe port(9000) do
-    it { is_expected.to be_listening }
+  [8080, 9000].each do |port_number|
+    describe port(port_number) do
+      it { is_expected.to be_listening.with('tcp') }
+    end
   end
 end
