@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Node\InClassNode;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class ControllersExtendBaseControllerRule implements Rule
 {
@@ -25,13 +26,21 @@ class ControllersExtendBaseControllerRule implements Rule
 
         $reflectionClass = $node->getClassReflection();
 
-        if ($reflectionClass->getName() === 'abenevaut\Infrastructure\Http\Controllers\ControllerAbstract') {
-            return [];
+        if (
+            $reflectionClass->getName() === 'abenevaut\Infrastructure\Http\Controllers\ControllerAbstract'
+            && !$reflectionClass->isSubclassOf('Illuminate\Routing\Controller')
+        ) {
+            return [
+                RuleErrorBuilder::message("abenevaut\Infrastructure\Http\Controllers\ControllerAbstract should extend 'Illuminate\Routing\Controller'")->build(),
+            ];
         }
 
-        if (!$reflectionClass->isSubclassOf('Illuminate\Routing\Controller')) {
+        if (
+            $reflectionClass->getName() !== 'abenevaut\Infrastructure\Http\Controllers\ControllerAbstract'
+            && !$reflectionClass->isSubclassOf('abenevaut\Infrastructure\Http\Controllers\ControllerAbstract')
+        ) {
             return [
-                "Controllers should extend 'Illuminate\Routing\Controller' (see rule #49)"
+                RuleErrorBuilder::message("Controller should extend 'abenevaut\Infrastructure\Http\Controllers\ControllerAbstract'")->build(),
             ];
         }
 

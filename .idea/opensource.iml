@@ -16,7 +16,9 @@
       <sourceFolder url="file://$MODULE_DIR$/laravel-sentry-handler/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-infrastructure/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/phpunit-slicer/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-one/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-one/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-session/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-stripe/.phpunit.cache" />
@@ -202,6 +204,8 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/fakerphp/faker" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/phpstan/phpstan" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-one/vendor/squizlabs/php_codesniffer" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/league/uri" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-infrastructure/vendor/league/uri-interfaces" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
