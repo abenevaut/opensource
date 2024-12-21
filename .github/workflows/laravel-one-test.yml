@@ -82,9 +82,8 @@ jobs:
         if: ${{ matrix.record_coverage }}
         run: |
           ls coverage
-          cat coverage/clover.xml
           ls /usr/local/etc/php/conf.d/
-          car /usr/local/etc/php/conf.d/xdebug.ini
+          cat /usr/local/etc/php/conf.d/xdebug.ini
           codecov -Z -f coverage/clover.xml -F laravel-one
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
