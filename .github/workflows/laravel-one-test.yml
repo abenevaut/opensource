@@ -80,6 +80,8 @@ jobs:
 
       - name: Send coverage
         if: ${{ matrix.record_coverage }}
-        run: codecov -Z -f coverage/clover.xml -F laravel-one
+        run: |
+          ls -la
+          codecov -Z -f coverage/clover.xml -F laravel-one
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
