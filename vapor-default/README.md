@@ -1,26 +1,19 @@
+# vapor-default
+
+Inherits from [Docker Vapor images](https://github.com/laravel/vapor-dockerfiles) ([Docker hub](https://hub.docker.com/r/laravelphp/vapor/tags)), this suite provides defaults ISO Vapor images to work with locally.
+
 ## Build
 
 ```shell
-docker build . --file Dockerfile --tag abenevaut/vapor-nginx:test \
-    --build-arg VAPOR_DEFAULT_VERSION=83
+docker build . --file Dockerfile --tag abenevaut/vapor-default:test \
+    --build-arg VAPOR_VERSION=83
 ```
 
-- VAPOR_DEFAULT_VERSION: vapor-default image version (`ghcr.io/abenevaut/vapor-default:php<VAPOR_DEFAULT_VERSION>`), default `83`
+- VAPOR_VERSION: vapor docker version, default `83`
 
 ## Usage
 
-### Inheritance
-
-```dockerfile
-FROM abenevaut/vapor-nginx:latest
-
-COPY . /var/task
-
-USER root
-RUN chown -R nobody.nobody /var/task
-```
-
-### Customize with heritage
+### Customize with inheritance
 
 #### Install PHP extension
 
