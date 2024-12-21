@@ -36,6 +36,9 @@ jobs:
       image: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
       env:
         php_xdebug_log: /var/task/xdebug-errors.log
+
+    continue-on-error: ${{ matrix.continue-on-error }}
+
     steps:
 
       - name: Checkout project
