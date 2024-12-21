@@ -57,6 +57,8 @@ jobs:
         run: |
           composer validate --strict
           composer install --optimize-autoloader --no-interaction --prefer-dist
+          vendor/bin/phpstan analyse
+          vendor/bin/phpcs --standard=PSR12 src tests
 
       - name: Setup Bats and bats libs
         id: setup-bats
