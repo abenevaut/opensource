@@ -3,6 +3,12 @@ FROM ghcr.io/abenevaut/vapor-default:php${VAPOR_DEFAULT_VERSION}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.source=https://github.com/abenevaut/opensource
+LABEL org.opencontainers.image.path="vapor-ci/Dockerfile"
+LABEL org.opencontainers.image.title="vapor-ci"
+LABEL org.opencontainers.image.description="Inherits from Docker Vapor images, this suite provides defaults ISO Vapor images to work with GitHub pipelines."
+LABEL org.opencontainers.image.authors="Antoine Benevaut <me@abenevaut.dev>"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.documentation="https://github.com/abenevaut/opensource/vapor-ci/README.md"
 
 RUN apk --update --no-cache add \
         gnupg \
@@ -68,3 +74,9 @@ ENV php_allow_url_fopen=On \
     php_opcache_revalidate_freq=Off \
     # default: 0
     php_opcache_enable_cli=On
+
+#
+# Force the execution of the following scripts
+# GitHub Action will not execute the entrypoint when starting as Custom container fro a pipeline
+#
+RUN /docker-entrypoint-init.d/02-update-php-template-with-env-vars.sh

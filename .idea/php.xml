@@ -12,6 +12,7 @@
   <component name="PhpCodeSniffer">
     <phpcs_settings>
       <phpcs_by_interpreter asDefaultInterpreter="true" interpreter_id="e67f7615-f037-402c-9607-5db4a8aaf581" timeout="30000" />
+      <PhpCSConfiguration tool_path="$PROJECT_DIR$/laravel-one/vendor/bin/phpcs" />
     </phpcs_settings>
   </component>
   <component name="PhpIncludePathManager">
@@ -1178,6 +1179,8 @@
       <path value="$PROJECT_DIR$/laravel-one/vendor/mortexa/laravel-arkitect" />
       <path value="$PROJECT_DIR$/phpunit-slicer/vendor/symfony/polyfill-php72" />
       <path value="$PROJECT_DIR$/laravel-one/vendor/ondram/ci-detector" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/squizlabs/php_codesniffer" />
+      <path value="$PROJECT_DIR$/laravel-one/vendor/phpstan/phpstan" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
@@ -1186,6 +1189,7 @@
   <component name="PhpStan">
     <PhpStan_settings>
       <phpstan_by_interpreter asDefaultInterpreter="true" interpreter_id="e67f7615-f037-402c-9607-5db4a8aaf581" timeout="60000" />
+      <PhpStanConfiguration tool_path="$PROJECT_DIR$/laravel-one/vendor/bin/phpstan" />
     </PhpStan_settings>
   </component>
   <component name="PhpStanOptionsConfiguration">
