@@ -1,5 +1,5 @@
 ARG VAPOR_DEFAULT_VERSION
-FROM abenevaut/vapor-default:php${VAPOR_DEFAULT_VERSION}
+FROM ghcr.io/abenevaut/vapor-default:php${VAPOR_DEFAULT_VERSION}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.source=https://github.com/abenevaut/opensource
