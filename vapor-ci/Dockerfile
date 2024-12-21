@@ -25,7 +25,7 @@ COPY --chown=nobody rootfs/ /
 #
 #
 #
-SHELL ["/bin/bash", "-c", "/docker-entrypoint-init.d/02-update-php-template-with-env-vars.sh"]
+SHELL ["/bin/sh", "-c", "/docker-entrypoint-init.d/02-update-php-template-with-env-vars.sh"]
 
 ENV COMPOSER_HOME=/composer \
     PATH=/composer/vendor/bin:$PATH
