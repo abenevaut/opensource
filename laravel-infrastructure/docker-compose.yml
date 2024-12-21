@@ -1,0 +1,7 @@
+services:
+
+  app:
+    image: ghcr.io/abenevaut/vapor-ci:php81
+    restart: unless-stopped
+    volumes:
+      - .:/var/task

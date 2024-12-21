@@ -3,6 +3,6 @@ parameters:
   level: max
   paths:
     - src
-    - tests
 rules:
-  - Tests\Rules\ControllersExtendsBaseControllerRule
+  - Tests\Rules\CodeDoesNotContainDumpRule
+  - Tests\Rules\ControllersExtendBaseControllerRule

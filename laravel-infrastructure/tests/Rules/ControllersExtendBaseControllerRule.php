@@ -2,13 +2,12 @@
 
 namespace Tests\Rules;
 
-
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Node\InClassNode;
 use PHPStan\Rules\Rule;
 
-class ControllersExtendsBaseControllerRule implements Rule
+class ControllersExtendBaseControllerRule implements Rule
 {
     public function getNodeType(): string
     {
@@ -17,7 +16,10 @@ class ControllersExtendsBaseControllerRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
-        if (empty($scope->getNamespace()) || !str_starts_with($scope->getNamespace(), 'abenevaut\Infrastructure\Http\Controllers')) {
+        if (
+            empty($scope->getNamespace())
+            || !str_starts_with($scope->getNamespace(), 'abenevaut\Infrastructure\Http\Controllers')
+        ) {
             return [];
         }
 
