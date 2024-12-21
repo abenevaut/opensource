@@ -7,3 +7,4 @@ parameters:
 rules:
   - abenevaut\Infrastructure\Rules\CodeDoesNotContainDumpRule
   - Tests\Rules\ControllersExtendBaseControllerRule
+  - Tests\Rules\ListenersExtendBaseListenerRule
