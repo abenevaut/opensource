@@ -41,12 +41,16 @@ describe 'Dockerfile' do
     expect(php_version).to include('8.2').or include('8.3').or include('8.4')
   end
 
-  def php_pcov_loaded
-    command('php -r "var_dump(extension_loaded(\'pcov\'));"').stdout
+  def php_xdebug_enabled
+    command('php -r "var_dump(ini_get(\'xdebug.mode\'));"').stdout
   end
 
-  it 'installs php-pcov' do
-    expect(php_pcov_loaded).to include('true')
+  it 'php-xdebug is enabled to coverage' do
+    expect(php_xdebug_enabled).to include('coverage')
+  end
+
+  describe port(9000) do
+    it { is_expected.not_to be_listening.with('tcp') }
   end
 
   def codecov_version

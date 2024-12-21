@@ -3,6 +3,12 @@ FROM laravelphp/vapor:php${VAPOR_VERSION}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.source=https://github.com/abenevaut/opensource
+LABEL org.opencontainers.image.path="vapor-default/Dockerfile"
+LABEL org.opencontainers.image.title="vapor-default"
+LABEL org.opencontainers.image.description="Inherits from Docker Vapor images, this suite provides defaults ISO Vapor images to work with locally."
+LABEL org.opencontainers.image.authors="Antoine Benevaut <me@abenevaut.dev>"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.documentation="https://github.com/abenevaut/opensource/vapor-default/README.md"
 
 RUN apk --update --no-cache add \
         runit \
@@ -49,6 +55,8 @@ WORKDIR /var/task
 ENTRYPOINT [ "/bin/docker-entrypoint.sh" ]
 
 CMD []
+
+RUN pecl install xdebug
 
 ENV php_allow_url_fopen=On \
     php_allow_url_include=Off \
