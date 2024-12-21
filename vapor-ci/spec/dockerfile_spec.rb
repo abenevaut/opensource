@@ -45,7 +45,7 @@ describe 'Dockerfile' do
     command('php -r "var_dump(ini_get(\'xdebug.mode\'));"').stdout
   end
 
-  it 'php-xdebug is not enabled' do
+  it 'php-xdebug is enabled to coverage' do
     expect(php_xdebug_enabled).to include('coverage')
   end
 
