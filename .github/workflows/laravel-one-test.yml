@@ -21,14 +21,17 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php_version: [ 81, 82, 83 ]
+        php_version: [ 81, 82, 83, 84 ]
         include:
           - php_version: 83
             record_coverage: true
     concurrency:
       group: laravel-one-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
-    container: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
+    container:
+      image: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
+      env:
+        php_xdebug_log: /var/task/xdebug-errors.log
     steps:
 
       - name: Checkout project
@@ -66,7 +69,8 @@ jobs:
 
       - name: Run tests
         run: |
-          php laravel-one test:arkitect
+          vendor/bin/phpstan analyse
+          vendor/bin/phpcs --standard=PSR12 src
           php laravel-one test
 
       - name: Send coverage
