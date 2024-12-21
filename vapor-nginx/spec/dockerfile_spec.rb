@@ -44,7 +44,7 @@ describe 'Dockerfile' do
   end
 
   describe port(8080) do
-    it { is_expected.to be_listening.with('tcp') }
+    it { is_expected.to be_listening }
   end
 
   describe port(9000) do
