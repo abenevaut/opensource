@@ -14,7 +14,6 @@ class IdentifyClientRequestMiddleware extends ShareLogsContextMiddlewareAbstract
     {
         $clientId = '';
         if (Auth::guard('api')->check()) {
-            // @phpstan-ignore-next-line
             $clientId = Auth::guard('api')->client()->id;
         }
 
