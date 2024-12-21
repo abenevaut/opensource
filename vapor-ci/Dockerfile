@@ -3,6 +3,12 @@ FROM ghcr.io/abenevaut/vapor-default:php${VAPOR_DEFAULT_VERSION}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.source=https://github.com/abenevaut/opensource
+LABEL org.opencontainers.image.path="vapor-ci/Dockerfile"
+LABEL org.opencontainers.image.title="vapor-ci"
+LABEL org.opencontainers.image.description="Laravel Vapor CI Docker image for your GitHub pipelines"
+LABEL org.opencontainers.image.authors="Antoine Benevaut <me@abenevaut.dev>"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.documentation="https://github.com/abenevaut/opensource/vapor-ci/README.md"
 
 RUN apk --update --no-cache add \
         gnupg \
@@ -16,29 +22,13 @@ RUN apk --update --no-cache add \
 # Add configuration files
 COPY --chown=nobody rootfs/ /
 
-# Let runit start services
-ENTRYPOINT []
-
-CMD [ "/bin/docker-entrypoint.sh" ]
+#
+#
+#
+SHELL ["/bin/bash", "-c", "/docker-entrypoint-init.d/02-update-php-template-with-env-vars.sh"]
 
 ENV COMPOSER_HOME=/composer \
     PATH=/composer/vendor/bin:$PATH
-
-ARG COMPOSER_HASH
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-    && php -r "if (hash_file('sha384', 'composer-setup.php') === '${COMPOSER_HASH}') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
-    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
-    && php -r "unlink('composer-setup.php');"
-
-RUN curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import \
-    && curl -Os https://uploader.codecov.io/latest/alpine/codecov \
-    && curl -Os https://uploader.codecov.io/latest/alpine/codecov.SHA256SUM \
-    && curl -Os https://uploader.codecov.io/latest/alpine/codecov.SHA256SUM.sig \
-    && gpg --verify codecov.SHA256SUM.sig codecov.SHA256SUM \
-    && shasum -a 256 -c codecov.SHA256SUM \
-    && chmod +x codecov \
-    && mv codecov /usr/local/bin \
-    && rm codecov.SHA256SUM.sig codecov.SHA256SUM
 
 ENV php_allow_url_fopen=On \
     php_allow_url_include=Off \
