@@ -23,7 +23,8 @@ RUN apk --update --no-cache add \
 COPY --chown=nobody rootfs/ /
 
 #
-#
+# Force the execution of the following scripts
+# GitHub Action will not execute the entrypoint when starting as Custom container fro a pipeline
 #
 SHELL ["/bin/sh", "-c", "/docker-entrypoint-init.d/02-update-php-template-with-env-vars.sh"]
 
