@@ -138,4 +138,16 @@ describe 'Dockerfile' do
   it 'php-opcache cli is not enabled' do
     expect(php_opcache_cli_enabled).to include('string(1) "1"')
   end
+
+  def php_xdebug_enabled
+    command('php -r "var_dump(ini_get(\'xdebug.mode\'));"').stdout
+  end
+
+  it 'php-xdebug is not enabled' do
+    expect(php_xdebug_enabled).to include('off')
+  end
+
+  describe port(9000) do
+    it { is_expected.to be_listening.with('tcp') }
+  end
 end
