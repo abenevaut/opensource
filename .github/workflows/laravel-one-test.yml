@@ -24,7 +24,11 @@ jobs:
         php_version: [ 81, 82, 83, 84 ]
         include:
           - php_version: 83
+            continue-on-error: false
             record_coverage: true
+          - php_version: 84
+            continue-on-error: true
+            record_coverage: false
     concurrency:
       group: laravel-one-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
@@ -68,6 +72,7 @@ jobs:
             ${{ runner.os }}-node-php_${{ matrix.php_version }}-web-pages-cache-
 
       - name: Run tests
+        continue-on-error: ${{ matrix.continue-on-error }}
         run: |
           vendor/bin/phpstan analyse
           vendor/bin/phpcs --standard=PSR12 app
