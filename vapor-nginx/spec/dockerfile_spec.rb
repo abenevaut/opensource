@@ -11,7 +11,7 @@ describe 'Dockerfile' do
     Docker.options[:write_timeout] = 1000
 
     build_args = JSON.generate(
-      VAPOR_DEFAULT_VERSION: '83'
+      VAPOR_DEFAULT_VERSION: ENV.fetch('VAPOR_DEFAULT_VERSION')
     )
 
     image = Docker::Image.build_from_dir(
@@ -31,6 +31,14 @@ describe 'Dockerfile' do
     Specinfra::Backend::Docker.clear
   end
 
+  def php_version
+    command('php -v').stdout
+  end
+
+  it 'installs php' do
+    expect(php_version).to include('8.2').or include('8.3').or include('8.4')
+  end
+
   describe package('nginx') do
     it { is_expected.to be_installed }
   end
@@ -40,14 +48,6 @@ describe 'Dockerfile' do
   end
 
   describe port(9000) do
-    it { is_expected.to be_listening }
-  end
-
-  def php_version
-    command('php -v').stdout
-  end
-
-  it 'installs php' do
-    expect(php_version).to include('8.2').or include('8.3').or include('8.4')
+    it { is_expected.not_to be_listening }
   end
 end

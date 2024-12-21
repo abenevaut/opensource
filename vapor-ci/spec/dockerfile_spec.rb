@@ -41,20 +41,20 @@ describe 'Dockerfile' do
     expect(php_version).to include('8.2').or include('8.3').or include('8.4')
   end
 
-  def codecov_version
-    command('codecov --version').stdout
-  end
-
-  it 'installs codecov' do
-    expect(codecov_version).to include('0.8.0')
-  end
-
   def php_pcov_loaded
     command('php -r "var_dump(extension_loaded(\'pcov\'));"').stdout
   end
 
   it 'installs php-pcov' do
     expect(php_pcov_loaded).to include('true')
+  end
+
+  def codecov_version
+    command('codecov --version').stdout
+  end
+
+  it 'installs codecov' do
+    expect(codecov_version).to include('0.8.0')
   end
 
   def composer_version
