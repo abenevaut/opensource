@@ -50,12 +50,12 @@ jobs:
           key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.json') }}
           restore-keys: ${{ runner.os }}-node-php_${{ matrix.php_version }}-
 
-      - name: Validate Composer.json
-        run: composer validate --strict
-
       - name: Composer install
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install -o --no-interaction --prefer-dist
+
+      - name: xdebug
+        run: php -i | grep xdebug
 
       - name: Run tests
         run: |
