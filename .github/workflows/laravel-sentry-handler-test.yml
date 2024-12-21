@@ -26,7 +26,7 @@ jobs:
           - php_version: 83
             record_coverage: true
           - php_version: 84
-            record_coverage: true
+            record_coverage: false
     concurrency:
       group: laravel-sentry-handler-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
