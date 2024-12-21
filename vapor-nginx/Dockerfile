@@ -3,6 +3,12 @@ FROM ghcr.io/abenevaut/vapor-default:php${VAPOR_DEFAULT_VERSION}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.source=https://github.com/abenevaut/opensource
+LABEL org.opencontainers.image.path="vapor-nginx/Dockerfile"
+LABEL org.opencontainers.image.title="vapor-nginx"
+LABEL org.opencontainers.image.description="Inherits from Docker Vapor images, this suite provides defaults ISO Vapor images to work with NGINX."
+LABEL org.opencontainers.image.authors="Antoine Benevaut <me@abenevaut.dev>"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.documentation="https://github.com/abenevaut/opensource/vapor-nginx/README.md"
 
 RUN apk --update --no-cache add \
         nginx \
