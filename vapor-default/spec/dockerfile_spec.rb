@@ -120,7 +120,7 @@ describe 'Dockerfile' do
   end
 
   it 'installs php-opcache' do
-    expect(php_opcache_loaded).to include('false')
+    expect(php_opcache_loaded).to include('true')
   end
 
   def php_opcache_enabled
@@ -128,7 +128,7 @@ describe 'Dockerfile' do
   end
 
   it 'php-opcache is not enabled' do
-    expect(php_opcache_enabled).not_to include('string(1) "1"')
+    expect(php_opcache_enabled).to include('string(1) "1"')
   end
 
   def php_opcache_cli_enabled
@@ -136,6 +136,18 @@ describe 'Dockerfile' do
   end
 
   it 'php-opcache cli is not enabled' do
-    expect(php_opcache_cli_enabled).not_to include('string(1) "1"')
+    expect(php_opcache_cli_enabled).to include('string(1) "1"')
+  end
+
+  def php_xdebug_enabled
+    command('php -r "var_dump(ini_get(\'xdebug.mode\'));"').stdout
+  end
+
+  it 'php-xdebug is not enabled' do
+    expect(php_xdebug_enabled).to include('false')
+  end
+
+  describe port(9000) do
+    it { is_expected.not_to be_listening.with('tcp') }
   end
 end

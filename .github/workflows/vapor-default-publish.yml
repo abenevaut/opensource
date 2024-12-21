@@ -56,7 +56,7 @@ jobs:
             type=raw,value=php${{ matrix.php_version }}
             type=raw,value=php${{ matrix.php_version }}-${{ steps.date.outputs.date }}
             type=raw,value=latest,enable=${{ matrix.latest }}
-            type=raw,value=rc,enable=${{ matrix.release-candidate }}
+            type=raw,value=release-candidate,enable=${{ matrix.release-candidate }}
 
       - name: Build and push
         uses: docker/build-push-action@v6

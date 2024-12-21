@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php_version: [ 82, 83 ]
+        php_version: [ 82, 83, 84 ]
     concurrency:
       group: vapor-ci-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
@@ -47,7 +47,7 @@ jobs:
         bundle exec rubocop
         bundle exec rspec
       env:
-        VAPOR_VERSION: ${{ matrix.php_version }}
+        VAPOR_DEFAULT_VERSION: ${{ matrix.php_version }}
         COMPOSER_HASH: dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6
         COMPOSE_DOCKER_CLI_BUILD: 1
         DOCKER_BUILDKIT: 1

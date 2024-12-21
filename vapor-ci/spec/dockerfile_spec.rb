@@ -12,7 +12,7 @@ describe 'Dockerfile' do
     # Dotenv.load('./../.env.example')
 
     build_args = JSON.generate(
-      VAPOR_VERSION: ENV.fetch('VAPOR_VERSION'),
+      VAPOR_DEFAULT_VERSION: ENV.fetch('VAPOR_DEFAULT_VERSION'),
       COMPOSER_HASH: ENV.fetch('COMPOSER_HASH')
     )
 
@@ -33,95 +33,12 @@ describe 'Dockerfile' do
     Specinfra::Backend::Docker.clear
   end
 
-  describe file('/etc/os-release') do
-    it { is_expected.to be_file }
-  end
-
-  describe command('cat /etc/os-release') do
-    it 'confirm alpine version' do
-      expect(subject.stdout).to match(/Alpine Linux/)
-      expect(subject.stdout).to match(/3.20.0/).or match(/3.20.3/)
-    end
-  end
-
   def php_version
     command('php -v').stdout
   end
 
   it 'installs php' do
-    expect(php_version).to include('8.2').or include('8.3')
-  end
-
-  def php_redis_loaded
-    command('php -r "var_dump(extension_loaded(\'redis\'));"').stdout
-  end
-
-  it 'installs php-redis' do
-    expect(php_redis_loaded).to include('true')
-  end
-
-  def php_gd_loaded
-    command('php -r "var_dump(extension_loaded(\'gd\'));"').stdout
-  end
-
-  it 'installs php-gd' do
-    expect(php_gd_loaded).to include('true')
-  end
-
-  def php_pdo_mysql_loaded
-    command('php -r "var_dump(extension_loaded(\'pdo_mysql\'));"').stdout
-  end
-
-  it 'installs php-pdo_mysql' do
-    expect(php_pdo_mysql_loaded).to include('true')
-  end
-
-  def php_intl_loaded
-    command('php -r "var_dump(extension_loaded(\'intl\'));"').stdout
-  end
-
-  it 'installs php-intl' do
-    expect(php_intl_loaded).to include('true')
-  end
-
-  def php_zip_loaded
-    command('php -r "var_dump(extension_loaded(\'zip\'));"').stdout
-  end
-
-  it 'installs php-zip' do
-    expect(php_zip_loaded).to include('true')
-  end
-
-  def php_xml_loaded
-    command('php -r "var_dump(extension_loaded(\'xml\'));"').stdout
-  end
-
-  it 'installs php-xml' do
-    expect(php_xml_loaded).to include('true')
-  end
-
-  def php_iconv_loaded
-    command('php -r "var_dump(extension_loaded(\'iconv\'));"').stdout
-  end
-
-  it 'installs php-iconv' do
-    expect(php_iconv_loaded).to include('true')
-  end
-
-  def php_soap_loaded
-    command('php -r "var_dump(extension_loaded(\'soap\'));"').stdout
-  end
-
-  it 'installs php-soap' do
-    expect(php_soap_loaded).to include('true')
-  end
-
-  def codecov_version
-    command('codecov --version').stdout
-  end
-
-  it 'installs codecov' do
-    expect(codecov_version).to include('0.8.0')
+    expect(php_version).to include('8.2').or include('8.3').or include('8.4')
   end
 
   def php_pcov_loaded
@@ -132,28 +49,12 @@ describe 'Dockerfile' do
     expect(php_pcov_loaded).to include('true')
   end
 
-  def php_opcache_loaded
-    command('php -r "var_dump(extension_loaded(\'Zend OPcache\'));"').stdout
+  def codecov_version
+    command('codecov --version').stdout
   end
 
-  it 'installs php-opcache' do
-    expect(php_opcache_loaded).to include('false')
-  end
-
-  def php_opcache_enabled
-    command('php -r "var_dump(ini_get(\'opcache.enable\'));"').stdout
-  end
-
-  it 'php-opcache is not enabled' do
-    expect(php_opcache_enabled).not_to include('string(1) "1"')
-  end
-
-  def php_opcache_cli_enabled
-    command('php -r "var_dump(ini_get(\'opcache.enable_cli\'));"').stdout
-  end
-
-  it 'php-opcache cli is not enabled' do
-    expect(php_opcache_cli_enabled).not_to include('string(1) "1"')
+  it 'installs codecov' do
+    expect(codecov_version).to include('0.8.0')
   end
 
   def composer_version
