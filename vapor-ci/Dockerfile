@@ -16,6 +16,11 @@ RUN apk --update --no-cache add \
 # Add configuration files
 COPY --chown=nobody rootfs/ /
 
+# Let runit start services
+ENTRYPOINT []
+
+CMD [ "/bin/docker-entrypoint.sh" ]
+
 ENV COMPOSER_HOME=/composer \
     PATH=/composer/vendor/bin:$PATH
 
