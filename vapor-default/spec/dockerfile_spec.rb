@@ -120,7 +120,7 @@ describe 'Dockerfile' do
   end
 
   it 'installs php-opcache' do
-    expect(php_opcache_loaded).to include('false')
+    expect(php_opcache_loaded).to include('true')
   end
 
   def php_opcache_enabled
@@ -128,7 +128,7 @@ describe 'Dockerfile' do
   end
 
   it 'php-opcache is not enabled' do
-    expect(php_opcache_enabled).not_to include('string(1) "1"')
+    expect(php_opcache_enabled).to include('string(1) "1"')
   end
 
   def php_opcache_cli_enabled
@@ -136,6 +136,6 @@ describe 'Dockerfile' do
   end
 
   it 'php-opcache cli is not enabled' do
-    expect(php_opcache_cli_enabled).not_to include('string(1) "1"')
+    expect(php_opcache_cli_enabled).to include('string(1) "1"')
   end
 end

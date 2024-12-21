@@ -72,6 +72,6 @@ ENV php_allow_url_fopen=On \
 ## PHP-FPM
     php_clear_env=No \
     ## to display error in docker console (stderr) use `/proc/self/fd/2`
-    php_error_log="/var/task/storage/logs/error.log"
+    php_error_log="/var/task/storage/logs/error.log" \
     ## to display access in docker console (stderr) use `/proc/self/fd/2`
     php_access_log="/var/task/storage/logs/access.log"
