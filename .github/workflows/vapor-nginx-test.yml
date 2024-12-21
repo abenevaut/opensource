@@ -19,7 +19,7 @@ jobs:
       matrix:
         php_version: [ 82, 83, 84 ]
     concurrency:
-      group: vapor-nginx-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      group: vapor-nginx-test-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
     steps:
 
