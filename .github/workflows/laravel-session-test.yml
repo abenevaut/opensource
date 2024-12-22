@@ -1,18 +1,18 @@
-name: laravel-sentry-handler-test
+name: laravel-session-test
 
 on:
   push:
     branches: [ master ]
     paths:
-      - 'laravel-sentry-handler/**'
+      - 'laravel-session/**'
   pull_request:
     branches: [ master ]
     paths:
-      - 'laravel-sentry-handler/**'
+      - 'laravel-session/**'
 
 defaults:
   run:
-    working-directory: ./laravel-sentry-handler
+    working-directory: ./laravel-session
 
 jobs:
 
@@ -25,12 +25,10 @@ jobs:
         include:
           - php_version: 83
             record_coverage: true
-            continue-on-error: false
           - php_version: 84
             record_coverage: false
-            continue-on-error: true
     concurrency:
-      group: laravel-sentry-handler-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      group: laravel-session-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
     container:
       image: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
@@ -47,7 +45,6 @@ jobs:
         run: composer install -o --no-interaction --prefer-dist
 
       - name: Run tests
-        continue-on-error: ${{ matrix.continue-on-error }}
         run: |
           vendor/bin/phpstan analyse
           vendor/bin/phpcs --standard=PSR12 src tests
@@ -55,6 +52,6 @@ jobs:
 
       - name: Send coverage
         if: ${{ matrix.record_coverage }}
-        run: codecov -Z -f coverage/clover.xml -F laravel-sentry-handler
+        run: codecov -Z -f coverage/clover.xml -F laravel-session
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

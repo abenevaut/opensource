@@ -22,5 +22,9 @@
         "bref/bref": "^2.1",
         "bref/extra-php-extensions": "^1.4"
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "require-dev": {
+        "phpstan/phpstan": "^2.0",
+        "squizlabs/php_codesniffer": "^3.11"
+    }
 }

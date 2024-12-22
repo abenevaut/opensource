@@ -21,14 +21,19 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php_version: [ 81, 82, 83 ]
+        php_version: [ 83, 84 ]
         include:
           - php_version: 83
             record_coverage: true
+          - php_version: 84
+            record_coverage: false
     concurrency:
       group: phpunit-slicer-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
-    container: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
+    container:
+      image: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
+      env:
+        php_xdebug_log: /var/task/xdebug-errors.log
     steps:
 
       - name: Checkout project
@@ -57,6 +62,6 @@ jobs:
 
       - name: Send coverage
         if: ${{ matrix.record_coverage }}
-        run: codecov -f coverage/clover.xml -F phpunit-slicer
+        run: codecov -Z -f coverage/clover.xml -F phpunit-slicer
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

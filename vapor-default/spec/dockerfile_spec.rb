@@ -144,7 +144,7 @@ describe 'Dockerfile' do
   end
 
   it 'php-xdebug is not enabled' do
-    expect(php_xdebug_enabled).to include('false')
+    expect(php_xdebug_enabled).to include('string(0) ""')
   end
 
   describe port(9000) do

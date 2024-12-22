@@ -11,7 +11,9 @@ use Illuminate\Queue\SerializesModels;
 
 class TimeSpentOnAppByUserEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public readonly ?string $previousUrl;
     public readonly string $requestMethod;

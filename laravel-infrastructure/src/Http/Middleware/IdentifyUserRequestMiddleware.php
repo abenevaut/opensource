@@ -14,7 +14,6 @@ class IdentifyUserRequestMiddleware
     {
         $userId = '';
         if (Auth::check()) {
-            // @phpstan-ignore-next-line
             $userId = Auth::user()->getAuthIdentifier();
         }
 
