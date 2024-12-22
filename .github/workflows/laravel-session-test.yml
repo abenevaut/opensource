@@ -30,7 +30,10 @@ jobs:
     concurrency:
       group: laravel-session-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
-    container: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
+    container:
+      image: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
+      env:
+        php_xdebug_log: /var/task/xdebug-errors.log
     steps:
 
       - name: Checkout project
