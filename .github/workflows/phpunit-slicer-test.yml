@@ -57,6 +57,6 @@ jobs:
 
       - name: Send coverage
         if: ${{ matrix.record_coverage }}
-        run: codecov -f coverage/clover.xml -F phpunit-slicer
+        run: codecov -Z -f coverage/clover.xml -F phpunit-slicer
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

@@ -38,17 +38,7 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Configure Composer cache
-        id: composer-cache
-        uses: actions/cache@v4
-        with:
-          path: laravel-session/vendor
-          key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-php_${{ matrix.php_version }}-
-
       - name: Composer install
-        if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install -o --no-interaction --prefer-dist
 
       - name: Run tests
@@ -59,6 +49,6 @@ jobs:
 
       - name: Send coverage
         if: ${{ matrix.record_coverage }}
-        run: codecov -f coverage/clover.xml -F laravel-session
+        run: codecov -Z -f coverage/clover.xml -F laravel-session
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
