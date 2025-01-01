@@ -4,29 +4,31 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ee4ab1bc439d43ebb409ce42cfe5898",
+    "content-hash": "22b44aca9f6b5d94d05af014deb20bab",
     "packages": [
         {
             "name": "abenevaut/laravel-infrastructure",
-            "version": "0.2.2",
+            "version": "0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/abenevaut/laravel-infrastructure.git",
-                "reference": "b842761d6543cca268504c4393157c26b890220b"
+                "reference": "51fa1d58748e3b45bb4f6ce1f66f43a9feb2f70b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/abenevaut/laravel-infrastructure/zipball/b842761d6543cca268504c4393157c26b890220b",
-                "reference": "b842761d6543cca268504c4393157c26b890220b",
+                "url": "https://api.github.com/repos/abenevaut/laravel-infrastructure/zipball/51fa1d58748e3b45bb4f6ce1f66f43a9feb2f70b",
+                "reference": "51fa1d58748e3b45bb4f6ce1f66f43a9feb2f70b",
                 "shasum": ""
             },
             "require": {
                 "php": "^8.1"
             },
             "require-dev": {
-                "icanhazstring/composer-unused": "^0.8.5",
+                "fakerphp/faker": "^1.24",
                 "laravel/framework": "^9.45 || ^10 || ^11",
                 "mockery/mockery": "^1.6",
+                "nikic/php-parser": "^5.0",
+                "phpstan/phpstan": "^1.10 || ^2.0",
                 "phpunit/phpunit": "^10.5",
                 "squizlabs/php_codesniffer": "^3.9"
             },
@@ -53,10 +55,9 @@
                 "laravel"
             ],
             "support": {
-                "issues": "https://github.com/abenevaut/laravel-infrastructure/issues",
-                "source": "https://github.com/abenevaut/laravel-infrastructure/tree/0.2.2"
+                "source": "https://github.com/abenevaut/laravel-infrastructure/tree/0.4.0"
             },
-            "time": "2024-03-29T20:58:56+00:00"
+            "time": "2024-12-21T20:28:21+00:00"
         },
         {
             "name": "amphp/amp",
@@ -12005,12 +12006,12 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.1"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }
