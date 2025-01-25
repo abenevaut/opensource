@@ -59,8 +59,12 @@ jobs:
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --optimize-autoloader --no-interaction --prefer-dist
 
-      - name: Test
-        run: php phpunit-slicer test
+      - name: Run tests
+        continue-on-error: ${{ matrix.continue-on-error }}
+        run: |
+          vendor/bin/phpstan analyse
+          vendor/bin/phpcs --standard=PSR12 app
+          php phpunit-slicer test
 
       - name: Send coverage
         if: ${{ matrix.record_coverage }}

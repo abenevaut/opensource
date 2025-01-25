@@ -1221,6 +1221,8 @@
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/ondram/ci-detector" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/phpstan/phpdoc-parser" />
       <path value="$PROJECT_DIR$/laravel-sentry-handler/vendor/webmozart/glob" />
+      <path value="$PROJECT_DIR$/phpunit-slicer/vendor/phpstan/phpstan" />
+      <path value="$PROJECT_DIR$/phpunit-slicer/vendor/squizlabs/php_codesniffer" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
