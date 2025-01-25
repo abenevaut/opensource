@@ -24,8 +24,10 @@ jobs:
         php_version: [ 83, 84 ]
         include:
           - php_version: 83
+            continue-on-error: false
             record_coverage: true
           - php_version: 84
+            continue-on-error: true
             record_coverage: false
     concurrency:
       group: phpunit-slicer-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
