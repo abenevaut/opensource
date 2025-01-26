@@ -3,8 +3,3 @@ parameters:
   editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
   paths:
     - src
-    - tests/Rules
-rules:
-  - abenevaut\Infrastructure\Rules\CodeDoesNotContainDumpRule
-  - Tests\Rules\ControllersExtendBaseControllerRule
-  - Tests\Rules\ListenersExtendBaseListenerRule
