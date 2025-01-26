@@ -24,7 +24,7 @@ jobs:
         php_version: [ 83, 84 ]
         include:
           - php_version: 83
-            record_coverage: true
+            record_coverage: false
           - php_version: 84
             record_coverage: false
     concurrency:
