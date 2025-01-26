@@ -11,6 +11,11 @@ final class BlueSkyService
     ) {
     }
 
+    public function getClient(): BlueSkyClient
+    {
+        return $this->client;
+    }
+
     public function countFollowers(string $account): int
     {
         $response = $this->client->getProfile($account);
