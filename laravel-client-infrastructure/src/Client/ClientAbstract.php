@@ -8,10 +8,14 @@ use Illuminate\Http\Client\PendingRequest;
 abstract class ClientAbstract
 {
     public function __construct(
-        private readonly string $baseUrl,
-        private readonly AccessTokenInterface|null $accessToken = null,
-        private readonly bool $debug = false
+        protected readonly string $baseUrl,
+        protected readonly bool $debug = false
     ) {
+    }
+
+    protected function getDefaultHeaders(): array
+    {
+        return [];
     }
 
     protected function request(array $requestHeaders = []): PendingRequest
@@ -36,20 +40,6 @@ abstract class ClientAbstract
             ->contentType('application/json')
             ->withHeaders(array_merge($this->getDefaultHeaders(), $requestHeaders));
 
-        $this->authenticate($pendingRequest);
-
         return $pendingRequest;
-    }
-
-    protected function authenticate(PendingRequest $pendingRequest): void
-    {
-        if ($this->accessToken) {
-            $pendingRequest->withHeader('Authorization', $this->accessToken->getAccessToken());
-        }
-    }
-
-    protected function getDefaultHeaders(): array
-    {
-        return [];
     }
 }

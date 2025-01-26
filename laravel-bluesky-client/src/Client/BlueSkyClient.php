@@ -2,54 +2,22 @@
 
 namespace abenevaut\BlueSky;
 
-use Illuminate\Http\Client\Factory as HttpClientFactory;
-use Illuminate\Http\Client\PendingRequest;
+use abenevaut\Infrastructure\Client\AuthenticatedClientAbstract;
 
-final class BlueSkyClient
+final class BlueSkyClient extends AuthenticatedClientAbstract
 {
-    public function __construct(
-        private readonly string           $baseUrl,
-        private readonly AccessToken|null $accessToken = null,
-        private readonly bool             $debug = false
-    ) {
-    }
-
-    protected function request(array $requestHeaders = []): PendingRequest
+    /**
+     * @seealso https://docs.bsky.app/docs/api/app-bsky-actor-get-profiles
+     * @throws \Illuminate\Http\Client\ConnectionException
+     */
+    public function getProfile(string|array $actors): array
     {
-        $pendingRequest = $this
-            ->withHeaders($requestHeaders)
-            ->baseUrl($this->baseUrl)
-            ->retry(3, 100);
-
-        if ($this->debug) {
-            $pendingRequest->withoutVerifying();
-        }
-
-        return $pendingRequest;
-    }
-
-    protected function withHeaders(array $requestHeaders = []): PendingRequest
-    {
-        /** @var PendingRequest $pendingRequest */
-        $pendingRequest = (new HttpClientFactory())
-            ->acceptJson()
-            ->contentType('application/json')
-            ->withHeaders(array_merge($this->getDefaultHeaders(), $requestHeaders));
-
-        $this->authenticate($pendingRequest);
-
-        return $pendingRequest;
-    }
-
-    protected function authenticate(PendingRequest $pendingRequest): void
-    {
-        if ($this->accessToken) {
-            $pendingRequest->withHeader('Authorization', $this->accessToken->getAccessToken());
-        }
-    }
-
-    protected function getDefaultHeaders(): array
-    {
-        return [];
+        return $this
+            ->request()
+            ->get('/xrpc/app.bsky.actor.getProfiles', [
+                'actors' => $actors,
+            ])
+            ->throw()
+            ->json();
     }
 }
