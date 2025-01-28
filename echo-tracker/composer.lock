@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ffd415fec5a60642a3d83461677b0732",
+    "content-hash": "3dba040b19be333b4a4582293253cdcd",
     "packages": [
         {
             "name": "abenevaut/laravel-bluesky-client",
-            "version": "0.0.3",
+            "version": "0.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/abenevaut/laravel-bluesky-client.git",
-                "reference": "bce14bc57f043bcaa7d1e74a90253d318c42b468"
+                "reference": "b320ed110985df7d90684ba5aaa2294941a0bd05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/abenevaut/laravel-bluesky-client/zipball/bce14bc57f043bcaa7d1e74a90253d318c42b468",
-                "reference": "bce14bc57f043bcaa7d1e74a90253d318c42b468",
+                "url": "https://api.github.com/repos/abenevaut/laravel-bluesky-client/zipball/b320ed110985df7d90684ba5aaa2294941a0bd05",
+                "reference": "b320ed110985df7d90684ba5aaa2294941a0bd05",
                 "shasum": ""
             },
             "require": {
@@ -59,9 +59,9 @@
             ],
             "support": {
                 "issues": "https://github.com/abenevaut/laravel-bluesky-client/issues",
-                "source": "https://github.com/abenevaut/laravel-bluesky-client/tree/0.0.3"
+                "source": "https://github.com/abenevaut/laravel-bluesky-client/tree/0.0.4"
             },
-            "time": "2025-01-28T13:29:15+00:00"
+            "time": "2025-01-28T13:34:44+00:00"
         },
         {
             "name": "abenevaut/laravel-client-infrastructure",
