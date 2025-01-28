@@ -4,7 +4,7 @@ namespace abenevaut\Discord\Providers;
 
 use abenevaut\Discord\Client\DiscordAnonymousClient;
 use abenevaut\Discord\Services\DiscordService;
-use Illuminate\Foundation\Application;
+use Illuminate\Container\Container;
 use Illuminate\Support\ServiceProvider;
 
 class DiscordServiceProvider extends ServiceProvider
@@ -15,7 +15,7 @@ class DiscordServiceProvider extends ServiceProvider
     {
         parent::register();
 
-        $this->app->singleton('discord.http-client.anonymous', function (Application $app) {
+        $this->app->singleton('discord.http-client.anonymous', function (Container $app) {
             // @codeCoverageIgnoreStart
             return new DiscordAnonymousClient(
                 $app->get('config')->get('services.discord.baseUrl', 'https://discord.com/api'),
@@ -24,7 +24,7 @@ class DiscordServiceProvider extends ServiceProvider
             // @codeCoverageIgnoreEnd
         });
 
-        $this->app->singleton(DiscordService::class, function (Application $app) {
+        $this->app->singleton(DiscordService::class, function (Container $app) {
             // @codeCoverageIgnoreStart
             return new DiscordService($app->make('discord.http-client.anonymous'));
             // @codeCoverageIgnoreEnd

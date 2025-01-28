@@ -2,11 +2,11 @@
 
 namespace abenevaut\BlueSky\Providers;
 
-use abenevaut\BlueSky\AccessToken;
-use abenevaut\BlueSky\BlueSkyAnonymousClient;
-use abenevaut\BlueSky\BlueSkyClient;
+use abenevaut\BlueSky\Client\AccessToken;
+use abenevaut\BlueSky\Client\BlueSkyAnonymousClient;
+use abenevaut\BlueSky\Client\BlueSkyClient;
 use abenevaut\BlueSky\Services\BlueSkyService;
-use Illuminate\Foundation\Application;
+use Illuminate\Container\Container;
 use Illuminate\Support\ServiceProvider;
 
 class BlueSkyServiceProvider extends ServiceProvider
@@ -17,7 +17,7 @@ class BlueSkyServiceProvider extends ServiceProvider
     {
         parent::register();
 
-        $this->app->singleton('bluesky.http-client.anonymous', function (Application $app) {
+        $this->app->singleton('bluesky.http-client.anonymous', function (Container $app) {
             // @codeCoverageIgnoreStart
             return new BlueSkyAnonymousClient(
                 $app->get('config')->get('services.bluesky.baseUrl'),
@@ -26,7 +26,7 @@ class BlueSkyServiceProvider extends ServiceProvider
             // @codeCoverageIgnoreEnd
         });
 
-        $this->app->singleton('bluesky.http-client.authenticated', function (Application $app) {
+        $this->app->singleton('bluesky.http-client.authenticated', function (Container $app) {
             // @codeCoverageIgnoreStart
             $accessToken = new AccessToken(
                 $app->make('bluesky.http-client.anonymous'),
@@ -41,7 +41,7 @@ class BlueSkyServiceProvider extends ServiceProvider
             // @codeCoverageIgnoreEnd
         });
 
-        $this->app->singleton(BlueSkyService::class, function (Application $app) {
+        $this->app->singleton(BlueSkyService::class, function (Container $app) {
             // @codeCoverageIgnoreStart
             return new BlueSkyService($app->make('bluesky.http-client.authenticated'));
             // @codeCoverageIgnoreEnd
