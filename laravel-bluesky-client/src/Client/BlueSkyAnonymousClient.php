@@ -1,6 +1,6 @@
 <?php
 
-namespace abenevaut\BlueSky;
+namespace abenevaut\BlueSky\Client;
 
 use abenevaut\Infrastructure\Client\ClientAbstract;
 
