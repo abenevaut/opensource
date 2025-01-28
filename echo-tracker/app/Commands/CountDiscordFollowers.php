@@ -2,6 +2,8 @@
 
 namespace App\Commands;
 
+use abenevaut\Discord\Client\DiscordAnonymousClient;
+use abenevaut\Discord\Services\DiscordService;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
@@ -28,41 +30,13 @@ class CountDiscordFollowers extends Command
      */
     public function handle()
     {
-        $invitationLink = $this->argument('invitation_link');
-
-        $this->info($invitationLink);
-
-        if (strpos($invitationLink, 'https://discord.gg') === false) {
-            $this->error('Invalid Discord invitation link.');
-
-            return self::FAILURE;
-        }
-
-        $invitationId = explode('/', $invitationLink);
-        $invitationId = $invitationId[3] ?? '';
-
-        $this->info($invitationId);
-
-        if (empty($invitationId)) {
-            $this->error('Invalid Discord invitation link.');
-
-            return self::FAILURE;
-        }
-
-        if (preg_match('/[^a-zA-Z0-9-_]/', $invitationId)) {
-            $this->error('Invalid Discord invitation link.');
-
-            return self::FAILURE;
-        }
-
         try {
-            $response = Http::get(
-                "https://discord.com/api/v9/invites/{$invitationId}?with_counts=true&with_expiration=true"
-            )
-                ->throw()
-                ->json();
+            $invitationLink = $this->argument('invitation_link');
 
-            $this->info("The Discord server has {$response['approximate_member_count']} members.");
+            $client = new DiscordAnonymousClient('https://discord.com/api');
+            $nbFollowers = (new DiscordService($client))->countFollowers($invitationLink);
+
+            $this->info("The Discord server has {$nbFollowers} members.");
         } catch (\Exception $exception) {
             if ($this->verbosity === OutputInterface::VERBOSITY_DEBUG) {
                 $this->error($exception->getMessage());
