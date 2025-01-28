@@ -1,0 +1,134 @@
+name: echo-tracker-release
+
+on:
+  release:
+    types: [ created ]
+
+env:
+  php_version: 8.3
+  node_version: lts/iron
+
+jobs:
+
+  publish-binaries:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./builds
+    permissions:
+      contents: write
+    concurrency:
+      group: echo-tracker-publish-binaries-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get current release tag
+        id: branch-name
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: add assets to release
+        run: |
+          sha512sum echo-tracker > echo-tracker.sha512sum
+          gh release upload ${{ steps.branch-name.outputs.SOURCE_TAG }} echo-tracker.sha512sum
+          gh release upload ${{ steps.branch-name.outputs.SOURCE_TAG }} echo-tracker
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-docs:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: echo-tracker-publish-docs-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Publish to wiki
+        uses: SwiftDocOrg/github-wiki-publish-action@v1
+        with:
+          path: "docs"
+        env:
+          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.ABENEVAUT_GITHUB_TOKEN }}
+
+  publish-pages:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: echo-tracker-publish-pages-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js ${{ env.node_version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.node_version }}
+          registry-url: https://npm.pkg.github.com
+
+      - name: Configure Node.js cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-nodejs_${{ env.node_version }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-nodejs_${{ env.node_version }}-
+
+      - name: Setup NPM
+        run: |
+          npm config set "@abenevaut:registry" https://npm.pkg.github.com/
+          npm config set "//npm.pkg.github.com/:_authToken" $NODE_AUTH_TOKEN
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.ABENEVAUT_GITHUB_TOKEN }}
+
+      - name: NPM install
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: npm ci --prefer-offline --no-audit --progress=false
+
+      - name: Initialize PHP ${{ env.php_version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.php_version }}
+
+      - name: Configure Composer cache
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-node-php_${{ env.php_version }}-${{ hashFiles('**/composer.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-php_${{ env.php_version }}-
+
+      - name: Composer install
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install -o --no-interaction --prefer-dist
+
+      - name: Web pages cache
+        id: web-pages-cache
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: ${{ runner.os }}-pages-cache-php_${{ env.php_version }}-${{ hashFiles('**/composer.json') }}
+          restore-keys: |
+            ${{ runner.os }}-pages-cache-php_${{ env.php_version }}-${{ hashFiles('**/composer.json') }}
+
+      - name: Generate static pages
+        run: |
+          npm run build
+          php echo-tracker generate https://echo-tracker.abenevaut.dev
+
+      - uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.ABENEVAUT_GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: dist
