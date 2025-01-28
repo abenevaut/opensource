@@ -36,5 +36,5 @@ jobs:
           REPO: git@github.com:abenevaut/laravel-client-infrastructure.git
           BRANCH: master
           FOLDER: laravel-client-infrastructure
-          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_LARAVEL_INFRASTRUCTURE }}
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_LARAVEL_CLIENT_INFRASTRUCTURE }}
           TAG: ${{ steps.branch-name.outputs.SOURCE_TAG }}

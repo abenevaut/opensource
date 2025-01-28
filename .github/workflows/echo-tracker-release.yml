@@ -94,5 +94,5 @@ jobs:
           REPO: git@github.com:abenevaut/echo-tracker.git
           BRANCH: master
           FOLDER: echo-tracker
-          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_LARAVEL_ONE }}
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_ECHO_TRACKER }}
           TAG: ${{ steps.branch-name.outputs.SOURCE_TAG }}
