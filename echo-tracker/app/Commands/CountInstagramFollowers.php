@@ -31,18 +31,20 @@ class CountInstagramFollowers extends Command
         $username = $this->argument('username');
 
         try {
-            $response = Http::withUserAgent('Instagram 76.0.0.15.395 Android (24/7.0; 640dpi; 1440x2560; samsung; SM-G930F; herolte; samsungexynos8890; en_US; 138226743)')
+            $response = Http::withUserAgent(
+                'Instagram 76.0.0.15.395 Android'
+                . ' (24/7.0; 640dpi; 1440x2560; samsung; SM-G930F; herolte; samsungexynos8890; en_US; 138226743)'
+            )
                 ->get("https://i.instagram.com/api/v1/users/web_profile_info/?username={$username}")
                 ->throw()
                 ->json();
 
-            $this->info("The number of followers of the Instagram account is {$response['data']['user']['edge_followed_by']['count']}.");
-        }
-        catch (\Exception $exception) {
+            $count = $response['data']['user']['edge_followed_by']['count'];
+            $this->info("The number of followers of the Instagram account is {$count}.");
+        } catch (\Exception $exception) {
             if ($this->verbosity === OutputInterface::VERBOSITY_DEBUG) {
                 $this->error($exception->getMessage());
-            }
-            else {
+            } else {
                 $this->error('An error occurred while counting the number of followers of the Instagram account.');
             }
 

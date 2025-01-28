@@ -56,17 +56,17 @@ class CountDiscordFollowers extends Command
         }
 
         try {
-            $response = Http::get("https://discord.com/api/v9/invites/{$invitationId}?with_counts=true&with_expiration=true")
+            $response = Http::get(
+                "https://discord.com/api/v9/invites/{$invitationId}?with_counts=true&with_expiration=true"
+            )
                 ->throw()
                 ->json();
 
             $this->info("The Discord server has {$response['approximate_member_count']} members.");
-        }
-        catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             if ($this->verbosity === OutputInterface::VERBOSITY_DEBUG) {
                 $this->error($exception->getMessage());
-            }
-            else {
+            } else {
                 $this->error('An error occurred while counting the number of followers of the Discord server.');
             }
 

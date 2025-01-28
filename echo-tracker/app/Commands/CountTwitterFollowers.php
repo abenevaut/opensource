@@ -66,11 +66,9 @@ class CountTwitterFollowers extends Command
                 ->throw()
                 ->json();
 
-            dd($response);
-
-            $this->info("The number of followers of the Twitter account is {$response['data']['public_metrics']['followers_count']}.");
-        }
-        catch (\Exception $exception) {
+            $count = $response['data']['public_metrics']['followers_count'];
+            $this->info("The number of followers of the Twitter account is {$count}.");
+        } catch (\Exception $exception) {
 //            if ($this->verbosity === OutputInterface::VERBOSITY_DEBUG) {
                 $this->error($exception->getMessage());
 //            }

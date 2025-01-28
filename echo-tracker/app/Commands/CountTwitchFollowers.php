@@ -64,12 +64,10 @@ class CountTwitchFollowers extends Command
                 ->json();
 
             $this->info("The number of followers of the Twitch broadcaster is {$response['total']}.");
-        }
-        catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             if ($this->verbosity === OutputInterface::VERBOSITY_DEBUG) {
                 $this->error($exception->getMessage());
-            }
-            else {
+            } else {
                 $this->error('An error occurred while counting the number of followers of the Twitch broadcaster.');
             }
 

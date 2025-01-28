@@ -65,12 +65,10 @@ class CountBlueSkyFollowers extends Command
             $nbFollowers = $response['profiles'][0]['followersCount'];
 
             $this->info("The number of followers of the BlueSky account is {$nbFollowers}.");
-        }
-        catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             if ($this->verbosity === OutputInterface::VERBOSITY_DEBUG) {
                 $this->error($exception->getMessage());
-            }
-            else {
+            } else {
                 $this->error('An error occurred while counting the number of followers of the BlueSky account.');
             }
 
