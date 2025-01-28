@@ -4,8 +4,173 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4361389338291764d4e8ae8865aaee54",
+    "content-hash": "7b55e59fd3fbab181a179b7933b43d76",
     "packages": [
+        {
+            "name": "abenevaut/laravel-bluesky-client",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/abenevaut/laravel-bluesky-client.git",
+                "reference": "8294bfa691d7a0a0660c53d008a60bf72be65a7b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/abenevaut/laravel-bluesky-client/zipball/8294bfa691d7a0a0660c53d008a60bf72be65a7b",
+                "reference": "8294bfa691d7a0a0660c53d008a60bf72be65a7b",
+                "shasum": ""
+            },
+            "require": {
+                "abenevaut/laravel-client-infrastructure": "^0.0.1",
+                "abenevaut/laravel-infrastructure": "^0.4.0",
+                "php": "^8.3"
+            },
+            "require-dev": {
+                "fakerphp/faker": "^1.24",
+                "illuminate/http": "^11",
+                "mockery/mockery": "^1.6",
+                "nikic/php-parser": "^5.0",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^10.5",
+                "squizlabs/php_codesniffer": "^3.11"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "abenevaut\\BlueSky\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Antoine Benevaut",
+                    "email": "antoine@benevaut.fr"
+                }
+            ],
+            "description": "Laravel Http Client Infrastructure",
+            "keywords": [
+                "Hexagonal architecture",
+                "client",
+                "infrastructure",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/abenevaut/laravel-bluesky-client/issues",
+                "source": "https://github.com/abenevaut/laravel-bluesky-client/tree/0.0.1"
+            },
+            "time": "2025-01-28T12:49:21+00:00"
+        },
+        {
+            "name": "abenevaut/laravel-client-infrastructure",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/abenevaut/laravel-client-infrastructure.git",
+                "reference": "026d03d268eb806feecc9d15b3ba472dd3f1b532"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/abenevaut/laravel-client-infrastructure/zipball/026d03d268eb806feecc9d15b3ba472dd3f1b532",
+                "reference": "026d03d268eb806feecc9d15b3ba472dd3f1b532",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.3"
+            },
+            "require-dev": {
+                "fakerphp/faker": "^1.24",
+                "illuminate/http": "^11",
+                "mockery/mockery": "^1.6",
+                "nikic/php-parser": "^5.0",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^10.5",
+                "squizlabs/php_codesniffer": "^3.11"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "abenevaut\\Infrastructure\\Client\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Antoine Benevaut",
+                    "email": "antoine@benevaut.fr"
+                }
+            ],
+            "description": "Laravel Http Client Infrastructure",
+            "keywords": [
+                "Hexagonal architecture",
+                "client",
+                "infrastructure",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/abenevaut/laravel-client-infrastructure/issues",
+                "source": "https://github.com/abenevaut/laravel-client-infrastructure/tree/0.0.1"
+            },
+            "time": "2025-01-28T11:33:56+00:00"
+        },
+        {
+            "name": "abenevaut/laravel-infrastructure",
+            "version": "0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/abenevaut/laravel-infrastructure.git",
+                "reference": "51fa1d58748e3b45bb4f6ce1f66f43a9feb2f70b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/abenevaut/laravel-infrastructure/zipball/51fa1d58748e3b45bb4f6ce1f66f43a9feb2f70b",
+                "reference": "51fa1d58748e3b45bb4f6ce1f66f43a9feb2f70b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "fakerphp/faker": "^1.24",
+                "laravel/framework": "^9.45 || ^10 || ^11",
+                "mockery/mockery": "^1.6",
+                "nikic/php-parser": "^5.0",
+                "phpstan/phpstan": "^1.10 || ^2.0",
+                "phpunit/phpunit": "^10.5",
+                "squizlabs/php_codesniffer": "^3.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "abenevaut\\Infrastructure\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Antoine Benevaut",
+                    "email": "antoine@benevaut.fr"
+                }
+            ],
+            "description": "Laravel Infrastructure",
+            "keywords": [
+                "Hexagonal architecture",
+                "infrastructure",
+                "laravel"
+            ],
+            "support": {
+                "source": "https://github.com/abenevaut/laravel-infrastructure/tree/0.4.0"
+            },
+            "time": "2024-12-21T20:28:21+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.12.1",
@@ -8606,7 +8771,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.2.0"
+        "php": "^8.3"
     },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"

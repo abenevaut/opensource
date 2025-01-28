@@ -17,6 +17,7 @@
     ],
     "require": {
         "php": "^8.3",
+        "abenevaut/laravel-bluesky-client": "^0.0.1",
         "illuminate/http": "^11.5",
         "laravel-zero/framework": "^11.36.1"
     },
