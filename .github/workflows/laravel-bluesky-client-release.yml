@@ -1,0 +1,40 @@
+name: laravel-bluesky-client-release
+
+on:
+  push:
+    tags:
+      - laravel-bluesky-client-*
+
+defaults:
+  run:
+    working-directory: ./laravel-bluesky-client
+
+jobs:
+
+  release:
+    runs-on: ubuntu-latest
+    environment:
+      name: laravel-bluesky-client
+      url: https://github.com/abenevaut/laravel-bluesky-client
+    concurrency:
+      group: laravel-bluesky-client-release-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Get current release tag
+        id: branch-name
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/laravel-bluesky-client-}" >> $GITHUB_OUTPUT
+
+      - name: Publish to readonly repository abenevaut/laravel-bluesky-client
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: git@github.com:abenevaut/laravel-bluesky-client.git
+          BRANCH: master
+          FOLDER: laravel-bluesky-client
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_LARAVEL_BLUESKY_CLIENT }}
+          TAG: ${{ steps.branch-name.outputs.SOURCE_TAG }}
