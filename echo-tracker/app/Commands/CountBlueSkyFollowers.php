@@ -31,11 +31,11 @@ class CountBlueSkyFollowers extends Command
      */
     public function handle()
     {
-        $username = $this->argument('username');
-        $password = $this->argument('password');
-        $account = $this->argument('account');
-
         try {
+            $username = $this->argument('username');
+            $password = $this->argument('password');
+            $account = $this->argument('account');
+
             $client = new BlueSkyAnonymousClient('https://bsky.social', false);
             $accessToken = new AccessToken($client, $username, $password);
             $client = new BlueSkyClient('https://bsky.social', $accessToken, false);
