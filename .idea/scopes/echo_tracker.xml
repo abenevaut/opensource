@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="echo-tracker" pattern="file[opensource]:echo-tracker//*||file:docs/echo-tracker.md||file[opensource]:laravel-client-infrastructure//*||file:.github/workflows/laravel-client-infrastructure-test.yml" />
+</component>
