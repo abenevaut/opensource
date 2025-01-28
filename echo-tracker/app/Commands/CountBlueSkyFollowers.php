@@ -2,11 +2,8 @@
 
 namespace App\Commands;
 
-use abenevaut\BlueSky\AccessToken;
-use abenevaut\BlueSky\BlueSkyAnonymousClient;
-use abenevaut\BlueSky\BlueSkyClient;
-use abenevaut\BlueSky\Services\BlueSkyService;
 use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -36,10 +33,36 @@ class CountBlueSkyFollowers extends Command
         $account = $this->argument('account');
 
         try {
-            $client = new BlueSkyAnonymousClient('https://bsky.social', false);
-            $accessToken = new AccessToken($client, $username, $password);
-            $client = new BlueSkyClient('https://bsky.social', $accessToken, false);
-            $nbFollowers = (new BlueSkyService($client))->countFollowers($account);
+            $response = Http::acceptJson()
+                ->get('https://bsky.social/xrpc/com.atproto.identity.resolveHandle', [
+                    'handle' => $username,
+                ])
+                ->throw()
+                ->json();
+
+            $did = $response['did'];
+
+            $response = Http::acceptJson()
+                ->post('https://bsky.social/xrpc/com.atproto.server.createSession', [
+                    'identifier' => $did,
+                    'password' => $password,
+                ])
+                ->throw()
+                ->json();
+
+            $accessToken = $response['accessJwt'];
+
+            $response = Http::acceptJson()
+                ->withHeaders([
+                    'Authorization' => "Bearer {$accessToken}"
+                ])
+                ->get("https://bsky.social/xrpc/app.bsky.actor.getProfiles", [
+                    'actors' => $account,
+                ])
+                ->throw()
+                ->json();
+
+            $nbFollowers = $response['profiles'][0]['followersCount'];
 
             $this->info("The number of followers of the BlueSky account is {$nbFollowers}.");
         }
