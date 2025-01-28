@@ -1,0 +1,40 @@
+name: laravel-client-infrastructure-release
+
+on:
+  push:
+    tags:
+      - laravel-client-infrastructure-*
+
+defaults:
+  run:
+    working-directory: ./laravel-client-infrastructure
+
+jobs:
+
+  release:
+    runs-on: ubuntu-latest
+    environment:
+      name: laravel-client-infrastructure
+      url: https://github.com/abenevaut/laravel-client-infrastructure
+    concurrency:
+      group: laravel-client-infrastructure-release-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Get current release tag
+        id: branch-name
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/laravel-client-infrastructure-}" >> $GITHUB_OUTPUT
+
+      - name: Publish to readonly repository abenevaut/laravel-client-infrastructure
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: git@github.com:abenevaut/laravel-client-infrastructure.git
+          BRANCH: master
+          FOLDER: laravel-client-infrastructure
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_LARAVEL_INFRASTRUCTURE }}
+          TAG: ${{ steps.branch-name.outputs.SOURCE_TAG }}
