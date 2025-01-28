@@ -1,0 +1,40 @@
+name: laravel-discord-client-release
+
+on:
+  push:
+    tags:
+      - laravel-discord-client-*
+
+defaults:
+  run:
+    working-directory: ./laravel-discord-client
+
+jobs:
+
+  release:
+    runs-on: ubuntu-latest
+    environment:
+      name: laravel-discord-client
+      url: https://github.com/abenevaut/laravel-discord-client
+    concurrency:
+      group: laravel-discord-client-release-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Get current release tag
+        id: branch-name
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/laravel-discord-client-}" >> $GITHUB_OUTPUT
+
+      - name: Publish to readonly repository abenevaut/laravel-discord-client
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: git@github.com:abenevaut/laravel-discord-client.git
+          BRANCH: master
+          FOLDER: laravel-discord-client
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_LARAVEL_DISCORD_CLIENT }}
+          TAG: ${{ steps.branch-name.outputs.SOURCE_TAG }}
