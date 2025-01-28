@@ -2,7 +2,7 @@
 
 namespace abenevaut\BlueSky\Services;
 
-use abenevaut\BlueSky\BlueSkyClient;
+use abenevaut\BlueSky\Client\BlueSkyClient;
 
 final class BlueSkyService
 {
