@@ -1,0 +1,93 @@
+name: echo-tracker-release-candidate
+
+on:
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: ./echo-tracker
+
+env:
+  php_version: 8.3
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php_version: [ 83 ]
+    concurrency:
+      group: echo-tracker-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      cancel-in-progress: false
+    container: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Get current release tag
+        id: branch-name
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/echo-tracker-}" >> $GITHUB_OUTPUT
+
+      - name: Install PHP extension
+        run: docker-php-ext-install exif
+
+      - name: Configure Composer cache
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: echo-tracker/vendor
+          key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-php_${{ matrix.php_version }}-
+
+      - name: Composer install
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install --optimize-autoloader --no-interaction --prefer-dist
+
+      - name: Build
+        run: php echo-tracker app:build echo-tracker --build-version=${{ steps.branch-name.outputs.SOURCE_TAG }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: |
+            ${{ github.workspace }}/echo-tracker
+            !${{ github.workspace }}/echo-tracker/.idea
+          include-hidden-files: true
+          retention-days: 1
+          compression-level: 9
+          overwrite: true
+
+  publish:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    concurrency:
+      group: echo-tracker-publish-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: ${{ github.workspace }}/echo-tracker
+
+      - name: Get current release tag
+        id: branch-name
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/echo-tracker-}" >> $GITHUB_OUTPUT
+
+      - run: sed '/\/builds/d' .gitignore > .gitignore.tmp && mv .gitignore.tmp .gitignore
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-candidate
+          path: ${{ github.workspace }}/echo-tracker
+          include-hidden-files: true
+          retention-days: 1
+          compression-level: 9
+          overwrite: true

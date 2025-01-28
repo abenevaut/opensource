@@ -7,6 +7,14 @@ coverage:
         target: 0%
         flags:
           - laravel-infrastructure
+      laravel-client-infrastructure:
+        target: 0%
+        flags:
+          - laravel-client-infrastructure
+      laravel-api-infrastructure:
+        target: 0%
+        flags:
+          - laravel-api-infrastructure
       laravel-one:
         target: 75%
         flags:
@@ -29,6 +37,14 @@ flags:
     carryforward: true
     paths:
       - laravel-infrastructure/
+  laravel-client-infrastructure:
+    carryforward: true
+    paths:
+      - laravel-client-infrastructure/
+  laravel-api-infrastructure:
+    carryforward: true
+    paths:
+      - laravel-api-infrastructure/
   laravel-one:
     carryforward: true
     paths:

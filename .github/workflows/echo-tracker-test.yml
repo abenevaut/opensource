@@ -1,0 +1,85 @@
+name: echo-tracker-test
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'echo-tracker/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'echo-tracker/**'
+
+defaults:
+  run:
+    working-directory: ./echo-tracker
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php_version: [ 83, 84 ]
+        include:
+          - php_version: 83
+            continue-on-error: false
+            record_coverage: true
+          - php_version: 84
+            continue-on-error: true
+            record_coverage: false
+    concurrency:
+      group: echo-tracker-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      cancel-in-progress: true
+    container:
+      image: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
+      env:
+        php_xdebug_log: /var/task/xdebug-errors.log
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Install PHP extension
+        run: docker-php-ext-install exif
+
+      - name: Configure Composer cache
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: echo-tracker/vendor
+          key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-php_${{ matrix.php_version }}-
+
+      - name: Validate Composer.json
+        run: composer validate --strict
+
+      - name: Composer install
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install --optimize-autoloader --no-interaction --prefer-dist
+
+      - name: Web pages cache
+        id: web-pages-cache
+        uses: actions/cache@v4
+        with:
+          path: echo-tracker/.cache
+          key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-web-pages-cache-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-php_${{ matrix.php_version }}-web-pages-cache-
+
+      - name: Run tests
+        continue-on-error: ${{ matrix.continue-on-error }}
+        run: |
+          vendor/bin/phpstan analyse
+          vendor/bin/phpcs --standard=PSR12 app
+          php echo-tracker test
+
+#      - name: Send coverage
+#        if: ${{ matrix.record_coverage }}
+#        run: codecov -Z -f coverage/clover.xml -F echo-tracker
+#        env:
+#          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

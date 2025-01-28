@@ -1,0 +1,56 @@
+name: laravel-discord-client-test
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'laravel-discord-client/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'laravel-discord-client/**'
+
+defaults:
+  run:
+    working-directory: ./laravel-discord-client
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php_version: [ 83, 84 ]
+        include:
+          - php_version: 83
+            record_coverage: false
+          - php_version: 84
+            record_coverage: false
+    concurrency:
+      group: laravel-discord-client-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      cancel-in-progress: true
+    container:
+      image: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
+      env:
+        php_xdebug_log: /var/task/xdebug-errors.log
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Composer install
+        run: composer install -o --no-interaction --prefer-dist
+
+      - name: Run tests
+        run: |
+          vendor/bin/phpstan analyse
+          vendor/bin/phpcs --standard=PSR12 src
+
+      - name: Send coverage
+        if: ${{ matrix.record_coverage }}
+        run: codecov -Z -f coverage/clover.xml -F laravel-discord-client
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

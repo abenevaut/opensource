@@ -24,8 +24,10 @@ jobs:
         php_version: [ 83, 84 ]
         include:
           - php_version: 83
+            continue-on-error: false
             record_coverage: true
           - php_version: 84
+            continue-on-error: true
             record_coverage: false
     concurrency:
       group: phpunit-slicer-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
@@ -57,8 +59,12 @@ jobs:
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --optimize-autoloader --no-interaction --prefer-dist
 
-      - name: Test
-        run: php phpunit-slicer test
+      - name: Run tests
+        continue-on-error: ${{ matrix.continue-on-error }}
+        run: |
+          vendor/bin/phpstan analyse
+          vendor/bin/phpcs --standard=PSR12 app
+          php phpunit-slicer test
 
       - name: Send coverage
         if: ${{ matrix.record_coverage }}
