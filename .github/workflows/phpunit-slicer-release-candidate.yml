@@ -62,11 +62,11 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php_version: [ 81 ]
+        php_version: [ 83 ]
     concurrency:
       group: phpunit-slicer-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: false
-    container: ghcr.io/abenevaut/vapor-ci:php81
+    container: ghcr.io/abenevaut/vapor-ci:php${{ matrix.php_version }}
     steps:
 
       - name: Checkout project
