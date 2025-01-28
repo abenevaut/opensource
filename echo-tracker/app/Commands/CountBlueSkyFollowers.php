@@ -2,7 +2,7 @@
 
 namespace App\Commands;
 
-use abenevaut\BlueSky\AccessToken;
+use abenevaut\BlueSky\Client\AccessToken;
 use abenevaut\BlueSky\Client\BlueSkyAnonymousClient;
 use abenevaut\BlueSky\Client\BlueSkyClient;
 use abenevaut\BlueSky\Services\BlueSkyService;

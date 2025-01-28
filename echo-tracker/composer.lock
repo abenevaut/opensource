@@ -4,24 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b55e59fd3fbab181a179b7933b43d76",
+    "content-hash": "ffd415fec5a60642a3d83461677b0732",
     "packages": [
         {
             "name": "abenevaut/laravel-bluesky-client",
-            "version": "0.0.1",
+            "version": "0.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/abenevaut/laravel-bluesky-client.git",
-                "reference": "8294bfa691d7a0a0660c53d008a60bf72be65a7b"
+                "reference": "bce14bc57f043bcaa7d1e74a90253d318c42b468"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/abenevaut/laravel-bluesky-client/zipball/8294bfa691d7a0a0660c53d008a60bf72be65a7b",
-                "reference": "8294bfa691d7a0a0660c53d008a60bf72be65a7b",
+                "url": "https://api.github.com/repos/abenevaut/laravel-bluesky-client/zipball/bce14bc57f043bcaa7d1e74a90253d318c42b468",
+                "reference": "bce14bc57f043bcaa7d1e74a90253d318c42b468",
                 "shasum": ""
             },
             "require": {
-                "abenevaut/laravel-client-infrastructure": "^0.0.1",
+                "abenevaut/laravel-client-infrastructure": "^0.0.2",
                 "abenevaut/laravel-infrastructure": "^0.4.0",
                 "php": "^8.3"
             },
@@ -59,22 +59,22 @@
             ],
             "support": {
                 "issues": "https://github.com/abenevaut/laravel-bluesky-client/issues",
-                "source": "https://github.com/abenevaut/laravel-bluesky-client/tree/0.0.1"
+                "source": "https://github.com/abenevaut/laravel-bluesky-client/tree/0.0.3"
             },
-            "time": "2025-01-28T12:49:21+00:00"
+            "time": "2025-01-28T13:29:15+00:00"
         },
         {
             "name": "abenevaut/laravel-client-infrastructure",
-            "version": "0.0.1",
+            "version": "0.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/abenevaut/laravel-client-infrastructure.git",
-                "reference": "026d03d268eb806feecc9d15b3ba472dd3f1b532"
+                "reference": "30a24667a6bb35ecbf109c899bb4704f76e8702d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/abenevaut/laravel-client-infrastructure/zipball/026d03d268eb806feecc9d15b3ba472dd3f1b532",
-                "reference": "026d03d268eb806feecc9d15b3ba472dd3f1b532",
+                "url": "https://api.github.com/repos/abenevaut/laravel-client-infrastructure/zipball/30a24667a6bb35ecbf109c899bb4704f76e8702d",
+                "reference": "30a24667a6bb35ecbf109c899bb4704f76e8702d",
                 "shasum": ""
             },
             "require": {
@@ -92,7 +92,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "abenevaut\\Infrastructure\\Client\\": "src/"
+                    "abenevaut\\Infrastructure\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -114,9 +114,9 @@
             ],
             "support": {
                 "issues": "https://github.com/abenevaut/laravel-client-infrastructure/issues",
-                "source": "https://github.com/abenevaut/laravel-client-infrastructure/tree/0.0.1"
+                "source": "https://github.com/abenevaut/laravel-client-infrastructure/tree/0.0.2"
             },
-            "time": "2025-01-28T11:33:56+00:00"
+            "time": "2025-01-28T13:17:09+00:00"
         },
         {
             "name": "abenevaut/laravel-infrastructure",
