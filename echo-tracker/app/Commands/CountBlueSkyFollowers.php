@@ -3,8 +3,8 @@
 namespace App\Commands;
 
 use abenevaut\BlueSky\AccessToken;
-use abenevaut\BlueSky\BlueSkyAnonymousClient;
-use abenevaut\BlueSky\BlueSkyClient;
+use abenevaut\BlueSky\Client\BlueSkyAnonymousClient;
+use abenevaut\BlueSky\Client\BlueSkyClient;
 use abenevaut\BlueSky\Services\BlueSkyService;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
