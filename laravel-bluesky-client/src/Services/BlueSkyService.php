@@ -18,7 +18,7 @@ final class BlueSkyService
 
     public function countFollowers(string $account): int
     {
-        $response = $this->client->getProfile($account);
+        $response = $this->getClient()->getProfile($account);
 
         return $response['profiles'][0]['followersCount'];
     }
