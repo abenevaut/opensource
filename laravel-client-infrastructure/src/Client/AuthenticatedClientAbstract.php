@@ -7,9 +7,9 @@ use Illuminate\Http\Client\PendingRequest;
 abstract class AuthenticatedClientAbstract extends ClientAbstract
 {
     public function __construct(
-        readonly string $baseUrl,
+        string $baseUrl,
         protected readonly AccessTokenInterface|null $accessToken = null,
-        readonly bool $debug = false
+        bool $debug = false
     ) {
         parent::__construct($baseUrl, $debug);
     }
