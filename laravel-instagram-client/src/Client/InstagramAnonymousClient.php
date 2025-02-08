@@ -3,7 +3,6 @@
 namespace abenevaut\Instagram\Client;
 
 use abenevaut\Infrastructure\Client\ClientAbstract;
-use Illuminate\Http\Client\PendingRequest;
 
 final class InstagramAnonymousClient extends ClientAbstract
 {
@@ -22,9 +21,10 @@ final class InstagramAnonymousClient extends ClientAbstract
             ->json();
     }
 
-    protected function withHeaders(array $requestHeaders = []): PendingRequest
+    protected function getDefaultHeaders(): array
     {
-        return parent::withHeaders($requestHeaders)
-            ->withUserAgent($this->userAgent);
+        return [
+            'User-Agent' => trim($this->userAgent),
+        ];
     }
 }
