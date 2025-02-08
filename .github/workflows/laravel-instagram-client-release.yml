@@ -36,5 +36,5 @@ jobs:
           REPO: git@github.com:abenevaut/laravel-instagram-client.git
           BRANCH: master
           FOLDER: laravel-instagram-client
-          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_LARAVEL_DISCORD_CLIENT }}
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_LARAVEL_INSTAGRAM_CLIENT }}
           TAG: ${{ steps.branch-name.outputs.SOURCE_TAG }}
