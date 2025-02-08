@@ -28,6 +28,13 @@ class CountFollowers extends Command
     {
         $configuration = [];
         $configurationPath = $this->argument('configuration_path');
+
+        if (!file_exists($configurationPath) || is_dir($configurationPath)) {
+            $this->error('The configuration file does not exist.');
+
+            return self::FAILURE;
+        }
+
         $configurationExists = file_exists($configurationPath);
 
         if (!$configurationExists && $this->confirm('Would you configure BlueSky account?')) {

@@ -36,7 +36,7 @@ class CountDiscordFollowers extends Command
             $client = new DiscordAnonymousClient('https://discord.com/api');
             $nbFollowers = (new DiscordService($client))->countFollowers($invitationLink);
 
-            $this->info("The Discord server has {$nbFollowers} members.");
+            $this->info("The number of followers of the Discord account is {$nbFollowers}.");
         } catch (\Exception $exception) {
             if ($this->verbosity === OutputInterface::VERBOSITY_DEBUG) {
                 $this->error($exception->getMessage());
