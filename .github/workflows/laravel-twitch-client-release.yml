@@ -1,0 +1,40 @@
+name: laravel-twitch-client-release
+
+on:
+  push:
+    tags:
+      - laravel-twitch-client-*
+
+defaults:
+  run:
+    working-directory: ./laravel-twitch-client
+
+jobs:
+
+  release:
+    runs-on: ubuntu-latest
+    environment:
+      name: laravel-twitch-client
+      url: https://github.com/abenevaut/laravel-twitch-client
+    concurrency:
+      group: laravel-twitch-client-release-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Get current release tag
+        id: branch-name
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/laravel-twitch-client-}" >> $GITHUB_OUTPUT
+
+      - name: Publish to readonly repository abenevaut/laravel-twitch-client
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: git@github.com:abenevaut/laravel-twitch-client.git
+          BRANCH: master
+          FOLDER: laravel-twitch-client
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_LARAVEL_TWITCH_CLIENT }}
+          TAG: ${{ steps.branch-name.outputs.SOURCE_TAG }}
