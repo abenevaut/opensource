@@ -13,9 +13,7 @@ final class XClient extends AuthenticatedClientAbstract
     public function getUser(string $account): array
     {
         return $this
-            ->request([
-                'Authorization' => "Bearer {$this->accessToken}",
-            ])
+            ->request()
             ->get("/users/by/username/{$account}", [
                 'user.fields' => 'public_metrics',
             ])

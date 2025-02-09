@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e739858568c02829c9c055262316f58",
+    "content-hash": "84c74d5dde56f04ee4c9516014456762",
     "packages": [
         {
             "name": "abenevaut/laravel-bluesky-client",
@@ -287,6 +287,122 @@
                 "source": "https://github.com/abenevaut/laravel-instagram-client/tree/0.0.3"
             },
             "time": "2025-02-08T20:48:26+00:00"
+        },
+        {
+            "name": "abenevaut/laravel-twitch-client",
+            "version": "0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/abenevaut/laravel-twitch-client.git",
+                "reference": "285b004ad5054e83aebbcedc66c6f242d214114c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/abenevaut/laravel-twitch-client/zipball/285b004ad5054e83aebbcedc66c6f242d214114c",
+                "reference": "285b004ad5054e83aebbcedc66c6f242d214114c",
+                "shasum": ""
+            },
+            "require": {
+                "abenevaut/laravel-client-infrastructure": "^0.0.2",
+                "abenevaut/laravel-infrastructure": "^0.4.0",
+                "illuminate/container": "^11.41",
+                "php": "^8.3"
+            },
+            "require-dev": {
+                "fakerphp/faker": "^1.24",
+                "illuminate/http": "^11",
+                "mockery/mockery": "^1.6",
+                "nikic/php-parser": "^5.0",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^10.5",
+                "squizlabs/php_codesniffer": "^3.11"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "abenevaut\\Twitch\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Antoine Benevaut",
+                    "email": "antoine@benevaut.fr"
+                }
+            ],
+            "description": "Laravel Http Client Infrastructure",
+            "keywords": [
+                "Hexagonal architecture",
+                "client",
+                "infrastructure",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/abenevaut/laravel-twitch-client/issues",
+                "source": "https://github.com/abenevaut/laravel-twitch-client/tree/0.0.2"
+            },
+            "time": "2025-02-09T15:09:42+00:00"
+        },
+        {
+            "name": "abenevaut/laravel-x-client",
+            "version": "0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/abenevaut/laravel-x-client.git",
+                "reference": "674dc904f5091baf2592558503d5b3546680b67f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/abenevaut/laravel-x-client/zipball/674dc904f5091baf2592558503d5b3546680b67f",
+                "reference": "674dc904f5091baf2592558503d5b3546680b67f",
+                "shasum": ""
+            },
+            "require": {
+                "abenevaut/laravel-client-infrastructure": "^0.0.2",
+                "abenevaut/laravel-infrastructure": "^0.4.0",
+                "illuminate/container": "^11.41",
+                "php": "^8.3"
+            },
+            "require-dev": {
+                "fakerphp/faker": "^1.24",
+                "illuminate/http": "^11",
+                "mockery/mockery": "^1.6",
+                "nikic/php-parser": "^5.0",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^10.5",
+                "squizlabs/php_codesniffer": "^3.11"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "abenevaut\\X\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Antoine Benevaut",
+                    "email": "antoine@benevaut.fr"
+                }
+            ],
+            "description": "Laravel Http Client Infrastructure",
+            "keywords": [
+                "Hexagonal architecture",
+                "client",
+                "infrastructure",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/abenevaut/laravel-x-client/issues",
+                "source": "https://github.com/abenevaut/laravel-x-client/tree/0.0.2"
+            },
+            "time": "2025-02-09T15:09:33+00:00"
         },
         {
             "name": "brick/math",

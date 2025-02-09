@@ -23,7 +23,6 @@ final class TwitchClient extends AuthenticatedClientAbstract
         return $this
             ->request([
                 'Client-ID' => $this->accessToken->getClientId(),
-                'Authorization' => "Bearer {$this->accessToken}",
             ])
             ->get("/users?login={$broadcaster}")
             ->throw()
@@ -35,7 +34,6 @@ final class TwitchClient extends AuthenticatedClientAbstract
         return $this
             ->request([
                 'Client-ID' => $this->accessToken->getClientId(),
-                'Authorization' => "Bearer {$this->accessToken}",
             ])
             ->get("/channels/followers/?broadcaster_id={$broadcasterId}")
             ->throw()

@@ -8,6 +8,7 @@ use abenevaut\X\Client\XClient;
 use abenevaut\X\Services\XService;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class CountXFollowers extends Command
 {
@@ -31,6 +32,9 @@ class CountXFollowers extends Command
     public function handle()
     {
         try {
+            $this->warn('This command is not implemented yet.');
+            return self::SUCCESS;
+
             $clientId = $this->argument('client_id');
             $clientSecret = $this->argument('client_secret');
             $account = $this->argument('account');
@@ -46,7 +50,7 @@ class CountXFollowers extends Command
                 $this->error($exception->getMessage());
             }
             else {
-                $this->error('An error occurred while counting the number of followers of the Twitter account.');
+                $this->error('An error occurred while counting the number of followers of the X account.');
             }
 
             return self::FAILURE;
