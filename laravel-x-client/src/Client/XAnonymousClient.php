@@ -22,7 +22,9 @@ final class XAnonymousClient extends ClientAbstract
                 'grant_type' => 'client_credentials',
                 'client_id' => $clientId,
                 'client_secret' => $clientSecret,
-                'client_type' => 'third_party_app',
+                /*
+                 * https://docs.x.com/resources/fundamentals/authentication/guides/v2-authentication-mapping
+                 */
                 'scope' => 'users.read tweet.read',
             ])
             ->throw()
