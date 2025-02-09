@@ -20,7 +20,7 @@ Add instagram service to your `config/services.php` file:
 ## Usage
 
 ```php
-use Abenevaut\InstagramClient\Facades\Instagram;
+use Abenevaut\Instagram\Facades\Instagram;
 
 Instagram::getClient(): InstagramClient; // Get the Instagram client
 Instagram::countFollowers(string $invitationLink): int; // Get the number of followers of an instagram account, like laravel.france

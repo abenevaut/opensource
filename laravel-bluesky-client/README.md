@@ -22,7 +22,7 @@ Add bluesky service to your `config/services.php` file:
 ## Usage
 
 ```php
-use Abenevaut\BlueskyClient\Facades\BlueSky;
+use Abenevaut\Bluesky\Facades\BlueSky;
 
 BlueSky::getClient(): BlueSkyClient; // Get the BlueSky client
 BlueSky::countFollowers(string $account): int; // Get the number of followers of an account, like abenevaut.bsky.social

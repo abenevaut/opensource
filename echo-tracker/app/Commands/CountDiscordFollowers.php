@@ -5,7 +5,6 @@ namespace App\Commands;
 use abenevaut\Discord\Client\DiscordAnonymousClient;
 use abenevaut\Discord\Services\DiscordService;
 use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 

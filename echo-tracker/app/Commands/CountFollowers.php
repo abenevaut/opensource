@@ -77,12 +77,12 @@ class CountFollowers extends Command
             ];
         }
 
-        if (!$configurationExists && $this->confirm('Would you configure Twitter account?')) {
+        if (!$configurationExists && $this->confirm('Would you configure X account?')) {
             $clientId = $this->ask('What is your client ID?');
             $clientSecret = $this->ask('What is your client secret?');
             $username = $this->ask('Which account do you want to count followers?');
 
-            $configuration['twitter'] = [
+            $configuration['x'] = [
                 'client_id' => $clientId,
                 'client_secret' => $clientSecret,
                 'username' => $username,

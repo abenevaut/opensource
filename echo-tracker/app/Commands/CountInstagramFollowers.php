@@ -5,7 +5,6 @@ namespace App\Commands;
 use abenevaut\Instagram\Client\InstagramAnonymousClient;
 use abenevaut\Instagram\Services\InstagramService;
 use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -30,23 +29,22 @@ class CountInstagramFollowers extends Command
      */
     public function handle()
     {
-//        try {
+        try {
             $username = $this->argument('username');
 
             $client = new InstagramAnonymousClient('https://i.instagram.com/api/v1');
-
             $nbFollowers = (new InstagramService($client))->countFollowers($username);
 
             $this->info("The number of followers of the Instagram account is {$nbFollowers}.");
-//        } catch (\Exception $exception) {
-//            if ($this->verbosity === OutputInterface::VERBOSITY_DEBUG) {
-//                $this->error($exception->getMessage());
-//            } else {
-//                $this->error('An error occurred while counting the number of followers of the Instagram account.');
-//            }
-//
-//            return self::FAILURE;
-//        }
+        } catch (\Exception $exception) {
+            if ($this->verbosity === OutputInterface::VERBOSITY_DEBUG) {
+                $this->error($exception->getMessage());
+            } else {
+                $this->error('An error occurred while counting the number of followers of the Instagram account.');
+            }
+
+            return self::FAILURE;
+        }
 
         return self::SUCCESS;
     }

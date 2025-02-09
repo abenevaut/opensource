@@ -2,29 +2,28 @@
 
 namespace App\Commands;
 
-use abenevaut\Twitch\Client\AccessToken;
-use abenevaut\Twitch\Client\TwitchAnonymousClient;
-use abenevaut\Twitch\Client\TwitchClient;
-use abenevaut\Twitch\Services\TwitchService;
+use abenevaut\X\Client\AccessToken;
+use abenevaut\X\Client\XAnonymousClient;
+use abenevaut\X\Client\XClient;
+use abenevaut\X\Services\XService;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
-use Symfony\Component\Console\Output\OutputInterface;
 
-class CountTwitchFollowers extends Command
+class CountXFollowers extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:count-twitch-followers {client_id} {client_secret} {broadcaster}';
+    protected $signature = 'app:count-x-followers {client_id} {client_secret} {account}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Count the number of followers of a Twitch broadcaster';
+    protected $description = 'Count the number of followers of a X account';
 
     /**
      * Execute the console command.
@@ -34,19 +33,20 @@ class CountTwitchFollowers extends Command
         try {
             $clientId = $this->argument('client_id');
             $clientSecret = $this->argument('client_secret');
-            $broadcaster = $this->argument('broadcaster');
+            $account = $this->argument('account');
 
-            $client = new TwitchAnonymousClient('https://id.twitch.tv');
+            $client = new XAnonymousClient('https://api.x.com/2');
             $accessToken = new AccessToken($client, $clientId, $clientSecret);
-            $client = new TwitchClient('https://api.twitch.tv/helix', $accessToken, false);
-            $nbFollowers = (new TwitchService($client))->countFollowers($broadcaster);
+            $client = new XClient('https://api.x.com/2', $accessToken, false);
+            $nbFollowers = (new XService($client))->countFollowers($account);
 
-            $this->info("The number of followers of the Twitch broadcaster is {$nbFollowers}.");
+            $this->info("The number of followers of the X account is {$nbFollowers}.");
         } catch (\Exception $exception) {
             if ($this->verbosity === OutputInterface::VERBOSITY_DEBUG) {
                 $this->error($exception->getMessage());
-            } else {
-                $this->error('An error occurred while counting the number of followers of the Twitch broadcaster.');
+            }
+            else {
+                $this->error('An error occurred while counting the number of followers of the Twitter account.');
             }
 
             return self::FAILURE;
