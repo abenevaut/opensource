@@ -1,3 +1,0 @@
-<component name="DependencyValidationManager">
-  <scope name="vapor-roadrunner" pattern="file:.github/workflows/vapor-roadrunner-build.yml||file:.github/workflows/vapor-roadrunner-publish.yml||file:.github/workflows/vapor-roadrunner-test.yml||file[opensource]:vapor-roadrunner//*||file:docker-compose.yml||file:.env.example||file:.env||file:docs/vapor-roadrunner.md" />
-</component>
