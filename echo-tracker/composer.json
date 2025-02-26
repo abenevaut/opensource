@@ -20,6 +20,7 @@
         "abenevaut/laravel-bluesky-client": "^0.0.5",
         "abenevaut/laravel-discord-client": "^0.0.2",
         "abenevaut/laravel-instagram-client": "^0.0.3",
+        "abenevaut/laravel-linkedin-client": "^0.0.2",
         "abenevaut/laravel-twitch-client": "^0.0.2",
         "abenevaut/laravel-x-client": "^0.0.2",
         "illuminate/http": "^11.5",
