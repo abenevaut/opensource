@@ -28,6 +28,13 @@ class CountFollowers extends Command
     {
         $configuration = [];
         $configurationPath = $this->argument('configuration_path');
+
+        if (!file_exists($configurationPath) || is_dir($configurationPath)) {
+            $this->error('The configuration file does not exist.');
+
+            return self::FAILURE;
+        }
+
         $configurationExists = file_exists($configurationPath);
 
         if (!$configurationExists && $this->confirm('Would you configure BlueSky account?')) {
@@ -70,12 +77,12 @@ class CountFollowers extends Command
             ];
         }
 
-        if (!$configurationExists && $this->confirm('Would you configure Twitter account?')) {
+        if (!$configurationExists && $this->confirm('Would you configure X account?')) {
             $clientId = $this->ask('What is your client ID?');
             $clientSecret = $this->ask('What is your client secret?');
             $username = $this->ask('Which account do you want to count followers?');
 
-            $configuration['twitter'] = [
+            $configuration['x'] = [
                 'client_id' => $clientId,
                 'client_secret' => $clientSecret,
                 'username' => $username,

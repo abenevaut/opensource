@@ -12,7 +12,6 @@
       <sourceFolder url="file://$MODULE_DIR$/laravel-paypal/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-session/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-stripe/tests" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/laravel-sentry-handler/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-infrastructure/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/laravel-session/spec" isTestSource="true" />
@@ -535,6 +534,10 @@
       <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/voku/portable-ascii" />
       <excludeFolder url="file://$MODULE_DIR$/phpunit-slicer/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/guzzlehttp/promises" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/psr/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/squizlabs/php_codesniffer" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-sentry-handler/vendor/staabm/side-effects-detector" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

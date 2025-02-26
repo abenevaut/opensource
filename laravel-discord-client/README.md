@@ -20,7 +20,7 @@ Add discord service to your `config/services.php` file:
 ## Usage
 
 ```php
-use Abenevaut\DiscordClient\Facades\Discord;
+use Abenevaut\Discord\Facades\Discord;
 
 Discord::getClient(): DiscordClient; // Get the Discord client
 Discord::countFollowers(string $invitationLink): int; // Get the number of followers of a discord server, invitation link looks like "https://discord.gg/pwwPEXcFfU" (prefer the use link without expiration)

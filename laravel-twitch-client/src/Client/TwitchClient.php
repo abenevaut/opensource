@@ -1,55 +1,42 @@
 <?php
 
-namespace abenevaut\Twitch;
+namespace abenevaut\Twitch\Client;
 
-use Illuminate\Http\Client\Factory as HttpClientFactory;
-use Illuminate\Http\Client\PendingRequest;
+use abenevaut\Infrastructure\Client\AuthenticatedClientAbstract;
 
-final class TwitchClient
+final class TwitchClient extends AuthenticatedClientAbstract
 {
     public function __construct(
-        private readonly string           $baseUrl,
-        private readonly AccessToken|null $accessToken = null,
-        private readonly bool             $debug = false
+        string $baseUrl,
+        AccessToken $accessToken,
+        bool $debug = false
     ) {
+        parent::__construct($baseUrl, $accessToken, $debug);
     }
 
-    protected function request(array $requestHeaders = []): PendingRequest
+    /**
+     * @throws \Illuminate\Http\Client\ConnectionException
+     * @throws \Illuminate\Http\Client\RequestException
+     */
+    public function getUser(string $broadcaster): array
     {
-        $pendingRequest = $this
-            ->withHeaders($requestHeaders)
-            ->baseUrl($this->baseUrl)
-            ->retry(3, 100);
-
-        if ($this->debug) {
-            $pendingRequest->withoutVerifying();
-        }
-
-        return $pendingRequest;
+        return $this
+            ->request([
+                'Client-ID' => $this->accessToken->getClientId(),
+            ])
+            ->get("/users?login={$broadcaster}")
+            ->throw()
+            ->json();
     }
 
-    protected function withHeaders(array $requestHeaders = []): PendingRequest
+    public function getChannel(string $broadcasterId): array
     {
-        /** @var PendingRequest $pendingRequest */
-        $pendingRequest = (new HttpClientFactory())
-            ->acceptJson()
-            ->contentType('application/json')
-            ->withHeaders(array_merge($this->getDefaultHeaders(), $requestHeaders));
-
-        $this->authenticate($pendingRequest);
-
-        return $pendingRequest;
-    }
-
-    protected function authenticate(PendingRequest $pendingRequest): void
-    {
-        if ($this->accessToken) {
-            $pendingRequest->withHeader('Authorization', $this->accessToken->getAccessToken());
-        }
-    }
-
-    protected function getDefaultHeaders(): array
-    {
-        return [];
+        return $this
+            ->request([
+                'Client-ID' => $this->accessToken->getClientId(),
+            ])
+            ->get("/channels/followers/?broadcaster_id={$broadcasterId}")
+            ->throw()
+            ->json();
     }
 }

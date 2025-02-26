@@ -2,8 +2,11 @@
 
 namespace App\Commands;
 
+use abenevaut\Twitch\Client\AccessToken;
+use abenevaut\Twitch\Client\TwitchAnonymousClient;
+use abenevaut\Twitch\Client\TwitchClient;
+use abenevaut\Twitch\Services\TwitchService;
 use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Support\Facades\Http;
 use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -28,42 +31,17 @@ class CountTwitchFollowers extends Command
      */
     public function handle()
     {
-        $clientId = $this->argument('client_id');
-        $clientSecret = $this->argument('client_secret');
-        $broadcaster = $this->argument('broadcaster');
-
         try {
-            $response = Http::withHeader('Accept-Language', 'en_US')
-                ->acceptJson()
-                ->post('https://id.twitch.tv/oauth2/token', [
-                    'grant_type' => 'client_credentials',
-                    'client_id' => $clientId,
-                    'client_secret' => $clientSecret,
-                ])
-                ->throw()
-                ->json();
+            $clientId = $this->argument('client_id');
+            $clientSecret = $this->argument('client_secret');
+            $broadcaster = $this->argument('broadcaster');
 
-            $accessToken = $response['access_token'];
+            $client = new TwitchAnonymousClient('https://id.twitch.tv');
+            $accessToken = new AccessToken($client, $clientId, $clientSecret);
+            $client = new TwitchClient('https://api.twitch.tv/helix', $accessToken, false);
+            $nbFollowers = (new TwitchService($client))->countFollowers($broadcaster);
 
-            $response = Http::withHeaders([
-                'Client-ID' => $clientId,
-                'Authorization' => "Bearer {$accessToken}"
-            ])
-                ->get("https://api.twitch.tv/helix/users?login={$broadcaster}")
-                ->throw()
-                ->json();
-
-            $broadcasterId = $response['data'][0]['id'];
-
-            $response = Http::withHeaders([
-                'Client-ID' => $clientId,
-                'Authorization' => "Bearer {$accessToken}"
-            ])
-                ->get("https://api.twitch.tv/helix/channels/followers/?broadcaster_id={$broadcasterId}")
-                ->throw()
-                ->json();
-
-            $this->info("The number of followers of the Twitch broadcaster is {$response['total']}.");
+            $this->info("The number of followers of the Twitch broadcaster is {$nbFollowers}.");
         } catch (\Exception $exception) {
             if ($this->verbosity === OutputInterface::VERBOSITY_DEBUG) {
                 $this->error($exception->getMessage());

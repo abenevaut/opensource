@@ -31,9 +31,6 @@ RUN apk --update --no-cache add \
 # Remove alpine cache
     && rm -rf /var/cache/apk/*
 
-# Make sure files/folders needed by the processes are accessable when they run under the nobody user
-RUN chown -R nobody.nobody /run
-
 # Add configuration files
 COPY --chown=nobody rootfs/ /
 

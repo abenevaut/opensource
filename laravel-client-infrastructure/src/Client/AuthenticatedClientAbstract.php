@@ -16,7 +16,6 @@ abstract class AuthenticatedClientAbstract extends ClientAbstract
 
     protected function withHeaders(array $requestHeaders = []): PendingRequest
     {
-        /** @var PendingRequest $pendingRequest */
         $pendingRequest = parent::withHeaders($requestHeaders);
 
         $this->authenticate($pendingRequest);
