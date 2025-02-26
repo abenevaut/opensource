@@ -16,15 +16,15 @@
         }
     ],
     "require": {
-        "php": "^8.1",
-        "sentry/sentry-laravel": "^2.12 || ^3.0 || ^4.0"
+        "php": "^8.2",
+        "sentry/sentry-laravel": "^4.0"
     },
     "require-dev": {
-        "laravel/framework": "^9.17 || ^10 || ^11",
-        "phpunit/phpunit": "^10.1",
-        "mockery/mockery": "^1.5",
-        "squizlabs/php_codesniffer": "^3.8",
-        "phpstan/phpstan": "^2.0"
+        "laravel/framework": "^11 || ^12",
+        "phpunit/phpunit": "^11.0",
+        "mockery/mockery": "^1.6",
+        "squizlabs/php_codesniffer": "^3.11",
+        "phpstan/phpstan": "^2.1"
     },
     "autoload": {
         "psr-4": {
