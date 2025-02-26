@@ -1,8 +1,7 @@
 ## Build
 
 ```shell
-docker build . --file Dockerfile --tag abenevaut/vapor-nginx:test \
-    --build-arg VAPOR_DEFAULT_VERSION=83
+docker build . --file Dockerfile --tag abenevaut/vapor-nginx:test --build-arg VAPOR_DEFAULT_VERSION=83
 ```
 
 - VAPOR_DEFAULT_VERSION: vapor-default image version (`ghcr.io/abenevaut/vapor-default:php<VAPOR_DEFAULT_VERSION>`), default `83`
