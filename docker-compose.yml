@@ -1,0 +1,25 @@
+services:
+
+  desktop:
+    image: abenevaut/desktop:latest
+    build:
+      context: desktop
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - php_xdebug_log=/var/task/xdebug-errors.log
+    volumes:
+      - .:/var/task
+
+  lambdaqr:
+    image: abenevaut/lambda-qr:latest
+    build:
+      context: lambda-qr
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - php_xdebug_log=/var/task/xdebug-errors.log
+    volumes:
+      - ./lambda-qr:/var/task
+    depends_on:
+      - desktop
