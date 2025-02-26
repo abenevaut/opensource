@@ -1,9 +1,0 @@
-services:
-
-  app:
-    image: ghcr.io/abenevaut/vapor-ci:php83
-    restart: unless-stopped
-    environment:
-      - php_xdebug_log=/var/task/xdebug-errors.log
-    volumes:
-      - .:/var/task

@@ -77,6 +77,6 @@ ENV php_allow_url_fopen=On \
 
 #
 # Force the execution of the following scripts
-# GitHub Action will not execute the entrypoint when starting as Custom container fro a pipeline
+# GitHub Action will not execute the entrypoint when starting as Custom container from a pipeline
 #
 RUN /docker-entrypoint-init.d/02-update-php-template-with-env-vars.sh
