@@ -5,7 +5,7 @@
 You can install the package via composer:
 
 ```bash
-composer require abenevaut/laravel-bluesky-client
+composer require abenevaut/laravel-twitch-client
 ```
 
 Add Twitch service to your `config/services.php` file:

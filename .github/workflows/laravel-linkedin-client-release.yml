@@ -1,0 +1,40 @@
+name: laravel-linkedin-client-release
+
+on:
+  push:
+    tags:
+      - laravel-linkedin-client-*
+
+defaults:
+  run:
+    working-directory: ./laravel-linkedin-client
+
+jobs:
+
+  release:
+    runs-on: ubuntu-latest
+    environment:
+      name: laravel-linkedin-client
+      url: https://github.com/abenevaut/laravel-linkedin-client
+    concurrency:
+      group: laravel-linkedin-client-release-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Get current release tag
+        id: branch-name
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/laravel-linkedin-client-}" >> $GITHUB_OUTPUT
+
+      - name: Publish to readonly repository abenevaut/laravel-linkedin-client
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: git@github.com:abenevaut/laravel-linkedin-client.git
+          BRANCH: master
+          FOLDER: laravel-linkedin-client
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_LARAVEL_LINKEDIN_CLIENT }}
+          TAG: ${{ steps.branch-name.outputs.SOURCE_TAG }}

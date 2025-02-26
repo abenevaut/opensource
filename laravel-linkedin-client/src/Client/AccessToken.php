@@ -1,10 +1,17 @@
 <?php
 
-namespace abenevaut\Linkedin;
+namespace abenevaut\Linkedin\Client;
 
-final class AccessToken
+use abenevaut\Infrastructure\Client\AccessTokenInterface;
+
+final class AccessToken implements AccessTokenInterface
 {
+    public function __construct(
+        private readonly string $apiKey
+    ) {
+    }
+
     public function getAccessToken(): string {
-        return 'Bearer ' . $this->accessToken;
+        return $this->apiKey;
     }
 }
