@@ -6,6 +6,7 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Facade;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use Psr\Log\LoggerInterface;
 use Sentry\Laravel\Facade as SentryFacade;
 use Sentry\State\HubInterface;
@@ -15,9 +16,7 @@ class HandlerTest extends TestCase
 {
     protected $app;
 
-    /**
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testToReportStandardException()
     {
         // test case exception
@@ -37,9 +36,7 @@ class HandlerTest extends TestCase
         $this->app->make(ExceptionHandler::class)->report($exception);
     }
 
-    /**
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testToReportScopedException()
     {
         $exception = \Mockery::mock('\abenevaut\SentryHandler\Contracts\ExceptionAbstract[isSentryMessage,getMessage]');
@@ -58,9 +55,7 @@ class HandlerTest extends TestCase
         $this->assertFalse($exception->isSentryMessage());
     }
 
-    /**
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testToReportScopedExceptionAsSentryMessage()
     {
         $exception = \Mockery::mock('\abenevaut\SentryHandler\Contracts\ExceptionAbstract[isSentryMessage,getMessage]');
@@ -84,7 +79,7 @@ class HandlerTest extends TestCase
         $this->assertTrue($exception->isSentryMessage());
     }
 
-    protected function setUp(): void
+    public function setUp(): void
     {
         $this->app = new Application();
 

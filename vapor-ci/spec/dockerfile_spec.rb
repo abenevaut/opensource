@@ -66,6 +66,6 @@ describe 'Dockerfile' do
   end
 
   it 'installs composer' do
-    expect(composer_version).to include('2.8.4')
+    expect(composer_version).to include('2.8.6')
   end
 end
