@@ -29,6 +29,7 @@ final class LinkedinClient extends AuthenticatedClientAbstract
     {
         return $this
             ->request()
+            // phpcs:disable
             ->get("/organizationalEntityFollowerStatistics?q=organizationalEntity&organizationalEntity=urn:li:organization:{$companyId}")
             ->throw()
             ->json();

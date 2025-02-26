@@ -11,7 +11,8 @@ final class AccessToken implements AccessTokenInterface
     ) {
     }
 
-    public function getAccessToken(): string {
+    public function getAccessToken(): string
+    {
         return $this->apiKey;
     }
 }
