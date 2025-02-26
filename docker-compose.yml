@@ -11,15 +11,28 @@ services:
     volumes:
       - .:/var/task
 
-  lambdaqr:
+  lambda-qr:
     image: abenevaut/lambda-qr:latest
     build:
       context: lambda-qr
       dockerfile: Dockerfile
-    restart: unless-stopped
     environment:
       - php_xdebug_log=/var/task/xdebug-errors.log
     volumes:
       - ./lambda-qr:/var/task
     depends_on:
       - desktop
+
+  demo-laravel-sentry-handler:
+    image: ghcr.io/abenevaut/vapor-nginx:php83
+    build:
+      context: demo-laravel-sentry-handler
+      dockerfile: Dockerfile
+      args:
+        COMPOSER_HASH: dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6
+    environment:
+      - php_xdebug_log=/var/task/xdebug-errors.log
+    ports:
+      - 8091:8080
+    volumes:
+      - ./demo-laravel-sentry-handler:/var/task
