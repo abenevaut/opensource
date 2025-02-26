@@ -48,8 +48,7 @@ class CountXFollowers extends Command
         } catch (\Exception $exception) {
             if ($this->verbosity === OutputInterface::VERBOSITY_DEBUG) {
                 $this->error($exception->getMessage());
-            }
-            else {
+            } else {
                 $this->error('An error occurred while counting the number of followers of the X account.');
             }
 
