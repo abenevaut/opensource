@@ -62,16 +62,16 @@
         },
         {
             "name": "bref/bref",
-            "version": "2.3.12",
+            "version": "2.3.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/bref.git",
-                "reference": "5a92388dfb654b4ca7ccda884353a00a1b8b0bc3"
+                "reference": "4bd591e8ad50009682baa7cdb8eb324528066fbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/bref/zipball/5a92388dfb654b4ca7ccda884353a00a1b8b0bc3",
-                "reference": "5a92388dfb654b4ca7ccda884353a00a1b8b0bc3",
+                "url": "https://api.github.com/repos/brefphp/bref/zipball/4bd591e8ad50009682baa7cdb8eb324528066fbd",
+                "reference": "4bd591e8ad50009682baa7cdb8eb324528066fbd",
                 "shasum": ""
             },
             "require": {
@@ -125,7 +125,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brefphp/bref/issues",
-                "source": "https://github.com/brefphp/bref/tree/2.3.12"
+                "source": "https://github.com/brefphp/bref/tree/2.3.15"
             },
             "funding": [
                 {
@@ -137,7 +137,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-20T13:00:03+00:00"
+            "time": "2025-02-21T17:52:57+00:00"
         },
         {
             "name": "bref/extra-php-extensions",
@@ -2536,16 +2536,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v7.2.0",
+            "version": "v7.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "d34b22ba9390ec19d2dd966c40aa9e8462f27a7e"
+                "reference": "d8f411ff3c7ddc4ae9166fb388d1190a2df5b5cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/d34b22ba9390ec19d2dd966c40aa9e8462f27a7e",
-                "reference": "d34b22ba9390ec19d2dd966c40aa9e8462f27a7e",
+                "url": "https://api.github.com/repos/symfony/process/zipball/d8f411ff3c7ddc4ae9166fb388d1190a2df5b5cf",
+                "reference": "d8f411ff3c7ddc4ae9166fb388d1190a2df5b5cf",
                 "shasum": ""
             },
             "require": {
@@ -2577,7 +2577,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v7.2.0"
+                "source": "https://github.com/symfony/process/tree/v7.2.4"
             },
             "funding": [
                 {
@@ -2593,7 +2593,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-06T14:24:19+00:00"
+            "time": "2025-02-05T08:33:46+00:00"
         },
         {
             "name": "symfony/translation",
