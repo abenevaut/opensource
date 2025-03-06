@@ -50,12 +50,11 @@ jobs:
       - name: Composer install
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: |
-          composer -V
           composer validate --strict
           composer install --optimize-autoloader --no-interaction --prefer-dist
 
       - name: Test
-        run: vendor/bin/phpunit --exclude-group proxy --coverage-clover=coverage/clover.xml
+        run: vendor/bin/phpunit
 
       - name: Send coverage
         run: |
