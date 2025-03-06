@@ -141,16 +141,16 @@
         },
         {
             "name": "bref/extra-php-extensions",
-            "version": "1.7.0",
+            "version": "1.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/extra-php-extensions.git",
-                "reference": "77aa8be31e959ae1383bc9f3faee2f9df33f2629"
+                "reference": "fe4e9b22d1397c4c897d52f6568305d7f473aa53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/extra-php-extensions/zipball/77aa8be31e959ae1383bc9f3faee2f9df33f2629",
-                "reference": "77aa8be31e959ae1383bc9f3faee2f9df33f2629",
+                "url": "https://api.github.com/repos/brefphp/extra-php-extensions/zipball/fe4e9b22d1397c4c897d52f6568305d7f473aa53",
+                "reference": "fe4e9b22d1397c4c897d52f6568305d7f473aa53",
                 "shasum": ""
             },
             "conflict": {
@@ -181,7 +181,7 @@
             "description": "Extra PHP extensions for your lambda application.",
             "support": {
                 "issues": "https://github.com/brefphp/extra-php-extensions/issues",
-                "source": "https://github.com/brefphp/extra-php-extensions/tree/1.7.0"
+                "source": "https://github.com/brefphp/extra-php-extensions/tree/1.7.2"
             },
             "funding": [
                 {
@@ -197,7 +197,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-27T09:38:14+00:00"
+            "time": "2025-03-04T22:15:43+00:00"
         },
         {
             "name": "brick/math",
