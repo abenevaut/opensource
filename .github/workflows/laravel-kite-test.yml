@@ -15,7 +15,7 @@ defaults:
     working-directory: ./laravel-kite
 
 env:
-  php_version: 8.1
+  php_version: 8.3
 
 jobs:
 
