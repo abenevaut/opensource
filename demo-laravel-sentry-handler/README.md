@@ -10,14 +10,17 @@ Then edit `SENTRY_LARAVEL_DSN` variable in `.env`.
 
 # Use the demo
 
+On mono-repository root directory, run:
+
 ```
-php artisan serve
+docker-compose up -d demo-laravel-sentry-handler
+docker-compose exec demo-laravel-sentry-handler composer install
 ```
 
 Then visit
-- http://127.0.0.1:8000/report-std-exception
-- http://127.0.0.1:8000/throw-std-exception-to-handler
-- http://127.0.0.1:8000/report-scoped-exception
-- http://127.0.0.1:8000/throw-scoped-exception-to-handler
+- http://localhost:8091/report-std-exception
+- http://localhost:8091/throw-std-exception-to-handler
+- http://localhost:8091/report-scoped-exception
+- http://localhost:8091/throw-scoped-exception-to-handler
 
 Check your Sentry ;)
