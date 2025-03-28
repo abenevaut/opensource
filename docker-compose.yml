@@ -9,6 +9,7 @@ services:
     environment:
       - php_xdebug_log=/var/task/xdebug-errors.log
     volumes:
+      - ${USERPROFILE:-~}/.composer:/root/.composer
       - ${USERPROFILE:-~}/.npmrc:/root/.npmrc
       - .:/var/task
 

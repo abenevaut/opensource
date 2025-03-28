@@ -1,6 +1,6 @@
 FROM ghcr.io/abenevaut/vapor-ci:php83
 
-RUN apk --update add \
+RUN apk --update --no-cache add \
         gcc \
         g++ \
         make \
