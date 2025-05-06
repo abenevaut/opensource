@@ -19,7 +19,8 @@ describe 'Dockerfile' do
     image = Docker::Image.build_from_dir(
       '.',
       t: 'abenevaut/vapor-ci:rspec',
-      platform: ENV.fetch('DOCKER_DEFAULT_PLATFORM', 'linux/amd64'),
+      platform: ENV.fetch('DOCKER_DEFAULT_PLATFORM', 'linux/amd64')
+      #
       #       buildargs: build_args
     )
 
