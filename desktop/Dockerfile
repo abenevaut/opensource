@@ -1,5 +1,14 @@
 FROM ghcr.io/abenevaut/vapor-ci:php83
 
+LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
+LABEL org.opencontainers.image.source=https://github.com/abenevaut/opensource
+LABEL org.opencontainers.image.path="desktop/Dockerfile"
+LABEL org.opencontainers.image.title="desktop"
+LABEL org.opencontainers.image.description="Tools for PHP/nodeJS development"
+LABEL org.opencontainers.image.authors="Antoine Benevaut <me@abenevaut.dev>"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.documentation="https://github.com/abenevaut/opensource/desktop/README.md"
+
 RUN apk --update add \
         gcc \
         g++ \
