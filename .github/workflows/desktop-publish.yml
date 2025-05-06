@@ -9,20 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
-      matrix:
-        php_version: [ 82, 83, 84 ]
-        include:
-          - php_version: 82
-            latest: false
-            release-candidate: false
-          - php_version: 83
-            latest: true
-            release-candidate: false
-          - php_version: 84
-            latest: false
-            release-candidate: true
     concurrency:
-      group: desktop-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      group: desktop-release-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: false
     steps:
 
@@ -53,10 +41,8 @@ jobs:
         with:
           images: ghcr.io/abenevaut/desktop
           tags: |
-            type=raw,value=php${{ matrix.php_version }}
-            type=raw,value=php${{ matrix.php_version }}-${{ steps.date.outputs.date }}
-            type=raw,value=latest,enable=${{ matrix.latest }}
-            type=raw,value=release-candidate,enable=${{ matrix.release-candidate }}
+            type=raw,value=${{ steps.date.outputs.date }}
+            type=raw,value=latest
 
       - name: Build and push
         uses: docker/build-push-action@v6
