@@ -1,0 +1,12 @@
+# python3 /Users/abenevaut/Sites/sqlmap/sqlmap.py -v -r "verify-email.template" --batch --level=5 --risk=3 --flush-session --fresh-queries --threads=8 --output-dir=../../storage/logs --dbms="SQLite"
+# python3 /Users/abenevaut/Sites/sqlmap/sqlmap.py -v -r "verify-email.template" --batch --level=5 --risk=3 --flush-session --fresh-queries --threads=8 --output-dir=../../storage/logs --dbms="SQLite 3.43"
+
+GET /verify-email/id*/hash* HTTP/1.1
+Host: auth.abenevaut.test:443
+Content-Type:
+Content-Length: 0
+User-Agent: sqlmap/1.8.4.7#dev (http://sqlmap.org)
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+Cache-Control: no-cache
