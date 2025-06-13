@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Crawl-delay: 10
+Sitemap: https://laravel-one.abenevaut.dev/sitemap.xml
