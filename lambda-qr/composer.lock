@@ -141,16 +141,16 @@
         },
         {
             "name": "bref/extra-php-extensions",
-            "version": "1.7.2",
+            "version": "1.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/extra-php-extensions.git",
-                "reference": "fe4e9b22d1397c4c897d52f6568305d7f473aa53"
+                "reference": "890a615602323b8c8d4cf2291e81e0ccd1c0f91f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/extra-php-extensions/zipball/fe4e9b22d1397c4c897d52f6568305d7f473aa53",
-                "reference": "fe4e9b22d1397c4c897d52f6568305d7f473aa53",
+                "url": "https://api.github.com/repos/brefphp/extra-php-extensions/zipball/890a615602323b8c8d4cf2291e81e0ccd1c0f91f",
+                "reference": "890a615602323b8c8d4cf2291e81e0ccd1c0f91f",
                 "shasum": ""
             },
             "conflict": {
@@ -163,9 +163,9 @@
                 "mnapoli/silly": "^1.7",
                 "mnapoli/silly-php-di": "^1.2",
                 "php-di/php-di": "^6.3",
-                "symfony/finder": "^5.2",
-                "symfony/http-client": "5.3.8",
-                "symfony/process": "^5.0"
+                "symfony/finder": "^5.4",
+                "symfony/http-client": "^5.4",
+                "symfony/process": "^5.4"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -181,7 +181,7 @@
             "description": "Extra PHP extensions for your lambda application.",
             "support": {
                 "issues": "https://github.com/brefphp/extra-php-extensions/issues",
-                "source": "https://github.com/brefphp/extra-php-extensions/tree/1.7.2"
+                "source": "https://github.com/brefphp/extra-php-extensions/tree/1.8.4"
             },
             "funding": [
                 {
@@ -197,7 +197,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-03-04T22:15:43+00:00"
+            "time": "2025-06-05T08:18:41+00:00"
         },
         {
             "name": "brick/math",
