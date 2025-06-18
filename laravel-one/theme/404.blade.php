@@ -5,6 +5,7 @@
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Not Found</title>
+    <base href="/"> <!-- dev.abenevaut/abenevaut/dist/ -->
     <link rel="stylesheet" href="assets/theme.min.css">
 </head>
 <body class="antialiased text-black-300 bg-dark-100">
