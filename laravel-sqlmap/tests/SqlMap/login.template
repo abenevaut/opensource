@@ -1,0 +1,10 @@
+# python3 /Users/abenevaut/Sites/sqlmap/sqlmap.py -v -r "login.template" --batch --level=5 --risk=3 --flush-session --fresh-queries --threads=8 --output-dir=../../storage/logs -p password --dbms="SQLite"
+# python3 /Users/abenevaut/Sites/sqlmap/sqlmap.py -v -r "login.template" --batch --level=5 --risk=3 --flush-session --fresh-queries --threads=8 --output-dir=../../storage/logs -p password --dbms="SQLite 3.43"
+
+POST /login HTTP/1.1
+Host: auth.abenevaut.test:443
+Content-Type: application/x-www-form-urlencoded
+User-Agent: sqlmap/1.8.4.7#dev (http://sqlmap.org)
+Cache-Control: no-cache
+
+email=test@test.com&password=2

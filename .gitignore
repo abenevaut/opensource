@@ -10,8 +10,6 @@ yarn-error.log
 .phpunit.cache
 .phpunit.result.cache
 http-client.env.json
-phpunit.xml.test
-phpunit.xml
 xdebug-errors.log
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider

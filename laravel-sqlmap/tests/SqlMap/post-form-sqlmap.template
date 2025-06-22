@@ -1,0 +1,15 @@
+POST [URL] HTTP/1.1
+Host: 127.0.0.1
+Content-Type: multipart/form-data; boundary="separator"
+Content-Length: 0
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0
+Cookie: pwdDefined=yes;
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+Cache-Control: no-cache
+
+--separator
+Content-Disposition: form-data; name="[VAR_NAME]"
+
+[VAR_VALUE]
