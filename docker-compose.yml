@@ -1,18 +1,5 @@
 services:
 
-  desktop:
-    image: abenevaut/desktop:latest
-    build:
-      context: desktop
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    environment:
-      - php_xdebug_log=/var/task/xdebug-errors.log
-    volumes:
-      - ${USERPROFILE:-~}/.npmrc:/root/.npmrc
-      - ${USERPROFILE:-~}/.composer:/root/.composer
-      - .:/var/task
-
   lambda-qr:
     image: abenevaut/lambda-qr:latest
     build:
@@ -22,8 +9,6 @@ services:
       - php_xdebug_log=/var/task/xdebug-errors.log
     volumes:
       - ./lambda-qr:/var/task
-    depends_on:
-      - desktop
 
   demo-laravel-sentry-handler:
     image: ghcr.io/abenevaut/vapor-nginx:php83
