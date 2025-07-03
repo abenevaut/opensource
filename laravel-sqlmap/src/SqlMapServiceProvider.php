@@ -10,7 +10,8 @@ class SqlMapServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/sqlmap.php', 'sqlmap'
+            __DIR__ . '/../config/sqlmap.php',
+            'sqlmap'
         );
     }
 
@@ -22,11 +23,11 @@ class SqlMapServiceProvider extends ServiceProvider
             ]);
 
             $this->publishes([
-                __DIR__.'/../config/sqlmap.php' => config_path('sqlmap.php'),
+                __DIR__ . '/../config/sqlmap.php' => config_path('sqlmap.php'),
             ], 'sqlmap-config');
 
             $this->publishes([
-                __DIR__.'/Http/Middleware/ValidateCsrfToken.php' => app_path('Http/Middleware/ValidateCsrfToken.php'),
+                __DIR__ . '/Http/Middleware/ValidateCsrfToken.php' => app_path('Http/Middleware/ValidateCsrfToken.php'),
             ], 'sqlmap-middleware');
         }
     }

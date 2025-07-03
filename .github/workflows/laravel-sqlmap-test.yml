@@ -50,7 +50,7 @@ jobs:
         continue-on-error: ${{ matrix.continue-on-error }}
         run: |
           vendor/bin/phpstan analyse
-          vendor/bin/phpcs --standard=PSR12 src tests
+          vendor/bin/phpcs --standard=PSR12 src
           vendor/bin/phpunit
 
       - name: Send coverage

@@ -73,8 +73,18 @@ class DescribeRoutes extends RouteListCommand
     protected function getOptions()
     {
         return array_merge(parent::getOptions(), [
-            ['output', 'o', \Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL, 'Output directory for SQLMap files'],
-            ['url', 'u', \Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL, 'Base URL for the application'],
+            [
+                'output',
+                'o',
+                \Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL,
+                'Output directory for SQLMap files'
+            ],
+            [
+                'url',
+                'u',
+                \Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL,
+                'Base URL for the application'
+            ],
         ]);
     }
 
@@ -109,7 +119,7 @@ class DescribeRoutes extends RouteListCommand
     private function extractRouteParameters($uri)
     {
         preg_match_all('/\{([^}]+)\}/', $uri, $matches);
-        return array_map(function($param) {
+        return array_map(function ($param) {
             return str_replace('?', '', $param); // Remove optional indicator
         }, $matches[1] ?? []);
     }
@@ -144,9 +154,7 @@ class DescribeRoutes extends RouteListCommand
                         if ($reflectionClass->isSubclassOf(FormRequest::class)) {
                             $formParameters = $this->getFormRequestParameters($reflectionClass);
                             $parameters = array_merge($parameters, $formParameters);
-                        }
-                        // Handle Request class
-                        elseif ($reflectionClass->isSubclassOf(Request::class) || $typeName === Request::class) {
+                        } elseif ($reflectionClass->isSubclassOf(Request::class) || $typeName === Request::class) {
                             // For basic Request, we'll add common parameters
                             $parameters = array_merge($parameters, ['search', 'filter', 'sort', 'page']);
                         }
