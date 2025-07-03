@@ -4,7 +4,7 @@ services:
     image: abenevaut/lambda-qr:latest
     build:
       context: lambda-qr
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     environment:
       - php_xdebug_log=/var/task/xdebug-errors.log
     volumes:
