@@ -68,8 +68,8 @@ ENV php_allow_url_fopen=On \
 
     php_opcache_enable=On \
     # https://www.php.net/manual/fr/opcache.configuration.php
-    # default: tracing
-    php_opcache_jit="function" \
+    # JIT disabled due to xdebug incompatibility in CI environment
+    php_opcache_jit="off" \
     # default: 2
     php_opcache_revalidate_freq=Off \
     # default: 0
