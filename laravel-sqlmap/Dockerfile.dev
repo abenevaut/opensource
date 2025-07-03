@@ -1,0 +1,1 @@
+FROM ghcr.io/abenevaut/vapor-ci:php83
