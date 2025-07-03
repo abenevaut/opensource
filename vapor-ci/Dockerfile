@@ -68,8 +68,8 @@ ENV php_allow_url_fopen=On \
 
     php_opcache_enable=On \
     # https://www.php.net/manual/fr/opcache.configuration.php
-    # default: tracing
-    php_opcache_jit="function" \
+    # JIT disabled due to xdebug incompatibility in CI environment
+    php_opcache_jit="off" \
     # default: 2
     php_opcache_revalidate_freq=Off \
     # default: 0
@@ -79,4 +79,6 @@ ENV php_allow_url_fopen=On \
 # Force the execution of the following scripts
 # GitHub Action will not execute the entrypoint when starting as Custom container from a pipeline
 #
-RUN /docker-entrypoint-init.d/02-update-php-template-with-env-vars.sh
+RUN chmod +x /docker-entrypoint-init.d/01-create-log-directories.sh \
+    && /docker-entrypoint-init.d/01-create-log-directories.sh \
+    && /docker-entrypoint-init.d/02-update-php-template-with-env-vars.sh
