@@ -4,11 +4,22 @@ services:
     image: abenevaut/lambda-qr:latest
     build:
       context: lambda-qr
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     environment:
       - php_xdebug_log=/var/task/xdebug-errors.log
     volumes:
+      - ${USERPROFILE:-~}/.npmrc:/root/.npmrc
+      - ${USERPROFILE:-~}/.composer:/root/.composer
       - ./lambda-qr:/var/task
+
+  laravel-sqlmap:
+    image: abenevaut/laravel-sqlmap:latest
+    build:
+      context: ./laravel-sqlmap
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ${USERPROFILE:-~}/.composer:/root/.composer
+      - ./laravel-sqlmap:/var/task
 
   demo-laravel-sentry-handler:
     image: ghcr.io/abenevaut/vapor-nginx:php83
