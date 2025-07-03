@@ -27,6 +27,10 @@ coverage:
         target: 75%
         flags:
           - laravel-session
+      laravel-sqlmap:
+        target: 75%
+        flags:
+          - laravel-sqlmap
       laravel-kite:
         target: 75%
         flags:
@@ -61,6 +65,10 @@ flags:
     carryforward: true
     paths:
       - laravel-session/
+  laravel-sqlmap:
+    carryforward: true
+    paths:
+      - laravel-sqlmap/
   laravel-kite:
     carryforward: true
     paths:
