@@ -141,16 +141,16 @@
         },
         {
             "name": "bref/extra-php-extensions",
-            "version": "1.8.4",
+            "version": "1.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/extra-php-extensions.git",
-                "reference": "890a615602323b8c8d4cf2291e81e0ccd1c0f91f"
+                "reference": "7b1cabb124f191d39f6eaf9ccb8f22c0013960c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/extra-php-extensions/zipball/890a615602323b8c8d4cf2291e81e0ccd1c0f91f",
-                "reference": "890a615602323b8c8d4cf2291e81e0ccd1c0f91f",
+                "url": "https://api.github.com/repos/brefphp/extra-php-extensions/zipball/7b1cabb124f191d39f6eaf9ccb8f22c0013960c7",
+                "reference": "7b1cabb124f191d39f6eaf9ccb8f22c0013960c7",
                 "shasum": ""
             },
             "conflict": {
@@ -181,7 +181,7 @@
             "description": "Extra PHP extensions for your lambda application.",
             "support": {
                 "issues": "https://github.com/brefphp/extra-php-extensions/issues",
-                "source": "https://github.com/brefphp/extra-php-extensions/tree/1.8.4"
+                "source": "https://github.com/brefphp/extra-php-extensions/tree/1.8.5"
             },
             "funding": [
                 {
@@ -197,7 +197,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-06-05T08:18:41+00:00"
+            "time": "2025-07-04T21:20:03+00:00"
         },
         {
             "name": "brick/math",
@@ -2989,12 +2989,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "ext-imagick": "*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
