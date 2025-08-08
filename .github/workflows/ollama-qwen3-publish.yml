@@ -15,7 +15,7 @@ jobs:
           - type: latest
             baseImage: ''
             latest: true
-          - php_version: rocm
+          - type: rocm
             baseImage: 'rocm'
             latest: false
     concurrency:
