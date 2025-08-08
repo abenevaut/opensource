@@ -62,16 +62,16 @@
         },
         {
             "name": "bref/bref",
-            "version": "2.4.7",
+            "version": "2.4.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/bref.git",
-                "reference": "1c373f2bbdc0ca1e5657f80d552e63a0cd0cef65"
+                "reference": "b1801528c84c91a7b9bf69d1f44ddbea6f38ad90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/bref/zipball/1c373f2bbdc0ca1e5657f80d552e63a0cd0cef65",
-                "reference": "1c373f2bbdc0ca1e5657f80d552e63a0cd0cef65",
+                "url": "https://api.github.com/repos/brefphp/bref/zipball/b1801528c84c91a7b9bf69d1f44ddbea6f38ad90",
+                "reference": "b1801528c84c91a7b9bf69d1f44ddbea6f38ad90",
                 "shasum": ""
             },
             "require": {
@@ -125,7 +125,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brefphp/bref/issues",
-                "source": "https://github.com/brefphp/bref/tree/2.4.7"
+                "source": "https://github.com/brefphp/bref/tree/2.4.10"
             },
             "funding": [
                 {
@@ -137,20 +137,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-06-25T11:57:14+00:00"
+            "time": "2025-07-31T16:02:56+00:00"
         },
         {
             "name": "bref/extra-php-extensions",
-            "version": "1.8.4",
+            "version": "1.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/extra-php-extensions.git",
-                "reference": "890a615602323b8c8d4cf2291e81e0ccd1c0f91f"
+                "reference": "7b1cabb124f191d39f6eaf9ccb8f22c0013960c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/extra-php-extensions/zipball/890a615602323b8c8d4cf2291e81e0ccd1c0f91f",
-                "reference": "890a615602323b8c8d4cf2291e81e0ccd1c0f91f",
+                "url": "https://api.github.com/repos/brefphp/extra-php-extensions/zipball/7b1cabb124f191d39f6eaf9ccb8f22c0013960c7",
+                "reference": "7b1cabb124f191d39f6eaf9ccb8f22c0013960c7",
                 "shasum": ""
             },
             "conflict": {
@@ -181,7 +181,7 @@
             "description": "Extra PHP extensions for your lambda application.",
             "support": {
                 "issues": "https://github.com/brefphp/extra-php-extensions/issues",
-                "source": "https://github.com/brefphp/extra-php-extensions/tree/1.8.4"
+                "source": "https://github.com/brefphp/extra-php-extensions/tree/1.8.5"
             },
             "funding": [
                 {
@@ -197,7 +197,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-06-05T08:18:41+00:00"
+            "time": "2025-07-04T21:20:03+00:00"
         },
         {
             "name": "brick/math",
@@ -2846,16 +2846,16 @@
     "packages-dev": [
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.17",
+            "version": "2.1.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "89b5ef665716fa2a52ecd2633f21007a6a349053"
+                "reference": "1ccf445757458c06a04eb3f803603cb118fe5fa6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/89b5ef665716fa2a52ecd2633f21007a6a349053",
-                "reference": "89b5ef665716fa2a52ecd2633f21007a6a349053",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1ccf445757458c06a04eb3f803603cb118fe5fa6",
+                "reference": "1ccf445757458c06a04eb3f803603cb118fe5fa6",
                 "shasum": ""
             },
             "require": {
@@ -2900,7 +2900,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-05-21T20:55:28+00:00"
+            "time": "2025-07-28T19:35:08+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -2989,12 +2989,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "ext-imagick": "*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
