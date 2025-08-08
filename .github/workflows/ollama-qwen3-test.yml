@@ -1,0 +1,49 @@
+name: ollama-qwen3-test
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'ollama-qwen3/**'
+
+defaults:
+  run:
+    working-directory: ./ollama-qwen3
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    concurrency:
+      group: ollama-qwen3-test-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+
+    - name: Checkout project
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - uses: actions/cache@v4
+      with:
+        path: ollama-qwen3/vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.2
+
+    - run: |
+        bundle config path vendor/bundle
+        bundle install --jobs 4 --retry 3
+
+    - run: |
+        bundle exec rubocop
+        bundle exec rspec
+      env:
+        COMPOSE_DOCKER_CLI_BUILD: 1
+        DOCKER_BUILDKIT: 1
