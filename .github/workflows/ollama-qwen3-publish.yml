@@ -10,9 +10,9 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        type: [ default, rocm ]
+        type: [ latest, rocm ]
         include:
-          - type: default
+          - type: latest
             baseImage: ''
             latest: true
           - php_version: rocm
@@ -50,8 +50,8 @@ jobs:
         with:
           images: ghcr.io/abenevaut/ollama-qwen3
           tags: |
-            type=raw,value=type=raw,value=${{ matrix.type && format('{0}-qwen3-0.6b', matrix.type) || 'qwen3-0.6b' }}
-            type=raw,value=type=raw,value=${{ matrix.type && format('{0}-qwen3-0.6b', matrix.type) || 'qwen3-0.6b' }}-${{ steps.date.outputs.date }}
+            type=raw,value=type=raw,value=${{ matrix.baseImage && format('{0}-qwen3-0.6b', matrix.baseImage) || 'qwen3-0.6b' }}
+            type=raw,value=type=raw,value=${{ matrix.baseImage && format('{0}-qwen3-0.6b', matrix.baseImage) || 'qwen3-0.6b' }}-${{ steps.date.outputs.date }}
             type=raw,value=latest,enable=${{ matrix.latest }}
 
       - name: Build and push
