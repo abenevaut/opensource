@@ -1,0 +1,71 @@
+name: ollama-qwen3-publish
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  publish:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php_version: [ 82, 83, 84 ]
+        include:
+          - php_version: 82
+            latest: false
+            release-candidate: false
+          - php_version: 83
+            latest: true
+            release-candidate: false
+          - php_version: 84
+            latest: false
+            release-candidate: true
+    concurrency:
+      group: ollama-qwen3-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      cancel-in-progress: false
+    steps:
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date '+%Y%m%d')"
+
+      - name: Checkout project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Log to github registry
+        run: docker login ghcr.io --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/abenevaut/ollama-qwen3
+          tags: |
+            type=raw,value=php${{ matrix.php_version }}
+            type=raw,value=php${{ matrix.php_version }}-${{ steps.date.outputs.date }}
+            type=raw,value=latest,enable=${{ matrix.latest }}
+            type=raw,value=release-candidate,enable=${{ matrix.release-candidate }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: ollama-qwen3
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            "VAPOR_VERSION=${{ matrix.php_version }}"
+            "COMPOSER_HASH=dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6"
