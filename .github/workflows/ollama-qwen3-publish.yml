@@ -10,19 +10,16 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php_version: [ 82, 83, 84 ]
+        type: [ default, rocm ]
         include:
-          - php_version: 82
-            latest: false
-            release-candidate: false
-          - php_version: 83
+          - type: default
+            baseImage: ''
             latest: true
-            release-candidate: false
-          - php_version: 84
+          - php_version: rocm
+            baseImage: 'rocm'
             latest: false
-            release-candidate: true
     concurrency:
-      group: ollama-qwen3-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      group: ollama-qwen3-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.type }}
       cancel-in-progress: false
     steps:
 
@@ -53,10 +50,9 @@ jobs:
         with:
           images: ghcr.io/abenevaut/ollama-qwen3
           tags: |
-            type=raw,value=php${{ matrix.php_version }}
-            type=raw,value=php${{ matrix.php_version }}-${{ steps.date.outputs.date }}
+            type=raw,value=type=raw,value=${{ matrix.type && format('{0}-qwen3-0.6b', matrix.type) || 'qwen3-0.6b' }}
+            type=raw,value=type=raw,value=${{ matrix.type && format('{0}-qwen3-0.6b', matrix.type) || 'qwen3-0.6b' }}-${{ steps.date.outputs.date }}
             type=raw,value=latest,enable=${{ matrix.latest }}
-            type=raw,value=release-candidate,enable=${{ matrix.release-candidate }}
 
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -67,5 +63,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            "VAPOR_VERSION=${{ matrix.php_version }}"
-            "COMPOSER_HASH=dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6"
+            "TYPE=${{ matrix.type }}"

@@ -5,7 +5,7 @@ docker build . --file Dockerfile --build-arg TYPE=latest --tag abenevaut/ollama:
 docker build . --file Dockerfile --build-arg TYPE=rocm --tag abenevaut/ollama:test-rocm-qwen3-0.6b
 ```
 
-Note: `rocm` tag are used to run Ollama with AMD CPU
+Note: `rocm` tag are used to run Ollama with AMD CPU/GPU (https://rocm.docs.amd.com/projects/install-on-linux/en/latest/how-to/docker.html).
 
 ## Usage
 
@@ -13,7 +13,7 @@ Note: `rocm` tag are used to run Ollama with AMD CPU
 
 ```shell
 docker volume create ollama_data
-docker run -it --rm --name ollama -p 11434:11434 -v ollama_data:/root/.ollama ghcr.io/abenevaut/ollama:test-latest-qwen3-0.6b
+docker run -it --rm --name ollama -p 11434:11434 -v ollama_data:/root/.ollama ghcr.io/abenevaut/ollama:qwen3-0.6b
 ```
 
 ## Test
