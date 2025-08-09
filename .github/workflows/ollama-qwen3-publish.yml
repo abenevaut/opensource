@@ -11,6 +11,7 @@ jobs:
       fail-fast: true
       matrix:
         type: [ latest, rocm ]
+        qwenSize: [ 0.6b ]
         include:
           - type: latest
             baseImage: ''
@@ -21,7 +22,7 @@ jobs:
             latest: false
             platforms: linux/amd64
     concurrency:
-      group: ollama-qwen3-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.type }}
+      group: ollama-qwen3-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.type }}-${{ matrix.qwenSize }}
       cancel-in-progress: false
     steps:
 
@@ -52,8 +53,8 @@ jobs:
         with:
           images: ghcr.io/abenevaut/ollama-qwen3
           tags: |
-            type=raw,value=type=raw,value=${{ matrix.baseImage && format('{0}-qwen3-0.6b', matrix.baseImage) || 'qwen3-0.6b' }}
-            type=raw,value=type=raw,value=${{ matrix.baseImage && format('{0}-qwen3-0.6b', matrix.baseImage) || 'qwen3-0.6b' }}-${{ steps.date.outputs.date }}
+            type=raw,value=type=raw,value=${{ matrix.baseImage && format('{0}-qwen3', matrix.baseImage) || 'qwen3' }}-${{ matrix.qwenSize }}
+            type=raw,value=type=raw,value=
             type=raw,value=latest,enable=${{ matrix.latest }}
 
       - name: Build and push
@@ -61,8 +62,35 @@ jobs:
         with:
           context: ollama-qwen3
           platforms: ${{ matrix.platforms }}
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          push: false
+          tags: temp-qwen3:build
           build-args: |
             "TYPE=${{ matrix.type }}"
+
+      - name: Run container and load qwen3
+        run: |
+          docker run -d --name qwen3_loader -e OLLAMA_MODEL=qwen3:0.6b temp-qwen3:build
+          sleep 10
+          docker exec qwen3_loader ollama pull qwen3:${QWEN3_SIZE}
+        env:
+          QWEN3_SIZE: ${{ matrix.qwenSize }}
+
+      - name: Commit container as new image
+        run: |
+          docker commit qwen3_loader abenevaut/ollama-qwen3:with-qwen3
+
+      - name: Push final image
+        run: |
+          docker tag abenevaut/ollama-qwen3:with-qwen3 ghcr.io/abenevaut/ollama-qwen3:${TAG_DAY}
+          docker tag abenevaut/ollama-qwen3:with-qwen3 ghcr.io/abenevaut/ollama-qwen3:${TAG_QWEN3}
+          docker push ghcr.io/abenevaut/ollama-qwen3:${TAG_DAY}
+          docker push ghcr.io/abenevaut/ollama-qwen3:${TAG_QWEN3}
+        env:
+          TAG_DAY: ${{ matrix.baseImage && format('{0}-qwen3', matrix.baseImage) || 'qwen3' }}-qwen${{ matrix.qwenSize }}Size-${{ steps.date.outputs.date }}
+          TAG_QWEN3: ${{ matrix.baseImage && format('{0}-qwen3', matrix.baseImage) || 'qwen3' }}-${{ matrix.qwenSize }}
+
+      - name: Push latest image
+        if: ${{ matrix.latest }}
+        run: |
+          docker tag abenevaut/ollama-qwen3:with-qwen3 latest
+          docker push ghcr.io/abenevaut/ollama-qwen3:latest
