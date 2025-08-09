@@ -51,7 +51,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/abenevaut/ollama-qwen3
+          images: abenevaut/ollama-qwen3
           tags: |
             type=raw,value=type=raw,value=${{ matrix.baseImage && format('{0}-qwen3', matrix.baseImage) || 'qwen3' }}-${{ matrix.qwenSize }}
             type=raw,value=type=raw,value=
@@ -63,13 +63,13 @@ jobs:
           context: ollama-qwen3
           platforms: ${{ matrix.platforms }}
           push: false
-          tags: temp-qwen3:build
+          tags: temp-qwen3
           build-args: |
             "TYPE=${{ matrix.type }}"
 
       - name: Run container and load qwen3
         run: |
-          docker run -d --name qwen3_loader -e OLLAMA_MODEL=qwen3:0.6b temp-qwen3:build
+          docker run -d --name qwen3_loader -e OLLAMA_MODEL=qwen3:0.6b abenevaut/ollama-qwen3:temp-qwen3
           sleep 10
           docker exec qwen3_loader ollama pull qwen3:${QWEN3_SIZE}
         env:
