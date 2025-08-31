@@ -3,6 +3,9 @@ volumes:
 
 services:
 
+  #
+  # docker-compose build ollama-qwen3
+  #
   ollama-qwen3:
     image: abenevaut/ollama:qwen3-0.6b
     build:
