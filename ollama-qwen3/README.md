@@ -13,7 +13,7 @@ Note: `rocm` tag are used to run Ollama with AMD CPU/GPU (https://rocm.docs.amd.
 
 ```shell
 docker volume create ollama_data
-docker run -it --rm --name ollama -p 11434:11434 -v ollama_data:/root/.ollama ghcr.io/abenevaut/ollama:qwen3-0.6b
+docker run -it --rm --name ollama -p 11434:11434 -v ollama_data:/root/.ollama ghcr.io/abenevaut/ollama-qwen3:latest
 ```
 
 ## Test
