@@ -4,7 +4,7 @@ volumes:
 services:
 
   ollama-qwen3:
-    image: abenevaut/ollama:test-qwen3-0.6b
+    image: abenevaut/ollama:qwen3-0.6b
     build:
       context: ollama-qwen3
       dockerfile: Dockerfile
