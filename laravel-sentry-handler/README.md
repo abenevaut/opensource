@@ -30,7 +30,7 @@ public function report(\Throwable $e): void
 }
 ```
 
-Note: that method is used in [demo](https://github.com/abenevaut/demo-laravel-sentry-handler)
+Note: that method is used in [demo](https://github.com/abenevaut/experimental/demo-laravel-sentry-handler)
 
 #### Handler Trait
 
