@@ -9,10 +9,14 @@
         <option value="$PROJECT_DIR$/laravel-ohdear/tests" />
         <option value="$PROJECT_DIR$/laravel-stripe/tests" />
         <option value="$PROJECT_DIR$/laravel-one/tests" />
-        <option value="$PROJECT_DIR$/laravel-session/tests" />
-        <option value="$PROJECT_DIR$/laravel-infrastructure/tests" />
-        <option value="$PROJECT_DIR$/laravel-sentry-handler/tests" />
-        <option value="$PROJECT_DIR$/demo-laravel-sentry-handler/tests" />
+        <option value="$PROJECT_DIR$/laravel-session/tests/Unit" />
+        <option value="$PROJECT_DIR$/laravel-sentry-handler/tests/Unit" />
+        <option value="$PROJECT_DIR$/laravel-kite/tests/Unit" />
+        <option value="$PROJECT_DIR$/laravel-infrastructure/tests/Unit" />
+        <option value="$PROJECT_DIR$/demo-laravel-sentry-handler/tests/Unit" />
+        <option value="$PROJECT_DIR$/demo-laravel-sentry-handler/tests/Feature" />
+        <option value="$PROJECT_DIR$/bastion/tests/Unit" />
+        <option value="$PROJECT_DIR$/bastion/tests/Feature" />
       </list>
     </option>
   </component>
