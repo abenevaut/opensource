@@ -1,4 +1,18 @@
+volumes:
+  ollama_data:
+
 services:
+
+  #
+  # docker-compose build ollama-qwen3
+  #
+  ollama-qwen3:
+    image: abenevaut/ollama:qwen3-0.6b
+    build:
+      context: ollama-qwen3
+      dockerfile: Dockerfile
+    volumes:
+      - ollama_data:/root/.ollama
 
   lambda-qr:
     image: abenevaut/lambda-qr:latest
