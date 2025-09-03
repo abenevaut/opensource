@@ -5,10 +5,9 @@
 @endphp
 
 @section('meta')
-    <link rel="canonical" href="//index.html" />
     <script>
-      window.article = '@json($article)'
-      window.writeup = {!! $writeup !!}
+      window.meta = '@json($article ?? "")'
+      window.article = {!! $writeup !!}
     </script>
     <script type="module" src="assets/Writeup.js"></script>
 @endsection
