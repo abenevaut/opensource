@@ -32,3 +32,4 @@ If you have any suggestions or spot any errors, please create an issue or submit
 
 - https://git-scm.com/
 - https://www.conventionalcommits.org/en/v1.0.0/
+- https://www.datacamp.com/fr/tutorial/github-and-git-tutorial-for-beginners
