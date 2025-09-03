@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="laravel-sqlmap" pattern="file[opensource]:laravel-sqlmap//*||file[opensource]:laravel-postman-main//*" />
+</component>
