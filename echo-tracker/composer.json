@@ -15,13 +15,35 @@
             "email": "me@abenevaut.dev"
         }
     ],
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../laravel-bluesky-client"
+        },
+        {
+            "type": "path",
+            "url": "../laravel-discord-client"
+        },
+        {
+            "type": "path",
+            "url": "../laravel-instagram-client"
+        },
+        {
+            "type": "path",
+            "url": "../laravel-twitch-client"
+        },
+        {
+            "type": "path",
+            "url": "../laravel-x-client"
+        }
+    ],
     "require": {
         "php": "^8.3",
-        "abenevaut/laravel-bluesky-client": "^0.0.5",
-        "abenevaut/laravel-discord-client": "^0.0.2",
-        "abenevaut/laravel-instagram-client": "^0.0.3",
-        "abenevaut/laravel-twitch-client": "^0.0.2",
-        "abenevaut/laravel-x-client": "^0.0.2",
+        "abenevaut/laravel-bluesky-client": "dev-main",
+        "abenevaut/laravel-discord-client": "dev-main",
+        "abenevaut/laravel-instagram-client": "dev-main",
+        "abenevaut/laravel-twitch-client": "dev-main",
+        "abenevaut/laravel-x-client": "dev-main",
         "illuminate/http": "^11.5",
         "laravel-zero/framework": "^11.36.1"
     },

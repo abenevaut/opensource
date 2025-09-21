@@ -13,7 +13,7 @@ Add discord service to your `config/services.php` file:
 ```php
 'discord' => [
     'baseUrl' => 'https://discord.com/api', // Discord API URL
-    'debug' => env('BLUESKY_DEBUG', false), // Debug mode
+    'debug' => env('DISCORD_DEBUG', false), // Debug mode
 ],
 ```
 
