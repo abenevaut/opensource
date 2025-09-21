@@ -16,7 +16,7 @@ class GoogleMapsServiceProvider extends ServiceProvider
     {
         parent::register();
 
-        // Enregistre l'instance du client GoogleMaps avec la clé API fournie via AccessToken
+        // Registers the GoogleMaps client instance with the API key provided via AccessToken
         $this->app->singleton(GoogleMapsClient::class, function (Container $app) {
             // @codeCoverageIgnoreStart
             $accessToken = new AccessToken(
