@@ -21,9 +21,14 @@ Add GoogleMaps service to your `config/services.php` file:
 ## Usage
 
 ```php
-use Abenevaut\GoogleMaps\Facades\GoogleMaps;
+use abenevaut\GoogleMaps\Facades\GoogleMaps;
 
-GoogleMaps::getClient(): GoogleMaps; // Get the Google Maps client
+// Example: Search for nearby places
+$results = GoogleMaps::placesNearby([
+    'location' => '48.8588443,2.2943506', // Eiffel Tower
+    'radius' => 1500,
+    'type' => 'restaurant',
+]);
 
 // ... to be continued
 ```
