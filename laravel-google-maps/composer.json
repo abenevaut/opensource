@@ -1,7 +1,7 @@
 {
     "name": "abenevaut/laravel-google-maps",
     "type": "library",
-    "description": "Laravel Http Client Infrastructure",
+    "description": "Google Maps integration and utilities for Laravel applications.",
     "keywords": [
         "laravel",
         "client",
