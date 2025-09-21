@@ -12,9 +12,9 @@ Add GoogleMaps service to your `config/services.php` file:
 
 ```php
 'googlemaps' => [
-    'baseUrl' => env('GOOGLEMAPS_URL', 'https://places.googleapis.com/v1/places:searchNearby'),
-    'api_key' => env('GOOGLEMAPS_API_KEY'),
-    'debug' => env('GOOGLEMAPS_DEBUG', false),
+    'baseUrl' => env('GOOGLE_MAPS_URL', 'https://places.googleapis.com'),
+    'api_key' => env('GOOGLE_MAPS_API_KEY'),
+    'debug' => env('GOOGLE_MAPS_DEBUG', false),
 ],
 ```
 

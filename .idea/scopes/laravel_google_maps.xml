@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="laravel-google-maps" pattern="file[opensource]:laravel-google-maps//*||file:.github/workflows/laravel-google-maps-client-release.yml||file:.github/workflows/laravel-google-maps-client-test.yml" />
+</component>
