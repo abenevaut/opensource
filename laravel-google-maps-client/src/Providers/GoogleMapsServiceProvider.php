@@ -16,7 +16,6 @@ class GoogleMapsServiceProvider extends ServiceProvider
     {
         parent::register();
 
-        // Registers the GoogleMaps client instance with the API key provided via AccessToken
         $this->app->singleton(GoogleMapsClient::class, function (Container $app) {
             // @codeCoverageIgnoreStart
             $accessToken = new AccessToken(
@@ -31,13 +30,19 @@ class GoogleMapsServiceProvider extends ServiceProvider
         });
 
         $this->app->alias(GoogleMapsClient::class, 'googlemaps.http-client.authenticated');
+
+        $this->app->singleton(GoogleMapsService::class, function (Container $app) {
+            // @codeCoverageIgnoreStart
+            return new GoogleMapsService($app->make('googlemaps.http-client.authenticated'));
+            // @codeCoverageIgnoreEnd
+        });
     }
 
     public function provides()
     {
         return [
-            GoogleMapsClient::class,
             'googlemaps.http-client.authenticated',
+            GoogleMapsService::class,
         ];
     }
 }

@@ -32,6 +32,33 @@ final class GoogleMapsClient extends AuthenticatedClientAbstract
             ->json();
     }
 
+    /**
+     * https://developers.google.com/maps/documentation/timezone/requests-timezone?hl=fr
+     *
+     * @return array
+     * @throws \Illuminate\Http\Client\ConnectionException
+     * @throws \Illuminate\Http\Client\RequestException
+     */
+    public function searchTimezone(float $lat, float, $lng, $timestamp): array
+    {
+        $response = $this->request();
+
+        if (!empty($fieldMaskParts)) {
+            $response->withHeaders([
+                'X-Goog-FieldMask' => implode(',', $fieldMaskParts)
+            ]);
+        }
+
+        return $response
+            ->get('https://maps.googleapis.com/maps/api/timezone/json', [
+                'location' => $lat . ',' . $lng,
+                'timestamp' => $timestamp,
+                'key' => $apiKey,
+            ])
+            ->throw()
+            ->json();
+    }
+
     protected function authenticate(PendingRequest $pendingRequest): void
     {
         if ($this->accessToken) {
