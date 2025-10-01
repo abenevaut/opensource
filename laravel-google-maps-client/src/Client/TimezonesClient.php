@@ -27,17 +27,10 @@ final class TimezonesClient extends AuthenticatedClientAbstract
      */
     public function searchTimezone(float $lat, float $lng, $timestamp): array
     {
-        $response = $this->request();
-
-        if (!empty($fieldMaskParts)) {
-            $response->withHeaders([
-                'X-Goog-FieldMask' => implode(',', $fieldMaskParts)
-            ]);
-        }
-
-        return $response
+        return $this
+            ->request()
             ->get('/json', [
-                'location' => $lat . ',' . $lng,
+                'location' => "{$lat},{$lng}",
                 'timestamp' => $timestamp,
                 'key' => $this->accessToken->getAccessToken(),
             ])

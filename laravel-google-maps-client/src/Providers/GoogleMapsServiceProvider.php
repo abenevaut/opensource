@@ -18,11 +18,13 @@ class GoogleMapsServiceProvider extends ServiceProvider
     {
         parent::register();
 
-        $this->app->singleton(GoogleMapsServiceFactory::class, function (Container $app) {
+        $driversList = $this->app->get('config')->get('google-maps')->keys();
+
+        $this->app->singleton(GoogleMapsServiceFactory::class, function (Container $app, $driversList) {
             // @codeCoverageIgnoreStart
             return new GoogleMapsServiceFactory(
                 [$app, 'resolve'],
-                $app->get('config')->get('google-maps')->keys()
+                $driversList
             );
             // @codeCoverageIgnoreEnd
         });
@@ -30,7 +32,7 @@ class GoogleMapsServiceProvider extends ServiceProvider
         $this->app->singleton(AccessToken::class, function (Container $app) {
             // @codeCoverageIgnoreStart
             return new AccessToken(
-                $app->get('config')->get('services.googlemaps.api_key')
+                $app->get('config')->get('google-maps.api_key')
             );
             // @codeCoverageIgnoreEnd
         });
