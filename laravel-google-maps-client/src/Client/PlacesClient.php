@@ -19,7 +19,7 @@ final class PlacesClient extends AuthenticatedClientAbstract
         );
     }
 
-    public function searchNearby(array $requestBody, array $fieldMaskParts = []): array
+    public function searchNearbyPromise(array $requestBody, array $fieldMaskParts = []): \GuzzleHttp\Promise\PromiseInterface
     {
         $response = $this->request();
 
@@ -30,7 +30,15 @@ final class PlacesClient extends AuthenticatedClientAbstract
         }
 
         return $response
-            ->post('v1/places:searchNearby', $requestBody)
+            ->async()
+            ->post('v1/places:searchNearby', $requestBody);
+    }
+
+    public function searchNearby(array $requestBody, array $fieldMaskParts = []): array
+    {
+        return $this
+            ->searchNearbyPromise($requestBody, $fieldMaskParts)
+            ->wait()
             ->throw()
             ->json();
     }

@@ -50,7 +50,7 @@ class GoogleMapsServiceProvider extends ServiceProvider
             // @codeCoverageIgnoreStart
             return new TimezonesService(
                 $app->make(AccessToken::class),
-                $app->get('config')->get('google-maps.timezone.debug', false),
+                $app->get('config')->get('google-maps.timezones.debug', false),
             );
             // @codeCoverageIgnoreEnd
         });
