@@ -52,7 +52,7 @@ jobs:
         with:
           path: ${{ github.workspace }}/laravel-one/demo.tape
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: vhs
           path: ${{ github.workspace }}/laravel-one/demo.gif
@@ -100,7 +100,7 @@ jobs:
       - name: Build
         run: php laravel-one app:build laravel-one --build-version=${{ steps.branch-name.outputs.SOURCE_TAG }}
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: release
           path: |
