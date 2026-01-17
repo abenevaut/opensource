@@ -1,0 +1,40 @@
+name: docker-kata-release
+
+on:
+  push:
+    tags:
+      - docker-kata-*
+
+defaults:
+  run:
+    working-directory: ./docker-kata
+
+jobs:
+
+  release:
+    runs-on: ubuntu-latest
+    environment:
+      name: docker-kata
+      url: https://github.com/abenevaut/docker-kata
+    concurrency:
+      group: docker-kata-release-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+
+      - name: Get current release tag
+        id: branch-name
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/docker-kata-}" >> $GITHUB_OUTPUT
+
+      - name: Publish to readonly repository abenevaut/docker-kata
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: git@github.com:abenevaut/docker-kata.git
+          BRANCH: master
+          FOLDER: docker-kata
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_DOCKER_KATA }}
+          TAG: ${{ steps.branch-name.outputs.SOURCE_TAG }}

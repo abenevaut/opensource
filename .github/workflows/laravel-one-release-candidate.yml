@@ -20,7 +20,7 @@ jobs:
     steps:
 
       - name: Checkout project
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -50,7 +50,7 @@ jobs:
         with:
           path: ${{ github.workspace }}/laravel-one/demo.tape
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: buildVhs
           path: ${{ github.workspace }}/laravel-one/demo.gif
@@ -71,7 +71,7 @@ jobs:
     steps:
 
       - name: Checkout project
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 1
 
@@ -98,7 +98,7 @@ jobs:
       - name: Build
         run: php laravel-one app:build laravel-one --build-version=${{ steps.branch-name.outputs.SOURCE_TAG }}
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: build
           path: |
@@ -119,12 +119,12 @@ jobs:
       cancel-in-progress: false
     steps:
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5
         with:
           name: build
           path: ${{ github.workspace }}/laravel-one
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5
         with:
           name: buildVhs
           path: ${{ github.workspace }}/laravel-one
@@ -135,7 +135,7 @@ jobs:
 
       - run: sed '/\/builds/d' .gitignore > .gitignore.tmp && mv .gitignore.tmp .gitignore
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: release-candidate
           path: ${{ github.workspace }}/laravel-one
