@@ -1,4 +1,4 @@
-ARG VAPOR_DEFAULT_VERSION=83
+ARG VAPOR_DEFAULT_VERSION=85
 FROM ghcr.io/abenevaut/vapor-default:php${VAPOR_DEFAULT_VERSION}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
@@ -43,7 +43,6 @@ HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:8080/fpm-pin
 ENV nginx_client_max_body_size=2M \
     php_allow_url_fopen=On \
     php_allow_url_include=Off \
-    # enable debug stack, important de le transformer en argument de demarrage dev/prod
     php_log_errors=On \
     php_display_errors=Off \
     php_error_reporting="E_ALL & ~E_DEPRECATED & ~E_STRICT" \
@@ -56,14 +55,13 @@ ENV nginx_client_max_body_size=2M \
     php_upload_max_filesize=2M \
     php_date_timezone=UTC \
     php_zlib_output_compression=On \
-    ## XDebug PHP
+## XDebug PHP
     # https://xdebug.org/docs/all_settings#mode
     # values : develop,trace,debug,coverage
     php_xdebug_mode=off \
     php_xdebug_idekey=PHPSTORM \
     php_xdebug_log="/var/task/storage/logs/xdebug-errors.log" \
-    ## OPCACHE PHP
-    # enable debug stack, important de le transformer en argument de demarrage dev/prods
+## OPCACHE PHP
     php_opcache_enable=On \
     # https://www.php.net/manual/fr/opcache.configuration.php
     # default: tracing
@@ -72,7 +70,7 @@ ENV nginx_client_max_body_size=2M \
     php_opcache_revalidate_freq=Off \
     # default: 0
     php_opcache_enable_cli=On \
-    ## PHP-FPM
+## PHP-FPM
     php_clear_env=No \
     ## to display error in docker console (stderr) use `/proc/self/fd/2`
     php_error_log="/var/task/storage/logs/error.log" \
