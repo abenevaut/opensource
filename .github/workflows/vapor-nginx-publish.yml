@@ -16,11 +16,11 @@ jobs:
             latest: false
             release-candidate: false
           - php_version: 84
-            latest: true
+            latest: false
             release-candidate: false
           - php_version: 85
-            latest: false
-            release-candidate: true
+            latest: true
+            release-candidate: false
     concurrency:
       group: vapor-nginx-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: false
