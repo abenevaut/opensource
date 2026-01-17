@@ -15,8 +15,10 @@ jobs:
         include:
           - platform: linux/amd64
             runtime: docker
+            arch: amd64
           - platform: linux/arm64
             runtime: docker-arm
+            arch: arm64
           - php_version: 83
             latest: false
             release-candidate: false
@@ -73,5 +75,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             "VAPOR_VERSION=${{ matrix.php_version }}"
+            "TARGETARCH=${{ matrix.arch }}"
             "__VAPOR_RUNTIME=${{ matrix.runtime }}"
             "COMPOSER_HASH=c8b085408188070d5f52bcfe4ecfbee5f727afa458b2573b8eaaf77b3419b0bf2768dc67c86944da1544f06fa544fd47"
