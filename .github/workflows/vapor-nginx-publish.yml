@@ -10,17 +10,17 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php_version: [ 82, 83, 84 ]
+        php_version: [ 83, 84, 85 ]
         include:
-          - php_version: 82
-            latest: false
-            release-candidate: false
           - php_version: 83
-            latest: true
+            latest: false
             release-candidate: false
           - php_version: 84
             latest: false
-            release-candidate: true
+            release-candidate: false
+          - php_version: 85
+            latest: true
+            release-candidate: false
     concurrency:
       group: vapor-nginx-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: false

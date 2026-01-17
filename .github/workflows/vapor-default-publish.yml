@@ -10,17 +10,17 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php_version: [ 82, 83, 84 ]
+        php_version: [ 83, 84, 85 ]
         include:
-          - php_version: 82
-            latest: false
-            release-candidate: false
           - php_version: 83
-            latest: true
+            latest: false
             release-candidate: false
           - php_version: 84
             latest: false
-            release-candidate: true
+            release-candidate: false
+          - php_version: 85
+            latest: true
+            release-candidate: false
     concurrency:
       group: vapor-default-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: false
@@ -68,4 +68,4 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             "VAPOR_VERSION=${{ matrix.php_version }}"
-            "COMPOSER_HASH=dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6"
+            "COMPOSER_HASH=c8b085408188070d5f52bcfe4ecfbee5f727afa458b2573b8eaaf77b3419b0bf2768dc67c86944da1544f06fa544fd47"
