@@ -12,6 +12,7 @@ describe 'Dockerfile' do
     # Dotenv.load('./../.env.example')
 
     build_args = JSON.generate(
+      TARGETARCH: ENV.fetch('TARGETARCH'),
       VAPOR_VERSION: ENV.fetch('VAPOR_VERSION')
     )
 
