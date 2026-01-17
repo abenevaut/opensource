@@ -1,4 +1,5 @@
-ARG VAPOR_VERSION=85
+ARG TARGETARCH=amd64
+ARG VAPOR_VERSION=85${TARGETARCH/arm64/-arm}
 FROM laravelphp/vapor:php${VAPOR_VERSION}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
