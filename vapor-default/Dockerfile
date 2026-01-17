@@ -1,9 +1,8 @@
 ARG VAPOR_VERSION=85
-FROM laravelphp/vapor:php${VAPOR_VERSION} AS base-amd64
-FROM laravelphp/vapor:php${VAPOR_VERSION}-arm AS base-arm64
-
 ARG TARGETARCH=amd64
-FROM base-${TARGETARCH}
+ARG ARM_SUFFIX=${TARGETARCH:+${TARGETARCH}}
+
+FROM laravelphp/vapor:php${VAPOR_VERSION}${ARM_SUFFIX:+-arm}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.source=https://github.com/abenevaut/opensource
