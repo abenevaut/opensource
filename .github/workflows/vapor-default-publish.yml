@@ -11,7 +11,12 @@ jobs:
       fail-fast: true
       matrix:
         php_version: [ 83, 84, 85 ]
+        platform: [ linux/amd64, linux/arm64 ]
         include:
+          - platform: linux/amd64
+            runtime: docker
+          - platform: linux/arm64
+            runtime: docker-arm
           - php_version: 83
             latest: false
             release-candidate: false
@@ -22,7 +27,7 @@ jobs:
             latest: true
             release-candidate: false
     concurrency:
-      group: vapor-default-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      group: vapor-default-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}-${{ matrix.platform }}
       cancel-in-progress: false
     steps:
 
@@ -62,10 +67,11 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: vapor-default
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ matrix.platform }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             "VAPOR_VERSION=${{ matrix.php_version }}"
+            "__VAPOR_RUNTIME=${{ matrix.runtime }}"
             "COMPOSER_HASH=c8b085408188070d5f52bcfe4ecfbee5f727afa458b2573b8eaaf77b3419b0bf2768dc67c86944da1544f06fa544fd47"

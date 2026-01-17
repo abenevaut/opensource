@@ -1,6 +1,9 @@
+ARG __VAPOR_RUNTIME=docker
 ARG TARGETARCH=amd64
-ARG VAPOR_VERSION=85${TARGETARCH/arm64/-arm}
-FROM laravelphp/vapor:php${VAPOR_VERSION}
+ARG CURRENT_ARCH=${TARGETARCH/amd64/""}
+ARG CURRENT_ARCH=${CURRENT_ARCH/arm64/-arm}
+ARG VAPOR_VERSION=85
+FROM laravelphp/vapor:php${VAPOR_VERSION}${CURRENT_ARCH}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.source=https://github.com/abenevaut/opensource
