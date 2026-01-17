@@ -80,7 +80,7 @@ ENV php_allow_url_fopen=On \
     php_xdebug_mode=off \
     php_xdebug_idekey=PHPSTORM \
     php_xdebug_log="/var/task/storage/logs/xdebug-errors.log" \
-## OPCACHE PHP (opcache.ini-example)
+## OPCACHE PHP (opcache.ini)
     php_opcache_enable=On \
     # https://www.php.net/manual/fr/opcache.configuration.php
     # default: tracing
