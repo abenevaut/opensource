@@ -6,17 +6,20 @@ use abenevaut\Infrastructure\Client\AuthenticatedClientAbstract;
 use abenevaut\Infrastructure\Client\AccessTokenInterface;
 use Illuminate\Http\Client\PendingRequest;
 
-final class GoogleMapsClient extends AuthenticatedClientAbstract
+final class PlacesClient extends AuthenticatedClientAbstract
 {
     public function __construct(
-        string $baseUrl,
         AccessTokenInterface $accessToken,
         bool $debug = false
     ) {
-        parent::__construct($baseUrl, $accessToken, $debug);
+        parent::__construct(
+            'https://places.googleapis.com',
+            $accessToken,
+            $debug
+        );
     }
 
-    public function searchNearby(array $requestBody, array $fieldMaskParts = []): array
+    public function searchNearbyPromise(array $requestBody, array $fieldMaskParts = []): \GuzzleHttp\Promise\PromiseInterface
     {
         $response = $this->request();
 
@@ -27,7 +30,15 @@ final class GoogleMapsClient extends AuthenticatedClientAbstract
         }
 
         return $response
-            ->post('v1/places:searchNearby', $requestBody)
+            ->async()
+            ->post('v1/places:searchNearby', $requestBody);
+    }
+
+    public function searchNearby(array $requestBody, array $fieldMaskParts = []): array
+    {
+        return $this
+            ->searchNearbyPromise($requestBody, $fieldMaskParts)
+            ->wait()
             ->throw()
             ->json();
     }
