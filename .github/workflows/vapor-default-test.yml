@@ -17,14 +17,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php_version: [ 82, 83, 84 ]
+        php_version: [ 83, 84, 85 ]
     concurrency:
       group: vapor-default-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
     steps:
 
     - name: Checkout project
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
 
@@ -48,6 +48,6 @@ jobs:
         bundle exec rspec
       env:
         VAPOR_VERSION: ${{ matrix.php_version }}
-        COMPOSER_HASH: dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6
+        COMPOSER_HASH: c8b085408188070d5f52bcfe4ecfbee5f727afa458b2573b8eaaf77b3419b0bf2768dc67c86944da1544f06fa544fd47
         COMPOSE_DOCKER_CLI_BUILD: 1
         DOCKER_BUILDKIT: 1

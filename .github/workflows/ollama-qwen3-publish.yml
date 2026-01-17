@@ -1,0 +1,69 @@
+name: ollama-qwen3-publish
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  publish:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        type: [ latest, rocm ]
+        qwenSize: [ 0.6b ]
+        include:
+          - type: latest
+            baseImage: ''
+            latest: true
+            platforms: linux/amd64,linux/arm64
+          - type: rocm
+            baseImage: 'rocm'
+            latest: false
+            platforms: linux/amd64
+    concurrency:
+      group: ollama-qwen3-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.type }}-${{ matrix.qwenSize }}
+      cancel-in-progress: false
+    steps:
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date '+%Y%m%d')"
+
+      - name: Checkout project
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+
+      - name: Log to github registry
+        run: docker login ghcr.io --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/abenevaut/ollama-qwen3
+          tags: |
+            type=raw,value=type=raw,value=${{ matrix.baseImage && format('{0}-qwen3', matrix.baseImage) || 'qwen3' }}-${{ matrix.qwenSize }}
+            type=raw,value=type=raw,value=${{ matrix.baseImage && format('{0}-qwen3', matrix.baseImage) || 'qwen3' }}-${{ matrix.qwenSize }}-${{ steps.date.outputs.date }}
+            type=raw,value=latest,enable=${{ matrix.latest }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: ollama-qwen3
+          platforms: ${{ matrix.platforms }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            "TYPE=${{ matrix.type }}"
