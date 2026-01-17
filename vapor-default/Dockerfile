@@ -1,6 +1,9 @@
+ARG __VAPOR_RUNTIME=docker
 ARG TARGETARCH=amd64
-ARG VAPOR_VERSION=85${TARGETARCH/arm64/-arm}
-FROM laravelphp/vapor:php${VAPOR_VERSION}
+ARG CURRENT_ARCH=${TARGETARCH/amd64/""}
+ARG CURRENT_ARCH=${CURRENT_ARCH/arm64/-arm}
+ARG VAPOR_VERSION=85
+FROM laravelphp/vapor:php${VAPOR_VERSION}${CURRENT_ARCH}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.source=https://github.com/abenevaut/opensource
@@ -77,7 +80,7 @@ ENV php_allow_url_fopen=On \
     php_xdebug_mode=off \
     php_xdebug_idekey=PHPSTORM \
     php_xdebug_log="/var/task/storage/logs/xdebug-errors.log" \
-## OPCACHE PHP (opcache.ini-example)
+## OPCACHE PHP (opcache.ini)
     php_opcache_enable=On \
     # https://www.php.net/manual/fr/opcache.configuration.php
     # default: tracing
