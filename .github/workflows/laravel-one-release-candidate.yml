@@ -50,7 +50,7 @@ jobs:
         with:
           path: ${{ github.workspace }}/laravel-one/demo.tape
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: buildVhs
           path: ${{ github.workspace }}/laravel-one/demo.gif
@@ -98,7 +98,7 @@ jobs:
       - name: Build
         run: php laravel-one app:build laravel-one --build-version=${{ steps.branch-name.outputs.SOURCE_TAG }}
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: build
           path: |
@@ -135,7 +135,7 @@ jobs:
 
       - run: sed '/\/builds/d' .gitignore > .gitignore.tmp && mv .gitignore.tmp .gitignore
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: release-candidate
           path: ${{ github.workspace }}/laravel-one
