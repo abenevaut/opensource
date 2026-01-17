@@ -10,15 +10,15 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php_version: [ 82, 83, 84 ]
+        php_version: [ 83, 84, 85 ]
         include:
-          - php_version: 82
+          - php_version: 83
             latest: false
             release-candidate: false
-          - php_version: 83
+          - php_version: 84
             latest: true
             release-candidate: false
-          - php_version: 84
+          - php_version: 85
             latest: false
             release-candidate: true
     concurrency:

@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php_version: [ 82, 83, 84 ]
+        php_version: [ 83, 84, 85 ]
     concurrency:
       group: vapor-ci-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
