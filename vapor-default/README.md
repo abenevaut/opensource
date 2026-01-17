@@ -5,9 +5,12 @@ Inherits from [Docker Vapor images](https://github.com/laravel/vapor-dockerfiles
 ## Build
 
 ```shell
-docker build . --file Dockerfile --tag abenevaut/vapor-default:test --build-arg VAPOR_VERSION=85
+docker build . --file Dockerfile --tag abenevaut/vapor-default:test \
+  --build-arg TARGETARCH=<amd64|arm64> \
+  --build-arg VAPOR_VERSION=85
 ```
 
+- TARGETARCH: target architecture `arm64` or `amd64`
 - VAPOR_VERSION: vapor docker version, default `85`
 
 ## Usage
