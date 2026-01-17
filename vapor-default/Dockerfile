@@ -1,6 +1,6 @@
 ARG TARGETARCH=amd64
-ARG VAPOR_VERSION=85
-FROM laravelphp/vapor:php${VAPOR_VERSION}${TARGETARCH:+${TARGETARCH:+$([ "$TARGETARCH" = "arm64" ] && echo "-arm" || echo "")}}
+ARG VAPOR_VERSION=85${TARGETARCH/arm64/-arm}
+FROM laravelphp/vapor:php${VAPOR_VERSION}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.source=https://github.com/abenevaut/opensource

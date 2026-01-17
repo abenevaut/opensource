@@ -12,13 +12,13 @@ describe 'Dockerfile' do
     # Dotenv.load('./../.env.example')
 
     build_args = JSON.generate(
-      TARGETARCH: ENV.fetch('TARGETARCH'),
       VAPOR_VERSION: ENV.fetch('VAPOR_VERSION')
     )
 
     image = Docker::Image.build_from_dir(
       '.',
       t: 'abenevaut/vapor-default:rspec',
+      platform: ENV.fetch('DOCKER_DEFAULT_PLATFORM', 'linux/amd64'),
       buildargs: build_args
     )
 
