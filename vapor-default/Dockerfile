@@ -54,8 +54,9 @@ ENTRYPOINT [ "/bin/docker-entrypoint.sh" ]
 
 CMD []
 
-RUN pecl install xdebug
+RUN pecl install xdebug opcache
 
+## custom.ini
 ENV php_allow_url_fopen=On \
     php_allow_url_include=Off \
     php_log_errors=On \
@@ -70,13 +71,13 @@ ENV php_allow_url_fopen=On \
     php_upload_max_filesize=2M \
     php_date_timezone=UTC \
     php_zlib_output_compression=On \
-## XDebug PHP
+## XDebug PHP (xdebug.ini)
     # https://xdebug.org/docs/all_settings#mode
     # values : develop,trace,debug,coverage
     php_xdebug_mode=off \
     php_xdebug_idekey=PHPSTORM \
     php_xdebug_log="/var/task/storage/logs/xdebug-errors.log" \
-## OPCACHE PHP
+## OPCACHE PHP (opcache.ini-example)
     php_opcache_enable=On \
     # https://www.php.net/manual/fr/opcache.configuration.php
     # default: tracing
