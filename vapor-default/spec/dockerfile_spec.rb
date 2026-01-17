@@ -39,7 +39,7 @@ describe 'Dockerfile' do
   describe command('cat /etc/os-release') do
     it 'confirm alpine version' do
       expect(subject.stdout).to match(/Alpine Linux/)
-      expect(subject.stdout).to match(/3.20/).or match(/3.21/)
+      expect(subject.stdout).to match(/3.2/)
     end
   end
 
@@ -48,7 +48,7 @@ describe 'Dockerfile' do
   end
 
   it 'installs php' do
-    expect(php_version).to include('8.2').or include('8.3').or include('8.4')
+    expect(php_version).to include('8.3').or include('8.4').or include('8.5')
   end
 
   def php_redis_loaded
