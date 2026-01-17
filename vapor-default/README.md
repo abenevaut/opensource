@@ -5,10 +5,10 @@ Inherits from [Docker Vapor images](https://github.com/laravel/vapor-dockerfiles
 ## Build
 
 ```shell
-docker build . --file Dockerfile --tag abenevaut/vapor-default:test --build-arg VAPOR_VERSION=83
+docker build . --file Dockerfile --tag abenevaut/vapor-default:test --build-arg VAPOR_VERSION=85
 ```
 
-- VAPOR_VERSION: vapor docker version, default `83`
+- VAPOR_VERSION: vapor docker version, default `85`
 
 ## Usage
 

@@ -38,7 +38,7 @@ describe 'Dockerfile' do
   end
 
   it 'installs php' do
-    expect(php_version).to include('8.2').or include('8.3').or include('8.4')
+    expect(php_version).to include('8.3').or include('8.4').or include('8.5')
   end
 
   def php_xdebug_enabled
@@ -66,6 +66,6 @@ describe 'Dockerfile' do
   end
 
   it 'installs composer' do
-    expect(composer_version).to include('2.8.9')
+    expect(composer_version).to include('2.9.3')
   end
 end
