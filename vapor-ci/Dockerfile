@@ -43,7 +43,6 @@ RUN curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyr
 
 ENV php_allow_url_fopen=On \
     php_allow_url_include=Off \
-    # enable debug stack, important de le transformer en argument de demarrage dev/prod
     php_log_errors=On \
     php_display_errors=Off \
     php_error_reporting="E_ALL & ~E_DEPRECATED & ~E_STRICT" \
@@ -63,9 +62,6 @@ ENV php_allow_url_fopen=On \
     php_xdebug_idekey=PHPSTORM \
     php_xdebug_log="/var/task/storage/logs/xdebug-errors.log" \
 ## OPCACHE PHP
-
-    # enable debug stack, important de le transformer en argument de demarrage dev/prods
-
     php_opcache_enable=On \
     # https://www.php.net/manual/fr/opcache.configuration.php
     # JIT disabled due to xdebug incompatibility in CI environment
