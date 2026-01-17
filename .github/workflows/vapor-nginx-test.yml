@@ -17,14 +17,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php_version: [ 82, 83, 84 ]
+        php_version: [ 83, 84, 85 ]
     concurrency:
       group: vapor-nginx-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
       cancel-in-progress: true
     steps:
 
     - name: Checkout project
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
 
