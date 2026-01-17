@@ -2,11 +2,11 @@
 
 ```shell
 docker build . --file Dockerfile --tag abenevaut/vapor-ci:test \
-    --build-arg VAPOR_DEFAULT_VERSION=83 \
-    --build-arg COMPOSER_HASH=dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6
+    --build-arg VAPOR_DEFAULT_VERSION=85 \
+    --build-arg COMPOSER_HASH=c8b085408188070d5f52bcfe4ecfbee5f727afa458b2573b8eaaf77b3419b0bf2768dc67c86944da1544f06fa544fd47
 ```
 
-- VAPOR_DEFAULT_VERSION: vapor-default image version (`ghcr.io/abenevaut/vapor-default:php<VAPOR_DEFAULT_VERSION>`), default `83`
+- VAPOR_DEFAULT_VERSION: vapor-default image version (`ghcr.io/abenevaut/vapor-default:php<VAPOR_DEFAULT_VERSION>`), default `85`
 - COMPOSER_HASH: composer hash to validate the binary (https://getcomposer.org/download/)
 
 ## Usage
