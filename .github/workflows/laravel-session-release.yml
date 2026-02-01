@@ -19,7 +19,7 @@ jobs:
     steps:
 
       - name: Checkout project
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Get current release semver tag
         id: branch_name
