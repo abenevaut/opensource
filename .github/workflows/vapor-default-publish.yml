@@ -28,7 +28,7 @@ jobs:
 
       - name: Get current date
         id: date
-        run: echo "::set-output name=date::$(date '+%Y%m%d')"
+        run: echo "date=$(date '+%Y%m%d')" >> $GITHUB_OUTPUT
 
       - name: Checkout project
         uses: actions/checkout@v5
@@ -58,14 +58,40 @@ jobs:
             type=raw,value=latest,enable=${{ matrix.latest }}
             type=raw,value=release-candidate,enable=${{ matrix.release-candidate }}
 
-      - name: Build and push
+      - name: Build and push amd64
         uses: docker/build-push-action@v6
+        id: build-amd64
         with:
           context: vapor-default
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=image,name=ghcr.io/abenevaut/vapor-default,push-by-digest=true,name-canonical=true,push=true
           build-args: |
-            "VAPOR_VERSION=${{ matrix.php_version }}"
-            "COMPOSER_HASH=c8b085408188070d5f52bcfe4ecfbee5f727afa458b2573b8eaaf77b3419b0bf2768dc67c86944da1544f06fa544fd47"
+            VAPOR_VERSION=${{ matrix.php_version }}
+            TARGETARCH=amd64
+            __VAPOR_RUNTIME=docker
+            COMPOSER_HASH=c8b085408188070d5f52bcfe4ecfbee5f727afa458b2573b8eaaf77b3419b0bf2768dc67c86944da1544f06fa544fd47
+
+      - name: Build and push arm64
+        uses: docker/build-push-action@v6
+        id: build-arm64
+        with:
+          context: vapor-default
+          platforms: linux/arm64
+          push: true
+          labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=image,name=ghcr.io/abenevaut/vapor-default,push-by-digest=true,name-canonical=true,push=true
+          build-args: |
+            VAPOR_VERSION=${{ matrix.php_version }}
+            TARGETARCH=arm64
+            __VAPOR_RUNTIME=docker-arm
+            COMPOSER_HASH=c8b085408188070d5f52bcfe4ecfbee5f727afa458b2573b8eaaf77b3419b0bf2768dc67c86944da1544f06fa544fd47
+
+      - name: Create and push manifest
+        run: |
+          for tag in $(echo "${{ steps.meta.outputs.tags }}" | tr ',' '\n'); do
+            docker buildx imagetools create -t $tag \
+              ghcr.io/abenevaut/vapor-default@${{ steps.build-amd64.outputs.digest }} \
+              ghcr.io/abenevaut/vapor-default@${{ steps.build-arm64.outputs.digest }}
+          done
