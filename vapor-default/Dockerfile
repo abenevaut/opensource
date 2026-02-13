@@ -1,5 +1,9 @@
+ARG __VAPOR_RUNTIME=docker
+ARG TARGETARCH=amd64
+ARG CURRENT_ARCH=${TARGETARCH/amd64/""}
+ARG CURRENT_ARCH=${CURRENT_ARCH/arm64/-arm}
 ARG VAPOR_VERSION=85
-FROM laravelphp/vapor:php${VAPOR_VERSION}
+FROM laravelphp/vapor:php${VAPOR_VERSION}${CURRENT_ARCH}
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.source=https://github.com/abenevaut/opensource
@@ -53,8 +57,9 @@ ENTRYPOINT [ "/bin/docker-entrypoint.sh" ]
 
 CMD []
 
-RUN pecl install xdebug
+RUN pecl install xdebug opcache
 
+## custom.ini
 ENV php_allow_url_fopen=On \
     php_allow_url_include=Off \
     php_log_errors=On \
@@ -69,13 +74,13 @@ ENV php_allow_url_fopen=On \
     php_upload_max_filesize=2M \
     php_date_timezone=UTC \
     php_zlib_output_compression=On \
-## XDebug PHP
+## XDebug PHP (xdebug.ini)
     # https://xdebug.org/docs/all_settings#mode
     # values : develop,trace,debug,coverage
     php_xdebug_mode=off \
     php_xdebug_idekey=PHPSTORM \
     php_xdebug_log="/var/task/storage/logs/xdebug-errors.log" \
-## OPCACHE PHP
+## OPCACHE PHP (opcache.ini)
     php_opcache_enable=On \
     # https://www.php.net/manual/fr/opcache.configuration.php
     # default: tracing
