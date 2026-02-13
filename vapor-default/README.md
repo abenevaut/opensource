@@ -4,11 +4,29 @@ Inherits from [Docker Vapor images](https://github.com/laravel/vapor-dockerfiles
 
 ## Build
 
+### Build arguments
+
+| Argument | Description | Default | Values |
+|----------|-------------|---------|--------|
+| `TARGETARCH` | Target architecture | `amd64` | `amd64`, `arm64` |
+| `VAPOR_VERSION` | Vapor Docker PHP version | `85` | `83`, `84`, `85` |
+| `__VAPOR_RUNTIME` | Vapor runtime (required by base image) | `docker` | `docker` (amd64), `docker-arm` (arm64) |
+
+### AMD64 (default)
+
 ```shell
-docker build . --file Dockerfile --tag abenevaut/vapor-default:test --build-arg VAPOR_VERSION=85
+docker build . --file Dockerfile --tag abenevaut/vapor-default:test \
+  --build-arg VAPOR_VERSION=85
 ```
 
-- VAPOR_VERSION: vapor docker version, default `85`
+### ARM64 (Apple Silicon, etc.)
+
+```shell
+docker build . --file Dockerfile --tag abenevaut/vapor-default:test \
+  --build-arg TARGETARCH=arm64 \
+  --build-arg __VAPOR_RUNTIME=docker-arm \
+  --build-arg VAPOR_VERSION=85
+```
 
 ## Usage
 
