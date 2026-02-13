@@ -77,7 +77,7 @@ jobs:
       cancel-in-progress: false
     steps:
 
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v7
         with:
           name: release
           path: ${{ github.workspace }}/echo-tracker
