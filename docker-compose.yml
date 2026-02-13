@@ -23,17 +23,3 @@ services:
       - php_xdebug_log=/var/task/xdebug-errors.log
     volumes:
       - ./lambda-qr:/var/task
-
-  demo-laravel-sentry-handler:
-    image: ghcr.io/abenevaut/vapor-nginx:php83
-    build:
-      context: demo-laravel-sentry-handler
-      dockerfile: Dockerfile
-      args:
-        COMPOSER_HASH: c8b085408188070d5f52bcfe4ecfbee5f727afa458b2573b8eaaf77b3419b0bf2768dc67c86944da1544f06fa544fd47
-    environment:
-      - php_xdebug_log=/var/task/xdebug-errors.log
-    ports:
-      - 8091:8080
-    volumes:
-      - ./demo-laravel-sentry-handler:/var/task
