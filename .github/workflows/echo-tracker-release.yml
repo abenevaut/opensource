@@ -40,7 +40,7 @@ jobs:
 
       - name: Configure Composer cache
         id: composer-cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: echo-tracker/vendor
           key: ${{ runner.os }}-node-php_${{ matrix.php_version }}-${{ hashFiles('**/composer.json') }}
