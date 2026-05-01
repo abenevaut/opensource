@@ -19,7 +19,7 @@
         "simplesoftwareio/simple-qrcode": "^4.2",
         "illuminate/validation": "^11",
         "illuminate/translation": "^11",
-        "bref/bref": "^2.1",
+        "bref/bref": "^3.0",
         "bref/extra-php-extensions": "^1.4"
     },
     "minimum-stability": "stable",
