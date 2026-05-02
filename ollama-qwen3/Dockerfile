@@ -10,7 +10,7 @@ LABEL org.opencontainers.image.authors="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.documentation="https://github.com/abenevaut/opensource/ollama-qwen3/README.md"
 
-ENV OLLAMA_MODEL=qwen3:0.6b
+ENV OLLAMA_MODEL=qwen3.5:0.8b
 
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 

@@ -12,7 +12,7 @@ describe 'Dockerfile' do
 
     image = Docker::Image.build_from_dir(
       '.',
-      t: 'abenevaut/test-qwen3-0.6b:rspec'
+      t: 'abenevaut/test-qwen3-0.8b:rspec'
     )
 
     set :os, family: :alpine
