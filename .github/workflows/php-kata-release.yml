@@ -1,0 +1,68 @@
+name: php-kata-release
+
+on:
+  push:
+    tags:
+      - php-kata-*
+
+defaults:
+  run:
+    working-directory: ./php-kata
+
+jobs:
+
+  release:
+    runs-on: ubuntu-latest
+    environment:
+      name: php-kata
+      url: https://github.com/abenevaut/php-kata
+    concurrency:
+      group: php-kata-release-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Get current release tag
+        id: branch-name
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/php-kata-}" >> $GITHUB_OUTPUT
+
+      - name: Publish to readonly repository abenevaut/php-kata
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: git@github.com:abenevaut/php-kata.git
+          BRANCH: master
+          FOLDER: php-kata
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_PHP_KATA }}
+          TAG: ${{ steps.branch-name.outputs.SOURCE_TAG }}
+
+  php-fizzbuzz-kata:
+    runs-on: ubuntu-latest
+    environment:
+      name: php-fizzbuzz-kata
+      url: https://github.com/abenevaut/php-fizzbuzz-kata
+    concurrency:
+      group: php-fizzbuzz-kata-release-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+
+      - name: Checkout project
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Get current release tag
+        id: branch-name
+        run: echo "SOURCE_TAG=${GITHUB_REF#refs/tags/php-kata-}" >> $GITHUB_OUTPUT
+
+      - name: Publish to readonly repository abenevaut/php-fizzbuzz-kata
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: git@github.com:abenevaut/php-fizzbuzz-kata.git
+          BRANCH: master
+          FOLDER: php-kata
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY_PHP_KATA }}
+          TAG: ${{ steps.branch-name.outputs.SOURCE_TAG }}

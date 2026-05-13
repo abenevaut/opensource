@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="php-kata" pattern="file[opensource]:php-kata//*" />
+</component>

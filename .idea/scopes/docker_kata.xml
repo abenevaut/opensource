@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="docker-kata" pattern="file[opensource]:docker-kata//*" />
+</component>
