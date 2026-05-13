@@ -2,10 +2,14 @@
 # docker build --tag ghcr.io/abenevaut/self-hosted-github-runner:latest .
 # docker push ghcr.io/abenevaut/self-hosted-github-runner:latest
 #
-FROM ubuntu:24.04
+# Declare TARGETPLATFORM/TARGETARCH BEFORE FROM so Docker Buildx can inject them
+# and pull the correct base image for the target architecture.
+ARG TARGETPLATFORM=linux/amd64
+ARG TARGETARCH=amd64
 
-# set the github runner version
-# https://github.com/actions/runner/releases
+FROM --platform=${TARGETPLATFORM} ubuntu:24.04
+
+# Re-declare ARGs after FROM (ARGs before FROM are reset after the FROM instruction)
 ARG RUNNER_VERSION="2.334.0"
 # SHA256 per architecture (linux/amd64 → x64, linux/arm64 → arm64)
 ARG RUNNER_SHA256_AMD64="048024cd2c848eb6f14d5646d56c13a4def2ae7ee3ad12122bee960c56f3d271"
