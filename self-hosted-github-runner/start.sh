@@ -10,6 +10,12 @@ RUNNER_LABELS="${RUNNER_LABELS:-self-hosted,linux,x64}"
 RUNNER_WORKDIR="${RUNNER_WORKDIR:-_work}"
 EPHEMERAL="${EPHEMERAL:-true}"
 
+# Enable container hooks so that workflows using container:/services: work
+# even when the runner itself is inside a Docker container (DooD pattern).
+# https://github.com/actions/runner-container-hooks
+export ACTIONS_RUNNER_CONTAINER_HOOKS=/home/docker/container-hooks/index.js
+export ACTIONS_RUNNER_CONTAINER_NETWORK="${ACTIONS_RUNNER_CONTAINER_NETWORK:-host}"
+
 if [[ -n "${REPOSITORY}" ]]; then
     API_URL="https://api.github.com/repos/${ORGANIZATION}/${REPOSITORY}/actions/runners/registration-token"
     RUNNER_URL="https://github.com/${ORGANIZATION}/${REPOSITORY}"
