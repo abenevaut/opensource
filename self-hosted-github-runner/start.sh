@@ -37,7 +37,7 @@ if [[ -z "${REG_TOKEN}" || "${REG_TOKEN}" == "null" ]]; then
     exit 1
 fi
 
-cd /home/docker/actions-runner
+cd "${RUNNER_DIR:-/home/docker/actions-runner}"
 
 CONFIG_ARGS=(
     --unattended

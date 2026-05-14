@@ -8,12 +8,13 @@ services:
     environment:
       - ORGANIZATION=${ORGANIZATION:-<YOUR-GITHUB-ORGANIZATION>}
       - ACCESS_TOKEN=${ACCESS_TOKEN:-<YOUR-GITHUB-ACCESS-TOKEN>}
-      # --- options (uncomment to override) ---
-      # - REPOSITORY=mon-repo          # repo-level instead of org-level
-      # - RUNNER_NAME=runner-01        # default: container hostname
-      # - RUNNER_LABELS=self-hosted,linux,x64,docker
-      # - RUNNER_WORKDIR=_work
-      # - EPHEMERAL=true               # one job per container (recommended)
+      - RUNNER_DIR=${RUNNER_DIR:-/home/docker/actions-runner}
+      # --- options (set in .env to override) ---
+      - REPOSITORY=${REPOSITORY:-}
+      - RUNNER_NAME=${RUNNER_NAME:-}
+      - RUNNER_LABELS=${RUNNER_LABELS:-self-hosted,linux,x64}
+      - RUNNER_WORKDIR=${RUNNER_WORKDIR:-_work}
+      - EPHEMERAL=${EPHEMERAL:-true}
       # Container hooks network: réseau Docker utilisé par les containers de job (container:/services:)
       # "host" = partage le réseau du runner ; ou spécifie un réseau Docker existant.
       # - ACTIONS_RUNNER_CONTAINER_NETWORK=host
@@ -24,14 +25,14 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
       # ⚠️  CRITICAL for DooD container jobs (container:/services:):
-      # The runner directory MUST be mounted from the host at the EXACT SAME absolute path.
-      # When container hooks call `docker run -v /home/docker/actions-runner/externals:...`,
-      # the host Docker daemon resolves that path on the HOST filesystem — not inside
-      # the runner container. Both paths must match for bind mounts to succeed.
+      # The mount MUST use the same absolute path on host AND inside the container.
+      # Container hooks pass this path to the host Docker daemon which resolves it
+      # on the HOST filesystem — so host path and container path must be identical.
       #
-      # On first startup, entrypoint.sh copies the runner installation from the image
-      # (/opt/runner-dist) into this host directory automatically.
-      #
-      # Create the directory on your host before starting:
+      # Linux / Synology (default):   RUNNER_DIR=/home/docker/actions-runner
       #   sudo mkdir -p /home/docker/actions-runner
-      - /home/docker/actions-runner:/home/docker/actions-runner
+      #
+      # Mac (Docker Desktop):         RUNNER_DIR=$HOME/.gh-runner/actions-runner
+      #   mkdir -p ~/.gh-runner/actions-runner
+      #   (Docker Desktop shares /Users/ automatically)
+      - ${RUNNER_DIR:-/home/docker/actions-runner}:${RUNNER_DIR:-/home/docker/actions-runner}

@@ -11,7 +11,7 @@
 # 4. Switch to the non-root "docker" user and exec start.sh.
 set -e
 
-RUNNER_DIR=/home/docker/actions-runner
+RUNNER_DIR="${RUNNER_DIR:-/home/docker/actions-runner}"
 RUNNER_DIST=/opt/runner-dist
 
 # ── Step 1: install runner files to the host-mounted volume (first run only) ──
