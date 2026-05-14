@@ -27,9 +27,6 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -42,11 +39,13 @@ jobs:
             type=raw,value=latest
             type=raw,value=${{ steps.date.outputs.date }}
 
+      # AMD64 ONLY. ARM64 is intentionally not supported — see
+      # self-hosted-github-runner/README.md for details.
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           context: self-hosted-github-runner
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

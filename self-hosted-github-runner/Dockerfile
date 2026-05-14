@@ -2,20 +2,11 @@
 # docker build --tag ghcr.io/abenevaut/self-hosted-github-runner:latest .
 # docker push ghcr.io/abenevaut/self-hosted-github-runner:latest
 #
-# Declare TARGETPLATFORM/TARGETARCH BEFORE FROM so Docker Buildx can inject them
-# and pull the correct base image for the target architecture.
-ARG TARGETPLATFORM=linux/amd64
-ARG TARGETARCH=amd64
+# AMD64 ONLY. ARM64 is intentionally not supported — see README.md for details.
+FROM ubuntu:24.04
 
-FROM --platform=${TARGETPLATFORM} ubuntu:24.04
-
-# Re-declare ARGs after FROM (ARGs before FROM are reset after the FROM instruction)
 ARG RUNNER_VERSION="2.334.0"
-# SHA256 per architecture (linux/amd64 → x64, linux/arm64 → arm64)
-ARG RUNNER_SHA256_AMD64="048024cd2c848eb6f14d5646d56c13a4def2ae7ee3ad12122bee960c56f3d271"
-ARG RUNNER_SHA256_ARM64="f44255bd3e80160eb25f71bc83d06ea025f6908748807a584687b3184759f7e4"
-# TARGETARCH is automatically set by Docker Buildx (amd64 or arm64)
-ARG TARGETARCH=amd64
+ARG RUNNER_SHA256="048024cd2c848eb6f14d5646d56c13a4def2ae7ee3ad12122bee960c56f3d271"
 # Container hooks version (DooD support — allows container:/services: jobs from inside a container)
 # https://github.com/actions/runner-container-hooks/releases
 ARG CONTAINER_HOOKS_VERSION="0.8.1"
@@ -29,7 +20,13 @@ RUN apt-get update -y \
     && rm -rf /var/lib/apt/lists/* \
     && (userdel -r ubuntu 2>/dev/null || true) \
     && useradd -m docker \
-    && echo "docker ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/docker
+    && echo "docker ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/docker \
+    # Preserve runner-related environment variables when entrypoint.sh switches
+    # to the "docker" user via `sudo -u docker -E`. Without this, sudo's default
+    # `env_reset` policy strips them and start.sh falls back to defaults.
+    && echo 'Defaults:docker env_keep += "RUNNER_DIR ORGANIZATION ACCESS_TOKEN REPOSITORY RUNNER_NAME RUNNER_LABELS RUNNER_WORKDIR EPHEMERAL ACTIONS_RUNNER_CONTAINER_HOOKS ACTIONS_RUNNER_CONTAINER_NETWORK"' \
+        >> /etc/sudoers.d/docker \
+    && chmod 0440 /etc/sudoers.d/docker
 
 # install Docker CLI (socket passthrough / DooD)
 # the Docker daemon runs on the host; we only need the client inside the container
@@ -38,7 +35,7 @@ RUN install -m 0755 -d /etc/apt/keyrings \
         | gpg --dearmor -o /etc/apt/keyrings/docker.gpg \
     && chmod a+r /etc/apt/keyrings/docker.gpg \
     && echo \
-        "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
+        "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] \
         https://download.docker.com/linux/ubuntu noble stable" \
         > /etc/apt/sources.list.d/docker.list \
     && apt-get update -y \
@@ -49,12 +46,10 @@ RUN install -m 0755 -d /etc/apt/keyrings \
 
 # Install the GitHub Actions runner into /opt/runner-dist (NOT the runtime workdir).
 # On container startup, entrypoint.sh copies this to the host-mounted volume at
-# /home/docker/actions-runner so that Docker (host daemon) can resolve those paths.
+# ${RUNNER_DIR} so that Docker (host daemon) can resolve those paths.
 RUN mkdir -p /opt/runner-dist \
-    && RUNNER_ARCH=$([ "${TARGETARCH}" = "amd64" ] && echo "x64" || echo "${TARGETARCH}") \
-    && RUNNER_SHA256=$([ "${TARGETARCH}" = "amd64" ] && echo "${RUNNER_SHA256_AMD64}" || echo "${RUNNER_SHA256_ARM64}") \
     && curl -fsSL -o /opt/runner-dist/actions-runner.tar.gz \
-        https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-${RUNNER_ARCH}-${RUNNER_VERSION}.tar.gz \
+        https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
     && echo "${RUNNER_SHA256}  /opt/runner-dist/actions-runner.tar.gz" | sha256sum -c - \
     && tar xzf /opt/runner-dist/actions-runner.tar.gz -C /opt/runner-dist \
     && rm /opt/runner-dist/actions-runner.tar.gz
@@ -76,10 +71,10 @@ RUN mkdir -p /opt/container-hooks \
 COPY entrypoint.sh /entrypoint.sh
 COPY start.sh /start.sh
 
-# Docker wrapper: intercepts `docker start` to mkdir -p all bind-mount source paths
-# before the host Docker daemon tries to mount them (DooD bind mount fix).
-# Placed in /usr/local/bin/ so it takes priority over /usr/bin/docker via PATH.
-# Container hooks resolve `docker` via PATH (DOCKER env var defaults to 'docker').
+# Docker wrapper: intercepts `docker start` / `docker run` to mkdir -p all
+# bind-mount source paths before the host Docker daemon tries to mount them
+# (DooD bind-mount fix). Placed in /usr/local/bin/ so it takes priority over
+# /usr/bin/docker via PATH. Container hooks resolve `docker` via PATH lookup.
 COPY docker-wrapper.sh /usr/local/bin/docker
 
 # strip Windows CRLF line endings (if any) then make the scripts executable
