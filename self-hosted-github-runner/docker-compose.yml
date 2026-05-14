@@ -14,4 +14,8 @@ services:
       # - RUNNER_LABELS=self-hosted,linux,x64,docker
       # - RUNNER_WORKDIR=_work
       # - EPHEMERAL=true               # one job per container (recommended)
+    volumes:
+      # Docker socket passthrough (DooD): gives the runner access to the host Docker daemon.
+      # Required for workflows that use `docker` commands or docker/build-push-action.
+      - /var/run/docker.sock:/var/run/docker.sock
 

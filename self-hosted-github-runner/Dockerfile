@@ -21,12 +21,28 @@ ARG TARGETARCH=amd64
 # Ubuntu 24.04 ships with a default "ubuntu" user (uid 1000); remove it before creating "docker"
 RUN apt-get update -y \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-        ca-certificates curl jq git build-essential libssl-dev libffi-dev \
+        ca-certificates curl gnupg jq git build-essential libssl-dev libffi-dev \
         python3 python3-venv python3-dev python3-pip sudo \
     && rm -rf /var/lib/apt/lists/* \
     && (userdel -r ubuntu 2>/dev/null || true) \
     && useradd -m docker \
     && echo "docker ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/docker
+
+# install Docker CLI (socket passthrough / DooD)
+# the Docker daemon runs on the host; we only need the client inside the container
+RUN install -m 0755 -d /etc/apt/keyrings \
+    && curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
+        | gpg --dearmor -o /etc/apt/keyrings/docker.gpg \
+    && chmod a+r /etc/apt/keyrings/docker.gpg \
+    && echo \
+        "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
+        https://download.docker.com/linux/ubuntu noble stable" \
+        > /etc/apt/sources.list.d/docker.list \
+    && apt-get update -y \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        docker-ce-cli docker-buildx-plugin docker-compose-plugin \
+    && rm -rf /var/lib/apt/lists/* \
+    && usermod -aG docker docker
 
 # cd into the user directory, download and unzip the github actions runner
 # Map Docker TARGETARCH (amd64/arm64) to GitHub runner naming (x64/arm64)
