@@ -23,3 +23,15 @@ services:
       # or `container:`/`services:` in job definitions.
       - /var/run/docker.sock:/var/run/docker.sock
 
+      # ⚠️  CRITICAL for DooD container jobs (container:/services:):
+      # The runner directory MUST be mounted from the host at the EXACT SAME absolute path.
+      # When container hooks call `docker run -v /home/docker/actions-runner/externals:...`,
+      # the host Docker daemon resolves that path on the HOST filesystem — not inside
+      # the runner container. Both paths must match for bind mounts to succeed.
+      #
+      # On first startup, entrypoint.sh copies the runner installation from the image
+      # (/opt/runner-dist) into this host directory automatically.
+      #
+      # Create the directory on your host before starting:
+      #   sudo mkdir -p /home/docker/actions-runner
+      - /home/docker/actions-runner:/home/docker/actions-runner
