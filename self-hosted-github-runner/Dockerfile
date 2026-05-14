@@ -87,10 +87,12 @@ RUN sed -i 's/\r//' /entrypoint.sh /start.sh /usr/local/bin/docker \
     && chmod +x /entrypoint.sh /start.sh /usr/local/bin/docker
 
 # entrypoint.sh runs as root to:
-# 1. Copy the runner installation to the host-mounted volume on first run.
+# 1. Copy the runner installation from /opt/runner-dist to the host-mounted volume.
 # 2. Fix the Docker socket GID so the "docker" user can access it.
 # 3. Switch to the non-root "docker" user via sudo.
+# NOTE: WORKDIR is set to / to avoid implicitly creating /home/docker/actions-runner
+#       inside the image — that path is intentionally left for the host-mounted volume.
 USER root
-WORKDIR /home/docker/actions-runner
+WORKDIR /
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]

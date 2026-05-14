@@ -17,7 +17,28 @@ RUNNER_DIST=/opt/runner-dist
 # ── Step 1: install runner files to the host-mounted volume (first run only) ──
 if [ ! -f "${RUNNER_DIR}/run.sh" ]; then
     echo "[entrypoint] First run: copying runner installation to ${RUNNER_DIR}..."
+
+    # Verify the runner distribution exists in the image layer
+    if [ ! -d "${RUNNER_DIST}" ] || [ ! -f "${RUNNER_DIST}/run.sh" ]; then
+        echo "[entrypoint] ERROR: runner distribution not found at ${RUNNER_DIST}." >&2
+        echo "[entrypoint]        The image may be corrupted or built incorrectly." >&2
+        exit 1
+    fi
+
+    # Ensure the target directory exists (volume mount may be empty but the path must be reachable)
+    mkdir -p "${RUNNER_DIR}" || {
+        echo "[entrypoint] ERROR: cannot create ${RUNNER_DIR} — check your volume mount." >&2
+        exit 1
+    }
+
+    # Verify the directory is writable before copying
+    if [ ! -w "${RUNNER_DIR}" ]; then
+        echo "[entrypoint] ERROR: ${RUNNER_DIR} is not writable — check permissions on the volume mount." >&2
+        exit 1
+    fi
+
     cp -a "${RUNNER_DIST}/." "${RUNNER_DIR}/"
+    chown -R docker:docker "${RUNNER_DIR}"
     echo "[entrypoint] Runner installation copied."
 else
     echo "[entrypoint] Runner installation already present in ${RUNNER_DIR}."
