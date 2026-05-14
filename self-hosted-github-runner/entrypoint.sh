@@ -5,16 +5,38 @@
 #    host-mounted volume at /home/docker/actions-runner.
 #    Both the host and the container see the same absolute path, which is required
 #    for Docker-outside-of-Docker (DooD) bind mounts to work.
-# 2. Fix the Docker socket GID so the "docker" user can access it.
-# 3. Switch to the non-root "docker" user and exec start.sh.
+# 2. Pre-create the _work directory tree as root so the paths exist on the HOST
+#    filesystem before Docker tries to bind-mount them into a job container.
+# 3. Fix the Docker socket GID so the "docker" user can access it.
+# 4. Switch to the non-root "docker" user and exec start.sh.
 set -e
 
-RUNNER_DIR=/home/docker/actions-runner
+RUNNER_DIR="${RUNNER_DIR:-/home/docker/actions-runner}"
 RUNNER_DIST=/opt/runner-dist
 
 # ── Step 1: install runner files to the host-mounted volume (first run only) ──
 if [ ! -f "${RUNNER_DIR}/run.sh" ]; then
     echo "[entrypoint] First run: copying runner installation to ${RUNNER_DIR}..."
+
+    # Verify the runner distribution exists in the image layer
+    if [ ! -d "${RUNNER_DIST}" ] || [ ! -f "${RUNNER_DIST}/run.sh" ]; then
+        echo "[entrypoint] ERROR: runner distribution not found at ${RUNNER_DIST}." >&2
+        echo "[entrypoint]        The image may be corrupted or built incorrectly." >&2
+        exit 1
+    fi
+
+    # Ensure the target directory exists (volume mount may be empty but the path must be reachable)
+    mkdir -p "${RUNNER_DIR}" || {
+        echo "[entrypoint] ERROR: cannot create ${RUNNER_DIR} — check your volume mount." >&2
+        exit 1
+    }
+
+    # Verify the directory is writable before copying
+    if [ ! -w "${RUNNER_DIR}" ]; then
+        echo "[entrypoint] ERROR: ${RUNNER_DIR} is not writable — check permissions on the volume mount." >&2
+        exit 1
+    fi
+
     cp -a "${RUNNER_DIST}/." "${RUNNER_DIR}/"
     chown -R docker:docker "${RUNNER_DIR}"
     echo "[entrypoint] Runner installation copied."
@@ -22,7 +44,23 @@ else
     echo "[entrypoint] Runner installation already present in ${RUNNER_DIR}."
 fi
 
-# ── Step 2: grant the "docker" user access to the host Docker socket ──
+# ── Step 2: pre-create _work tree (as root — always, idempotent) ──
+# Container hooks pass these absolute paths to the host Docker daemon.
+# The daemon resolves them on the HOST filesystem, so they must exist there
+# BEFORE `docker start` is called on the job container.
+mkdir -p \
+    "${RUNNER_DIR}/_work" \
+    "${RUNNER_DIR}/_work/_actions" \
+    "${RUNNER_DIR}/_work/_temp" \
+    "${RUNNER_DIR}/_work/_temp/_github_home" \
+    "${RUNNER_DIR}/_work/_temp/_github_workflow" \
+    "${RUNNER_DIR}/_work/_tool"
+
+# Fix ownership so the "docker" user can write to the whole runner directory
+chown -R docker:docker "${RUNNER_DIR}"
+echo "[entrypoint] Runner directory ready."
+
+# ── Step 3: grant the "docker" user access to the host Docker socket ──
 if [ -S /var/run/docker.sock ]; then
     SOCK_GID=$(stat -c '%g' /var/run/docker.sock)
     if ! getent group "${SOCK_GID}" >/dev/null 2>&1; then
@@ -34,5 +72,5 @@ else
     echo "[entrypoint] WARNING: /var/run/docker.sock not found — Docker-in-Docker will not work."
 fi
 
-# ── Step 3: switch to the non-root "docker" user and run the start script ──
+# ── Step 4: switch to the non-root "docker" user and run the start script ──
 exec sudo -u docker -E /bin/bash /start.sh
