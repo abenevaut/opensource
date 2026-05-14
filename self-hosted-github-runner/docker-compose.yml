@@ -3,8 +3,8 @@ services:
     image: ghcr.io/abenevaut/self-hosted-github-runner:latest
     container_name: gh-runner
     restart: always
-    # Set PLATFORM in .env to match your host: linux/amd64 or linux/arm64
-    platform: ${PLATFORM:-linux/amd64}
+    # AMD64 ONLY. ARM64 is intentionally not supported — see README.md.
+    platform: linux/amd64
     environment:
       - ORGANIZATION=${ORGANIZATION:-<YOUR-GITHUB-ORGANIZATION>}
       - ACCESS_TOKEN=${ACCESS_TOKEN:-<YOUR-GITHUB-ACCESS-TOKEN>}
@@ -29,10 +29,6 @@ services:
       # Container hooks pass this path to the host Docker daemon which resolves it
       # on the HOST filesystem — so host path and container path must be identical.
       #
-      # Linux / Synology (default):   RUNNER_DIR=/home/docker/actions-runner
+      # Default: RUNNER_DIR=/home/docker/actions-runner
       #   sudo mkdir -p /home/docker/actions-runner
-      #
-      # Mac (Docker Desktop):         RUNNER_DIR=$HOME/.gh-runner/actions-runner
-      #   mkdir -p ~/.gh-runner/actions-runner
-      #   (Docker Desktop shares /Users/ automatically)
       - ${RUNNER_DIR:-/home/docker/actions-runner}:${RUNNER_DIR:-/home/docker/actions-runner}

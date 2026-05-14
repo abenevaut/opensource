@@ -1,22 +1,28 @@
 #!/bin/bash
 # entrypoint.sh — runs as root
 #
-# 1. First-run: copy the runner installation from /opt/runner-dist to the
-#    host-mounted volume at /home/docker/actions-runner.
-#    Both the host and the container see the same absolute path, which is required
-#    for Docker-outside-of-Docker (DooD) bind mounts to work.
-# 2. Pre-create the _work directory tree as root so the paths exist on the HOST
-#    filesystem before Docker tries to bind-mount them into a job container.
-# 3. Fix the Docker socket GID so the "docker" user can access it.
+# 1. First-run only: copy the runner installation from /opt/runner-dist (image layer)
+#    to the host-mounted volume at ${RUNNER_DIR}. Both host and container MUST see
+#    the same absolute path (DooD requirement — the host Docker daemon resolves
+#    bind-mount sources on the HOST filesystem).
+# 2. Ensure _work exists (root of all per-job state).
+# 3. Fix Docker socket GID so the "docker" user can talk to the host daemon.
 # 4. Switch to the non-root "docker" user and exec start.sh.
+#
+# NOTE: bind-mount source paths under _work/_temp (e.g. _github_home, _github_workflow)
+#       are NOT pre-created here because the runner cleans _work/_temp before each job.
+#       They are created on-demand by /usr/local/bin/docker (docker-wrapper.sh) which
+#       intercepts `docker start` / `docker run` and mkdir -p's the missing paths.
 set -e
 
 RUNNER_DIR="${RUNNER_DIR:-/home/docker/actions-runner}"
 RUNNER_DIST=/opt/runner-dist
 
+echo "[entrypoint] RUNNER_DIR=${RUNNER_DIR}"
+
 # ── Step 1: install runner files to the host-mounted volume (first run only) ──
 if [ ! -f "${RUNNER_DIR}/run.sh" ]; then
-    echo "[entrypoint] First run: copying runner installation to ${RUNNER_DIR}..."
+    echo "[entrypoint] First run: staging runner installation to ${RUNNER_DIR}..."
 
     # Verify the runner distribution exists in the image layer
     if [ ! -d "${RUNNER_DIST}" ] || [ ! -f "${RUNNER_DIST}/run.sh" ]; then
@@ -25,40 +31,28 @@ if [ ! -f "${RUNNER_DIR}/run.sh" ]; then
         exit 1
     fi
 
-    # Ensure the target directory exists (volume mount may be empty but the path must be reachable)
-    mkdir -p "${RUNNER_DIR}" || {
+    # Ensure the target directory exists. If the volume mount is misconfigured the
+    # mkdir will fail with a clear message instead of a confusing cp error.
+    if ! mkdir -p "${RUNNER_DIR}"; then
         echo "[entrypoint] ERROR: cannot create ${RUNNER_DIR} — check your volume mount." >&2
         exit 1
-    }
-
-    # Verify the directory is writable before copying
+    fi
     if [ ! -w "${RUNNER_DIR}" ]; then
-        echo "[entrypoint] ERROR: ${RUNNER_DIR} is not writable — check permissions on the volume mount." >&2
+        echo "[entrypoint] ERROR: ${RUNNER_DIR} is not writable — check volume permissions." >&2
         exit 1
     fi
 
     cp -a "${RUNNER_DIST}/." "${RUNNER_DIR}/"
     chown -R docker:docker "${RUNNER_DIR}"
-    echo "[entrypoint] Runner installation copied."
+    echo "[entrypoint] Runner installation staged."
 else
     echo "[entrypoint] Runner installation already present in ${RUNNER_DIR}."
 fi
 
-# ── Step 2: pre-create _work tree (as root — always, idempotent) ──
-# Container hooks pass these absolute paths to the host Docker daemon.
-# The daemon resolves them on the HOST filesystem, so they must exist there
-# BEFORE `docker start` is called on the job container.
-mkdir -p \
-    "${RUNNER_DIR}/_work" \
-    "${RUNNER_DIR}/_work/_actions" \
-    "${RUNNER_DIR}/_work/_temp" \
-    "${RUNNER_DIR}/_work/_temp/_github_home" \
-    "${RUNNER_DIR}/_work/_temp/_github_workflow" \
-    "${RUNNER_DIR}/_work/_tool"
-
-# Fix ownership so the "docker" user can write to the whole runner directory
-chown -R docker:docker "${RUNNER_DIR}"
-echo "[entrypoint] Runner directory ready."
+# ── Step 2: ensure _work exists and is owned by the runner user ──
+# Sub-directories like _temp/_github_home are created on-demand by docker-wrapper.sh.
+mkdir -p "${RUNNER_DIR}/_work"
+chown docker:docker "${RUNNER_DIR}" "${RUNNER_DIR}/_work" 2>/dev/null || true
 
 # ── Step 3: grant the "docker" user access to the host Docker socket ──
 if [ -S /var/run/docker.sock ]; then
@@ -69,8 +63,10 @@ if [ -S /var/run/docker.sock ]; then
     usermod -aG "${SOCK_GID}" docker
     echo "[entrypoint] Docker socket GID=${SOCK_GID} granted to user 'docker'."
 else
-    echo "[entrypoint] WARNING: /var/run/docker.sock not found — Docker-in-Docker will not work."
+    echo "[entrypoint] WARNING: /var/run/docker.sock not found — DooD container jobs will fail."
 fi
 
 # ── Step 4: switch to the non-root "docker" user and run the start script ──
+# `sudo -E` is paired with `Defaults:docker env_keep += "..."` (set in the Dockerfile)
+# to preserve RUNNER_DIR, ORGANIZATION, ACCESS_TOKEN, etc. across the user switch.
 exec sudo -u docker -E /bin/bash /start.sh
