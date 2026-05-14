@@ -53,14 +53,6 @@ if [[ "${EPHEMERAL}" == "true" ]]; then
     CONFIG_ARGS+=(--ephemeral)
 fi
 
-# Pre-create _work directory tree required by container hooks.
-# Docker bind-mounts these paths into job containers BEFORE the runner creates them,
-# causing "Bind mount failed: ... does not exist" if they are absent.
-mkdir -p \
-    "/home/docker/actions-runner/${RUNNER_WORKDIR}" \
-    "/home/docker/actions-runner/${RUNNER_WORKDIR}/_actions" \
-    "/home/docker/actions-runner/${RUNNER_WORKDIR}/_temp" \
-    "/home/docker/actions-runner/${RUNNER_WORKDIR}/_tool"
 
 ./config.sh "${CONFIG_ARGS[@]}"
 
