@@ -47,28 +47,30 @@ RUN install -m 0755 -d /etc/apt/keyrings \
     && rm -rf /var/lib/apt/lists/* \
     && usermod -aG docker docker
 
-# cd into the user directory, download and unzip the github actions runner
-# Map Docker TARGETARCH (amd64/arm64) to GitHub runner naming (x64/arm64)
-RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
+# Install the GitHub Actions runner into /opt/runner-dist (NOT the runtime workdir).
+# On container startup, entrypoint.sh copies this to the host-mounted volume at
+# /home/docker/actions-runner so that Docker (host daemon) can resolve those paths.
+RUN mkdir -p /opt/runner-dist \
     && RUNNER_ARCH=$([ "${TARGETARCH}" = "amd64" ] && echo "x64" || echo "${TARGETARCH}") \
     && RUNNER_SHA256=$([ "${TARGETARCH}" = "amd64" ] && echo "${RUNNER_SHA256_AMD64}" || echo "${RUNNER_SHA256_ARM64}") \
-    && curl -fsSL -o actions-runner.tar.gz \
+    && curl -fsSL -o /opt/runner-dist/actions-runner.tar.gz \
         https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-${RUNNER_ARCH}-${RUNNER_VERSION}.tar.gz \
-    && echo "${RUNNER_SHA256}  actions-runner.tar.gz" | sha256sum -c - \
-    && tar xzf ./actions-runner.tar.gz \
-    && rm actions-runner.tar.gz
+    && echo "${RUNNER_SHA256}  /opt/runner-dist/actions-runner.tar.gz" | sha256sum -c - \
+    && tar xzf /opt/runner-dist/actions-runner.tar.gz -C /opt/runner-dist \
+    && rm /opt/runner-dist/actions-runner.tar.gz
 
 # install some additional dependencies
-RUN chown -R docker:docker /home/docker && /home/docker/actions-runner/bin/installdependencies.sh
+RUN /opt/runner-dist/bin/installdependencies.sh
 
-# Install runner container hooks (DooD — enables container:/services: jobs when runner is inside a container)
-# https://github.com/actions/runner-container-hooks
-RUN mkdir -p /home/docker/container-hooks \
+# Install runner container hooks into /opt/container-hooks (permanent, inside the image).
+# This path is NOT on the host-mounted volume: the hooks run inside the runner container
+# and do not need to be visible to the host Docker daemon.
+RUN mkdir -p /opt/container-hooks \
     && curl -fsSL -o /tmp/container-hooks.zip \
         https://github.com/actions/runner-container-hooks/releases/download/v${CONTAINER_HOOKS_VERSION}/actions-runner-hooks-docker-${CONTAINER_HOOKS_VERSION}.zip \
-    && unzip /tmp/container-hooks.zip -d /home/docker/container-hooks \
+    && unzip /tmp/container-hooks.zip -d /opt/container-hooks \
     && rm /tmp/container-hooks.zip \
-    && chown -R docker:docker /home/docker/container-hooks
+    && chown -R docker:docker /opt/container-hooks /opt/runner-dist
 
 # copy over the start scripts
 COPY entrypoint.sh /entrypoint.sh
