@@ -24,12 +24,26 @@ REAL_DOCKER=/usr/bin/docker
 
 # mkdir -p a single bind-mount source path if it's an absolute path that doesn't
 # already exist as a non-directory (e.g. /var/run/docker.sock is a socket — skip).
+# Failures are logged loudly to stderr so DooD path issues don't fail silently.
 ensure_dir() {
     local src="$1"
     [[ -z "$src" ]] && return 0
     [[ "$src" != /* ]] && return 0   # skip named volumes
     [[ -e "$src" && ! -d "$src" ]] && return 0  # skip files/sockets
-    mkdir -p "$src" 2>/dev/null || true
+    [[ -d "$src" ]] && return 0   # already exists, fast-path
+    if ! mkdir -p "$src" 2>/tmp/.docker-wrapper-mkdir.err; then
+        echo "[docker-wrapper] WARN: mkdir -p '$src' failed: $(cat /tmp/.docker-wrapper-mkdir.err 2>/dev/null)" >&2
+        # Try as root (sudo NOPASSWD is configured for the docker user)
+        if command -v sudo >/dev/null 2>&1; then
+            if sudo mkdir -p "$src" 2>/tmp/.docker-wrapper-mkdir.err; then
+                sudo chown "$(id -u)":"$(id -g)" "$src" 2>/dev/null || true
+                echo "[docker-wrapper] INFO: created '$src' via sudo." >&2
+            else
+                echo "[docker-wrapper] ERROR: sudo mkdir -p '$src' also failed: $(cat /tmp/.docker-wrapper-mkdir.err 2>/dev/null)" >&2
+            fi
+        fi
+    fi
+    rm -f /tmp/.docker-wrapper-mkdir.err 2>/dev/null || true
 }
 
 # Parse "src[:dst[:opts]]" → echo src

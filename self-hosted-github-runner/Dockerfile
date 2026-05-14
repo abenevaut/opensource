@@ -67,9 +67,8 @@ RUN mkdir -p /opt/container-hooks \
     && rm /tmp/container-hooks.zip \
     && chown -R docker:docker /opt/container-hooks
 
-# copy over the start scripts
+# copy over the entrypoint
 COPY entrypoint.sh /entrypoint.sh
-COPY start.sh /start.sh
 
 # Docker wrapper: intercepts `docker start` / `docker run` to mkdir -p all
 # bind-mount source paths before the host Docker daemon tries to mount them
@@ -78,8 +77,8 @@ COPY start.sh /start.sh
 COPY docker-wrapper.sh /usr/local/bin/docker
 
 # strip Windows CRLF line endings (if any) then make the scripts executable
-RUN sed -i 's/\r//' /entrypoint.sh /start.sh /usr/local/bin/docker \
-    && chmod +x /entrypoint.sh /start.sh /usr/local/bin/docker
+RUN sed -i 's/\r//' /entrypoint.sh /usr/local/bin/docker \
+    && chmod +x /entrypoint.sh /usr/local/bin/docker
 
 # entrypoint.sh runs as root to:
 # 1. Copy the runner installation from /opt/runner-dist to the host-mounted volume.
