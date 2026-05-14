@@ -33,6 +33,7 @@ Image Docker minimaliste pour exécuter un [GitHub Actions self-hosted runner](h
 - Support **org-level** ET **repo-level**
 - Mode **éphémère** activé par défaut
 - Étiquettes (`labels`) et nom de runner configurables
+- **Docker CLI** inclus (`docker`, `docker buildx`, `docker compose`) — accès au daemon hôte via socket passthrough (DooD)
 
 ## Prérequis
 
@@ -85,6 +86,7 @@ docker push ghcr.io/abenevaut/self-hosted-github-runner:latest
 docker run -d --restart=always --name gh-runner \
   -e ORGANIZATION=abenevaut \
   -e ACCESS_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxx \
+  -v /var/run/docker.sock:/var/run/docker.sock \
   ghcr.io/abenevaut/self-hosted-github-runner:latest
 ```
 
@@ -96,6 +98,7 @@ docker run -d --restart=always --name gh-runner-myrepo \
   -e REPOSITORY=mon-repo \
   -e ACCESS_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxx \
   -e RUNNER_LABELS=self-hosted,linux,x64,myrepo \
+  -v /var/run/docker.sock:/var/run/docker.sock \
   ghcr.io/abenevaut/self-hosted-github-runner:latest
 ```
 
@@ -126,7 +129,11 @@ services:
       # - RUNNER_LABELS=self-hosted,linux,x64,docker
       # - RUNNER_WORKDIR=_work
       # - EPHEMERAL=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 ```
+
+> Le volume `/var/run/docker.sock` passe le socket Docker du **host** dans le conteneur (pattern **DooD** — Docker-outside-of-Docker). Le runner peut ainsi exécuter `docker build`, `docker push`, `docker compose`, `docker/build-push-action`, etc. sans avoir à faire tourner un daemon Docker secondaire à l'intérieur du conteneur.
 
 ## Variables d'environnement
 
@@ -187,6 +194,7 @@ docker run -d --restart=always \
 - Préférez un PAT **fine-grained** limité à l'organisation/dépôt cible, ou mieux : une **GitHub App**.
 - Le mode éphémère limite drastiquement la persistance d'un éventuel compromis entre deux jobs.
 - Stockez le token dans un secret manager (Docker secrets, Vault, AWS SSM, etc.), pas en clair dans `docker run`.
+- ⚠️ **DooD et le socket Docker** : monter `/var/run/docker.sock` donne au runner un accès **root effectif** au daemon Docker du host (il peut lancer des conteneurs privilégiés, monter des volumes host, etc.). Assurez-vous que vos workflows sont de confiance et que le host est dédié à cet usage.
 
 ## Pour aller plus loin : ARC
 

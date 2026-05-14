@@ -3,6 +3,8 @@ services:
     image: ghcr.io/abenevaut/self-hosted-github-runner:latest
     container_name: gh-runner
     restart: always
+    # Set PLATFORM in .env to match your host: linux/amd64 or linux/arm64
+    platform: ${PLATFORM:-linux/amd64}
     environment:
       - ORGANIZATION=${ORGANIZATION:-<YOUR-GITHUB-ORGANIZATION>}
       - ACCESS_TOKEN=${ACCESS_TOKEN:-<YOUR-GITHUB-ACCESS-TOKEN>}
@@ -12,4 +14,8 @@ services:
       # - RUNNER_LABELS=self-hosted,linux,x64,docker
       # - RUNNER_WORKDIR=_work
       # - EPHEMERAL=true               # one job per container (recommended)
+    volumes:
+      # Docker socket passthrough (DooD): gives the runner access to the host Docker daemon.
+      # Required for workflows that use `docker` commands or docker/build-push-action.
+      - /var/run/docker.sock:/var/run/docker.sock
 
