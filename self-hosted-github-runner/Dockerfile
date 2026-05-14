@@ -70,17 +70,17 @@ RUN mkdir -p /home/docker/container-hooks \
     && rm /tmp/container-hooks.zip \
     && chown -R docker:docker /home/docker/container-hooks
 
-# copy over the start.sh script
+# copy over the start scripts
+COPY entrypoint.sh /entrypoint.sh
 COPY start.sh /start.sh
 
-# strip Windows CRLF line endings (if any) then make the script executable
-RUN sed -i 's/\r//' /start.sh && chmod +x /start.sh
+# strip Windows CRLF line endings (if any) then make the scripts executable
+RUN sed -i 's/\r//' /entrypoint.sh /start.sh \
+    && chmod +x /entrypoint.sh /start.sh
 
-# since the config and run script for actions are not allowed to be run by root,
-# set the user to "docker" so all subsequent commands are run as the docker user
-USER docker
+# entrypoint.sh runs as root to fix the Docker socket GID at runtime,
+# then switches to the non-root "docker" user via sudo.
+USER root
 WORKDIR /home/docker/actions-runner
 
-# set the entrypoint to the start.sh script
-# Use explicit interpreter to avoid "exec format error" (shebang parsing issues)
-ENTRYPOINT ["/bin/bash", "/start.sh"]
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
