@@ -22,7 +22,7 @@ ARG CONTAINER_HOOKS_VERSION="0.6.2"
 
 # update the base packages and add a non-sudo user
 # Ubuntu 24.04 ships with a default "ubuntu" user (uid 1000); remove it before creating "docker"
-    && apt-get update -y \
+RUN apt-get update -y \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         ca-certificates curl gnupg jq git build-essential libssl-dev libffi-dev \
         python3 python3-venv python3-dev python3-pip sudo nodejs npm unzip \
