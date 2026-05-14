@@ -14,8 +14,12 @@ services:
       # - RUNNER_LABELS=self-hosted,linux,x64,docker
       # - RUNNER_WORKDIR=_work
       # - EPHEMERAL=true               # one job per container (recommended)
+      # Container hooks network: réseau Docker utilisé par les containers de job (container:/services:)
+      # "host" = partage le réseau du runner ; ou spécifie un réseau Docker existant.
+      # - ACTIONS_RUNNER_CONTAINER_NETWORK=host
     volumes:
       # Docker socket passthrough (DooD): gives the runner access to the host Docker daemon.
-      # Required for workflows that use `docker` commands or docker/build-push-action.
+      # Required for workflows that use `docker` commands, docker/build-push-action,
+      # or `container:`/`services:` in job definitions.
       - /var/run/docker.sock:/var/run/docker.sock
 
