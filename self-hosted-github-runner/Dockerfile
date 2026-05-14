@@ -18,7 +18,7 @@ ARG RUNNER_SHA256_ARM64="f44255bd3e80160eb25f71bc83d06ea025f6908748807a584687b31
 ARG TARGETARCH=amd64
 # Container hooks version (DooD support — allows container:/services: jobs from inside a container)
 # https://github.com/actions/runner-container-hooks/releases
-ARG CONTAINER_HOOKS_VERSION="0.6.2"
+ARG CONTAINER_HOOKS_VERSION="0.8.1"
 
 # update the base packages and add a non-sudo user
 # Ubuntu 24.04 ships with a default "ubuntu" user (uid 1000); remove it before creating "docker"
@@ -65,7 +65,7 @@ RUN chown -R docker:docker /home/docker && /home/docker/actions-runner/bin/insta
 # https://github.com/actions/runner-container-hooks
 RUN mkdir -p /home/docker/container-hooks \
     && curl -fsSL -o /tmp/container-hooks.zip \
-        https://github.com/actions/runner-container-hooks/releases/download/v${CONTAINER_HOOKS_VERSION}/actions-runner-hook-docker-${CONTAINER_HOOKS_VERSION}.zip \
+        https://github.com/actions/runner-container-hooks/releases/download/v${CONTAINER_HOOKS_VERSION}/actions-runner-hooks-docker-${CONTAINER_HOOKS_VERSION}.zip \
     && unzip /tmp/container-hooks.zip -d /home/docker/container-hooks \
     && rm /tmp/container-hooks.zip \
     && chown -R docker:docker /home/docker/container-hooks
