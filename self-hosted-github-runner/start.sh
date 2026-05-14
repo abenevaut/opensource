@@ -13,7 +13,7 @@ EPHEMERAL="${EPHEMERAL:-true}"
 # Enable container hooks so that workflows using container:/services: work
 # even when the runner itself is inside a Docker container (DooD pattern).
 # https://github.com/actions/runner-container-hooks
-export ACTIONS_RUNNER_CONTAINER_HOOKS=/home/docker/container-hooks/index.js
+export ACTIONS_RUNNER_CONTAINER_HOOKS=/opt/container-hooks/index.js
 export ACTIONS_RUNNER_CONTAINER_NETWORK="${ACTIONS_RUNNER_CONTAINER_NETWORK:-host}"
 
 if [[ -n "${REPOSITORY}" ]]; then
