@@ -29,6 +29,21 @@ services:
       # Container hooks pass this path to the host Docker daemon which resolves it
       # on the HOST filesystem — so host path and container path must be identical.
       #
-      # Default: RUNNER_DIR=/home/docker/actions-runner
-      #   sudo mkdir -p /home/docker/actions-runner
+      # ❌ WRONG (will fail with "Bind mount failed: '/home/.../_work' does not exist"):
+      #    - /volume1/docker-volumes/runner_data:/home/docker/actions-runner
+      #
+      # ✅ CORRECT — pick a host path and reuse it as RUNNER_DIR:
+      #
+      #   Linux (default):
+      #     RUNNER_DIR=/home/docker/actions-runner
+      #     volumes:
+      #       - /home/docker/actions-runner:/home/docker/actions-runner
+      #     setup: sudo mkdir -p /home/docker/actions-runner
+      #
+      #   Synology DSM (use /volume1/...):
+      #     RUNNER_DIR=/volume1/docker/actions-runner
+      #     volumes:
+      #       - /volume1/docker/actions-runner:/volume1/docker/actions-runner
+      #     setup: sudo mkdir -p /volume1/docker/actions-runner
+      #
       - ${RUNNER_DIR:-/home/docker/actions-runner}:${RUNNER_DIR:-/home/docker/actions-runner}
