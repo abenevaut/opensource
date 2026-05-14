@@ -63,8 +63,8 @@ RUN mkdir -p /opt/runner-dist \
 RUN /opt/runner-dist/bin/installdependencies.sh
 
 # Install runner container hooks into /opt/container-hooks (permanent, inside the image).
-# This path is NOT on the host-mounted volume: the hooks run inside the runner container
-# and do not need to be visible to the host Docker daemon.
+# This path is NOT on the host-mounted volume, which is intentional: the hooks run
+# inside the runner container and do not need to be visible to the host Docker daemon.
 RUN mkdir -p /opt/container-hooks \
     && curl -fsSL -o /tmp/container-hooks.zip \
         https://github.com/actions/runner-container-hooks/releases/download/v${CONTAINER_HOOKS_VERSION}/actions-runner-hooks-docker-${CONTAINER_HOOKS_VERSION}.zip \
@@ -80,8 +80,10 @@ COPY start.sh /start.sh
 RUN sed -i 's/\r//' /entrypoint.sh /start.sh \
     && chmod +x /entrypoint.sh /start.sh
 
-# entrypoint.sh runs as root to fix the Docker socket GID at runtime,
-# then switches to the non-root "docker" user via sudo.
+# entrypoint.sh runs as root to:
+# 1. Copy the runner installation to the host-mounted volume on first run.
+# 2. Fix the Docker socket GID so the "docker" user can access it.
+# 3. Switch to the non-root "docker" user via sudo.
 USER root
 WORKDIR /home/docker/actions-runner
 
