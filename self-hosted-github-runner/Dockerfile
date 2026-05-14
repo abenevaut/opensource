@@ -18,7 +18,7 @@ ARG RUNNER_SHA256_ARM64="f44255bd3e80160eb25f71bc83d06ea025f6908748807a584687b31
 ARG TARGETARCH=amd64
 # Container hooks version (DooD support — allows container:/services: jobs from inside a container)
 # https://github.com/actions/runner-container-hooks/releases
-ARG CONTAINER_HOOKS_VERSION="0.6.2"
+ARG CONTAINER_HOOKS_VERSION="0.8.1"
 
 # update the base packages and add a non-sudo user
 # Ubuntu 24.04 ships with a default "ubuntu" user (uid 1000); remove it before creating "docker"
@@ -65,22 +65,22 @@ RUN chown -R docker:docker /home/docker && /home/docker/actions-runner/bin/insta
 # https://github.com/actions/runner-container-hooks
 RUN mkdir -p /home/docker/container-hooks \
     && curl -fsSL -o /tmp/container-hooks.zip \
-        https://github.com/actions/runner-container-hooks/releases/download/v${CONTAINER_HOOKS_VERSION}/actions-runner-hook-docker-${CONTAINER_HOOKS_VERSION}.zip \
+        https://github.com/actions/runner-container-hooks/releases/download/v${CONTAINER_HOOKS_VERSION}/actions-runner-hooks-docker-${CONTAINER_HOOKS_VERSION}.zip \
     && unzip /tmp/container-hooks.zip -d /home/docker/container-hooks \
     && rm /tmp/container-hooks.zip \
     && chown -R docker:docker /home/docker/container-hooks
 
-# copy over the start.sh script
+# copy over the start scripts
+COPY entrypoint.sh /entrypoint.sh
 COPY start.sh /start.sh
 
-# strip Windows CRLF line endings (if any) then make the script executable
-RUN sed -i 's/\r//' /start.sh && chmod +x /start.sh
+# strip Windows CRLF line endings (if any) then make the scripts executable
+RUN sed -i 's/\r//' /entrypoint.sh /start.sh \
+    && chmod +x /entrypoint.sh /start.sh
 
-# since the config and run script for actions are not allowed to be run by root,
-# set the user to "docker" so all subsequent commands are run as the docker user
-USER docker
+# entrypoint.sh runs as root to fix the Docker socket GID at runtime,
+# then switches to the non-root "docker" user via sudo.
+USER root
 WORKDIR /home/docker/actions-runner
 
-# set the entrypoint to the start.sh script
-# Use explicit interpreter to avoid "exec format error" (shebang parsing issues)
-ENTRYPOINT ["/bin/bash", "/start.sh"]
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
