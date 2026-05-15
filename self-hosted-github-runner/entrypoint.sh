@@ -113,19 +113,29 @@ if [ "$(id -u)" = "0" ]; then
     fi
 
     # ── CAUSE-02 fix: Pre-create ALL standard _work sub-directories ──────────
-    # The container hook calls `docker create -v ${RUNNER_DIR}/_work/_temp/_github_home:...`
-    # These directories must exist on the HOST before the hook fires, even on the
-    # very first job. Pre-creating them here (and again in Phase 2) ensures the
-    # host daemon always finds a valid source path.
+    # The container hook (index.js) calls `docker create` with these exact bind mounts:
+    #   -v=RUNNER_DIR/_work:/__w
+    #   -v=RUNNER_DIR/externals:/__e:ro
+    #   -v=RUNNER_DIR/_work/_temp:/__w/_temp
+    #   -v=RUNNER_DIR/_work/_actions:/__w/_actions
+    #   -v=RUNNER_DIR/_work/_tool:/__w/_tool          ← NOTE: _tool not _tool_cache!
+    #   -v=RUNNER_DIR/_work/_temp/_github_home:/github/home
+    #   -v=RUNNER_DIR/_work/_temp/_github_workflow:/github/workflow
+    # ALL source paths must exist on the HOST before `docker start` fires.
     echo "[entrypoint] Pre-creating standard _work sub-directories (CAUSE-02 fix)..."
     mkdir -p \
         "${RUNNER_DIR}/_work" \
         "${RUNNER_DIR}/_work/_temp" \
+        "${RUNNER_DIR}/_work/_temp/_github_home" \
+        "${RUNNER_DIR}/_work/_temp/_github_workflow" \
         "${RUNNER_DIR}/_work/_actions" \
+        "${RUNNER_DIR}/_work/_tool" \
         "${RUNNER_DIR}/_work/_tool_cache" \
         "${RUNNER_DIR}/_work/_PipelineMapping" \
         "${RUNNER_DIR}/_diag"
     chown -R docker:docker \
+        "${RUNNER_DIR}/_work" \
+        "${RUNNER_DIR}/_diag" 2>/dev/null || true
         "${RUNNER_DIR}/_work" \
         "${RUNNER_DIR}/_diag" 2>/dev/null || true
 
@@ -290,14 +300,19 @@ cleanup() {
 trap 'cleanup; exit 130' INT
 trap 'cleanup; exit 143' TERM
 
-# ── CAUSE-02 fix: Pre-create _work sub-dirs before ./run.sh ─────────────────
+# ── CAUSE-02 fix: Pre-create _work sub-dirs before ./run.sh ─────────────
 # The runner may clean _work/_temp between jobs. Pre-creating unconditionally
 # here ensures the host daemon finds all bind-mount sources on every job start,
 # complementing the docker-wrapper.sh interception layer.
+# Full list mirrors docker create in container-hooks index.js:
+#   _work/_tool (not _tool_cache!), _work/_temp/_github_home, _work/_temp/_github_workflow
 mkdir -p \
     "${RUNNER_DIR}/_work" \
     "${RUNNER_DIR}/_work/_temp" \
+    "${RUNNER_DIR}/_work/_temp/_github_home" \
+    "${RUNNER_DIR}/_work/_temp/_github_workflow" \
     "${RUNNER_DIR}/_work/_actions" \
+    "${RUNNER_DIR}/_work/_tool" \
     "${RUNNER_DIR}/_work/_tool_cache" \
     "${RUNNER_DIR}/_work/_PipelineMapping" \
     "${RUNNER_DIR}/_diag"
