@@ -214,6 +214,33 @@ volumes:
 
 L'entrypoint vérifie cette contrainte au démarrage via `docker inspect` sur son propre conteneur et **fail fast** avec un message explicite si le path hôte ≠ path conteneur.
 
+### ⚠️ Synology DSM (Container Manager)
+
+Sur Synology, **n'utilisez pas `/home/docker/...`** : ce chemin n'existe pas en tant que vrai répertoire hôte. Utilisez `/volume1/...`. Et surtout : **le path host doit être identique au path conteneur** (sinon le daemon échoue avec `Bind mount failed: '/home/docker/actions-runner/_work' does not exist`).
+
+❌ **Mauvaise config courante** (path différent de chaque côté → casse `container:` jobs) :
+```yaml
+volumes:
+  - /volume1/docker-volumes/runner_data:/home/docker/actions-runner
+```
+
+✅ **Bonne config Synology** (même path des deux côtés) :
+```bash
+sudo mkdir -p /volume1/docker/actions-runner
+```
+```yaml
+# .env
+RUNNER_DIR=/volume1/docker/actions-runner
+```
+```yaml
+# docker-compose.yml (déjà géré : ${RUNNER_DIR}:${RUNNER_DIR})
+volumes:
+  - /var/run/docker.sock:/var/run/docker.sock
+  - /volume1/docker/actions-runner:/volume1/docker/actions-runner
+```
+
+L'entrypoint vérifie cette contrainte au démarrage via `docker inspect` sur son propre conteneur et **fail fast** avec un message explicite si le path host ≠ path conteneur.
+
 ### Avec docker compose
 
 Copiez le fichier d'environnement et renseignez vos valeurs :
