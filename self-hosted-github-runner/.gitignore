@@ -1,0 +1,23 @@
+_diag
+
+# ── Runtime / secrets ──────────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ── macOS / editor artifacts ───────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# ── Runner registration credentials (never commit) ────────────────────────────
+.credentials
+.credentials.rsaparams
+.runner
+
+# ── Docker build artifacts ─────────────────────────────────────────────────────
+*.log

@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="self-hosted-github-runner" pattern="file[opensource]:self-hosted-github-runner//*||file:.github/workflows/self-hosted-github-runner-publish.yml" />
+</component>
