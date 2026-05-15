@@ -36,36 +36,57 @@ if [ "$(id -u)" = "0" ]; then
     # resolves `${RUNNER_DIR}/_work` on the HOST filesystem. If host path !=
     # container path, the daemon fails with "Bind mount failed".
     #
-    # We query the host Docker daemon directly via `docker inspect` on our own
-    # container. This is the ONLY reliable check on Synology btrfs filesystems,
-    # where /proc/self/mountinfo field 4 does NOT reflect the actual host path
-    # (it shows the btrfs subvolume internal path instead).
-    SELF_ID=$(cat /proc/self/cgroup 2>/dev/null | awk -F/ '/docker|containerd|kubepods/ {print $NF; exit}')
+    # Strategy (3 levels):
+    #   L1: docker inspect → conclusive if it returns a source path
+    #       → FATAL only when source path ≠ RUNNER_DIR (confirmed mismatch)
+    #   L2: /proc/mounts fallback → checks RUNNER_DIR is a real mount point
+    #   L3: inconclusive (Synology btrfs, cgroup v2, …) → WARNING + continue
+    #
+    # We never FATAL on "can't verify" — only on confirmed mismatch.
+    SELF_ID=$(cat /proc/self/cgroup 2>/dev/null \
+        | awk -F/ '/docker|containerd|kubepods/ {print $NF; exit}' \
+        | sed 's/^docker-//;s/\.scope$//')
     if [ -z "${SELF_ID}" ]; then
         SELF_ID=$(cat /etc/hostname 2>/dev/null)
     fi
+
     HOST_SOURCE=$(/usr/bin/docker inspect -f \
         "{{range .Mounts}}{{if eq .Destination \"${RUNNER_DIR}\"}}{{.Source}}{{end}}{{end}}" \
         "${SELF_ID}" 2>/dev/null || true)
-    if [ -z "${HOST_SOURCE}" ]; then
-        echo "[entrypoint] FATAL: ${RUNNER_DIR} is NOT bind-mounted from the host (no matching mount in docker inspect)." >&2
-        echo "[entrypoint]        Self container ID used: ${SELF_ID}" >&2
-        echo "[entrypoint]        Add to your docker-compose.yml volumes:" >&2
-        echo "[entrypoint]          - ${RUNNER_DIR}:${RUNNER_DIR}" >&2
-        exit 1
+
+    if [ -n "${HOST_SOURCE}" ]; then
+        # L1 conclusive: inspect returned a source path — check for mismatch
+        if [ "${HOST_SOURCE}" != "${RUNNER_DIR}" ]; then
+            echo "[entrypoint] FATAL: DooD path mismatch detected." >&2
+            echo "[entrypoint]   Container RUNNER_DIR : ${RUNNER_DIR}" >&2
+            echo "[entrypoint]   Host source path     : ${HOST_SOURCE}" >&2
+            echo "[entrypoint] These must be identical for DooD container:/services: jobs to work." >&2
+            echo "[entrypoint] The host Docker daemon resolves bind-mount sources on the HOST" >&2
+            echo "[entrypoint] filesystem — not inside this container." >&2
+            echo "[entrypoint]" >&2
+            echo "[entrypoint] Fix: use  -v ${HOST_SOURCE}:${HOST_SOURCE}" >&2
+            echo "[entrypoint]      and  RUNNER_DIR=${HOST_SOURCE}" >&2
+            exit 1
+        fi
+        echo "[entrypoint] ✓ ${RUNNER_DIR} is bind-mounted from the host at the SAME path (DooD-ready)."
+    else
+        # L1 inconclusive (inspect returned empty — common on Synology DSM btrfs / cgroup v2)
+        # L2: check /proc/mounts as a fallback
+        if grep -q " ${RUNNER_DIR} " /proc/mounts 2>/dev/null; then
+            echo "[entrypoint] ✓ ${RUNNER_DIR} is a mount point (/proc/mounts confirmed)."
+            echo "[entrypoint]   (docker inspect was inconclusive — normal on Synology DSM)"
+        else
+            # L3: cannot verify — issue a warning and continue.
+            # A misconfiguration will surface at job time with a clear Docker error.
+            echo "[entrypoint] WARNING: Could not verify that ${RUNNER_DIR} is bind-mounted." >&2
+            echo "[entrypoint]          docker inspect container ID '${SELF_ID}' returned no mount info." >&2
+            echo "[entrypoint]          This is normal on Synology DSM (btrfs / cgroup v2 / Container Manager)." >&2
+            echo "[entrypoint]          Ensure your compose has:" >&2
+            echo "[entrypoint]            volumes:" >&2
+            echo "[entrypoint]              - ${RUNNER_DIR}:${RUNNER_DIR}" >&2
+            echo "[entrypoint]          Continuing — a misconfigured path will fail at job time." >&2
+        fi
     fi
-    if [ "${HOST_SOURCE}" != "${RUNNER_DIR}" ]; then
-        echo "[entrypoint] FATAL: DooD path mismatch detected." >&2
-        echo "[entrypoint]   Container RUNNER_DIR : ${RUNNER_DIR}" >&2
-        echo "[entrypoint]   Host source path     : ${HOST_SOURCE}" >&2
-        echo "[entrypoint] These must be identical for DooD container:/services: jobs to work." >&2
-        echo "[entrypoint] The host Docker daemon resolves bind-mount sources on the HOST filesystem — not inside this container." >&2
-        echo "[entrypoint]" >&2
-        echo "[entrypoint] Fix: use  -v ${HOST_SOURCE}:${HOST_SOURCE}" >&2
-        echo "[entrypoint]      and  RUNNER_DIR=${HOST_SOURCE}" >&2
-        exit 1
-    fi
-    echo "[entrypoint] ✓ ${RUNNER_DIR} is bind-mounted from the host at the SAME path (DooD-ready)."
 
     # ── Stage the runner installation to the host-mounted volume (first run) ──
     if [ ! -f "${RUNNER_DIR}/run.sh" ]; then
