@@ -4,20 +4,35 @@ services:
     container_name: gh-runner
     restart: always
     # AMD64 ONLY. ARM64 is intentionally not supported — see README.md.
+    # The platform: linux/amd64 guard is required: without it, Docker on an ARM
+    # host would silently use emulation, producing misleading timeouts.
     platform: linux/amd64
     environment:
+      # ── REQUIRED ──────────────────────────────────────────────────────────
       - ORGANIZATION=${ORGANIZATION:-<YOUR-GITHUB-ORGANIZATION>}
       - ACCESS_TOKEN=${ACCESS_TOKEN:-<YOUR-GITHUB-ACCESS-TOKEN>}
+      # ── RUNNER DIRECTORY (DooD requirement: same path host ↔ container) ───
+      # The volume below MUST use the same absolute path on BOTH sides.
+      # See the volumes section comment for details.
       - RUNNER_DIR=${RUNNER_DIR:-/home/docker/actions-runner}
-      # --- options (set in .env to override) ---
+      # ── OPTIONAL ──────────────────────────────────────────────────────────
       - REPOSITORY=${REPOSITORY:-}
       - RUNNER_NAME=${RUNNER_NAME:-}
       - RUNNER_LABELS=${RUNNER_LABELS:-self-hosted,linux,x64}
       - RUNNER_WORKDIR=${RUNNER_WORKDIR:-_work}
       - EPHEMERAL=${EPHEMERAL:-true}
-      # Container hooks network: réseau Docker utilisé par les containers de job (container:/services:)
-      # "host" = partage le réseau du runner ; ou spécifie un réseau Docker existant.
-      # - ACTIONS_RUNNER_CONTAINER_NETWORK=host
+      # Container hooks network for container:/services: jobs.
+      # Default is "bridge". Use "host" only if jobs need host-network access.
+      # - ACTIONS_RUNNER_CONTAINER_NETWORK=bridge
+      # ── PRIVATE IMAGE AUTH (DA-08) ────────────────────────────────────────
+      # Option B: GHCR token for docker login (entrypoint Phase 1 runs the login).
+      # Required when workflows use `container:` with private GHCR images.
+      # See README.md section "Private Image Authentication" for details.
+      - GHCR_TOKEN=${GHCR_TOKEN:-}
+      - GHCR_USER=${GHCR_USER:-}
+      # Option A: path to host Docker config directory (containing config.json).
+      # Used in conjunction with the commented volume mount below.
+      - DOCKER_CONFIG_HOST=${DOCKER_CONFIG_HOST:-}
     volumes:
       # Docker socket passthrough (DooD): gives the runner access to the host Docker daemon.
       # Required for workflows that use `docker` commands, docker/build-push-action,
@@ -47,3 +62,19 @@ services:
       #     setup: sudo mkdir -p /volume1/docker/actions-runner
       #
       - ${RUNNER_DIR:-/home/docker/actions-runner}:${RUNNER_DIR:-/home/docker/actions-runner}
+
+      # ── DA-08 Mechanism A: Forward host Docker credentials (optional) ─────
+      # Uncomment to mount the host Docker config dir (containing config.json)
+      # so the host daemon can pull private images for `container:` jobs.
+      # Alternative to GHCR_TOKEN (Mechanism B above).
+      # - ${DOCKER_CONFIG_HOST:-~/.docker}:/home/docker/.docker:ro
+
+    # Healthcheck: verifies the runner has registered successfully with GitHub.
+    # The sentinel file ${RUNNER_DIR}/.runner-ready is written by entrypoint.sh
+    # after config.sh completes. Removed on cleanup (SIGTERM / SIGINT).
+    healthcheck:
+      test: ["CMD", "sh", "-c", "test -f ${RUNNER_DIR:-/home/docker/actions-runner}/.runner-ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
