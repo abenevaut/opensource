@@ -11,7 +11,6 @@ jobs:
       fail-fast: true
       matrix:
         type: [ latest, rocm ]
-        qwenSize: [ 0.8b ]
         include:
           - type: latest
             baseImage: ''
@@ -22,7 +21,7 @@ jobs:
             latest: false
             platforms: linux/amd64
     concurrency:
-      group: ollama-and-friends-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.type }}-${{ matrix.qwenSize }}
+      group: ollama-and-friends-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.type }}
       cancel-in-progress: false
     steps:
 
@@ -53,8 +52,8 @@ jobs:
         with:
           images: ghcr.io/abenevaut/ollama-and-friends
           tags: |
-            type=raw,value=type=raw,value=${{ matrix.baseImage && format('{0}-qwen3.5', matrix.baseImage) || 'qwen3.5' }}-${{ matrix.qwenSize }}
-            type=raw,value=type=raw,value=${{ matrix.baseImage && format('{0}-qwen3.5', matrix.baseImage) || 'qwen3.5' }}-${{ matrix.qwenSize }}-${{ steps.date.outputs.date }}
+            type=raw,value=type=raw,value=${{ matrix.baseImage && format('{0}', matrix.baseImage) || '' }}
+            type=raw,value=type=raw,value=${{ matrix.baseImage && format('{0}', matrix.baseImage) || '' }}-${{ steps.date.outputs.date }}
             type=raw,value=latest,enable=${{ matrix.latest }}
 
       - name: Build and push
