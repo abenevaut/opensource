@@ -1,14 +1,14 @@
-name: ollama-qwen3-test
+name: ollama-and-friends-test
 
 on:
   pull_request:
     branches: [ master ]
     paths:
-      - 'ollama-qwen3/**'
+      - 'ollama-and-friends/**'
 
 defaults:
   run:
-    working-directory: ./ollama-qwen3
+    working-directory: ./ollama-and-friends
 
 jobs:
 
@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
     concurrency:
-      group: ollama-qwen3-test-${{ github.workflow }}-${{ github.ref }}
+      group: ollama-and-friends-test-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
     steps:
 
@@ -28,7 +28,7 @@ jobs:
 
     - uses: actions/cache@v5
       with:
-        path: ollama-qwen3/vendor/bundle
+        path: ollama-and-friends/vendor/bundle
         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-gems-
