@@ -53,5 +53,5 @@ bundle exec rubocop
 ### In Docker
 
 ```bash
-docker run --rm -v //var/run/docker.sock:/var/run/docker.sock:ro -v $(pwd):/app -w /app ruby:3.4 bash -c "bundle config path vendor/bundle && bundle install && bundle exec rubocop"
+docker run --rm -v //var/run/docker.sock:/var/run/docker.sock:ro -v $(pwd):/app -w /app ruby:3.4 bash -c "apt-get update -yqq && apt-get install -yqq docker-cli && bundle config path vendor/bundle && bundle install && bundle exec rubocop"
 ```
