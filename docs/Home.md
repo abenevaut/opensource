@@ -45,7 +45,6 @@ nvm use
 - [phpunit-slicer](/abenevaut/opensource/wiki/phpunit-slicer)
 - [vapor-ci](/abenevaut/opensource/wiki/vapor-ci)
 - [vapor-nginx](/abenevaut/opensource/wiki/vapor-nginx)
-- [vapor-roadrunner](/abenevaut/opensource/wiki/vapor-roadrunner)
 
 ## PHP & Tools supported versions
 
