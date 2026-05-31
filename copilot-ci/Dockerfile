@@ -2,12 +2,12 @@ FROM python:3-alpine
 
 LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.source=https://github.com/abenevaut/opensource
-LABEL org.opencontainers.image.path="self-coder-github-ci/Dockerfile"
-LABEL org.opencontainers.image.title="self-coder-github-ci"
+LABEL org.opencontainers.image.path="copilot-ci/Dockerfile"
+LABEL org.opencontainers.image.title="copilot-ci"
 LABEL org.opencontainers.image.description="Inherits from Docker Python images, this suite provides GitHub Copilot CLI with speckit stack to work with GitHub pipelines."
 LABEL org.opencontainers.image.authors="Antoine Benevaut <me@abenevaut.dev>"
 LABEL org.opencontainers.image.licenses="MIT"
-LABEL org.opencontainers.image.documentation="https://github.com/abenevaut/opensource/self-coder-github-ci/README.md"
+LABEL org.opencontainers.image.documentation="https://github.com/abenevaut/opensource/copilot-ci/README.md"
 
 RUN apk --update --no-cache add \
         gnupg \
