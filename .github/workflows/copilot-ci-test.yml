@@ -16,10 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        php_version: [ 83, 84, 85 ]
     concurrency:
-      group: copilot-ci-test-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      group: copilot-ci-test-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
     steps:
 
