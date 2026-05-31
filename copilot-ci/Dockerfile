@@ -23,7 +23,7 @@ RUN apk --update --no-cache add \
 # Add configuration files
 COPY --chown=nobody rootfs/ /
 
-ENV PATH="~/.local/bin:$PATH"
+ENV PATH="/root/.local/bin:$PATH"
 
 RUN python3 -m ensurepip --upgrade
 RUN pip3 install uv
