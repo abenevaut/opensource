@@ -1,7 +1,7 @@
 ## Build
 
 ```shell
-docker build . --file Dockerfile --tag abenevaut/self-coder-github-ci:test
+docker build . --file Dockerfile --tag abenevaut/copilot-ci:test
 ```
 
 ## Usage
