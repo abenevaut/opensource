@@ -6,7 +6,7 @@ docker build . --file Dockerfile --tag abenevaut/copilot-ci:test
 
 ## Usage
 
-### With GithubAction
+### With GitHub Actions
 
 - Set the docker image in `.github/workflows/<your-pipeline>.yml`
 
