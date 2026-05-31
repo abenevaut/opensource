@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: true
     concurrency:
-      group: copilot-ci-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      group: copilot-ci-release-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: false
     steps:
 
