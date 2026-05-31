@@ -53,7 +53,7 @@ jobs:
           images: ghcr.io/abenevaut/ollama-and-friends
           tags: |
             type=raw,value=type=raw,value=${{ matrix.baseImage && format('{0}', matrix.baseImage) || '' }}
-            type=raw,value=type=raw,value=${{ matrix.baseImage && format('{0}-', matrix.baseImage) || '' }}${{ steps.date.outputs.date }}
+            type=raw,value=${{ matrix.baseImage && format('{0}-', matrix.baseImage) || '' }}${{ steps.date.outputs.date }}
             type=raw,value=latest,enable=${{ matrix.latest }}
 
       - name: Build and push
