@@ -26,6 +26,7 @@ Image Docker minimaliste pour exécuter un [GitHub Actions self-hosted runner](h
   - [Avec docker compose](#avec-docker-compose)
 - [Variables d'environnement](#variables-denvironnement)
 - [Mode éphémère](#mode-éphémère)
+- [Réconciliation automatique et résilience au redémarrage](#réconciliation-automatique-et-résilience-au-redémarrage)
 - [Authentification images privées](#authentification-images-privées-da-08)
 - [Sécurité](#sécurité)
 - [Mettre à jour la version du runner](#mettre-à-jour-la-version-du-runner)
@@ -42,6 +43,7 @@ Image Docker minimaliste pour exécuter un [GitHub Actions self-hosted runner](h
 - Utilisateur non-root `docker` (UID 1000, avec `sudo` NOPASSWD)
 - Auto-update du runner désactivé (`--disableupdate`) — version contrôlée via l'image Docker
 - Enregistrement automatique au démarrage, désenregistrement automatique à l'arrêt (`SIGINT` / `SIGTERM`)
+- **Réconciliation automatique** — au démarrage, nettoie les enregistrements orphelins/offline et garantit une mise en ligne fiable même après un crash du pipeline (voir [section dédiée](#réconciliation-automatique-et-résilience-au-redémarrage))
 - Support **org-level** ET **repo-level**
 - Mode **éphémère** activé par défaut (`EPHEMERAL=true`)
 - Étiquettes (`labels`) et nom de runner configurables
@@ -297,6 +299,36 @@ docker run -d --restart=always \
 
 ---
 
+## Réconciliation automatique et résilience au redémarrage
+
+> **Problème résolu** : avant, quand un pipeline échouait et tuait le conteneur (SIGKILL, OOM, reboot hôte, crash du job), le runner perdait sa capacité de connexion au redémarrage suivant. GitHub gardait l'ancien enregistrement **offline**, ce qui causait des conflits et empêchait le nouveau conteneur de se mettre en ligne.
+
+**Depuis v2.334.0+**, l'entrypoint implémente une réconciliation **automatique et idempotente** :
+
+### Au démarrage (startup reconciliation)
+
+1. **Purge locale** — supprime les fichiers config résiduels `.runner`, `.credentials`, `.credentials_rsaparams` d'une exécution antérieure.
+2. **Désinscription API GitHub** — si un runner du même `${RUNNER_NAME}` existe côté GitHub en tant qu'**offline/orphelin**, supprime son enregistrement via l'API REST (mutation DELETE sur `repos/{org}/{repo}/actions/runners/{id}` ou `orgs/{org}/actions/runners/{id}`).
+3. **Enregistrement frais** — demande un nouveau registration token et exécute `config.sh` depuis un état propre.
+
+### Fallback sur nom unique
+
+Si un runner du même nom est toujours **busy** (une vraie tâche en cours), `--replace` peut échouer. L'entrypoint bascule alors automatiquement sur un **nom unique** (ajout d'un timestamp : `runner-name-<unix-timestamp>`), ce qui **garantit que le runner se met en ligne**. GitHub nettoie automatiquement l'orphelin offline après quelques minutes.
+
+### Arrêt gracieux
+
+À chaque `SIGTERM` ou `SIGINT` (shutdown normal du conteneur), l'entrypoint exécute une **désinscription via l'API REST** (pas de "remove token" nécessaire), ce qui élimine le risque d'un runner "offline/stale" bloquer le redémarrage suivant.
+
+### Implication
+
+Cette réconciliation **nécessite que `${ACCESS_TOKEN}` (ou un PAT équivalent) dispose des permissions de suppression de runners**. Le token doit avoir :
+- **Org-level** : scope `admin:org` (classic PAT) ou `Self-hosted runners: Read & write` (fine-grained).
+- **Repo-level** : scope `repo` (classic PAT) ou `Administration: Read & write` (fine-grained).
+
+Si le token manque ces permissions, les tentatives de désinscription échouent silencieusement (logs `WARNING`), mais le runner continue de fonctionner normalement.
+
+---
+
 ## Authentification images privées (DA-08)
 
 > **Contexte** : quand un workflow utilise `container: ghcr.io/your-org/your-image:tag` (image privée), le Pre Job Hook appelle `/usr/local/bin/docker create` pour créer le container. Le **daemon Docker hôte** doit puller l'image — or il n'hérite pas automatiquement des credentials du runner. Sans configuration, le hook échoue avec exit code 1 (**Worker exit code 102**).
@@ -345,6 +377,12 @@ Aucune configuration requise. Le daemon hôte peut puller les images publiques s
 
 - ⚠️ **N'utilisez jamais de runners self-hosted sur des dépôts publics** — n'importe qui peut soumettre une PR exécutant du code arbitraire sur votre runner. Voir [la doc officielle](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners#self-hosted-runner-security).
 - **`EPHEMERAL=true` (défaut) est le mode recommandé** — chaque job démarre dans un container isolé, éliminant les risques de persistance de secrets entre deux jobs (cross-job secret leakage). Conforme aux recommandations de sécurité GitHub.
+- **Permissions du PAT** : pour que la réconciliation automatique (désinscription via API) fonctionne correctement, assurez-vous que le `ACCESS_TOKEN` a les permissions de suppression de runners :
+  - **Org-level** : scope `admin:org` (classic PAT) ou `Self-hosted runners: Read & write` (fine-grained).
+  - **Repo-level** : scope `repo` (classic PAT) ou `Administration: Read & write` (fine-grained).
+  
+  Sans ces permissions, les désinscriptions échouent silencieusement (logs `WARNING`), mais le runner fonctionne normalement.
+  
 - Préférez un PAT **fine-grained** limité à l'organisation/dépôt cible, ou mieux : une **GitHub App**.
 - Le mode éphémère limite drastiquement la persistance d'un éventuel compromis entre deux jobs.
 - Stockez le token dans un secret manager (Docker secrets, Vault, AWS SSM, etc.), pas en clair dans `docker run`.
