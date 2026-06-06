@@ -59,7 +59,7 @@ jobs:
             type=raw,value=release-candidate,enable=${{ matrix.release-candidate }}
 
       - name: Build and push amd64
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         id: build-amd64
         with:
           context: vapor-default
@@ -74,7 +74,7 @@ jobs:
             COMPOSER_HASH=c8b085408188070d5f52bcfe4ecfbee5f727afa458b2573b8eaaf77b3419b0bf2768dc67c86944da1544f06fa544fd47
 
       - name: Build and push arm64
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         id: build-arm64
         with:
           context: vapor-default
