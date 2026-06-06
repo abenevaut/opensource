@@ -42,7 +42,7 @@ jobs:
       # AMD64 ONLY. ARM64 is intentionally not supported — see
       # self-hosted-github-runner/README.md for details.
       - name: Build and push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: self-hosted-github-runner
           platforms: linux/amd64
