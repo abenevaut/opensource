@@ -1,5 +1,0 @@
-.phpunit.cache
-composer.lock
-coverage
-vendor
-xdebug-errors.log
