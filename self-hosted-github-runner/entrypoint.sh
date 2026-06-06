@@ -224,14 +224,50 @@ export ACTIONS_RUNNER_CONTAINER_NETWORK="${ACTIONS_RUNNER_CONTAINER_NETWORK:-bri
 echo "[runner] ACTIONS_RUNNER_CONTAINER_HOOKS=${ACTIONS_RUNNER_CONTAINER_HOOKS}"
 echo "[runner] ACTIONS_RUNNER_CONTAINER_NETWORK=${ACTIONS_RUNNER_CONTAINER_NETWORK}"
 
-# ── Derive API URL and runner registration URL ────────────────────────────────
+# ── Derive API URLs and runner registration URL ───────────────────────────────
 if [ -n "${REPOSITORY}" ]; then
     API_URL="https://api.github.com/repos/${ORGANIZATION}/${REPOSITORY}/actions/runners/registration-token"
+    RUNNERS_API="https://api.github.com/repos/${ORGANIZATION}/${REPOSITORY}/actions/runners"
     RUNNER_URL="https://github.com/${ORGANIZATION}/${REPOSITORY}"
 else
     API_URL="https://api.github.com/orgs/${ORGANIZATION}/actions/runners/registration-token"
+    RUNNERS_API="https://api.github.com/orgs/${ORGANIZATION}/actions/runners"
     RUNNER_URL="https://github.com/${ORGANIZATION}"
 fi
+
+# ── Helper: force-deregister a stale runner from GitHub by name (REST API) ────
+# Why this exists: when a previous container was killed abruptly (SIGKILL, OOM,
+# host reboot, crashed job) the cleanup trap never ran, so GitHub keeps the old
+# registration as "offline". On restart that stale entry blocks the new
+# registration and the runner "loses the capacity to connect" — the reported bug.
+#
+# We delete via the REST API using the PAT (ACCESS_TOKEN) directly: this works
+# for offline/orphan registrations and avoids the separate remove-token flow.
+# A genuinely "busy" stuck runner returns HTTP 422 — we surface a warning and let
+# the --replace + unique-name fallback (below) guarantee the runner comes online.
+deregister_runner_by_name() {
+    local name="$1" ids id http
+    ids=$(curl -fsSL \
+        -H "Accept: application/vnd.github+json" \
+        -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+        -H "X-GitHub-Api-Version: 2022-11-28" \
+        "${RUNNERS_API}?per_page=100" 2>/dev/null \
+        | jq -r --arg n "${name}" '.runners[]? | select(.name==$n) | .id') || return 0
+    [ -z "${ids}" ] && return 0
+    for id in ${ids}; do
+        echo "[runner] Reconciling: removing stale GitHub registration (id=${id}, name=${name})..."
+        http=$(curl -s -o /dev/null -w '%{http_code}' -X DELETE \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "${RUNNERS_API}/${id}")
+        if [ "${http}" = "204" ]; then
+            echo "[runner] ✓ Stale registration id=${id} removed."
+        else
+            echo "[runner] WARNING: could not remove runner id=${id} (HTTP ${http}); it may still be running a job." >&2
+        fi
+    done
+}
 
 # ── Fetch registration token (with retry for transient network issues) ────────
 # --retry 3 --retry-delay 10: covers up to ~30 s of DNS/network instability at boot
@@ -258,34 +294,69 @@ fi
 
 cd "${RUNNER_DIR}"
 
-# ── Build config arguments ────────────────────────────────────────────────────
-CONFIG_ARGS=(
-    --unattended
-    --replace
-    --disableupdate
-    --url "${RUNNER_URL}"
-    --token "${REG_TOKEN}"
-    --name "${RUNNER_NAME}"
-    --labels "${RUNNER_LABELS}"
-    --work "${RUNNER_WORKDIR}"
-)
-if [ "${EPHEMERAL}" = "true" ]; then
-    CONFIG_ARGS+=(--ephemeral)
+# ── Reconcile stale state from a previous (possibly crashed) container ─────────
+# This is what makes a restart after a failed/killed pipeline reliable:
+#   1. Drop a stale readiness sentinel so the healthcheck can't report a false OK.
+#   2. Remove leftover local config so config.sh starts from a clean slate.
+#   3. Force-deregister any GitHub-side runner with the same name (offline/orphan).
+rm -f "${RUNNER_DIR}/.runner-ready"
+if [ -f "${RUNNER_DIR}/.runner" ]; then
+    echo "[runner] Found leftover runner config — cleaning up before re-registration..."
+    rm -f "${RUNNER_DIR}/.runner" \
+          "${RUNNER_DIR}/.credentials" \
+          "${RUNNER_DIR}/.credentials_rsaparams"
 fi
+deregister_runner_by_name "${RUNNER_NAME}"
 
-./config.sh "${CONFIG_ARGS[@]}"
+# ── Configure the runner (with retry + unique-name fallback) ──────────────────
+# A stale "busy" registration can still block --replace. Falling back to a unique
+# name guarantees the runner ALWAYS comes online; GitHub garbage-collects the
+# orphan offline entry on its own.
+configure_runner() {
+    local name="$1"
+    local args=(
+        --unattended
+        --replace
+        --disableupdate
+        --url "${RUNNER_URL}"
+        --token "${REG_TOKEN}"
+        --name "${name}"
+        --labels "${RUNNER_LABELS}"
+        --work "${RUNNER_WORKDIR}"
+    )
+    [ "${EPHEMERAL}" = "true" ] && args+=(--ephemeral)
+    ./config.sh "${args[@]}"
+}
+
+if configure_runner "${RUNNER_NAME}"; then
+    : # registered under the configured name
+else
+    RUNNER_NAME="${RUNNER_NAME}-$(date +%s)"
+    echo "[runner] Initial registration failed — retrying with unique name '${RUNNER_NAME}'..." >&2
+    if ! configure_runner "${RUNNER_NAME}"; then
+        echo "[runner] FATAL: runner registration failed. Container will restart and retry." >&2
+        exit 1
+    fi
+fi
 
 # ── Sentinel file for Docker healthcheck (T023) ───────────────────────────────
 # Written after successful config.sh so the healthcheck confirms the runner is ready.
 touch "${RUNNER_DIR}/.runner-ready"
-echo "[runner] ✓ Runner configured and ready (sentinel: ${RUNNER_DIR}/.runner-ready)."
+echo "[runner] ✓ Runner '${RUNNER_NAME}' configured and ready (sentinel: ${RUNNER_DIR}/.runner-ready)."
 
-# ── Signal handling: clean deregistration on SIGTERM / SIGINT ────────────────
+# ── Signal handling: graceful shutdown + reliable deregistration ─────────────
+# Forward SIGTERM/SIGINT to run.sh so the in-flight job is cancelled cleanly,
+# then deregister from GitHub via the REST API. Doing this on every clean stop
+# prevents the "offline stale runner" that breaks the next container restart.
+RUNNER_PID=""
 cleanup() {
-    echo "[runner] Removing runner..."
-    # NOTE: `config.sh remove` does NOT accept --unattended (only `config.sh` does).
+    echo "[runner] Shutting down — deregistering runner '${RUNNER_NAME}'..."
     rm -f "${RUNNER_DIR}/.runner-ready"
-    ./config.sh remove --token "${REG_TOKEN}" || true
+    if [ -n "${RUNNER_PID}" ]; then
+        kill -TERM "${RUNNER_PID}" 2>/dev/null || true
+        wait "${RUNNER_PID}" 2>/dev/null || true
+    fi
+    deregister_runner_by_name "${RUNNER_NAME}"
 }
 trap 'cleanup; exit 130' INT
 trap 'cleanup; exit 143' TERM
@@ -302,5 +373,7 @@ mkdir -p \
     "${RUNNER_DIR}/_work/_PipelineMapping" \
     "${RUNNER_DIR}/_diag"
 
-./run.sh & wait $!
+./run.sh &
+RUNNER_PID=$!
+wait "${RUNNER_PID}"
 

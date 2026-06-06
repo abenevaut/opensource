@@ -4,6 +4,16 @@
 docker build . --file Dockerfile --tag abenevaut/copilot-ci:test
 ```
 
+### Dev
+
+```shell
+docker build . --file Dockerfile.dev --no-cache --tag abenevaut/copilot-ci:dev
+```
+
+```shell
+docker run --rm -it -v $(pwd):/wp -w /wp abenevaut/copilot-ci:dev
+```
+
 ## Usage
 
 ### With GitHub Actions
