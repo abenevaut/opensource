@@ -15,10 +15,6 @@ coverage:
         target: 0%
         flags:
           - laravel-api-infrastructure
-      laravel-one:
-        target: 75%
-        flags:
-          - laravel-one
       laravel-sentry-handler:
         target: 75%
         flags:
@@ -49,10 +45,6 @@ flags:
     carryforward: true
     paths:
       - laravel-api-infrastructure/
-  laravel-one:
-    carryforward: true
-    paths:
-      - laravel-one/
   laravel-sentry-handler:
     carryforward: true
     paths:

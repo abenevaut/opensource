@@ -37,9 +37,7 @@ nvm use
 ## Projects
 
 - [docs](/abenevaut/opensource/wiki/docs)
-- [lambda-qr](/abenevaut/opensource/wiki/lambda-qr)
 - [laravel-infrastructure](/abenevaut/opensource/wiki/laravel-infrastructure)
-- [laravel-one](/abenevaut/opensource/wiki/laravel-one)
 - [laravel-sentry-handler](/abenevaut/opensource/wiki/laravel-sentry-handler)
 - [laravel-session](/abenevaut/opensource/wiki/laravel-session)
 - [phpunit-slicer](/abenevaut/opensource/wiki/phpunit-slicer)
