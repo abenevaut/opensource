@@ -1,4 +1,4 @@
-name: vapor-ci-publish
+name: copilot-ci-publish
 
 on:
   workflow_dispatch:
@@ -9,20 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
-      matrix:
-        php_version: [ 83, 84, 85 ]
-        include:
-          - php_version: 83
-            latest: false
-            release-candidate: false
-          - php_version: 84
-            latest: false
-            release-candidate: false
-          - php_version: 85
-            latest: true
-            release-candidate: false
     concurrency:
-      group: vapor-ci-release-${{ github.workflow }}-${{ github.ref }}-${{ matrix.php_version }}
+      group: copilot-ci-release-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: false
     steps:
 
@@ -51,21 +39,16 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/abenevaut/vapor-ci
+          images: ghcr.io/abenevaut/copilot-ci
           tags: |
-            type=raw,value=php${{ matrix.php_version }}
-            type=raw,value=php${{ matrix.php_version }}-${{ steps.date.outputs.date }}
-            type=raw,value=latest,enable=${{ matrix.latest }}
-            type=raw,value=release-candidate,enable=${{ matrix.release-candidate }}
+            type=raw,value=${{ steps.date.outputs.date }}
+            type=raw,value=latest,enable=true
 
       - name: Build and push
         uses: docker/build-push-action@v7
         with:
-          context: vapor-ci
+          context: copilot-ci
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args: |
-            "VAPOR_DEFAULT_VERSION=${{ matrix.php_version }}"
-            "COMPOSER_HASH=c8b085408188070d5f52bcfe4ecfbee5f727afa458b2573b8eaaf77b3419b0bf2768dc67c86944da1544f06fa544fd47"

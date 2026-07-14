@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="ollama-and-friends" pattern="file[opensource]:ollama-and-friends//*||file:.github/workflows/ollama-and-friends-publish.yml||file:.github/workflows/ollama-and-friends-test.yml" />
+</component>

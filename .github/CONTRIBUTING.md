@@ -1,6 +1,4 @@
-1. Maintainers have the last word to merge or refuse PRs.
-2. All contributions have to pass all CI tests to be merged.
-3. All PRs have to follow the [conventional commits v1.0.x](https://www.conventionalcommits.org/en/v1.0.0/)
-   - Following the conventional commits scopes
-       - `<PROJECT_NAME>` in case you make changes in a project
-       - `<PROJECT_NAME>:<DOMAIN>` in case you make changes in a project and its domain
+- Maintainers have the last word to merge or refuse PRs.
+- All contributions have to pass all CI tests to be merged.
+- All PRs have to follow [the conventional commits v1.0.x](https://www.conventionalcommits.org/en/v1.0.0/) and [GIT commit messages rules](https://github.com/abenevaut/opensource/blob/master/.github/git-commit-instructions.md)
+    - Each project has a scope section in dedicated `https://github.com/abenevaut/opensource/blob/master/.github/git-commit-instructions.md` file
