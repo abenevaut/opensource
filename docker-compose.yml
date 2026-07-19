@@ -4,22 +4,12 @@ volumes:
 services:
 
   #
-  # docker-compose build ollama-qwen3
+  # docker-compose build ollama-and-friends
   #
-  ollama-qwen3:
-    image: abenevaut/ollama:qwen3-0.6b
+  ollama-and-friends:
+    image: abenevaut/ollama-and-friends:latest
     build:
-      context: ollama-qwen3
+      context: ollama-and-friends
       dockerfile: Dockerfile
     volumes:
       - ollama_data:/root/.ollama
-
-  lambda-qr:
-    image: abenevaut/lambda-qr:latest
-    build:
-      context: lambda-qr
-      dockerfile: Dockerfile
-    environment:
-      - php_xdebug_log=/var/task/xdebug-errors.log
-    volumes:
-      - ./lambda-qr:/var/task

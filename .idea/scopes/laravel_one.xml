@@ -1,3 +1,0 @@
-<component name="DependencyValidationManager">
-  <scope name="laravel-one" pattern="file[opensource]:laravel-one//*||file:.github/workflows/laravel-one-release.yml||file:.github/workflows/laravel-one-test.yml" />
-</component>

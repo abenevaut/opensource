@@ -15,18 +15,6 @@ coverage:
         target: 0%
         flags:
           - laravel-api-infrastructure
-      laravel-sentry-handler:
-        target: 75%
-        flags:
-          - laravel-sentry-handler
-      laravel-session:
-        target: 75%
-        flags:
-          - laravel-session
-      laravel-kite:
-        target: 75%
-        flags:
-          - laravel-kite
       phpunit-slicer:
         target: 100%
         flags:
@@ -45,18 +33,6 @@ flags:
     carryforward: true
     paths:
       - laravel-api-infrastructure/
-  laravel-sentry-handler:
-    carryforward: true
-    paths:
-      - laravel-sentry-handler/
-  laravel-session:
-    carryforward: true
-    paths:
-      - laravel-session/
-  laravel-kite:
-    carryforward: true
-    paths:
-      - laravel-kite/
   phpunit-slicer:
     carryforward: true
     paths:
