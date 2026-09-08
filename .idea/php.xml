@@ -1238,7 +1238,7 @@
       <path value="$PROJECT_DIR$/laravel-one/vendor/daverandom/libdns" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
+  <component name="PhpProjectSharedConfiguration">
     <option name="suggestChangeDefaultLanguageLevel" value="false" />
   </component>
   <component name="PhpStan">
@@ -1253,9 +1253,6 @@
   <component name="PhpUnit">
     <phpunit_settings>
       <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravel-sentry-handler/phpunit.xml" custom_loader_path="$PROJECT_DIR$/laravel-sentry-handler/vendor/autoload.php" use_configuration_file="true" />
-      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravel-infrastructure/phpunit.xml" custom_loader_path="$PROJECT_DIR$/laravel-infrastructure/vendor/autoload.php" use_configuration_file="true" />
-      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/laravel-session/phpunit.xml" custom_loader_path="$PROJECT_DIR$/laravel-session/vendor/autoload.php" use_configuration_file="true" />
-      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/demo-laravel-sentry-handler/phpunit.xml" custom_loader_path="$PROJECT_DIR$/demo-laravel-sentry-handler/vendor/autoload.php" use_configuration_file="true" />
     </phpunit_settings>
   </component>
   <component name="Psalm">
